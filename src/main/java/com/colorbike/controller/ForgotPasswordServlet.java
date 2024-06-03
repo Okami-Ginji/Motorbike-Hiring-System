@@ -32,8 +32,6 @@ public class ForgotPasswordServlet extends HttpServlet {
         String token = UUID.randomUUID().toString();
         String email = request.getParameter("email");
         if(dao.createToken(token, email)){
-//            String link = "Hello There <a href='http://localhost:9999/MotorcyleHiringProject/verify?token=" + token
-//				+ "'>Click Me</a>";
             String link = "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +

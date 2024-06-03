@@ -174,7 +174,8 @@ public class AccountDAO implements Serializable {
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
         System.out.println(dao.getAccountByEmail("huy@gmail.com"));
-        //dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
+        System.out.println(dao.getAccountByEmail("ginokami24@gmail.com"));
+        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
     }
 
 }

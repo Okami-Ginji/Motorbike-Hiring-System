@@ -1,10 +1,14 @@
 <%-- 
-    Document   : profileCustomer
-    Created on : May 29, 2024, 10:18:25 AM
-    Author     : DiepTCNN
+    Document   : profileCus
+    Created on : 30 thg 5, 2024, 21:04:50
+    Author     : MINH TUAN
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.sql.Date" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +19,7 @@
         <title>bs4 profile settings page - Bootdey.com</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
         <style type="text/css">
             body {
                 background: #eee;
@@ -221,154 +226,190 @@
                 background-color: transparent;
                 content: '';
             }
+
+            .input-with-button {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+
+            .input-with-button input {
+                padding-right: 80px;
+            }
+
+            .input-with-button button {
+                position: absolute;
+                right: 10px;
+                padding: 5px 10px;
+                font-size: 12px;
+                height: calc(100% - 10px);
+                top: 5px;
+            }
+
         </style>
     </head>
 
     <body>
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-lg-4 pb-5">
+        <c:if test="${not empty sessionScope.account}">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-lg-4 pb-5">
 
-                    <div class="author-card pb-3">
-                        <div class="author-card-cover"
-                             style="background-image: url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);"><a
-                                class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title
-                                data-original-title="You currently have 290 Reward points to spend"><i
-                                    class="fa fa-award text-md"></i>&nbsp;290 points</a></div>
-                        <div class="author-card-profile">
-                            <div class="author-card-avatar"><img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                 alt="Daniel Adams">
+                        <div class="author-card pb-3">
+                            <div class="author-card-cover"
+                                 style="background-image: url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);"><a
+                                    class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title
+                                    data-original-title="You currently have 290 Reward points to spend"><i
+                                        class="fa fa-award text-md"></i>&nbsp;290 points</a></div>
+                            <div class="author-card-profile">
+                                <div class="author-card-avatar"><img src="images/${account.image}"
+                                                                     alt="${account.lastName}">
+                                </div>
+                                <div class="author-card-details">
+                                    <h5 class="author-card-name text-lg">${account.firstName} ${account.lastName}</h5><span class="author-card-position">Joined February
+                                        06, 2017</span>
+                                </div>
                             </div>
-                            <div class="author-card-details">
-                                <h5 class="author-card-name text-lg">Daniel Adams</h5><span class="author-card-position">Joined February
-                                    06, 2017</span>
-                            </div>
+                        </div>
+                        <div class="wizard">
+                            <nav class="list-group list-group-flush">
+                                <a class="list-group-item" href="#">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div><i class="fe-icon-shopping-bag mr-1 text-muted"></i>
+                                            <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
+                                        </div><span class="badge badge-secondary">6</span>
+                                    </div>
+                                </a><a class="list-group-item active" href="#"><i class="fe-icon-user text-muted"></i>Profile Settings</a><a
+                                    class="list-group-item" href="#"><i class="fe-icon-map-pin text-muted"></i>Addresses</a>
+                                <a class="list-group-item" href="https://www.bootdey.com/snippets/view/bs4-wishlist-profile-page"
+                                   target="__blank">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div><i class="fe-icon-heart mr-1 text-muted"></i>
+                                            <div class="d-inline-block font-weight-medium text-uppercase">My Wishlist</div>
+                                        </div><span class="badge badge-secondary">3</span>
+                                    </div>
+                                </a>
+                                <a class="list-group-item" href="https://www.bootdey.com/snippets/view/bs4-account-tickets"
+                                   target="__blank">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div><i class="fe-icon-tag mr-1 text-muted"></i>
+                                            <div class="d-inline-block font-weight-medium text-uppercase">My Tickets</div>
+                                        </div><span class="badge badge-secondary">4</span>
+                                    </div>
+                                </a>
+                            </nav>
                         </div>
                     </div>
-                    <div class="wizard">
-                        <nav class="list-group list-group-flush">
-                            <a class="list-group-item" href="#">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fe-icon-shopping-bag mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
-                                    </div><span class="badge badge-secondary">6</span>
+                    <div class="col-lg-8 pb-5">
+                        <form action="updateprofile" method="post" id="form-update" class="row">
+                            <input hidden name="accountID" value="${account.accountId}">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account-fn">First Name</label>
+                                    <input class="form-control" name="firstname" type="text" id="account-fn" value="${account.firstName}" readonly>                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account-ln">Last Name</label>
+                                    <input class="form-control" name="lastname" type="text" id="account-ln" value="${account.lastName}" readonly>
                                 </div>
-                            </a><a class="list-group-item active" href="#"><i class="fe-icon-user text-muted"></i>Profile Settings</a><a
-                                class="list-group-item" href="#"><i class="fe-icon-map-pin text-muted"></i>Addresses</a>
-                            <a class="list-group-item" href="https://www.bootdey.com/snippets/view/bs4-wishlist-profile-page"
-                               target="__blank">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fe-icon-heart mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">My Wishlist</div>
-                                    </div><span class="badge badge-secondary">3</span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account-email">E-mail Address</label>
+                                    <input class="form-control" name="email"  type="email" id="account-email" value="${account.email}" readonly>
                                 </div>
-                            </a>
-                            <a class="list-group-item" href="https://www.bootdey.com/snippets/view/bs4-account-tickets"
-                               target="__blank">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fe-icon-tag mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">My Tickets</div>
-                                    </div><span class="badge badge-secondary">4</span>
-                                </div>
-                            </a>
-                        </nav>
-                    </div>
-                </div>
+                            </div>
 
-                <div class="col-lg-8 pb-5">
-                    <form class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-fn">First Name</label>
-                                <input class="form-control" type="text" id="account-fn" value="Daniel" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-ln">Last Name</label>
-                                <input class="form-control" type="text" id="account-ln" value="Adams" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-email">E-mail Address</label>
-                                <input class="form-control" type="email" id="account-email" value="daniel.adams@example.com" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-phone">Phone Number</label>
-                                <input class="form-control" type="text" id="account-phone" value="+7 (805) 348 95 72" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-ln">Address</label>
-                                <input class="form-control" type="text" id="account-address" value="" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-ln">City/Province</label>
-                                <input class="form-control" type="text" id="account-city" value="Da nang" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-ln">Birthday</label>
-                                <input class="form-control" type="date" id="account-city" value="2003-03-24" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-ln">Nationality</label>
-                                <input class="form-control" type="text" id="account-city" value="Viet Nam" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-ln">Gender</label>
-                                <input class="form-control" type="text" id="account-city" value="Viet Nam" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-ln">Driver's License Number</label>
-                                <input class="form-control" type="text" id="account-city" value="012354123456" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-pass">New Password</label>
-                                <input class="form-control" type="password" id="account-pass">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="account-confirm-pass">Confirm Password</label>
-                                <input class="form-control" type="password" id="account-confirm-pass">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <hr class="mt-2 mb-3">
-                            <div class="d-flex flex-wrap justify-content-between align-items-center">
-                                <div class="custom-control custom-checkbox d-block">
-                                    <input class="custom-control-input" type="checkbox" id="subscribe_me" checked>
-                                    <label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account-ln">Address</label>
+                                    <input class="form-control" name="address" type="text" id="account-address" value="${account.address}"readonly>
                                 </div>
-                                <button class="btn btn-style-1 btn-primary" type="button" data-toast data-toast-position="topRight"
-                                        data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!"
-                                        data-toast-message="Your profile updated successfuly.">Update Profile</button>
                             </div>
-                        </div>
-                    </form>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account-gender">Gender</label>
+                                    <select class="form-control" name="gender" id="account-gender" disabled>
+                                        <option value='Male' ${account.gender == "Male        " ? 'selected' : ''}>Male</option>
+                                        <option value='Female' ${account.gender == "Female      " ? 'selected' : ''}>Female</option>
+                                    </select>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="acco  unt-phone">Phone Number</label>
+                                    <input class="form-control" name="phonenumber" type="text" id="account-phone" value="${account.phoneNumber}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="acco  unt-phone">Day of Birth</label>
+                                    <input class="form-control" name="dob" type="text" id="account-phone" value="${account.dob}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account-ln">Username</label>
+                                    <input class="form-control" name="username" type="text" id="account-city" value="${account.userName}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account-ln">Password</label>
+                                    <div class="input-with-button">
+                                        <input class="form-control" name="pass" type="password" id="account-city" value="${account.passWord}" readonly>
+                                        <button class="btn btn-style-1 btn-primary" type="button" data-toast data-toast-position="topRight"
+                                                data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!"
+                                                data-toast-message="Your profile updated successfully." style="background-color: grey;"
+                                                onclick="window.location.href = 'changepassword.jsp'">Change Password</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <hr class="mt-2 mb-3">
+                                <button onclick="changeType(this)" id="update" class="btn btn-style-1 btn-primary" type="button">Update Profile</button>
+                                <c:if test="${requestScope.mess != null}">
+                                    <h6 style="color: green; padding-top: 12px;">${mess}</h6>
+                                </c:if>
+                            </div>
+
+
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </c:if>
+
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
+                                    function changeType(button) {
+                                        var inputElements = document.querySelectorAll(".form-control");
+                                        if (button.id === "update") {
+                                            button.id = "save";
+                                            button.textContent = "Save";
+                                            inputElements.forEach(x => {
+                                                if (x.name !== "pass") {
+                                                    x.readOnly = false;
+                                                    document.getElementById('account-gender').disabled = false;
+                                                }
+                                            });
 
+                                        } else {
+                                            document.getElementById("form-update").submit();
+                                            button.id = "update";
+                                            button.textContent = "Update Profile";
+                                            inputElements.forEach(x => {
+                                                if (x.name !== "pass") {
+                                                    x.readOnly = true;
+                                                }
+                                            });
+                                        }
+                                    }
         </script>
     </body>
 

@@ -35,7 +35,7 @@ public class BookingServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         MotorcycleDAO dao = MotorcycleDAO.getInstance();
-        List<Motorcycle> listM = dao.getListMotorcycle();
+        List<Motorcycle> listM = dao.getAll();
         request.setAttribute("listM", listM);
         request.getRequestDispatcher("booking.jsp").forward(request, response);
     }

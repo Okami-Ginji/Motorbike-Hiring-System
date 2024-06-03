@@ -58,6 +58,20 @@ public class AccountDAO implements Serializable {
         return null;
     }
 
+    public void createANewAccountForLoginGoogle(String email, String password) {
+        String sql = "INSERT INTO Account(Email, Username, Password, RoleID)\n"
+                + "VALUES (?, ?, ?, 1)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
@@ -113,7 +127,7 @@ public class AccountDAO implements Serializable {
     public boolean createToken(String token, String email) {
         Timestamp expiration = new Timestamp(System.currentTimeMillis() + 1 * 60 * 1000); // 1 phút
         String checkEmailSql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
-        String insertTokenSql = "INSERT INTO Password_Reset_Tokens (user_email, token, expiration) "
+        String insertTokenSql = "INSERT INTO PasswordResetToken (Email, Token, Expiration) "
                 + "SELECT Email, ?, ? FROM Account WHERE Email = ?";
         try {
             // Kiểm tra xem email có tồn tại không
@@ -143,7 +157,7 @@ public class AccountDAO implements Serializable {
 
     public String getToken(String token) {
         ResultSet rs;
-        String sql = "Select user_email from Password_Reset_Tokens where token = ?";
+        String sql = "Select Email from PasswordResetToken where Token = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, token);
@@ -226,7 +240,7 @@ public class AccountDAO implements Serializable {
     }
 
     public boolean changePassword(int AccountID, String password) {
-        String sql = "UPDATE Account SET password = ? WHERE AccountID = ?";
+        String sql = "UPDATE Account SET Password = ? WHERE AccountID = ?";
         try {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, password);

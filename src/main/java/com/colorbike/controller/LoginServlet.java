@@ -88,8 +88,9 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "Invalid username or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-
             session.setAttribute("account", account);
+
+            session.setAttribute("email", account.getEmail());
 
             // Điều chỉnh logic chuyển hướng dựa trên RoleID
             if (account.getRoleID() == 1) {

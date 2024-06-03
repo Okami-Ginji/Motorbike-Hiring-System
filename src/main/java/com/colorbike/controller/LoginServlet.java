@@ -1,0 +1,103 @@
+package com.colorbike.controller;
+
+import com.colorbike.dao.AccountDAO;
+import com.colorbike.dto.Account;
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+@WebServlet(name="LoginServlet", urlPatterns={"/login"})
+public class LoginServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        String username = null;
+        String password = null;
+        String rem = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("Username")) {
+                    username = cookie.getValue();
+                }
+                if (cookie.getName().equals("Password")) {
+                    password = cookie.getValue();
+                }
+                if (cookie.getName().equals("rem")) {
+                    rem = cookie.getValue();
+                }
+            }
+        }
+
+        // Set attributes to pre-fill the login form
+        request.setAttribute("Username", username);
+        request.setAttribute("Password", password);
+        request.setAttribute("rem", rem);
+
+        if (request.getSession().getAttribute("account") != null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+    } 
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        String username = request.getParameter("Username");
+        String password = request.getParameter("Password");
+        String rememberMe = request.getParameter("rem");
+
+        Cookie usernameCookie = new Cookie("Username", username);
+        Cookie passwordCookie = new Cookie("Password", password);
+        Cookie rememberMeCookie = new Cookie("rem", rememberMe);
+
+        if (rememberMe != null) {// có chọn
+            usernameCookie.setMaxAge(10); // 30 days
+            passwordCookie.setMaxAge(10); // 30 days
+            rememberMeCookie.setMaxAge(10); // 30 days
+        } else { // không chọn
+            usernameCookie.setMaxAge(0); // Delete cookie
+            passwordCookie.setMaxAge(0); // Delete cookie
+            rememberMeCookie.setMaxAge(0); // Delete cookie
+        }
+        // lưu vào browser
+        response.addCookie(usernameCookie);
+        response.addCookie(passwordCookie);
+        response.addCookie(rememberMeCookie);
+
+        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+            request.setAttribute("error", "Please provide both username and password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        AccountDAO customerDAO = AccountDAO.getInstance();
+        Account account = customerDAO.checkLogin(username, password);
+
+        if (account == null) {
+            request.setAttribute("error", "Invalid username or password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+
+            session.setAttribute("account", account);
+
+            // Điều chỉnh logic chuyển hướng dựa trên RoleID
+            if (account.getRoleID() == 1) {
+                response.sendRedirect("index.jsp");
+            } else if (account.getRoleID() == 2 || account.getRoleID() == 3) {
+                response.sendRedirect("homeStaff.jsp");
+            }
+        }
+    }
+
+}

@@ -1,4 +1,4 @@
-package com.colorbike.controller;
+package com.colorbike.constant;
 
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;

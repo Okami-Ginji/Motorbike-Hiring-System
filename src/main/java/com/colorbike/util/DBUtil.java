@@ -11,10 +11,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author huypd
- */
 public class DBUtil {
 
     public static Connection makeConnection() {

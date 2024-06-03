@@ -58,6 +58,20 @@ public class AccountDAO implements Serializable {
         return null;
     }
 
+    public void createANewAccountForLoginGoogle(String email, String password) {
+        String sql = "INSERT INTO Account(Email, Username, Password, RoleID)\n"
+                + "VALUES (?, ?, ?, 1)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
@@ -242,7 +256,6 @@ public class AccountDAO implements Serializable {
         return null;
     }
 
-     
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
         System.out.println(dao.changePassword(7, "12345"));

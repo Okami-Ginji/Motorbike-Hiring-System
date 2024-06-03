@@ -64,8 +64,12 @@ public class RegisterServlet extends HttpServlet {
                 String verificationCode = SendEmail.generateRandomFourDigits();
                 // Save verification code in session
                 session.setAttribute("verificationCode", verificationCode);
+                String emailContent = "<h3>Hello,</h3>"
+                   + "<p>To complete the registration process, please use the following OTP code:</p>"
+                   + "<p>OTP code: <b>" + verificationCode + ".</b></p>"
+                   + "<p>If you do not require this code, please ignore the email or contact us at the.color.bike.company@gmail.com</p>";
                 // Send verification email
-                SendEmail.sendVerificationEmail(email, verificationCode);
+                SendEmail.sendVerificationEmail(email, emailContent);
                 // Redirect to the confirmation page
 
                 response.sendRedirect("otpRegister.jsp");

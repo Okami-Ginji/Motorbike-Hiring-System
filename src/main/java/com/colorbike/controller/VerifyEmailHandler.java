@@ -33,10 +33,10 @@ public class VerifyEmailHandler extends HttpServlet {
 
         AccountDAO dao = AccountDAO.getInstance();
         String token = request.getParameter("token");
-        String email = dao.getToken(token);
-        if(email != null) {
+        int AccountID = dao.getAccountIdByToken(token);
+        if(AccountID != -9999) {
             HttpSession session = request.getSession();
-            session.setAttribute("emailhander", email);
+            session.setAttribute("idhander", AccountID);
 //            request.setAttribute("email", email);
             request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
 //            try (PrintWriter out = response.getWriter()) {

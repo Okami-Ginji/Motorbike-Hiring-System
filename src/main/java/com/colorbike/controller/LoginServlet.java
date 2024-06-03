@@ -82,7 +82,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         AccountDAO customerDAO = AccountDAO.getInstance();
-        Account account = customerDAO.login(username, password);
+        Account account = customerDAO.checkLogin(username, password);
 
         if (account == null) {
             request.setAttribute("error", "Invalid username or password");

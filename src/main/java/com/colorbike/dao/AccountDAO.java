@@ -256,7 +256,6 @@ public class AccountDAO implements Serializable {
         return null;
     }
 
-
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
         System.out.println(dao.changePassword(7, "12345"));

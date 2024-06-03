@@ -5,7 +5,7 @@
     <artifactId>MotorcyleHiringProject</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>MotorcyleRental-1.0-SNAPSHOT</name>
+    <name>MotorcyleHiringProject-1.0-SNAPSHOT</name>
     
     
     <properties>

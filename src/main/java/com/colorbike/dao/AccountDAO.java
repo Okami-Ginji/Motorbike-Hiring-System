@@ -202,6 +202,33 @@ public class AccountDAO implements Serializable {
         }
     }
     
+     public boolean update(String firstName, String lastName, String gender, String dob, String address, String phoneNumber,
+            String email, String username, int accountid) {
+        String sql = "UPDATE Account SET FirstName = ?, LastName = ?, Gender = ?, DayofBirth = ?, Address = ?,"
+                + "PhoneNumber = ?, Email = ?, Username = ? WHERE AccountID = ?";
+
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, firstName);
+            st.setString(2, lastName);
+            st.setString(3, gender);
+            st.setString(4, dob);
+            st.setString(5, address);
+            st.setString(6, phoneNumber);
+            st.setString(7, email);
+            st.setString(8, username);
+            st.setInt(9, accountid);
+
+            int rowAffect = st.executeUpdate();
+            if (rowAffect > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
     public boolean changePassword(int AccountID, String password) {
         String sql = "UPDATE Account SET password = ? WHERE AccountID = ?";
         try {

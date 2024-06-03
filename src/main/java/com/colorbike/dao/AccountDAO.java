@@ -145,8 +145,8 @@ public class AccountDAO implements Serializable {
         public boolean createToken(String token, String email) {     
         Timestamp expiration = new Timestamp(System.currentTimeMillis() + 1 * 60 * 1000); // 1 phút
         String checkEmailSql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
-        String insertTokenSql = "INSERT INTO Password_Reset_Tokens (user_email, token, expiration) " 
-                                + "SELECT Email, ?, ? FROM Account WHERE Email = ?";
+        String insertTokenSql = "INSERT INTO PasswordResetToken (Email, Token, Expiration, AccountID) " 
+                                + "SELECT Email, ?, ?, AccountID FROM Account WHERE Email = ?";
         try {
             // Kiểm tra xem email có tồn tại không
             PreparedStatement checkEmailStmt = conn.prepareStatement(checkEmailSql);
@@ -174,20 +174,20 @@ public class AccountDAO implements Serializable {
     }
 
 
-    public String getToken(String token) {
+    public int getAccountIdByToken(String token) {
         ResultSet rs;
-        String sql = "Select user_email from Password_Reset_Tokens where token = ?";
+        String sql = "Select AccountID from PasswordResetToken where Token = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, token);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getString(1);
+                return rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
+        return -9999;
     }
 
     public void resetPassword(String email, String password){
@@ -201,11 +201,57 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
+    
+    public boolean changePassword(int AccountID, String password) {
+        String sql = "UPDATE Account SET password = ? WHERE AccountID = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, password);
+            st.setInt(2, AccountID);
+            int rowAffect = st.executeUpdate();
+            if (rowAffect > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+     
+    public Account getAccountbyID(int id) {
+        String sql = " SELECT * FROM Account\n"
+                + " WHERE AccountID = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Account acc = new Account();
+                acc.setAccountId(rs.getInt(1));
+                acc.setFirstName(rs.getString(2));
+                acc.setLastName(rs.getString(3));
+                acc.setGender(rs.getString(4));
+                acc.setDob(rs.getString(5));
+                acc.setAddress(rs.getString(6));
+                acc.setPhoneNumber(rs.getString(7));
+                acc.setImage(rs.getString(8));
+                acc.setEmail(rs.getString(9));
+                acc.setUserName(rs.getString(10));
+                acc.setPassWord(rs.getString(11));
+                acc.setRoleID(rs.getInt(12));
+                return acc;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+     
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
-        System.out.println(dao.getAccountByEmail("huy@gmail.com"));
-        System.out.println(dao.getAccountByEmail("ginokami24@gmail.com"));
-        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
+        System.out.println(dao.changePassword(7, "12345"));
+//        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
     }
 
 }

@@ -29,7 +29,7 @@ public class SendEmail {
         return sb.toString(); // Chuyển đổi StringBuilder thành chuỗi và trả về
     }
 
-    public static void sendVerificationEmail(String to, String code) {
+    public static void sendVerificationEmail(String to, String emailContent) {
 
 
         //code đăng nhập email
@@ -72,10 +72,10 @@ public class SendEmail {
             msg.setSentDate(new Date());
 
             // Nội dung email với mã xác nhận
-            String emailContent = "<h3>Hello,</h3>"
-                    + "<p>To complete the registration process, please use the following OTP code:</p>"
-                    + "<p>OTP code: <b>" + code + ".</b></p>"
-                    + "<p>If you do not require this code, please ignore the email or contact us at the.color.bike.company@gmail.com</p>";
+//            String emailContent = "<h3>Hello,</h3>"
+//                    + "<p>To complete the registration process, please use the following OTP code:</p>"
+//                    + "<p>OTP code: <b>" + code + ".</b></p>"
+//                    + "<p>If you do not require this code, please ignore the email or contact us at the.color.bike.company@gmail.com</p>";
             msg.setContent(emailContent, "text/html; charset=UTF-8");
 
             // Gửi email

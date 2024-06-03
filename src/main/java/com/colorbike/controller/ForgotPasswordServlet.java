@@ -27,6 +27,7 @@ public class ForgotPasswordServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         AccountDAO dao = AccountDAO.getInstance();
 //        Account acc = dao.checkLogin("ginokami", "password123");
         String token = UUID.randomUUID().toString();
@@ -119,54 +120,13 @@ public class ForgotPasswordServlet extends HttpServlet {
                 "    </div>\n" +
                 "</body>\n" +
                 "</html>";
-            sendEmail(request, response, email, link);
-        }
-        else{
-            request.setAttribute("message", "Email không tồn tại");
-            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
-        }
-
-
-
-    }
-
-	private void sendEmail(HttpServletRequest request, HttpServletResponse response, String email, String mess)
-            throws ServletException, IOException {
-//            response.setContentType("text/html;charset=UTF-8");
-		// Cấu hình thông tin máy chủ SMTP
-            PrintWriter out = response.getWriter();
-            String host = "smtp.gmail.com";
-            final String user = "the.color.bike.company@gmail.com";  // Thay thế bằng email của bạn
-            final String password = "mgtwdnlkgmvcdzjx";     // Thay thế bằng mật khẩu của bạn
-
-            Properties properties = new Properties();
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.host", host);
-            properties.put("mail.smtp.port", "587");
-            properties.put("mail.smtp.ssl.trust", host);
-
-            // Tạo phiên gửi email với xác thực
-            Session session = Session.getInstance(properties, new jakarta.mail.Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, password);
-                }
-            });
-
-            try {
-                // Tạo đối tượng MimeMessage
-                MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(user));
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-                message.setSubject("Email Verification");
-                message.setContent(mess, "text/html; charset=utf-8");  // Đặt nội dung email là HTML
-
-                // Gửi email
-                Transport.send(message);
-
-
-                out.println("<!DOCTYPE html>\n" +
+            SendEmail.sendVerificationEmail(email, link);
+            
+            
+            
+            
+            
+            out.println("<!DOCTYPE html>\n" +
                     "<html lang=\"en\">\n" +
                     "<head>\n" +
                     "    <meta charset=\"UTF-8\">\n" +
@@ -233,6 +193,53 @@ public class ForgotPasswordServlet extends HttpServlet {
                     "    <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js\"></script>\n" +
                     "</body>\n" +
                     "</html>");
+        }
+        else{
+            request.setAttribute("message", "Email không tồn tại");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+        }
+
+
+
+    }
+
+	private void sendEmail(HttpServletRequest request, HttpServletResponse response, String email, String mess)
+            throws ServletException, IOException {
+//            response.setContentType("text/html;charset=UTF-8");
+		// Cấu hình thông tin máy chủ SMTP
+            
+            String host = "smtp.gmail.com";
+            final String user = "the.color.bike.company@gmail.com";  // Thay thế bằng email của bạn
+            final String password = "mgtwdnlkgmvcdzjx";     // Thay thế bằng mật khẩu của bạn
+
+            Properties properties = new Properties();
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.port", "587");
+            properties.put("mail.smtp.ssl.trust", host);
+
+            // Tạo phiên gửi email với xác thực
+            Session session = Session.getInstance(properties, new jakarta.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(user, password);
+                }
+            });
+
+            try {
+                // Tạo đối tượng MimeMessage
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(user));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+                message.setSubject("Email Verification");
+                message.setContent(mess, "text/html; charset=utf-8");  // Đặt nội dung email là HTML
+
+                // Gửi email
+                Transport.send(message);
+
+
+               
 
 
             } catch (MessagingException e) {

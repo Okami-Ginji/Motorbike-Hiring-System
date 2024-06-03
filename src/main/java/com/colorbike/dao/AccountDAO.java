@@ -37,7 +37,6 @@ public class AccountDAO implements Serializable {
         return instance;
     }
 
-    //1. Login with userName, passWord
     public Account checkLogin(String userName, String passWord) {
 
         PreparedStatement stm;
@@ -58,9 +57,40 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
+    public Account login(String username, String password) {
+        Account account = null;
+        String sql = "SELECT * FROM [dbo].[Account] WHERE [Username] = ? AND [Password] = ?";
 
-    //2. Create a new account
-    public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int accountId = rs.getInt("AccountID");
+                String firstName = rs.getString("FirstName");
+                String lastName = rs.getString("LastName");
+                String gender = rs.getString("Gender");
+                String dob = rs.getString("DayOfBirth");
+                String address = rs.getString("Address");
+                String phoneNumber = rs.getString("PhoneNumber");
+                String image = rs.getString("Image");
+                String email = rs.getString("Email");
+                int roleId = rs.getInt("RoleID");
+
+                account = new Account(accountId, firstName, lastName, gender, dob, address, phoneNumber, image, email, username, password, roleId);
+            }
+            rs.close();
+        } catch (Exception e) {
+            System.out.println("Login failed: " + e.getMessage());
+        }
+
+        return account;
+    }
+
+
+   public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
                 + "           ,[LastName]\n"
@@ -92,7 +122,7 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
-
+    
     public Account getAccountByEmail(String email) {
         PreparedStatement stm;
         ResultSet rs;
@@ -111,12 +141,12 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
-
-    public boolean createToken(String token, String email) {
+    
+        public boolean createToken(String token, String email) {     
         Timestamp expiration = new Timestamp(System.currentTimeMillis() + 1 * 60 * 1000); // 1 phút
         String checkEmailSql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
-        String insertTokenSql = "INSERT INTO PasswordResetToken (Email, Token, Expiration) "
-                + "SELECT Email, ?, ? FROM Account WHERE Email = ?";
+        String insertTokenSql = "INSERT INTO Password_Reset_Tokens (user_email, token, expiration) " 
+                                + "SELECT Email, ?, ? FROM Account WHERE Email = ?";
         try {
             // Kiểm tra xem email có tồn tại không
             PreparedStatement checkEmailStmt = conn.prepareStatement(checkEmailSql);
@@ -143,9 +173,10 @@ public class AccountDAO implements Serializable {
         }
     }
 
+
     public String getToken(String token) {
         ResultSet rs;
-        String sql = "Select Email from PasswordResetToken where Token = ?";
+        String sql = "Select user_email from Password_Reset_Tokens where token = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, token);
@@ -159,7 +190,7 @@ public class AccountDAO implements Serializable {
         return null;
     }
 
-    public void resetPassword(String email, String password) {
+    public void resetPassword(String email, String password){
         String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -170,11 +201,10 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
-
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
         System.out.println(dao.getAccountByEmail("huy@gmail.com"));
-        //dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
+        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
     }
 
 }

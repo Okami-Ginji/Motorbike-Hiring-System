@@ -57,6 +57,7 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
+
     public Account login(String username, String password) {
         Account account = null;
         String sql = "SELECT * FROM [dbo].[Account] WHERE [Username] = ? AND [Password] = ?";
@@ -89,8 +90,7 @@ public class AccountDAO implements Serializable {
         return account;
     }
 
-
-   public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
+    public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
                 + "           ,[LastName]\n"
@@ -122,7 +122,7 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
-    
+
     public Account getAccountByEmail(String email) {
         PreparedStatement stm;
         ResultSet rs;
@@ -141,8 +141,8 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
-    
-        public boolean createToken(String token, String email) {     
+
+    public boolean createToken(String token, String email) {
         Timestamp expiration = new Timestamp(System.currentTimeMillis() + 1 * 60 * 1000); // 1 phút
         String checkEmailSql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
         String insertTokenSql = "INSERT INTO PasswordResetToken (Email, Token, Expiration, AccountID) " 
@@ -190,7 +190,7 @@ public class AccountDAO implements Serializable {
         return -9999;
     }
 
-    public void resetPassword(String email, String password){
+    public void resetPassword(String email, String password) {
         String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

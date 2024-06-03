@@ -53,13 +53,14 @@ public class UpdatePasswordServlet extends HttpServlet {
         AccountDAO dao = AccountDAO.getInstance();
 //        String email = request.getParameter("email");
         HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("emailhander");
+        int AccountID = (int) session.getAttribute("idhander");
         String password = request.getParameter("newpass");
         String confirmpassword = request.getParameter("confirmpass");
-        if(password.equals(confirmpassword)){
-            dao.resetPassword(email, password);
-            request.setAttribute("messageOke", "Mật khẩu đã được đặt lại thành công");
-            request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+        if(password.equals(confirmpassword) && !password.isEmpty()){
+            if(dao.changePassword(AccountID, password)){
+                request.setAttribute("messageOke", "Mật khẩu đã được đặt lại thành công");
+                request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+            }
         }
         else {         
             request.setAttribute("messageError", "Mật khẩu xác nhận và Mật khẩu không trùng nhau");

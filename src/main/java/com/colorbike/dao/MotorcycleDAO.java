@@ -39,7 +39,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return instance;
     }
-    
+
     //Lấy tất cả các xe máy
     @Override
     public List<Motorcycle> getAll() {
@@ -47,21 +47,21 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT \n" +
-                        "    MotorcycleID,\n" +
-                        "    Model,\n" +
-                        "    Image,\n" +
-                        "    Description,\n" +
-                        "    [Min Age],\n" +
-                        "    BrandID,\n" +
-                        "    CategoryID,\n" +
-                        "    PriceListID\n" +
-                        "FROM \n" +
-                        "    dbo.Motorcycle;";
+            String sql = "SELECT \n"
+                    + "    MotorcycleID,\n"
+                    + "    Model,\n"
+                    + "    Image,\n"
+                    + "    Description,\n"
+                    + "    [Min Age],\n"
+                    + "    BrandID,\n"
+                    + "    CategoryID,\n"
+                    + "    PriceListID\n"
+                    + "FROM \n"
+                    + "    dbo.Motorcycle;";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
-                list.add( new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
                         rs.getInt(8)));
             }
@@ -70,24 +70,23 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
-    
-    
+
     //Lấy xe máy theo id ==> xem detail
     public Motorcycle getMotorcycleByid(String id) {
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT \n" +
-                        "    MotorcycleID,\n" +
-                        "    Model,\n" +
-                        "    Image,\n" +
-                        "    Description,\n" +
-                        "    [Min Age],\n" +
-                        "    BrandID,\n" +
-                        "    CategoryID,\n" +
-                        "    PriceListID\n" +
-                        "FROM \n" +
-                        "    dbo.Motorcycle WHERE MotorcycleID = ?";
+            String sql = "SELECT \n"
+                    + "    MotorcycleID,\n"
+                    + "    Model,\n"
+                    + "    Image,\n"
+                    + "    Description,\n"
+                    + "    [Min Age],\n"
+                    + "    BrandID,\n"
+                    + "    CategoryID,\n"
+                    + "    PriceListID\n"
+                    + "FROM \n"
+                    + "    dbo.Motorcycle WHERE MotorcycleID = ?";
             stm = conn.prepareStatement(sql);
             stm.setString(1, id);
             rs = stm.executeQuery();
@@ -101,6 +100,36 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return null;
     }
+
+    //liệt kê 5 xe máy được thuê nhiều nhất trong tháng
+    public List<Motorcycle> getTop5MotorcycleTheMostRental() {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "SELECT TOP 5\n"
+                    + "  m.MotorcycleID, m.Model, m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID, \n"
+                    + "  COUNT(m.MotorcycleID) AS totalRent\n"
+                    + "FROM Motorcycle m\n"
+                    + "INNER JOIN [Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n"
+                    + "INNER JOIN [Booking Detail] bd ON md.MotorcycleDetailID = bd.MotorcycleDetailID\n"
+                    + "INNER JOIN Booking b ON bd.BookingID = b.BookingID\n"
+                    + "WHERE MONTH(b.bookingDate) = MONTH(GETDATE())  \n"
+                    + "GROUP BY m.MotorcycleID, m.Model, m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID\n"
+                    + "ORDER BY totalRent DESC";
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+                        rs.getInt(8)));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     @Override
     public void insert(Motorcycle t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -119,11 +148,9 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
         List<Motorcycle> list = dao.getAll();
-        for(Motorcycle x: list){
+        for (Motorcycle x : list) {
             System.out.println(x);
         }
     }
-
-    
 
 }

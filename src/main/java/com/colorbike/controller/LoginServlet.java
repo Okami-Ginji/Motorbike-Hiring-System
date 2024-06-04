@@ -81,16 +81,13 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        AccountDAO customerDAO = AccountDAO.getInstance();
-        Account account = customerDAO.checkLogin(username, password);
+        Account account = AccountDAO.getInstance().checkLogin(username, password);
 
         if (account == null) {
             request.setAttribute("error", "Invalid username or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             session.setAttribute("account", account);
-
-            session.setAttribute("email", account.getEmail());
 
             // Điều chỉnh logic chuyển hướng dựa trên RoleID
             if (account.getRoleID() == 1) {

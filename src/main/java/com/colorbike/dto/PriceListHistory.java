@@ -14,10 +14,11 @@ import lombok.ToString;
 @ToString
 public class PriceListHistory {
     private int historyId;
+    private int priceListID;
     private double perDay;
     private double perWeek;
     private double perMonth;
     private String startDate;
     private String endDate;
-    private int priceListID;
+    
 }

@@ -48,9 +48,9 @@ public class AccountDAO implements Serializable {
             stm.setString(2, passWord);
             rs = stm.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),
-                        rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12));
+                return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,9 +114,9 @@ public class AccountDAO implements Serializable {
             stm.setString(1, email);
             rs = stm.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7),
-                        rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12));
+                return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,7 +258,8 @@ public class AccountDAO implements Serializable {
 
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
-        System.out.println(dao.changePassword(7, "12345"));
+//        System.out.println(dao.changePassword(7, "asdf"));
+        System.out.println(dao.checkLogin("huynhat132", "asdf"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
     }
 

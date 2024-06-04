@@ -334,7 +334,6 @@
                                         <option value='Male' ${account.gender == "Male        " ? 'selected' : ''}>Male</option>
                                         <option value='Female' ${account.gender == "Female      " ? 'selected' : ''}>Female</option>
                                     </select>
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">

@@ -20,6 +20,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class TouristLocation {
+    private int locationId;
     private String locationName;
     private String description;
     private String urlArticle;

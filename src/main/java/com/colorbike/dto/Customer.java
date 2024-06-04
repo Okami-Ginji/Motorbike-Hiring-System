@@ -14,9 +14,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Customer implements Serializable{
+    private int customerId;
     private String citizenId;
     private String citizenIdImage;
-    private String note;
     private int typeId;
     private int accountId;
 }

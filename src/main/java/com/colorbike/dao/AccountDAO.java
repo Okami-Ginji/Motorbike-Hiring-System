@@ -49,7 +49,7 @@ public class AccountDAO implements Serializable {
             rs = stm.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),rs.getString("Note"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
                         rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
@@ -115,7 +115,7 @@ public class AccountDAO implements Serializable {
             rs = stm.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),rs.getString("Note"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
                         rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
@@ -259,7 +259,7 @@ public class AccountDAO implements Serializable {
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
 //        System.out.println(dao.changePassword(7, "asdf"));
-        System.out.println(dao.checkLogin("huynhat132", "asdf"));
+        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
     }
 

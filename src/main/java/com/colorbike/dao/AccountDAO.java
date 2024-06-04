@@ -49,7 +49,7 @@ public class AccountDAO implements Serializable {
             rs = stm.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),rs.getString("Note"),
                         rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
@@ -115,7 +115,7 @@ public class AccountDAO implements Serializable {
             rs = stm.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),rs.getString("Note"),
                         rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {

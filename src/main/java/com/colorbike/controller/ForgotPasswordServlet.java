@@ -204,50 +204,6 @@ public class ForgotPasswordServlet extends HttpServlet {
 
     }
 
-	private void sendEmail(HttpServletRequest request, HttpServletResponse response, String email, String mess)
-            throws ServletException, IOException {
-//            response.setContentType("text/html;charset=UTF-8");
-		// Cấu hình thông tin máy chủ SMTP
-            
-            String host = "smtp.gmail.com";
-            final String user = "the.color.bike.company@gmail.com";  // Thay thế bằng email của bạn
-            final String password = "mgtwdnlkgmvcdzjx";     // Thay thế bằng mật khẩu của bạn
-
-            Properties properties = new Properties();
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.host", host);
-            properties.put("mail.smtp.port", "587");
-            properties.put("mail.smtp.ssl.trust", host);
-
-            // Tạo phiên gửi email với xác thực
-            Session session = Session.getInstance(properties, new jakarta.mail.Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, password);
-                }
-            });
-
-            try {
-                // Tạo đối tượng MimeMessage
-                MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(user));
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-                message.setSubject("Email Verification");
-                message.setContent(mess, "text/html; charset=utf-8");  // Đặt nội dung email là HTML
-
-                // Gửi email
-                Transport.send(message);
-
-
-               
-
-
-            } catch (MessagingException e) {
-                e.printStackTrace(out);
-            }    
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

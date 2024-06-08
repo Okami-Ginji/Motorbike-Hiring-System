@@ -16,4 +16,7 @@ import lombok.ToString;
 public class Accessory implements Serializable{
     private int accessoryId;
     private String accessoryName;
+    private String accessoryImage;
+    private String accessoryDescription;
+    private int price;
 }

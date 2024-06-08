@@ -21,7 +21,6 @@ public class Account implements Serializable{
     private String dob;
     private String address;
     private String phoneNumber;
-    private String note;
     private String image;
     private String email;
     private String userName;

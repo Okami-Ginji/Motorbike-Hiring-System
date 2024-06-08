@@ -7,7 +7,9 @@ package com.colorbike.dao;
 import com.colorbike.dto.PriceList;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
-import java.math.BigDecimal;
+
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +22,11 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-public class PriceListDAO implements Serializable, DAO<PriceList> {
+
+
+
+
+public class PriceListDAO implements Serializable {
 
     private static PriceListDAO instance;
     private Connection conn = DBUtil.makeConnection();
@@ -38,16 +44,20 @@ public class PriceListDAO implements Serializable, DAO<PriceList> {
         return instance;
     }
 
+
     public List<PriceList> getAllPricing() {
+
         List<PriceList> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
+
             String sql = "Select * from PriceList;";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
                 list.add(new PriceList(rs.getInt("priceListId"),rs.getDouble("dailyPriceForDay"),rs.getDouble("dailyPriceForWeek"),rs.getDouble("dailyPriceForMonth")));
+
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,23 +86,35 @@ public class PriceListDAO implements Serializable, DAO<PriceList> {
         return null;
     }
 
-    @Override
+   
     public List<PriceList> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+   
     public void insert(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+
+ 
+
     public void update(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+
+
     public void delete(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public static void main(String[] args) {
+        PriceListDAO dao = getInstance();
+        List<PriceList> list = dao.getAll();
+        for(PriceList x: list){
+            System.out.println(x);
+        }
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package com.colorbike.dao;
 
+
 import com.colorbike.dto.Brand;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;

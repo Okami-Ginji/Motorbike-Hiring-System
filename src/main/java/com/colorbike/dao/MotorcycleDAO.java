@@ -41,7 +41,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         return instance;
     }
 
-    // Lấy tất cả các xe máy
+
     @Override
     public List<Motorcycle> getAll() {
         List<Motorcycle> list = new ArrayList<>();
@@ -53,12 +53,16 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    Model,\n"
                     + "    Image,\n"
                     + "    Description,\n"
+
                     + "    [MinAge],\n"
+
                     + "    BrandID,\n"
                     + "    CategoryID,\n"
                     + "    PriceListID\n"
                     + "FROM \n"
-                    + "    Motorcycle;";
+
+                    + "    dbo.Motorcycle;";
+
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -82,7 +86,9 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    Model,\n"
                     + "    Image,\n"
                     + "    Description,\n"
+
                     + "    [MinAge],\n"
+
                     + "    BrandID,\n"
                     + "    CategoryID,\n"
                     + "    PriceListID\n"
@@ -101,6 +107,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return null;
     }
+
 
     //đếm số lượn motorcycles trong database
     public int getTotalMotorcycles() {
@@ -128,13 +135,17 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "                    OFFSET ? ROWS FETCH NEXT 9 ROW ONLY;";
             stm = conn.prepareStatement(sql);
             stm.setInt(1, (index - 1) * 9);
+
             rs = stm.executeQuery();
             while (rs.next()) {
                 list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
                         rs.getInt(8)));
             }
-        } catch (Exception e) {
+
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+
         }
         return list;
     }

@@ -21,16 +21,20 @@
                 <li class="nav-item"><a style="font-size: larger;" href="policies.jsp" class="nav-link">Policies&Terms</a>
                 </li>
                 <li class="nav-item"><a style="font-size: larger;" href="pricing.jsp" class="nav-link">Pricing</a></li>
+
                 <li class="nav-item"><a style="font-size: larger;" href="motorcycle" class="nav-link">Motorbikes</a></li>
                 <li class="nav-item"><a style="font-size: larger;" href="touristLocation" class="nav-link">Location</a></li>
+
                 <li class="nav-item"><a style="font-size: larger;" href="contact.jsp" class="nav-link">Contact</a></li>
-                 <c:if test="${sessionScope.email == null}">
+                 <c:if test="${sessionScope.account == null}">
                     <li class="nav-item"><a style="font-size: larger;" href="login.jsp" class="nav-link">Login</a></li>
                     </c:if>
-                    <c:if test="${sessionScope.email != null}">
+                    <c:if test="${sessionScope.account != null}">
                     <div class="dropdown">
-                        <a class="nav-item btn btn-outline-primary dropdown-toggle nav-link emaildrop" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Hello ${sessionScope.email}
+
+                        <a class="nav-item btn btn-outline-primary dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello ${sessionScope.account.email}
+
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="myDropdown">
                             <a class="dropdown-item" href="logout">Logout</a>

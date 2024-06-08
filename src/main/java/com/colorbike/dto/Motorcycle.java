@@ -22,4 +22,8 @@ public class Motorcycle implements Serializable{
     private int brandID;
     private int categoryID;
     private int priceListID;
+    
+//    private int dailypriceforday;
+//    private int dailypriceforweek;
+//    private int dailypriceformonth;
 }

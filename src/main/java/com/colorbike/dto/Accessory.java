@@ -18,4 +18,5 @@ public class Accessory implements Serializable{
     private String accessoryName;
     private String accessoryImage;
     private String accessoryDescription;
+    private int price;
 }

@@ -22,15 +22,15 @@
                 </li>
                 <li class="nav-item"><a style="font-size: larger;" href="pricing.jsp" class="nav-link">Pricing</a></li>
                 <li class="nav-item"><a style="font-size: larger;" href="motorbikes.jsp" class="nav-link">Motorbikes</a></li>
-                <li class="nav-item"><a style="font-size: larger;" href="event.jsp" class="nav-link">Events</a></li>
+                <li class="nav-item"><a style="font-size: larger;" href="event" class="nav-link">Events</a></li>
                 <li class="nav-item"><a style="font-size: larger;" href="contact.jsp" class="nav-link">Contact</a></li>
-                 <c:if test="${sessionScope.email == null}">
+                 <c:if test="${sessionScope.account == null}">
                     <li class="nav-item"><a style="font-size: larger;" href="login.jsp" class="nav-link">Login</a></li>
                     </c:if>
-                    <c:if test="${sessionScope.email != null}">
+                    <c:if test="${sessionScope.account != null}">
                     <div class="dropdown">
                         <a class="nav-item btn btn-outline-primary dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Hello ${sessionScope.email}
+                            Hello ${sessionScope.account.email}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="myDropdown">
                             <a class="dropdown-item" href="logout">Logout</a>

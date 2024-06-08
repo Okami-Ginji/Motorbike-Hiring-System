@@ -259,7 +259,7 @@ public class AccountDAO implements Serializable {
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
 //        System.out.println(dao.changePassword(7, "asdf"));
-        System.out.println(dao.checkLogin("huynhat132", "asdf"));
+        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
     }
 

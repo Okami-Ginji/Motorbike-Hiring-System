@@ -27,11 +27,11 @@ public class SearchMotorcycleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         //lấy key được gõ vào thanh input
-        String key = request.getParameter("name");
+        String key = request.getParameter("textSearch"); //lấy nội dung ô nhập
         MotorcycleDAO motorcycleDAO = MotorcycleDAO.getInstance();
         List<Motorcycle> list = motorcycleDAO.searchMotorcycleByName(key);
-        //request.setAttribute("list", list); //thống nhất đặt tên sau
-        //request.getRequestDispatcher("").forward(request, response);
+        request.setAttribute("list", list); //thống nhất đặt tên sau
+        request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
     } 
 
 

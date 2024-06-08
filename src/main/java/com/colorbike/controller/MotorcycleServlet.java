@@ -10,35 +10,38 @@ import com.colorbike.dao.PriceListDAO;
 import com.colorbike.dto.Category;
 import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  *
- * @author huypd
+ * @author ADMIN
  */
-@WebServlet(name = "SearchMotorcycleServlet", urlPatterns = {"/searchMotorcycle"})
-public class SearchMotorcycleServlet extends HttpServlet {
+@WebServlet(name = "MotorcycleServlet", urlPatterns = {"/motorcycle"})
+public class MotorcycleServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    MotorcycleDAO motorcycleDAO = MotorcycleDAO.getInstance();
+    CategoryDAO categoryDAO = CategoryDAO.getInstance();
+    PriceListDAO priceListDAO = PriceListDAO.getInstance();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String key = request.getParameter("textSearch");
-        
-        MotorcycleDAO motorcycleDAO = MotorcycleDAO.getInstance();
-        CategoryDAO categoryDAO = CategoryDAO.getInstance();
-        PriceListDAO priceListDAO = PriceListDAO.getInstance();
-        
+
         List<Category> categories = categoryDAO.getAllCategory();
+//        List<Motorcycle> motorcycles = motorcycleDAO.getAll();
         List<PriceList> priceLists = priceListDAO.getAllPricing();
+
+        
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
@@ -51,10 +54,10 @@ public class SearchMotorcycleServlet extends HttpServlet {
             endPage++;
         }
 
-        List<Motorcycle> motorcycles = motorcycleDAO.searchAndPagingMotorcyclesByName(key, index);
+        List<Motorcycle> motorcycles = motorcycleDAO.pagingMotorcycles(index);
 
         request.setAttribute("endP", endPage);
-        request.setAttribute("key", key);
+        
         
         Map<Integer, String> categoryMap = new HashMap<>();
         for (Category category : categories) {
@@ -74,10 +77,4 @@ public class SearchMotorcycleServlet extends HttpServlet {
 
         request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
     }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
-
 }

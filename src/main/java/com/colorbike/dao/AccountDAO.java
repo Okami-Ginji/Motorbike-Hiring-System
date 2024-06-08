@@ -48,9 +48,8 @@ public class AccountDAO implements Serializable {
             stm.setString(2, passWord);
             rs = stm.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
-                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
+                return new Account(rs.getInt("accountId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("dob"), 
+                        rs.getString("address"), rs.getString("phoneNumber"), rs.getString("image"), rs.getString("email"), rs.getString("userName"), rs.getString("passWord"), rs.getInt("roleID"));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,9 +113,8 @@ public class AccountDAO implements Serializable {
             stm.setString(1, email);
             rs = stm.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
-                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
+                return new Account(rs.getInt("accountId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("dob"), 
+                        rs.getString("address"), rs.getString("phoneNumber"), rs.getString("image"), rs.getString("email"), rs.getString("userName"), rs.getString("passWord"), rs.getInt("roleID"));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,8 +125,8 @@ public class AccountDAO implements Serializable {
     public boolean createToken(String token, String email) {
         Timestamp expiration = new Timestamp(System.currentTimeMillis() + 1 * 60 * 1000); // 1 phút
         String checkEmailSql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
-        String insertTokenSql = "INSERT INTO PasswordResetToken (Email, Token, Expiration, AccountID) " 
-                                + "SELECT Email, ?, ?, AccountID FROM Account WHERE Email = ?";
+        String insertTokenSql = "INSERT INTO PasswordResetToken (Email, Token, Expiration, AccountID) "
+                + "SELECT Email, ?, ?, AccountID FROM Account WHERE Email = ?";
         try {
             // Kiểm tra xem email có tồn tại không
             PreparedStatement checkEmailStmt = conn.prepareStatement(checkEmailSql);
@@ -154,7 +152,6 @@ public class AccountDAO implements Serializable {
             return false;
         }
     }
-
 
     public int getAccountIdByToken(String token) {
         ResultSet rs;
@@ -183,8 +180,8 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
-    
-     public boolean update(String firstName, String lastName, String gender, String dob, String address, String phoneNumber,
+
+    public boolean update(String firstName, String lastName, String gender, String dob, String address, String phoneNumber,
             String email, String username, int accountid) {
         String sql = "UPDATE Account SET FirstName = ?, LastName = ?, Gender = ?, DayofBirth = ?, Address = ?,"
                 + "PhoneNumber = ?, Email = ?, Username = ? WHERE AccountID = ?";
@@ -210,7 +207,7 @@ public class AccountDAO implements Serializable {
         }
         return false;
     }
-    
+
     public boolean changePassword(int AccountID, String password) {
         String sql = "UPDATE Account SET password = ? WHERE AccountID = ?";
         try {
@@ -226,7 +223,7 @@ public class AccountDAO implements Serializable {
         }
         return false;
     }
-     
+
     public Account getAccountbyID(int id) {
         String sql = " SELECT * FROM Account\n"
                 + " WHERE AccountID = ?";

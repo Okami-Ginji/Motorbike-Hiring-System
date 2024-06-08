@@ -3,19 +3,33 @@
     Created on : May 25, 2024, 5:39:04 PM
     Author     : DiepTCNN
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="utf-8">
-        <title>Frequently Asked Questions section - Bootdey.com</title>
+        <title>FAQs</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <style type="text/css">
             body {
                 margin-top: 20px;
+                opacity: 0; /* Khởi đầu với độ trong suốt 0 */
+                animation: fadeInEffect 1s ease-in-out forwards; /* Sử dụng animation để fade-in */
+            }
+
+            @keyframes fadeInEffect {
+                from {
+                    opacity: 0; /* Bắt đầu với độ trong suốt 0 */
+                    transform: translateY(20px); /* Dịch chuyển lên trên 20px */
+                }
+                to {
+                    opacity: 1; /* Kết thúc với độ trong suốt 100% */
+                    transform: translateY(0); /* Trở về vị trí ban đầu */
+                }
             }
 
             .section_padding_130 {
@@ -71,7 +85,7 @@
             }
 
             .faq-accordian .card .card-header h6.collapsed {
-                color: #070a57;
+                color: #1089FF;
             }
 
             .faq-accordian .card .card-header h6.collapsed span {
@@ -168,65 +182,37 @@
 
                         <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s"
                              style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                            <h3><span>Frequently </span> Asked Questions</h3>
-                            <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.
+                            <h3>Các câu hỏi thường gặp</h3>
+                            <p>ColorBike sẽ mang đến trải nghiệm xứng đáng với những gì bạn kì vọng.
                             </p>
                             <div class="line"></div>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-
                     <div class="col-12 col-sm-10 col-lg-8">
+                        <!-- FAQ Accordion List -->
                         <div class="accordion faq-accordian" id="faqAccordion">
-                            <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s"
-                                 style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                                <div class="card-header" id="headingOne">
-                                    <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne">What do I need to prepare to rent a motorbike?<span
-                                            class="lni-chevron-up"></span></h6>
-                                </div>
-                                <div class="collapse" id="collapseOne" aria-labelledby="headingOne"
-                                     data-parent="#faqAccordion">
-                                    <div class="card-body">
-                                        <p>Identity card (original); Driver's license (original and copy); 
-                                            Passport if a foreigner; 
-                                            Deposit from 3,000,000 VND or more depending on vehicle type.</p>
+                            <c:forEach var="faq" items="${FAQ}" varStatus="status">
+                                <div class="card border-0 wow fadeInUp" data-wow-delay="${0.2 + status.index * 0.1}s"
+                                     style="visibility: visible; animation-delay: ${0.2 + status.index * 0.1}s; animation-name: fadeInUp;">
+                                    <div class="card-header" id="heading${status.index}">
+                                        <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapse${status.index}"
+                                            aria-expanded="false" aria-controls="collapse${status.index}">
+                                            ${faq.question}<span class="lni-chevron-up"></span>
+                                        </h6>
+                                    </div>
+                                    <div class="collapse" id="collapse${status.index}" aria-labelledby="heading${status.index}"
+                                         data-parent="#faqAccordion">
+                                        <div class="card-body">
+                                            <p>${faq.answer}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card border-0 wow fadeInUp" data-wow-delay="0.3s"
-                                 style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-                                <div class="card-header" id="headingTwo">
-                                    <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                                        aria-expanded="true" aria-controls="collapseTwo">Can I register a motorbike rental for someone else?<span
-                                            class="lni-chevron-up"></span></h6>
-                                </div>
-                                <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo"
-                                     data-parent="#faqAccordion">
-                                    <div class="card-body">
-                                        <p>You can sign the contract in your name to rent to relatives or friends. Depending on the motorbike rental company, 
-                                            you will be asked to add a number of appropriate documents to sign the motorbike rental contract.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card border-0 wow fadeInUp" data-wow-delay="0.4s"
-                                 style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-                                <div class="card-header" id="headingThree">
-                                    <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree"
-                                        aria-expanded="true" aria-controls="collapseThree">If I cancel my booking, will I have to pay a penalty?<span
-                                            class="lni-chevron-up"></span></h6>
-                                </div>
-                                <div class="collapse" id="collapseThree" aria-labelledby="headingThree"
-                                     data-parent="#faqAccordion">
-                                    <div class="card-body">
-                                        <p>You absolutely do not have to pay any penalty fees for canceling the deposit before the time of implementing the 
-                                            motorbike rental contract (not applicable for car rental on holidays, New Year, etc.).</p>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
 
+                        <!-- Support Button -->
                         <div class="support-button text-center d-flex align-items-center justify-content-center mt-4 wow fadeInUp"
                              data-wow-delay="0.5s"
                              style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">

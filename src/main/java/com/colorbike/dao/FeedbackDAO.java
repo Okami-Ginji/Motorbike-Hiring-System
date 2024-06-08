@@ -51,10 +51,7 @@ public class FeedbackDAO implements Serializable {
                     + "                     JOIN  Account a ON C.AccountID = a.AccountID;";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
-            while (rs.next()) {
-                //feedback.setContent(feedback.getContent()+ customerName);
-//                String firstName = rs.getString("FirstName");
-//                String firstName = rs.getString("FirstName");   
+            while (rs.next()) {  
                 list.add(new Feedback(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
             }
         } catch (Exception ex) {

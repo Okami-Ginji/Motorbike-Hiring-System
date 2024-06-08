@@ -108,15 +108,24 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         ResultSet rs;
         try {
             String sql = "SELECT TOP 5\n"
-                    + "  m.MotorcycleID, m.Model, m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID, \n"
-                    + "  COUNT(m.MotorcycleID) AS totalRent\n"
-                    + "FROM Motorcycle m\n"
-                    + "INNER JOIN [Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n"
-                    + "INNER JOIN [Booking Detail] bd ON md.MotorcycleDetailID = bd.MotorcycleDetailID\n"
-                    + "INNER JOIN Booking b ON bd.BookingID = b.BookingID\n"
-                    + "WHERE MONTH(b.bookingDate) = MONTH(GETDATE())  \n"
-                    + "GROUP BY m.MotorcycleID, m.Model, m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID\n"
-                    + "ORDER BY totalRent DESC";
+                    + "    m.MotorcycleID,\n"
+                    + "    m.Model,m.Image,\n"
+                    + " m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID,\n"
+                    + "    COUNT(bd.BookingDetailID) AS RentalCount,\n"
+                    + "    MONTH(b.BookingDate) AS RentalMonth,\n"
+                    + "    YEAR(b.BookingDate) AS RentalYear\n"
+                    + "FROM \n"
+                    + "    [dbo].[Motorcycle] m\n"
+                    + "INNER JOIN \n"
+                    + "    [dbo].[Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n"
+                    + "INNER JOIN \n"
+                    + "    [dbo].[Booking Detail] bd ON md.MotorcycleDetailID = bd.MotorcycleDetailID\n"
+                    + "INNER JOIN \n"
+                    + "    [dbo].[Booking] b ON bd.BookingID = b.BookingID\n"
+                    + "GROUP BY \n"
+                    + "    m.MotorcycleID, m.Model,m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID, MONTH(b.BookingDate), YEAR(b.BookingDate)\n"
+                    + "ORDER BY \n"
+                    + "    RentalCount DESC";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -147,7 +156,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-        List<Motorcycle> list = dao.getAll();
+        List<Motorcycle> list = dao.getTop5MotorcycleTheMostRental();
         for (Motorcycle x : list) {
             System.out.println(x);
         }

@@ -21,15 +21,15 @@
                 <li class="nav-item"><a style="font-size: larger;" href="policies.jsp" class="nav-link">Policies&Terms</a>
                 </li>
                 <li class="nav-item"><a style="font-size: larger;" href="pricing.jsp" class="nav-link">Pricing</a></li>
-                <li class="nav-item"><a style="font-size: larger;" href="motorbikes.jsp" class="nav-link">Motorbikes</a></li>
-                <li class="nav-item"><a style="font-size: larger;" href="event.jsp" class="nav-link">Events</a></li>
+                <li class="nav-item"><a style="font-size: larger;" href="motorcycle" class="nav-link">Motorbikes</a></li>
+                <li class="nav-item"><a style="font-size: larger;" href="touristLocation" class="nav-link">Location</a></li>
                 <li class="nav-item"><a style="font-size: larger;" href="contact.jsp" class="nav-link">Contact</a></li>
                  <c:if test="${sessionScope.email == null}">
                     <li class="nav-item"><a style="font-size: larger;" href="login.jsp" class="nav-link">Login</a></li>
                     </c:if>
                     <c:if test="${sessionScope.email != null}">
                     <div class="dropdown">
-                        <a class="nav-item btn btn-outline-primary dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-item btn btn-outline-primary dropdown-toggle nav-link emaildrop" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hello ${sessionScope.email}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="myDropdown">
@@ -51,6 +51,9 @@
         });
     </script>
     <style>
+        .emaildrop{
+            width: 90%;
+        }
         .dropdown{
             margin-top: 12px;
             color: white;

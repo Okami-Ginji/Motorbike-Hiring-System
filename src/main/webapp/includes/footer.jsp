@@ -36,7 +36,7 @@
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Customer Support</h2>
                     <ul class="list-unstyled">
-                        <li><a href="faqs.jsp" class="py-2 d-block">FAQ</a></li>
+                        <li><a href="FAQ" class="py-2 d-block">FAQ</a></li>
                         <li><a href="#" class="py-2 d-block">Payment Option</a></li>
                         <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
                         <li><a href="#" class="py-2 d-block">How it works</a></li>

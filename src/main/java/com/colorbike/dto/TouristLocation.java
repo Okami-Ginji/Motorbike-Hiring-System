@@ -22,6 +22,7 @@ import lombok.ToString;
 public class TouristLocation {
     private int locationId;
     private String locationName;
+    private String locationImage;
     private String description;
     private String urlArticle;
     private String staffID;

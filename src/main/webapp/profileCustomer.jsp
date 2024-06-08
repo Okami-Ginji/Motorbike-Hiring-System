@@ -279,7 +279,7 @@
                                             <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
                                         </div><span class="badge badge-secondary">6</span>
                                     </div>
-                                </a><a class="list-group-item active" href="#"><i class="fe-icon-user text-muted"></i>Profile Settings</a><a
+                                </a><a class="list-group-item active" href="#"><i class="fe-icon-user text-muted"></i>Thông tin cá nhân</a><a
                                     class="list-group-item" href="#"><i class="fe-icon-map-pin text-muted"></i>Addresses</a>
                                 <a class="list-group-item" href="https://www.bootdey.com/snippets/view/bs4-wishlist-profile-page"
                                    target="__blank">
@@ -305,34 +305,35 @@
                             <input hidden name="accountID" value="${account.accountId}">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-fn">First Name</label>
+                                    <label for="account-fn">Tên Đầu</label>
                                     <input class="form-control" name="firstname" type="text" id="account-fn" value="${account.firstName}" readonly>                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-ln">Last Name</label>
+                                    <label for="account-ln">Tên Cuối</label>
                                     <input class="form-control" name="lastname" type="text" id="account-ln" value="${account.lastName}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-email">E-mail Address</label>
+                                    <label for="account-email">Email</label>
                                     <input class="form-control" name="email"  type="email" id="account-email" value="${account.email}" readonly>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-ln">Address</label>
+                                    <label for="account-ln">Địa chỉ</label>
                                     <input class="form-control" name="address" type="text" id="account-address" value="${account.address}"readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-gender">Gender</label>
+                                    <label for="account-gender">Giới tính</label>
                                     <select class="form-control" name="gender" id="account-gender" disabled>
-                                        <option value='Male' ${account.gender == "Male        " ? 'selected' : ''}>Male</option>
-                                        <option value='Female' ${account.gender == "Female      " ? 'selected' : ''}>Female</option>
+                                        <option value='Nam' ${account.gender == "Nam" ? 'selected' : ''}>Nam</option>
+                                        <option value='Nữ' ${account.gender == "Nữ" ? 'selected' : ''}>Nữ</option>
+                                        <option value='Không muốn tiết lộ' ${account.gender == "Không muốn tiết lộ" ? 'selected' : ''}>Không muốn tiết lộ</option>
                                     </select>
                                 </div>
                             </div>
@@ -345,7 +346,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="acco  unt-phone">Day of Birth</label>
-                                    <input class="form-control" name="dob" type="text" id="account-phone" value="${account.dob}" readonly>
+                                    <input class="form-control" name="dob" type="date" id="account-phone" value="${account.dob}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">

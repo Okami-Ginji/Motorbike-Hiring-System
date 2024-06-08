@@ -14,7 +14,11 @@ import lombok.ToString;
 @ToString
 public class PriceList {
     private int priceListId;
-    private double pricePerDay;
-    private double pricePerWeek;
-    private double pricePerMonth;
+    private double price1to5;
+    private double price6to10;
+    private double price11to15;
+    private double price16to20;
+    private double price21to25;
+    private double price26to30;
+    private double price30up;
 }

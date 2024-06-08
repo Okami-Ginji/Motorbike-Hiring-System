@@ -48,8 +48,9 @@ public class AccountDAO implements Serializable {
             stm.setString(2, passWord);
             rs = stm.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt("accountId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("dob"), 
-                        rs.getString("address"), rs.getString("phoneNumber"), rs.getString("image"), rs.getString("email"), rs.getString("userName"), rs.getString("passWord"), rs.getInt("roleID"));
+                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,8 +114,9 @@ public class AccountDAO implements Serializable {
             stm.setString(1, email);
             rs = stm.executeQuery();
             if (rs.next()) {
-                return new Account(rs.getInt("accountId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("dob"), 
-                        rs.getString("address"), rs.getString("phoneNumber"), rs.getString("image"), rs.getString("email"), rs.getString("userName"), rs.getString("passWord"), rs.getInt("roleID"));
+                return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);

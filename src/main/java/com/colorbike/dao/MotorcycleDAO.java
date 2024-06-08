@@ -129,6 +129,37 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
+    
+    //Tìm kiếm xe theo tên
+    public List<Motorcycle> searchMotorcycleByName(String key) {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "SELECT * FROM Motorcycle WHERE Model LIKE ?";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, "%" + key + "%");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+                        rs.getInt(8)));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    //Thanh lọc cơ thể (giá, hãng, loại, phân khối, nhu cầu, xe đc thuê nhiều nhất) 
+//    public List<Motorcycle> searchMotorcycleByCriteria() {
+//        
+//    }
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+   
 
     @Override
     public void insert(Motorcycle t) {
@@ -147,7 +178,11 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-        List<Motorcycle> list = dao.getAll();
+//        List<Motorcycle> list = dao.getAll();
+//        for (Motorcycle x : list) {
+//            System.out.println(x);
+//        }
+        List<Motorcycle> list = dao.searchMotorcycleByName("maha");
         for (Motorcycle x : list) {
             System.out.println(x);
         }

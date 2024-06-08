@@ -37,8 +37,10 @@
 
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="myDropdown">
-                            <a class="dropdown-item" href="logout">Logout</a>
-                            <a class="dropdown-item" href="profileCustomer.jsp">Profile Information</a>
+                            
+                            <a class="dropdown-item" href="profileCustomer.jsp">Thông tin cá nhân</a>
+                            <a class="dropdown-item" href="logout">Qu?n lý ??t xe</a>
+                            <a class="dropdown-item" href="logout">??ng xu?t</a>
                         </div>
 
                     </div>

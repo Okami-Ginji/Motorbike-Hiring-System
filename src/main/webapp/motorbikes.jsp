@@ -13,8 +13,8 @@
         <jsp:include page="/includes/header.jsp" />
 
         <!-- thanh search -->
-                <link rel="stylesheet" type="text/css"
-                      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css"
+              href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
             body {
@@ -406,10 +406,8 @@
                         selectedFilters.forEach(filter => {
                             const filterDiv = document.createElement('div');
                             filterDiv.className = 'selected-filter';
-                            filterDiv.innerHTML = `
-                    <span>${filter.group}: ${filter.text}</span>
-                    <span class="remove-filter" onclick="removeSelectedFilter(this.parentElement, '${filter.text}')">&#10006;</span>
-                `;
+                            filterDiv.innerHTML = '<span>' + filter.group + ': ' + filter.text + '</span>' +
+                                    '<span class="remove-filter" onclick="removeSelectedFilter(this.parentElement, \'' + filter.text + '\')">&#10006;</span>';
                             selectedFiltersContainer.appendChild(filterDiv);
                         });
                     }
@@ -435,7 +433,7 @@
                     function showResults() {
                         const selectedButtons = document.querySelectorAll('.filter-options button.selected');
                         const selectedFilters = Array.from(selectedButtons).map(button => button.textContent);
-                        alert(`Selected filters: ${selectedFilters.join(', ')}`);
+                        alert('Selected filters: ' + selectedFilters.join(', '));
                     }
 
                     let currentOpenOptions = null;

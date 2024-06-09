@@ -44,7 +44,7 @@ public class BookingDAO {
             rs = stm.executeQuery();
             while (rs.next()) {
                 return new Booking(rs.getString("BookingID"), rs.getString("BookingDate"), rs.getString("StartDate"),
-                        rs.getString("EndDate"), rs.getString("DeliveryLocation"), rs.getInt("VoucherID"), rs.getInt("CustomerID"));
+                        rs.getString("EndDate"), rs.getString("DeliveryLocation"), rs.getString("ReturnedLocation"), rs.getInt("VoucherID"), rs.getInt("CustomerID"));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);

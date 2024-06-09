@@ -4,25 +4,19 @@
  */
 package com.colorbike.dto;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- *
- * @author DiepTCNN
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Feedback implements  Serializable{
-    private int feedbackID;
-    private String content;
-    private int rate;
-    private String customerName;
+public class DemandDetail {
+    private int demandDetailId;
+    private String motorcycleId;
+    private int demandId;
 }

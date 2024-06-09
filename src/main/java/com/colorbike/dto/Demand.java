@@ -11,18 +11,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- *
- * @author DiepTCNN
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Feedback implements  Serializable{
-    private int feedbackID;
-    private String content;
-    private int rate;
-    private String customerName;
+public class Demand implements Serializable{
+    private int demandId;
+    private String demand;
 }

@@ -3,13 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.colorbike.dao;
-
 import com.colorbike.dto.PriceList;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
-
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,27 +41,32 @@ public class PriceListDAO implements Serializable {
     }
 
 
-    public List<PriceList> getAllPricing() {
+    public List<PriceList> getAllPriceList() {
+
 
         List<PriceList> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
 
-            String sql = "Select * from PriceList;";
+
+            String sql = "SELECT * FROM PriceList";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
-                list.add(new PriceList(rs.getInt("priceListId"),rs.getDouble("dailyPriceForDay"),rs.getDouble("dailyPriceForWeek"),rs.getDouble("dailyPriceForMonth")));
+                //feedback.setContent(feedback.getContent()+ customerName);
+                list.add(new PriceList(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), rs.getDouble(4)));
 
             }
         } catch (Exception ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+
         }
         return list;
     }
 
-    public PriceList getPricingByid(String id) {
+
+     public PriceList getPricingByid(String id) {
         PreparedStatement stm;
         ResultSet rs;
         try {
@@ -91,7 +92,7 @@ public class PriceListDAO implements Serializable {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-   
+
     public void insert(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -109,9 +110,10 @@ public class PriceListDAO implements Serializable {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public static void main(String[] args) {
+
+     public static void main(String[] args) {
         PriceListDAO dao = getInstance();
-        List<PriceList> list = dao.getAllPricing();
+        List<PriceList> list = dao.getAllPriceList();
         for(PriceList x: list){
             System.out.println(x);
         }

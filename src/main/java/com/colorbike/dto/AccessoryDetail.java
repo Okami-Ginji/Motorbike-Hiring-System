@@ -15,7 +15,8 @@ import lombok.ToString;
 @ToString
 
 public class AccessoryDetail implements Serializable{
-    private int bookingDetailID;
+    private String bookingID;
     private int accessoryID;
     private int quantity;
+    private double totalPrice; 
 }

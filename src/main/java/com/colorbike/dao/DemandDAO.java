@@ -4,10 +4,9 @@
  */
 package com.colorbike.dao;
 
-import com.colorbike.dto.Brand;
+import com.colorbike.dto.Demand;
+import com.colorbike.dto.Motorcycle;
 import com.colorbike.util.DBUtil;
-import java.io.Serializable;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,43 +19,38 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-public class BrandDAO implements Serializable {
-
-    private static BrandDAO instance;
+public class DemandDAO {
+     private static DemandDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
-    private BrandDAO() {
+    // Cấm new trực tiếp DAO
+    //Chỉ new DAO qua hàm static getInstance() để quản lí được số object/instance đã new - SINGLETON DESIGN PATTERN
+    private DemandDAO() {
     }
 
-    public static BrandDAO getInstance() {
+    public static DemandDAO getInstance() {
 
         if (instance == null) {
-            instance = new BrandDAO();
+            instance = new DemandDAO();
         }
         return instance;
     }
-
-    public List<Brand> getAllBrand() {
-        List<Brand> list = new ArrayList<>();
+    
+    public List<Demand> getAllDemand() {
+        List<Demand> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT * FROM Brand";
+            String sql = "SELECT * FROM Demand";
+
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
-                //feedback.setContent(feedback.getContent()+ customerName);
-                list.add(new Brand(rs.getInt(1), rs.getString(2)));
+                list.add(new Demand(rs.getInt(1), rs.getString(2)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DemandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-
-    public static void main(String[] args) {
-        BrandDAO bd = BrandDAO.getInstance();
-        System.out.println(bd.getAllBrand());
-    }
-
 }

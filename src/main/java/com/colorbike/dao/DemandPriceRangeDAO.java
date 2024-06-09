@@ -4,11 +4,10 @@
  */
 package com.colorbike.dao;
 
-import com.colorbike.dto.Brand;
+import com.colorbike.dto.Booking;
 import com.colorbike.util.DBUtil;
-import java.io.Serializable;
-
 import java.sql.Connection;
+import com.colorbike.dto.SearchCriteria.PriceRange;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,43 +19,38 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-public class BrandDAO implements Serializable {
-
-    private static BrandDAO instance;
+public class DemandPriceRangeDAO {
+    private static DemandPriceRangeDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
-    private BrandDAO() {
+    private DemandPriceRangeDAO() {
     }
 
-    public static BrandDAO getInstance() {
+    public static DemandPriceRangeDAO getInstance() {
 
         if (instance == null) {
-            instance = new BrandDAO();
+            instance = new DemandPriceRangeDAO();
         }
         return instance;
     }
-
-    public List<Brand> getAllBrand() {
-        List<Brand> list = new ArrayList<>();
+    public List<PriceRange> getListDemandPriceRanges() {
+        List<PriceRange> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT * FROM Brand";
+            String sql = "select * from DemandPriceRange";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
-                //feedback.setContent(feedback.getContent()+ customerName);
-                list.add(new Brand(rs.getInt(1), rs.getString(2)));
+                list.add(new PriceRange(rs.getDouble("MinPrice"), rs.getDouble("MaxPrice")));
             }
         } catch (Exception ex) {
-            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DemandPriceRangeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-
     public static void main(String[] args) {
-        BrandDAO bd = BrandDAO.getInstance();
-        System.out.println(bd.getAllBrand());
+        DemandPriceRangeDAO dao = DemandPriceRangeDAO.getInstance();
+        System.out.println(dao.getListDemandPriceRanges());
     }
-
 }

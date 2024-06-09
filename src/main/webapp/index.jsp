@@ -4,6 +4,7 @@
     Author     : DiepTCNN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,66 +133,32 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="carousel-car owl-carousel">
-                            <div class="item">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-1.jpg);">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                        <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
+                            <c:forEach items="${listM}" var="motor">
+                                <div class="item">
+                                    <div class="car-wrap rounded ftco-animate">
+                                        <div class="img rounded d-flex align-items-end">
+                                            <img src="${motor.image}" alt="alt"/>
                                         </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"
-                                                                                                                                     class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                        <div class="text">
+                                            <h2 class="mb-0"><a href="#">${motor.model}</a></h2>
+                                                <c:forEach items="${listB}" var="b">
+                                                    <c:if test="${motor.brandID == b.brandID}">
+                                                    <div class="d-flex mb-3">
+                                                        <span class="cat">${b.brandName}</span>
+                                                        <c:forEach items="${listP}" var="p">
+                                                            <c:if test="${motor.priceListID == p.priceListId}">
+                                                                <p class="price ml-auto">${p.dailyPriceForDay} <span>/day</span></p>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </div>
+                                                    </c:if>
+                                                </c:forEach>
+                                            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"                                                                                                       class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-2.jpg);">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                        <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
-                                        </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"
-                                                                                                                                     class="btn btn-secondary py-2 ml-1">Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-3.jpg);">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                        <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
-                                        </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"
-                                                                                                                                     class="btn btn-secondary py-2 ml-1">Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(images/car-4.jpg);">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                        <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
-                                        </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"
-                                                                                                                                     class="btn btn-secondary py-2 ml-1">Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
+
                         </div>
                     </div>
                 </div>
@@ -293,70 +260,26 @@
                     </div>
                 </div>
                 <div class="row ftco-animate">
+
+
                     <div class="col-md-12">
                         <div class="carousel-testimony owl-carousel ftco-owl">
-                            <div class="item">
-                                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)">
-                                    </div>
-                                    <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and
-                                            Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Marketing Manager</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(images/person_2.jpg)">
-                                    </div>
-                                    <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and
-                                            Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Interface Designer</span>
+                            <c:forEach items="${listF}" var="feedback">
+                                <div class="item">
+                                    <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                        <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)"></div>
+                                        <div class="text pt-4">
+                                            <p class="mb-4">${feedback.content}</p>
+                                            <p class="name">${feedback.customerName}</p>
+<!--                                            <span class="position">Marketing Manager</span>-->
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(images/person_3.jpg)">
-                                    </div>
-                                    <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and
-                                            Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">UI Designer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)">
-                                    </div>
-                                    <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and
-                                            Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Web Developer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)">
-                                    </div>
-                                    <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and
-                                            Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">System Analyst</span>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </section>

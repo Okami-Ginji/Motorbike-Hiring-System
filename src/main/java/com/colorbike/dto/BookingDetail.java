@@ -20,5 +20,4 @@ public class BookingDetail implements Serializable{
     private int motorcycleDetailID;
     private String bookingID;
     private double totalPrice;
-    private String deliveryStatus;
 }

@@ -192,13 +192,13 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-//        List<Motorcycle> list = dao.getAll();
-//        for (Motorcycle x : list) {
-//            System.out.println(x);
-//        }
-        List<Motorcycle> list = dao.searchMotorcycleByName("maha");
+        List<Motorcycle> list = dao.getAll();
         for (Motorcycle x : list) {
             System.out.println(x);
         }
+//        List<Motorcycle> list = dao.searchMotorcycleByName("maha");
+//        for (Motorcycle x : list) {
+//            System.out.println(x);
+//        }
     }
 }

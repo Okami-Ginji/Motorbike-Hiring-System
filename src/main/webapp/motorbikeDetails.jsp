@@ -40,9 +40,80 @@
                 justify-content: center; /* Centers the image horizontally */
                 width: 80%; /* Full width of the parent container */
                 margin-left: 10%;
-                
+
             }
-            
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+                animation-name: fadeIn;
+                animation-duration: 0.5s;
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 70%;
+                transform: translateY(-200px);
+                animation-name: slideIn;
+                animation-duration: 0.5s;
+                animation-fill-mode: forwards;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideIn {
+                from {
+                    transform: translateY(-200px);
+                }
+                to {
+                    transform: translateY(0);
+                }
+            }
+            .title h2 {
+                letter-spacing: 2px;
+            }
+            .title {
+                margin-bottom: 50px;
+            }
+            .priceAcc {
+                margin-top: 15rem;
+                font-style: italic;
+            }
+            .icon:hover {
+                opacity: 0.7;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
@@ -82,111 +153,54 @@
                     </div>
                 </div>
 
-
+                <h3 class="mt-5 text-center">Một số phụ kiện đi kèm</h3>
                 <div class="row">
-                    <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services">
-                            <div class="media-body py-md-4">
-                                <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <img src="images/bag.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
-                                    </div>
-                                    <div class="text">
-                                        <h3 class="heading mb-0 pl-3">
-                                            Túi đựng giày
-                                            <span>2 cái</span>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>      
-                    </div>
-                    <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services">
-                            <div class="media-body py-md-4">
-                                <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <img src="images/dungcu.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
-                                    </div>
-                                    <div class="text">
-                                        <h3 class="heading mb-0 pl-3">
-                                            Bộ dụng cụ
-                                            <span>1 bộ</span>
-                                        </h3>
+                    <c:forEach items="${listAccess}" var="listA">
+                        <div style="margin-right: 67px" class="col-md-1 d-flex align-self-stretch ftco-animate">
+                            <div class="media block-6 services">
+                                <div class="media-body py-md-1">
+                                    <div class="d-flex mb-3 align-items-center">
+                                        <div class="icon d-flex align-items-center justify-content-center" 
+                                             onclick="openModal('${listA.accessoryName}', '${listA.accessoryDescription}', '${listA.price * 1000} VNĐ', 'images/${listA.accessoryImage}')">
+                                            <img src="images/${listA.accessoryImgIcon}" alt="${listA.accessoryName}" style="width: 60px; height: 60px;">
+                                        </div>
+                                        <div class="text">
+                                            <h3 style="margin-top: -17px" class="heading mb-0 pl-3 text-left">
+                                                ${listA.accessoryName}
+                                            </h3>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>    
-                    </div>
-                    <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services">
-                            <div class="media-body py-md-4">
-                                <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <img src="images/raincoat.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
-                                    </div>
-                                    <div class="text">
-                                        <h3 class="heading mb-0 pl-3">
-                                            Áo mưa
-                                            <span>2 cái</span>
-                                        </h3>
-                                    </div>
+                            </div>      
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <div id="myModal" class="modal">
+                    <div style="width: 70%" class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <div class="row" id="accessoryForm">
+                            <div class="pl-4 col-md-6">
+                                <div class="mt-4 title">
+                                    <h1 class="fw-bold" id="accessoryName"></h1>
+                                </div>
+                                <div class="description">
+                                    <p id="accessoryDescription"></p>
+                                </div>
+                                <div class="text-center priceAcc">
+                                    <h3 style="color: red" id="accessoryPrice"></h3>
                                 </div>
                             </div>
-                        </div>     
-                    </div>
-                    <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services">
-                            <div class="media-body py-md-4">
-                                <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <img src="images/mubaohiem.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
-                                    </div>
-                                    <div class="text">
-                                        <h3 class="heading mb-0 pl-3">
-                                            Mũ bảo hiểm
-                                            <span>2 cái</span>
-                                        </h3>
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="img">
+                                    <img id="accessoryImage" style="width: 100%;" src="accessoryImage" alt="accessoryName">
                                 </div>
                             </div>
-                        </div>     
-                    </div>
-                    <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services">
-                            <div class="media-body py-md-4">
-                                <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <img src="images/gangtay.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
-                                    </div>
-                                    <div class="text">
-                                        <h3 class="heading mb-0 pl-3">
-                                            Găng tay
-                                            <span>2 đôi</span>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>     
-                    </div>
-                    <div class="col-md d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services">
-                            <div class="media-body py-md-4">
-                                <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <img src="images/giakepdienthoai.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
-                                    </div>
-                                    <div class="text">
-                                        <h3 class="heading mb-0 pl-3">
-                                            Kẹp điện thoại
-                                            <span>1 cái</span>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>     
+                        </div>
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-md-12 pills">
                         <div class="bd-example bd-example-tabs">
@@ -387,4 +401,29 @@
         }
 
     </style>
+    <script>
+                            function openModal(name, description, price, imageSrc) {
+                                document.getElementById('accessoryName').textContent = name;
+                                document.getElementById('accessoryDescription').textContent = description;
+                                document.getElementById('accessoryPrice').textContent = price;
+                                document.getElementById('accessoryImage').src = imageSrc;
+                                document.getElementById('myModal').style.display = 'block';
+                            }
+                            function closeModal() {
+                                document.getElementById('myModal').style.display = 'none';
+                            }
+
+                            window.onclick = function (event) {
+                                var modal = document.getElementById("myModal");
+                                if (event.target === modal) {
+                                    modal.style.display = "none";
+                                }
+                            }
+                            window.onkeydown = function (event) {
+                                var modal = document.getElementById("myModal");
+                                if (event.key === "Escape" || event.key === "Esc") {
+                                    modal.style.display = "none";
+                                }
+                            }
+    </script>
 </html>

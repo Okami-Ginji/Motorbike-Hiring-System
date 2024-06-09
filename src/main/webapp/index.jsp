@@ -9,7 +9,104 @@
 <html lang="en">
 
     <head>
-        <jsp:include page="/includes/header.jsp" />  
+        <jsp:include page="/includes/header.jsp" /> 
+        <style>
+            .event-box {
+                position: fixed;
+                bottom: 10px;
+                left: 7px;
+                width: 190px;
+                background: #dc3545f2;
+                color: white;
+                padding: 15px;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+                font-family: Arial, sans-serif;
+                display: block;
+            }
+
+            .event-box img {
+                width: 56%;
+                cursor: pointer;
+                opacity: 0.8;
+            }
+
+            .event-box .sale {
+                font-size: 26px;
+                font-weight: bold;
+                color: yellow;
+            }
+
+            .event-box button {
+                background-color: rgb(0,208, 141);
+                color: #fff;
+                border: none;
+                padding: 0px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                right: 5px;
+            }
+
+            .event-box h5, .event-box p {
+                margin-bottom: 0;
+            }
+
+            .event-box button:hover {
+                border: none;
+                opacity: 0.8;
+            }
+
+            .text-event {
+                margin-top: 30px;
+            }
+            .text-event h6 {
+                font-weight: 900;
+                font-size: 20px;
+            }
+
+            .text-event .bike {
+                color: rgb(0,208, 141);
+            }
+
+            .minimize-btn{
+                position: absolute;
+                top: 5px;
+                right: 30px;
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 1.2em;
+                cursor: pointer;
+            }
+
+            .text-more:hover, .minimize-btn:hover,
+            .text-more:focus, .minimize-btn:focus {
+                color: #fff;
+                outline: none;
+            }
+            
+            .show-event-btn {
+                position: fixed;
+                bottom: 10px;
+                left: 7px;
+                background: #ff3b3f;
+                color: white;
+                border: none;
+                padding: 4px 24px;
+                font-size: 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                display: none;
+                z-index: 1000;
+            }
+
+            .show-event-btn:hover, .show-event-btn:focus {
+                background: #ff6b6b;
+                outline: none;
+            }
+        </style>
     </head>
     <body>
 
@@ -39,6 +136,7 @@
                 </div>
             </div>
         </div>
+
 
         <section class="ftco-section ftco-no-pt bg-light">
             <div class="container">
@@ -115,8 +213,24 @@
                     </div>
                 </div>
         </section>
-        <!-- thanh search  -->
 
+        <div class="event-box" id="eventBox">
+            <button class="minimize-btn" onclick="minimizeEventBox()">−</button>
+            <div class="text-event text-center">
+                <h6>COLOR<span class="bike">BIKE</span> Tri Ân!</h6>
+            </div>
+            <div class="text-center">
+                <img onclick="window.location.href = 'event'" 
+                     src="https://img.lazcdn.com/g/p/5c721d75a2bb91f64ab172f2f47e1ee1.png_720x720q80.png" alt="alt"/>
+            </div>
+            <div class="text-center">
+                <p>Sale cực <span class="sale">HỜI</span></p>
+            </div>
+            <div class="text-center">
+                <button class="text-more" onclick="window.location.href = 'event'">Xem thêm</button>
+            </div>
+        </div>
+        <button class="show-event-btn" id="showEventBtn" onclick="showEventBox()">Event</button>
 
         <!-- select box section end -->
 
@@ -496,7 +610,17 @@
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
         <!-- thanh search -->
+        <script>
+                function minimizeEventBox() {
+                    document.getElementById('eventBox').style.display = 'none';
+                    document.getElementById('showEventBtn').style.display = 'block';
+                }
 
+                function showEventBox() {
+                    document.getElementById('eventBox').style.display = 'block';
+                    document.getElementById('showEventBtn').style.display = 'none';
+                }
+        </script>
     </body>
 
 </html>

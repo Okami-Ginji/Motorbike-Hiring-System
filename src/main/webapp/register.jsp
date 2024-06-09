@@ -8,238 +8,351 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
     <head>
-        <jsp:include page="/includes/header.jsp" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+            rel="stylesheet" />
 
-        <link rel="stylesheet" href="css/css/register.css">
-
-        <!-- <a href="https://front.codes/" class="logo" target="_blank">
-            <img src="https://assets.codepen.io/1462889/fcy.png" alt="">
-        </a> -->
-
-        <!-- <script src='https://www.google.com/recapcha/api.js' async defer></script> -->
         <style>
-            input.error{
-                border: 1px solid red;
+
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+            :root {
+                --primary-color: #2015ea;
+                --primary-color-light: #6861f1;
+                --secondary-color: #c0dbea;
+                --text-dark: #020617;
+                --text-light: #94a3b8;
+                --white: #ffffff;
+                --max-width: 1200px;
             }
-            #email-error{
-                display: none !important;
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
             }
+            body {
+                font-family: "Poppins", sans-serif;
+            }
+            .container {
+                min-height: 100vh;
+                padding-inline: 1rem;
+                display: grid;
+                overflow: hidden;
+            }
+            .containerContent {
+                width: 100%;
+                padding-block: 2rem;
+                max-width: 400px;
+                margin-inline: auto;
+                margin-left: 20%;
+            }
+            .containerContent h3 {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: var(--text-dark);
+            }
+            .containerContent h1 {
+                margin-bottom: 1rem;
+                font-size: 3rem;
+                font-weight: 600;
+                color: var(--text-dark);
+            }
+            .containerContent form {
+                display: grid;
+                gap: 5px;
+            }
+            .containerContent label {
+                font-size: 0.9rem;
+                color: var(--text-dark);
+            }
+            .inputRow {
+                margin-bottom: 1rem;
+                width: 100%;
+                padding: 0.75rem 1rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                background-color: #CADDFE;
+                border-radius: 5px;
+            }
+            .containerContent input {
+                outline: none;
+                border: none;
+                font-size: 1rem;
+                color: var(--text-dark);
+                background-color: transparent;
+            }
+            .containerContent input::placeholder {
+                color: var(--text-dark);
+            }
+            #password-eye {
+                color: var(--primary-color);
+            }
+            .inputFP {
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+            .inputFP a {
+                font-size: 0.9rem;
+                color: var(--text-light);
+                text-decoration: none;
+                transition: 0.3s;
+            }
+            .inputFP a:hover {
+                color: var(--text-dark);
+            }
+            .containerContent button {
+                max-width: 80%;
+                margin-left: 10%;
+                margin-block: 1rem 2rem;
+                padding: 0.75rem 2rem;
+                outline: none;
+                border: none;
+                font-size: 1rem;
+                color: var(--white);
+                background-color: var(--primary-color);
+                border-radius: 5rem;
+            }
+            .containerContent button:hover {
+                background-color: var(--primary-color-light);
+            }
+            .containerContent h6 {
+                margin-bottom: 2rem;
+                font-size: 1rem;
+                font-weight: 400;
+                color: var(--text-dark);
+                text-align: center;
+            }
+            .logins {
+                margin-bottom: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+            }
+            .logins a {
+                padding: 0.5rem 2.5rem;
+                border: 2px solid var(--text-dark);
+                border-radius: 5rem;
+            }
+            .logins a:hover {
+                background: var(--secondary-color);
+                border: 2px solid var(--primary-color);
+            }
+            .logins img {
+                display: flex;
+                max-width: 20px;
+            }
+            .containerContent p {
+                color: var(--text-light);
+                text-align: center;
+                font-size: smaller;
+            }
+            .containerContent p a {
+                text-decoration: none;
+                font-weight: 500;
+                color: var(--primary-color);
+            }
+            .containerImg {
+                position: relative;
+                isolation: isolate;
+                display: grid;
+            }
+            .containerImg::before {
+                position: absolute;
+                content: "";
+                top: 0;
+                right: 5em;
+                height: 90%;
+                width: 100%;
+                background-color: #CADDFE;
+                border-top-right-radius: 2rem;
+                border-bottom-right-radius: 2rem;
+                z-index: -1;
+                margin-left: 7%;
+                margin-top: 5%;
+            }
+            .containerImg img {
+                width: 80%;
+                max-width: 100%;
+                align-self:center;
+                margin-left: 45%;
+                filter: drop-shadow(0 0 5px rgb(102, 102, 231));
+                image-rendering: pixelated;
+            }
+            .container-fluid{
+                display: flex;
+            }
+            .eye{
+                width: 100%;
+            }
+            @media (width : 768px) {
+                .container {
+                    grid-template-columns:
+                        minmax(1rem, 1fr) minmax(0, calc(var(--max-width) / 2)) minmax(0, calc(var(--max-width) / 2)) minmax(1rem, 1fr);
+                }
+                .containerContent {
+                    margin-inline-start: unset;
+                    grid-area: 1/2/2/3;
+                    align-self: center;
+                }
+                .containerImg {
+                    padding-block: 2rem;
+                    grid-area: 1/3/2/4;
+                }
+            }
+
+            /*
+            .forever{
+                display:flex;
+                justify-content: space-between;
+            }
+            .container-fluid{
+                margin-top: 30px;
+            } */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .animate-page {
+                animation: fadeInUp 3s ease-out;
+            }
+            /*phone validation*/
+
         </style>
+
     </head>
 
-
     <body>
-
-
-        <!-- Navbar-->
-        <!-- <header class="header">
-            <nav class="navbar navbar-expand-lg navbar-light py-3">
-                <div class="container">
-                    <a href="#" class="navbar-brand">
-                        <img src="https://bootstrapious.com/i/snippets/sn-registeration/logo.svg" alt="logo" width="150">
-                    </a>
-                </div>
-            </nav>
-        </header> -->
-
-
-        <div class="container">
-
-            <div class="row py-5 mt-4 align-items-center">
-                <!-- For Demo Purpose -->
-
-                <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
-
-                    <img src="images/anh4.png" alt="" class="img-fluid mb-3 d-none d-md-block">
-                    <!-- <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
-                    <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
-                        <u>Bootstrapious</u></a>
-                    </p> -->
-                    <h2 style="text-align: center; color: black;">Create an Account</h2>
-
-                </div>
-
-                <!-- Registeration Form -->
-                <div class="col-md-7 col-lg-6 ml-auto">
-                     <form action="register" method="POST" id="aa">
-                        <div class="row">
-
-                            <!-- First Name -->
-                            <div class="input-group col-lg-6 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-user text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md">
-                            </div>
-
-                            <!-- Last Name -->
-                            <div class="input-group col-lg-6 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-user text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md">
-                            </div>
-
-                            <!-- Gender -->
-                            <div class="input-group col-lg-6 mb-4">
-                                <div class="input-group-prepend" style="width: 100%">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-user text-muted"></i>
-                                    </span>
-                                    <select id="gender" name="gender" class="custom-select form-control bg-white border-left-0 border-md">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Phone Number -->
-                            <div class="input-group col-lg-6 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-phone-square text-muted"></i>
-                                    </span>
-                                </div>
-
-                                <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3">
-                            </div>
-                            
-                            <!-- Email Address -->
-                            <div class="input-group col-lg-12 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-envelope text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
-                            </div>
-                            
-                            <!-- Date of Birth -->
-                            <div class="input-group col-lg-12 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-user text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="dob" type="date" name="dob" placeholder="Date of Birth" class="form-control bg-white border-left-0 border-md">
-                            </div>
-                            
-                            <!-- Address -->
-                            <div class="input-group col-lg-12 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-user text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="address" type="text" name="address" placeholder="Address" class="form-control bg-white border-left-0 border-md">
-                            </div>
-
-                            <!-- Image-->
-                            <div class="input-group col-lg-12 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-user text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="image" type="text" name="image" placeholder="Image" class="form-control bg-white border-left-0 border-md">
-                            </div>
-
-                            <!-- Username -->
-                            <div class="input-group col-lg-12 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-user text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="username" type="text" name="username" placeholder="Username" class="form-control bg-white border-left-0 border-md">
-                            </div>
-
-                            <!-- Password -->
-                            <div class="input-group col-lg-6 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-lock text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
-                            </div>
-
-                            <!-- Password Confirmation -->
-                            <div class="input-group col-lg-6 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                        <i class="fa fa-lock text-muted"></i>
-                                    </span>
-                                </div>
-                                <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
-                            </div>
-                            
-                            <div style="color: red; margin-left:30px; ">${info}</div><br>
-                            <!-- Submit Button -->
-                            <div class="form-group col-lg-12 mx-auto mb-0">
-                                <a href="#" class="">
-                                    <input type="submit" name="register-submit" id="register-submit" class="btn btn-primary btn-block py-2 font-weight-bold" value="Create your account" />
-                                </a>
-                            </div>
-
-                            <!-- Divider Text -->
-                            <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                                <div class="border-bottom w-100 ml-5"></div>
-                                <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
-                                <div class="border-bottom w-100 mr-5"></div>
-                            </div>
-
-                            <!-- Social Login -->
-                            <div class="form-group col-lg-12 mx-auto">
-                                <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
-                                    <i class="fa fa-facebook-f mr-2"></i>
-                                    <span class="font-weight-bold">Continue with Google</span>
-                                </a>
-
-                            </div>
-
-                            <!-- Already Registered -->
-                            <div class="text-center w-100">
-                                <p class="text-muted font-weight-bold">Already Registered? <a href="login.jsp" class="text-primary ml-2">Login</a></p>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
+        <div class="container-fluid">
+            <div class="containerImg col-md-6">
+                <img src="images/register.png" alt="header" />
             </div>
+            <div class="containerContent col-md-6">
+                <h3>Welcome to COLORBIKE</h3>
+                <h1>Register</h1>
+                <form action="register" method="post">
+                    <div class="inputRow">
+                        <input type="text" name="firstname" placeholder="Enter your FirstName" />
+                    </div>
+                    <div class="inputRow">
+                        <input type="text" name="lastname" placeholder="Enter your LastName" />
+                    </div>
+                    <select id="gender" name="gender" class="inputRow">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                    <div class="inputRow">
+                        <input type="text" name="phone" id="phone"
+                               placeholder="Enter your Phone Number" />                       
+                    </div>
+                    <div id="phone-error" style="color: red; margin-bottom: 1rem;"></div>
+
+                    <div class="inputRow">
+                        <input type="date" name="dob" placeholder="Enter your Data of birth" />
+                    </div>
+                    <div class="inputRow">
+                        <input type="text" name="address" placeholder="Enter your Address" />
+                    </div>
+                    <div class="inputRow">
+                        <input type="email" name="email" placeholder="Enter your Email" />
+                    </div>
+                    <div class="inputRow">
+                        <input type="text" name="username" placeholder="Enter your Username" />
+                    </div>
+                    <div class="inputRow">
+                        <input type="password" class="eye" name="password" id="password"
+                               value="" placeholder="Password" required/>
+                        <span id="password-eye-1"><i class="ri-eye-off-line"></i></span>
+                    </div>
+                    <div class="inputRow">
+                        <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation"
+                               value="" placeholder="Confirm Password" required/>
+                        <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
+                    </div>
+
+                    <div style="color: red; margin-left:30px; ">${info}</div><br>
+                    <button type="submit" name="register-submit" id="register-submit">Create new account</button>
+                </form>
+                <h6>Or continue with</h6>
+                <div class="logins">
+                    <a href="#"><img src="images/search.png" alt="google" /></a>
+                    <a href="#"><img src="images/github.png" alt="github" /></a>
+                    <a href="#"><img src="images/facebook.png"
+                                     alt="facebook" /></a>
+                </div>
+                <p>I have an account <a href="#">Log in</a></p>
+            </div>
+
         </div>
-        <script src="js/register.js"></script>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
-        <script src="vendor/jquery-steps/jquery.steps.min.js"></script>
-        <script src="vendor/minimalist-picker/dobpicker.js"></script>
-        <script src="vendor/nouislider/nouislider.min.js"></script>
-        <script src="vendor/wnumb/wNumb.js"></script>
+
         <script>
-            (function ($) {
-                var form = $("#aa");
-                form.validate({
-                    errorPlacement: function errorPlacement(error, element) {
-                        element.before(error);
-                    },
-                    rules: {
-                        email: {
-                            email: true
-                        }
-                        
-                    },
-                    onfocusout: function (element) {
-                        $(element).valid();
+            document.addEventListener("DOMContentLoaded", () => {
+                const togglePasswordVisibility = (inputId, iconId) => {
+                    const passwordInput = document.getElementById(inputId);
+                    const icon = document.getElementById(iconId).querySelector("i");
+                    const isVisible = icon.classList.contains("ri-eye-line");
+                    passwordInput.type = isVisible ? "password" : "text";
+                    icon.setAttribute("class", isVisible ? "ri-eye-off-line" : "ri-eye-line");
+                };
+
+                const passwordBtn1 = document.getElementById("password-eye-1");
+                const passwordBtn2 = document.getElementById("password-eye-2");
+
+                passwordBtn1.addEventListener("click", () => togglePasswordVisibility("password", "password-eye-1"));
+                passwordBtn2.addEventListener("click", () => togglePasswordVisibility("passwordConfirmation", "password-eye-2"));
+
+                //Phone Validation
+                const phoneInput = document.getElementById("phone");
+
+                phoneInput.addEventListener("blur", () => {
+                    const phoneValue = phoneInput.value.trim();
+                    const phonePattern = /^\d{10}$/;
+
+                    let phoneError = document.getElementById("phone-error");
+                    if (!phoneError) {
+                        phoneError = document.createElement("div");
+                        phoneError.id = "phone-error";
+                        phoneError.className = "error-message";
+                        phoneInput.parentElement.appendChild(phoneError);
+                    }
+
+                    if (phoneValue === "") {
+                        phoneError.textContent = "Please enter your phone number.";
+                        phoneError.style.display = "block";
+                        phoneInput.parentElement.classList.add("input-error");
+                    } else if (!phonePattern.test(phoneValue)) {
+                        phoneError.textContent = "Phone number must be exactly 10 digits.";
+                        phoneError.style.display = "block";
+                        phoneInput.parentElement.classList.add("input-error");
+                    } else {
+                        phoneError.style.display = "none";
+                        phoneInput.parentElement.classList.remove("input-error");
                     }
                 });
-            })(jQuery);
+
+                phoneInput.addEventListener("input", () => {
+                    const phoneError = document.getElementById("phone-error");
+                    if (phoneError) {
+                        phoneError.style.display = "none";
+                        phoneInput.parentElement.classList.remove("input-error");
+                    }
+                });
+            });
+
         </script>
+
+
     </body>
+
 </html>

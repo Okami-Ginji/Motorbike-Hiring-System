@@ -1,6 +1,7 @@
 
 package com.colorbike.dto;
 
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PriceList {
+
+public class PriceList implements Serializable{
     private int priceListId;
     private double dailyPriceForDay;
     private double dailyPriceForWeek;

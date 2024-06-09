@@ -39,7 +39,7 @@ public class MotorcycleServlet extends HttpServlet {
 
         List<Category> categories = categoryDAO.getAllCategory();
 //        List<Motorcycle> motorcycles = motorcycleDAO.getAll();
-        List<PriceList> priceLists = priceListDAO.getAllPricing();
+        List<PriceList> priceLists = priceListDAO.getAllPriceList();
 
         
         String indexPage = request.getParameter("index");

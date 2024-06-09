@@ -52,7 +52,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                         "    Model,\n" +
                         "    Image,\n" +
                         "    Description,\n" +
-                        "    [Min Age],\n" +
+                        "    [MinAge],\n" +
                         "    BrandID,\n" +
                         "    CategoryID,\n" +
                         "    PriceListID\n" +

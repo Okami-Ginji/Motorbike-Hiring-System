@@ -3,6 +3,7 @@
     Created on : May 25, 2024, 5:15:55?PM
     Author     : DiepTCNN
 --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/includes/header.jsp" />
@@ -21,22 +22,26 @@
                 <li class="nav-item"><a style="font-size: larger;" href="policies.jsp" class="nav-link">Policies&Terms</a>
                 </li>
                 <li class="nav-item"><a style="font-size: larger;" href="pricing.jsp" class="nav-link">Pricing</a></li>
-                <li class="nav-item"><a style="font-size: larger;" href="motorbikes.jsp" class="nav-link">Motorbikes</a></li>
-                <li class="nav-item"><a style="font-size: larger;" href="event" class="nav-link">Events</a></li>
+
+                <li class="nav-item"><a style="font-size: larger;" href="motorcycle" class="nav-link">Motorbikes</a></li>
+                <li class="nav-item"><a style="font-size: larger;" href="touristLocation" class="nav-link">Location</a></li>
+
                 <li class="nav-item"><a style="font-size: larger;" href="contact.jsp" class="nav-link">Contact</a></li>
-                 <c:if test="${sessionScope.account == null}">
+                    <c:if test="${sessionScope.account == null}">
                     <li class="nav-item"><a style="font-size: larger;" href="login.jsp" class="nav-link">Login</a></li>
                     </c:if>
                     <c:if test="${sessionScope.account != null}">
                     <div class="dropdown">
+
                         <a class="nav-item btn btn-outline-primary dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hello ${sessionScope.account.email}
+
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="myDropdown">
-                            
-                            <a class="dropdown-item" href="profileCustomer.jsp">Th�ng tin c� nh�n</a>
-                            <a class="dropdown-item" href="logout">Qu?n l� ??t xe</a>
-                            <a class="dropdown-item" href="logout">??ng xu?t</a>
+
+                            <a class="dropdown-item" href="profileCustomer.jsp">Thông tin cá nhân</a>
+                            <a class="dropdown-item" href="">Quản lý đặt hàng</a>
+                            <a class="dropdown-item" href="logout">Đăng xuất</a>
                         </div>
 
                     </div>
@@ -44,15 +49,11 @@
             </ul>
         </div>
     </div>
-    <script>
-        var dropdownMenu = document.getElementById('myDropdown');
-        window.addEventListener('click', function (event) {
-            if (!dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
-    </script>
+
     <style>
+        .emaildrop{
+            width: 90%;
+        }
         .dropdown{
             margin-top: 12px;
             color: white;
@@ -83,4 +84,12 @@
         }
     </style>
 </nav>
+<script>
+    var dropdownMenu = document.getElementById('myDropdown');
+    window.addEventListener('click', function (event) {
+        if (!dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+</script>
 <!-- END nav -->

@@ -6,6 +6,8 @@ package com.colorbike.dao;
 
 import com.colorbike.dto.Account;
 import com.colorbike.dto.Motorcycle;
+import com.colorbike.dto.PriceList;
+import com.colorbike.dto.SearchCriteria;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -40,7 +42,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         return instance;
     }
 
-    //Lấy tất cả các xe máy
+
     @Override
     public List<Motorcycle> getAll() {
         List<Motorcycle> list = new ArrayList<>();
@@ -52,12 +54,16 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    Model,\n"
                     + "    Image,\n"
                     + "    Description,\n"
-                    + "    [Min Age],\n"
+
+                    + "    [MinAge],\n"
+
                     + "    BrandID,\n"
                     + "    CategoryID,\n"
                     + "    PriceListID\n"
                     + "FROM \n"
+
                     + "    dbo.Motorcycle;";
+
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -81,7 +87,9 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    Model,\n"
                     + "    Image,\n"
                     + "    Description,\n"
-                    + "    [Min Age],\n"
+
+                    + "    [MinAge],\n"
+
                     + "    BrandID,\n"
                     + "    CategoryID,\n"
                     + "    PriceListID\n"
@@ -101,44 +109,60 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         return null;
     }
 
-    //liệt kê 5 xe máy được thuê nhiều nhất trong tháng
-    public List<Motorcycle> getTop5MotorcycleTheMostRental() {
-        List<Motorcycle> list = new ArrayList<>();
+
+    //đếm số lượn motorcycles trong database
+    public int getTotalMotorcycles() {
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT TOP 5\n"
-                    + "  m.MotorcycleID, m.Model, m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID, \n"
-                    + "  COUNT(m.MotorcycleID) AS totalRent\n"
-                    + "FROM Motorcycle m\n"
-                    + "INNER JOIN [Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n"
-                    + "INNER JOIN [Booking Detail] bd ON md.MotorcycleDetailID = bd.MotorcycleDetailID\n"
-                    + "INNER JOIN Booking b ON bd.BookingID = b.BookingID\n"
-                    + "WHERE MONTH(b.bookingDate) = MONTH(GETDATE())  \n"
-                    + "GROUP BY m.MotorcycleID, m.Model, m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID\n"
-                    + "ORDER BY totalRent DESC";
+            String sql = "select COUNT(*) from Motorcycle;";
             stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    public List<Motorcycle> pagingMotorcycles(int index) {
+        PreparedStatement stm;
+        ResultSet rs;
+        List<Motorcycle> list = new ArrayList<>();
+        try {
+            String sql = "Select * from [Motorcycle]\n"
+                    + "ORDER BY MotorcycleID\n"
+                    + "                    OFFSET ? ROWS FETCH NEXT 9 ROW ONLY;";
+            stm = conn.prepareStatement(sql);
+            stm.setInt(1, (index - 1) * 9);
+
             rs = stm.executeQuery();
             while (rs.next()) {
                 list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
                         rs.getInt(8)));
             }
+
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+
         }
         return list;
     }
     
     //Tìm kiếm xe theo tên
-    public List<Motorcycle> searchMotorcycleByName(String key) {
+    public List<Motorcycle> searchAndPagingMotorcyclesByName(String key, int index) {
         List<Motorcycle> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT * FROM Motorcycle WHERE Model LIKE ?";
+             String sql = "Select * from [Motorcycle] WHERE Model LIKE ?\n"
+                    + "ORDER BY MotorcycleID\n"
+                    + "                    OFFSET ? ROWS FETCH NEXT 9 ROW ONLY;";
             stm = conn.prepareStatement(sql);
             stm.setString(1, "%" + key + "%");
+            stm.setInt(2, (index - 1) * 9);
             rs = stm.executeQuery();
             while (rs.next()) {
                 list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
@@ -152,16 +176,15 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
     }
     
     //Thanh lọc (giá, hãng, loại, phân khối, nhu cầu) 
-    public List<Motorcycle> searchMotorcycleByCriteria() {
+    public List<Motorcycle> searchMotorcycleByCriteria(SearchCriteria criteria) {
         List<Motorcycle> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
             StringBuilder sql = new StringBuilder("SELECT * FROM Motorcycle WHERE 1=1");
-            stm = conn.prepareStatement(sql.toString());
             
         } catch (Exception ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MotorcycleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
@@ -202,10 +225,9 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 //        for (Motorcycle x : list) {
 //            System.out.println(x);
 //        }
-        List<Motorcycle> list = dao.searchMotorcycleByName("maha");
+        List<Motorcycle> list = dao.searchAndPagingMotorcyclesByName("maha", 1);
         for (Motorcycle x : list) {
             System.out.println(x);
         }
     }
-
 }

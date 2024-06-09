@@ -4,6 +4,7 @@
     Author     : DiepTCNN
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,12 +14,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="colorlib.com">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sign Up Form</title>
+        <title>Booking Form</title>
 
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
-
+<!--        
+        <link href="assets/bootstrap.min.css" rel="stylesheet"/>
+         Custom styles for this template 
+        <link href="assets/jumbotron-narrow.css" rel="stylesheet">      -->
+        <script src="assets/jquery-1.11.3.min.js"></script>
+        
         <!-- Main css -->
         <style>
             /* @extend display-flex; */
@@ -877,7 +883,7 @@
                 background-color: #f9f9f9;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 width: 92%;
-                height: 11%;
+                height: 20px;
             }
 
             .checkbox-container input[type="checkbox"] {
@@ -897,7 +903,8 @@
             }
 
             .form-check-select {
-                width: 25%;
+                text-align: center;
+                width: 28%;
                 height: 110%;
                 margin-right: 6px;
             }
@@ -922,10 +929,11 @@
             }
 
             .form-comf-70 {
-                display: inline-block;
+                display: inline-flex;
                 width: 65%;
                 flex-wrap: wrap;
                 gap: 20px;
+                justify-content: space-between;
             }
 
             .form-comf-30 {
@@ -948,6 +956,7 @@
 
             .form-img-bike img {
                 width: 100%;
+                height: 100%;
             }
 
             .item-total {
@@ -973,7 +982,8 @@
                 font-size: 20px;
                 font-weight: unset;
                 margin: 0;
-                display: inline-block;
+/*                display: inline-block;*/
+                display: none;
             }
 
             .price-note {
@@ -983,25 +993,64 @@
             }
 
             .rent-button {
-                background-color: #28a745;
-                color: black;
-                border: none;
-                padding: 15px 20px;
-                font-size: 1em;
-                font-weight: bold;
-                cursor: pointer;
-                border-radius: 2px;
+            width: 92%; 
+            display: flex;
+            border: inset 5px;
+            border-radius: 5px;
+/*            padding: 2px;*/
             }
 
-            .rent-button:hover {
-                background-color: #454545;
-                color: white;
-            }
+            /*            .rent-button:hover {
+                            background-color: #454545;
+                            color: white;
+                        }*/
 
             .hidden-next {
                 display: block;
             }
+            
+            .quantity-container {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                
+/*                justify-content: space-around;*/
+                
+            }
 
+            .buttonMotor {
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+/*                border-radius: 50%; */
+/*                border-radius: 5px;*/
+                color:white; 
+                border-style: none;
+            }
+            
+            #plus{
+                background: black;
+                height: 20px;
+                width: 100%;
+                border-bottom: solid;
+            }
+            #minus{
+                background: black;
+                height: 20px;
+                width: 100%
+            }
+            #clear{
+                background: red;
+                height: 40px;
+                width: 15%;
+            }
+
+            .quantity-container input {
+                width: 65%;
+                text-align: center;
+                border-style: none;
+                height: 40px;
+            }
             /*# sourceMappingURL=style.css.map */
         </style>
     </head>
@@ -1009,9 +1058,9 @@
     <body>
         <div class="main">
             <div class="container">
-                <form method="POST" id="signup-form" class="signup-form" action="#">
-                    <div>
-
+                <form method="POST" id="signup-form" class="signup-form" action="bookinghander">
+                    <div >
+                        
                         <h3>Dates</h3>
                         <fieldset>
                             <h2>Connect Bank Account</h2>
@@ -1020,19 +1069,19 @@
                                 <div class="form-flex">
                                     <div class="form-group">
                                         <label for="pickupdate" class="form-label">Pickup Date</label>
-                                        <input type="date" name="pickupdate" id="pickupdate" />
+                                        <input type="date" name="pickupdate" id="pickupdate" value="2024-03-23" />
                                     </div>
                                     <div class="form-group">
                                         <label for="pickuptime" class="form-label">Pickup Time</label>
-                                        <input type="time" name="pickuptime" id="pickuptime" />
+                                        <input type="time" name="pickuptime" id="pickuptime"  value="09:44"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="returndate" class="form-label">Return Date</label>
-                                        <input type="date" name="returndate" id="returndate" />
+                                        <input type="date" name="returndate" id="returndate" value="2024-03-23"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="returntime" class="form-label">Return Time</label>
-                                        <input type="time" name="returntime" id="returntime" />
+                                        <input type="time" name="returntime" id="returntime" value="09:44"/>
                                     </div>
                                 </div>
                             </div>
@@ -1064,12 +1113,13 @@
                         <fieldset>
                             <h2>SELECTED MOTORBIKE CLASS</h2>
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+                            
                             <div class="fieldset-content">
-                                <div class="scrollable-vertical">
+                                <div class="scrollable-vertical" id="motorcyclelist">
                                     <c:forEach items="${listM}" var="o">
                                         <div class="form-box">
                                             <div class="form-img-bike">
-                                                <label for="body-bg"><img src="${o.image}" alt=""></label>
+                                                <label style="width: 100%" for="body-bg"><img src="images/${o.image}" alt=""></label>
                                             </div>
                                             <div class="form-text">
                                                 <h4>${o.model}</h4>
@@ -1077,109 +1127,35 @@
                                                     ${o.description}
                                                 </div>
                                             </div>
-                                            <div class="price-container">
-                                                <h2 class="main-price">₫250.000/Day</h2>
-                                                <p class="price-note">Không bao gồm thuế và bảo hiểm</p>
-                                                <a class="rent-button">Rent this Motorbike</a>
+                                            <div class="form-check"> 
+                                                <c:forEach items="${listP}" var="p">
+                                                    <c:if test="${p.priceListId eq o.priceListID}">
+                                                        <h2 class="main-price price-day" >₫${p.dailyPriceForDay}00/Day</h2>
+                                                        <h2 class="main-price price-week" >₫${p.dailyPriceForWeek}00/Day</h2>
+                                                        <h2 class="main-price price-month" >₫${p.dailyPriceForMonth}00/Day</h2>
+                                                    </c:if>
+                                                </c:forEach>                                             
+                                                <p class="price-note">Không bao gồm thuế và bảo hiểm</p>                                                    
+                                                <div class="rent-button">
+                                                    <input style="display: none" type="checkbox"  id="daily-checkbox-${o.motorcycleId}" class="option-checkbox">
+                                                    <div class="quantity-container" >   
+                                                        <div style="display: grid; width: 20%;">
+                                                            <button class="buttonMotor" id="plus" type="button" onclick="incrementQuantity('${o.motorcycleId}')">+</button>
+                                                            <button class="buttonMotor" id="minus" type="button" onclick="decrementQuantity('${o.motorcycleId}')">-</button>
+                                                        </div>
+                                                        
+                                                            <input class="form-number-bike" type="number" id="daily-quantity-${o.motorcycleId}" value="0" min="0" readonly>
+                                                        
+                                                        <button class="buttonMotor" id="clear" type="button" onclick="clearQuantity('${o.motorcycleId}')">x</button>
+                                                    </div>
+                                                    
+                                                       
+                                                </div>
+<!--                                                    <label for="daily-checkbox">₫250.000/Day</label>-->
                                             </div>
+                                                           
                                         </div>
-                                    </c:forEach>
-<!--                                    <div class="form-box">
-                                        <div class="form-img-bike">
-                                            <label for="body-bg"><img src="images/xe2.png" alt=""></label>
-                                        </div>
-                                        <div class="form-text">
-                                            <h4>Honda Air Blade 125cc</h4>
-                                            <div class="form-doc" style="box-sizing: border-box;">
-                                                <p class="text-period">Lưu ý: Mầu sắc có thể khác nhau nhưng kiểu dáng xe giống như hình minh họa.
-                                                </p>
-                                                <ul>
-                                                    <li>Mũ bảo hiểm 1/2 đầu</li>
-                                                    <li>Áo mưa 1 lần</li>
-                                                    <li>Bảo hiểm xe máy</li>
-                                                    <li>Đăng ký xe photo</li>
-                                                    <li>Dịch vụ cứu hộ</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="price-container">
-                                            <h2 class="main-price">₫200.000/Day</h2>
-                                            <p class="price-note">Không bao gồm thuế và bảo hiểm</p>
-                                            <a class="rent-button">Rent this Motorbike</a>
-                                        </div>
-                                    </div>
-                                    <div class="form-box">
-                                        <div class="form-img-bike">
-                                            <label for="body-bg"><img src="images/xe3.png" alt=""></label>
-                                        </div>
-                                        <div class="form-text">
-                                            <h4>Yamaha Sirius 110cc</h4>
-                                            <div class="form-doc" style="box-sizing: border-box;">
-                                                <p class="text-period">Lưu ý: Mầu sắc có thể khác nhau nhưng kiểu dáng xe giống như hình minh họa.
-                                                </p>
-                                                <ul>
-                                                    <li>Mũ bảo hiểm 1/2 đầu</li>
-                                                    <li>Áo mưa 1 lần</li>
-                                                    <li>Bảo hiểm xe máy</li>
-                                                    <li>Đăng ký xe photo</li>
-                                                    <li>Dịch vụ cứu hộ</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="price-container">
-                                            <h2 class="main-price">₫130.000/Day</h2>
-                                            <p class="price-note">Không bao gồm thuế và bảo hiểm</p>
-                                            <a class="rent-button">Rent this Motorbike</a>
-                                        </div>
-                                    </div>
-                                    <div class="form-box">
-                                        <div class="form-img-bike">
-                                            <label for="body-bg"><img src="images/xe4.png" alt=""></label>
-                                        </div>
-                                        <div class="form-text">
-                                            <h4>Honda Vision 110cc</h4>
-                                            <div class="form-doc" style="box-sizing: border-box;">
-                                                <p class="text-period">Lưu ý: Mầu sắc có thể khác nhau nhưng kiểu dáng xe giống như hình minh họa.
-                                                </p>
-                                                <ul>
-                                                    <li>Mũ bảo hiểm 1/2 đầu</li>
-                                                    <li>Áo mưa 1 lần</li>
-                                                    <li>Bảo hiểm xe máy</li>
-                                                    <li>Đăng ký xe photo</li>
-                                                    <li>Dịch vụ cứu hộ</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="price-container">
-                                            <h2 class="main-price">₫180.000/Day</h2>
-                                            <p class="price-note">Không bao gồm thuế và bảo hiểm</p>
-                                            <a class="rent-button">Rent this Motorbike</a>
-                                        </div>
-                                    </div>
-                                    <div class="form-box">
-                                        <div class="form-img-bike">
-                                            <label for="body-bg"><img src="images/xe5.png" alt=""></label>
-                                        </div>
-                                        <div class="form-text">
-                                            <h4>Honda WinnerX 150cc</h4>
-                                            <div class="form-doc" style="box-sizing: border-box;">
-                                                <p class="text-period">Lưu ý: Mầu sắc có thể khác nhau nhưng kiểu dáng xe giống như hình minh họa.
-                                                </p>
-                                                <ul>
-                                                    <li>Mũ bảo hiểm 1/2 đầu</li>
-                                                    <li>Áo mưa 1 lần</li>
-                                                    <li>Bảo hiểm xe máy</li>
-                                                    <li>Đăng ký xe photo</li>
-                                                    <li>Dịch vụ cứu hộ</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="price-container">
-                                            <h2 class="main-price">₫300.000/Day</h2>
-                                            <p class="price-note">Không bao gồm thuế và bảo hiểm</p>
-                                            <a class="rent-button">Rent this Motorbike</a>
-                                        </div>
-                                    </div>-->
+                                    </c:forEach>                                  
                                 </div>
                             </div>
                         </fieldset>
@@ -1189,7 +1165,7 @@
                             <h2>PROTECTIONS & COVERAGES</h2>
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
                             <div class="scrollable-vertical" id="protection">
-                                <h4>SERVICES</h4>
+<!--                                <h4>SERVICES</h4>
                                 <div class="form-box">
                                     <div class="form-img">
                                         <label for="body-bg"><img src="images/body-bg.jpg" alt=""></label>
@@ -1245,93 +1221,36 @@
                                             <label for="daily-checkbox">₫50.000/Day</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
 
                                 <h4>EQUIPMENTS</h4>
-                                <div class="form-box">
-                                    <div class="form-img">
-                                        <label for="body-bg"><img src="images/mubaohiem.jpg" alt=""></label>
-                                    </div>
-                                    <div class="form-text">
-                                        <h4>Mũ bảo hiểm 3/4</h4>
-                                    </div>
-                                    <div class="form-check">
-                                        <div class="checkbox-container">
-                                            <input type="checkbox" id="daily-checkbox-3" class="option-checkbox">
-                                            <select class="form-check-select" id="daily-select-1">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
-                                            <label for="daily-checkbox">₫10.000/Day</label>
+                                <c:forEach items="${listA}" var="a">
+                                    <div class="form-box">
+                                        <div class="form-img">
+                                            <label for="body-bg"><img src="images/${a.accessoryImage}" alt=""></label>
+                                        </div>
+                                        <div class="form-text">
+                                            <h4>${a.accessoryName}</h4>
+                                            <div class="form-doc" style="box-sizing: border-box;">
+                                                ${a.accessoryDescription};
+                                            </div>
+                                        </div>
+                                        <div class="form-check">
+                                            <div class="checkbox-container">
+                                                <input type="checkbox" id="daily-checkbox-${a.accessoryId}" class="option-checkbox">
+                                                <select class="form-check-select" id="daily-select-${a.accessoryId}">
+                                                </select>
+                                                <c:if test="${a.price eq 0}">
+                                                    <label for="daily-checkbox">Free</label>
+                                                </c:if>
+                                                <c:if test="${a.price ne 0}">
+                                                    <label for="daily-checkbox">₫${a.price}.000</label>
+                                                </c:if>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-box">
-                                    <div class="form-img">
-                                        <label for="body-bg"><img src="images/aophanquangthun1.png" alt=""></label>
-                                    </div>
-                                    <div class="form-text">
-                                        <h4>Dây đeo phản quang</h4>
-                                    </div>
-                                    <div class="form-check">
-                                        <div class="checkbox-container">
-                                            <input type="checkbox" id="daily-checkbox-4" class="option-checkbox">
-                                            <select class="form-check-select" id="daily-select-2">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
-                                            <label for="daily-checkbox">₫10.000/Day</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-box">
-                                    <div class="form-img">
-                                        <label for="body-bg"><img src="images/aomuagiay.png" alt=""></label>
-                                    </div>
-                                    <div class="form-text">
-                                        <h4>Áo mưa rời + nylon bọc giầy</h4>
-                                    </div>
-                                    <div class="form-check">
-                                        <div class="checkbox-container">
-                                            <input type="checkbox" id="daily-checkbox-5" class="option-checkbox">
-                                            <select class="form-check-select" id="daily-select-3">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
-                                            <label for="daily-checkbox">₫40.000/Day</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-box">
-                                    <div class="form-img">
-                                        <label for="body-bg"><img src="images/dungcuvaxe.png" alt=""></label>
-                                    </div>
-                                    <div class="form-text">
-                                        <h4>Dụng cụ vá xe</h4>
-                                    </div>
-                                    <div class="form-check">
-                                        <div class="checkbox-container">
-                                            <input type="checkbox" id="daily-checkbox-6" class="option-checkbox">
-                                            <label for="daily-checkbox">Free</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-box">
-                                    <div class="form-img">
-                                        <label for="body-bg"><img src="images/giakepdienthoai.png" alt=""></label>
-                                    </div>
-                                    <div class="form-text">
-                                        <h4>Giá đỡ điện thoại</h4>
-                                    </div>
-                                    <div class="form-check">
-                                        <div class="checkbox-container">
-                                            <input type="checkbox" id="daily-checkbox-7" class="option-checkbox">
-                                            <label for="daily-checkbox">Free</label>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                </c:forEach>                               
                             </div>
                         </fieldset>
 
@@ -1340,108 +1259,84 @@
                             <h2>Personal information</h2>
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
                             <div class="fieldset-content">
-                                <div class="form-row">
-                                    <div class="form-flex">
-                                        <div class="form-group">
-                                            <label class="form-label">First Name</label>
-                                            <input type="text" name="first_name" id="first_name" />
-                                            <span class="text-input">First</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Last Name</label>
-                                            <input type="text" name="last_name" id="last_name" />
-                                            <span class="text-input">Last</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-flex">
-                                        <div class="form-group">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" name="email" id="email" />
-                                            <span class="text-input">Example :<span> Jeff@gmail.com</span></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="phonenumber" class="form-label">Phone Numbers</label>
-                                            <input type="text" name="phonenumber" id="phonenumber" />
-                                            <span class="text-input">+84</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-flex">
-                                        <div class="form-group">
-                                            <label for="address" class="form-label">Address</label>
-                                            <input type="text" name="address" id="address" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="city" class="form-label">City/Province</label>
-                                            <input type="text" name="city" id="city" />
-                                            <span class="text-input">Da Nang</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-flex">
-                                        <div class="form-group">
-                                            <label for="birth_date" class="form-label">Birth Date</label>
-                                            <div class="form-date-group">
-                                                <div class="form-date-item">
-                                                    <select id="birth_date" name="birth_date"></select>
-                                                    <span class="text-input">DD</span>
-                                                </div>
-                                                <div class="form-date-item">
-                                                    <select id="birth_month" name="birth_month"></select>
-                                                    <span class="text-input">MM</span>
-                                                </div>
-                                                <div class="form-date-item">
-                                                    <select id="birth_year" name="birth_year"></select>
-                                                    <span class="text-input">YYYY</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="nationality" class="form-label">Nationality</label>
-                                            <input type="text" name="nationality" id="nationality" />
-                                            <span class="text-input">Viet Nam</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-flex">
-                                        <div class="form-group">
-                                            <label for="gender" class="form-label">Gender</label>
-                                            <div class="form-radio-group">
-                                                <label><input type="radio" name="gender" value="Unknown"> Unknown</label>
-                                                <label><input type="radio" name="gender" value="Male"> Male</label>
-                                                <label><input type="radio" name="gender" value="Female"> Female</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="note" class="form-label">Note</label>
-                                            <textarea name="note" id="note" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-enter">
+                                <c:if test="${not empty sessionScope.account}">
                                     <div class="form-row">
                                         <div class="form-flex">
-                                            <div class="form-group" style="width: 230%;">
-                                                <label for="drivernumber" class="form-label">Driver's License Number</label>
-                                                <input type="text" name="drivernumber" id="drivernumber" />
+                                            <div class="form-group">
+                                                <label class="form-label">First Name</label>
+                                                <input type="text" name="first_name" id="first_name" value="${account.firstName}" oninput="validateForm()"/>
+                                                <span class="text-input">First</span>
                                             </div>
                                             <div class="form-group">
-                                                <label for="issuedon" class="form-label">Issued On</label>
-                                                <input type="date" name="issuedon" id="issuedon" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="expdate" class="form-label">Exp. Date</label>
-                                                <input type="date" name="expdate" id="expdate" />
+                                                <label class="form-label">Last Name</label>
+                                                <input type="text" name="last_name" id="last_name" value="${account.lastName}" oninput="validateForm()"/>
+                                                <span class="text-input">Last</span>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="form-row">
+                                        <div class="form-flex">
+                                            <div class="form-group">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" name="email" id="email" value="${account.email}" oninput="validateForm()"/>
+                                                <span class="text-input">Example :<span> Jeff@gmail.com</span></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phonenumber" class="form-label">Phone Numbers</label>
+                                                <input type="text" name="phonenumber" id="phonenumber" value="${account.phoneNumber}" oninput="validateForm()"/>
+                                                <span class="text-input">+84</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-flex">
+                                            <div class="form-group">
+                                                <label for="address" class="form-label">Address</label>
+                                                <input type="text" name="address" id="address" value="${account.address}" oninput="validateForm()"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-flex">
+                                                    <div class="form-group">
+                                                         <label for="birth_date" class="form-label">Birth Date</label>
+                                                         <input type="date" name="dob" id="dob" value="${account.dob}" oninput="validateForm()"/>
+                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="gender" class="form-label">Gender</label>
+                                                        <div class="form-radio-group">                                                       
+                                                            <label><input type="radio" name="gender" value="Male" ${account.gender == 'Nam' ? 'checked' : ''}> Male</label>
+                                                            <label><input type="radio" name="gender" value="Female" ${account.gender == 'Nữ' ? 'checked' : ''}> Female</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-enter">
+                                        <div class="form-row">
+                                            <div class="form-flex">
+                                                <div class="form-group" style="width: 40%;">
+                                                    <label for="drivernumber" class="form-label">Driver's License Number</label>
+                                                    <input type="text" name="drivernumber" id="drivernumber" />
+                                                </div>
+                                                <div style="width: 30%; display: flex; padding-right: 40px">
+                                                    <div class="form-group" style="width: 50%">
+                                                        <label for="issuedon" class="form-label">Issued On</label>
+                                                        <input type="date" name="issuedon" id="issuedon" />
+                                                    </div>
+                                                    <div class="form-group" style="width: 50%">
+                                                        <label for="expdate" class="form-label">Exp. Date</label>
+                                                        <input type="date" name="expdate" id="expdate" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" style="width: 30%">
+                                                    <label for="expdate" class="form-label">Image</label>
+                                                    <input style="padding: 0" type="file" name="image" id="image" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:if>
                             </div>
                         </fieldset>
 
@@ -1509,10 +1404,6 @@
                                                 <p id="addresstext"> </p>
                                             </div>
                                             <div class="form-comf-text">
-                                                <label for="birthdaytext" class="form-label">Birthday</label>
-                                                <p id="birthdaytext"> </p>
-                                            </div>
-                                            <div class="form-comf-text">
                                                 <label for="gendertext" class="form-label">Gender</label>
                                                 <p id="gendertext"> </p>
                                             </div>
@@ -1527,12 +1418,8 @@
                                                 <p id="phonetext"> </p>
                                             </div>
                                             <div class="form-comf-text">
-                                                <label for="citytext" class="form-label">City/Province</label>
-                                                <p id="citytext"> </p>
-                                            </div>
-                                            <div class="form-comf-text">
-                                                <label for="nationalitytext" class="form-label">Nationality</label>
-                                                <p id="nationalitytext"> </p>
+                                                <label for="birthdaytext" class="form-label">Birthday</label>
+                                                <p id="birthdaytext"> </p>
                                             </div>
                                             <div class="form-comf-text">
                                                 <label for="notetext" class="form-label">Note</label>
@@ -1547,7 +1434,7 @@
                                     </div>
                                     <div class="form-check">
                                         <div class="checkbox-container">
-                                            <input type="checkbox" id="daily-checkbox">
+                                            <input type="checkbox" id="daily-checkbox-term">
                                             <label for="daily-checkbox">Term and conditions</label>
                                         </div>
                                     </div>
@@ -1561,62 +1448,9 @@
                         <fieldset>
                             <h2>Connect Bank Account</h2>
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
-                            <div class="fieldset-content">
-                                <div class="form-group">
-                                    <label for="find_bank" class="form-label">Find Your Bank</label>
-                                    <div class="form-find">
-                                        <input type="text" name="find_bank" id="find_bank" placeholder="Ex. Techcombank" />
-                                        <input type="submit" value="Search" class="submit">
-                                        <span class="form-icon"><i class="zmdi zmdi-search"></i></span>
-                                    </div>
-                                </div>
-                                <div class="choose-bank">
-                                    <p class="choose-bank-desc">Or choose from these popular bank</p>
-                                    <div class="form-radio-flex">
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_1" value="bank_1" checked="checked" />
-                                            <label for="bank_1"><img src="images/bank-1.jpg" alt=""></label>
-                                        </div>
-
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_2" value="bank_2" />
-                                            <label for="bank_2"><img src="images/bank-2.jpg" alt=""></label>
-                                        </div>
-
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_3" value="bank_3" />
-                                            <label for="bank_3"><img src="images/bank-3.jpg" alt=""></label>
-                                        </div>
-
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_4" value="bank_4" />
-                                            <label for="bank_4"><img src="images/bank-4.jpg" alt=""></label>
-                                        </div>
-
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_5" value="bank_5" />
-                                            <label for="bank_5"><img src="images/bank-5.jpg" alt=""></label>
-                                        </div>
-
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_6" value="bank_6" />
-                                            <label for="bank_6"><img src="images/bank-6.jpg" alt=""></label>
-                                        </div>
-
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_7" value="bank_7" />
-                                            <label for="bank_7"><img src="images/bank-7.jpg" alt=""></label>
-                                        </div>
-
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="choose_bank" id="bank_8" value="bank_8" />
-                                            <label for="bank_8"><img src="images/bank-8.jpg" alt=""></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 1000px;"></iframe>
+                            
                         </fieldset>
-
                     </div>
                 </form>
             </div>
@@ -1693,31 +1527,30 @@
                         return form.valid();
                     },
                     onFinished: function (event, currentIndex) {
-                        alert('Submited');
+                        
+                        var formData = form.serialize();
+                      
+                        $.ajax({
+                        url: 'forgotPassword', // Replace with your servlet URL
+                        type: 'POST',
+                        data: formData,
+                       
+                        success: function (response) {
+                            // Handle success
+                            alert('Submitted successfully');
+                            console.log(response);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            // Handle error
+                            alert('Submission failed');
+                            console.error(textStatus, errorThrown);
+                        }
+                    });
                     },
                     onStepChanged: function (event, currentIndex, priorIndex) {
 
                         var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
-
-                        if (currentIndex === 1) {
-                            if (nextButton) {
-                                nextButton.style.display = 'none';
-                            }
-                        } else {
-                            if (nextButton) {
-                                nextButton.style.display = '';
-                            }
-                        }
-
-                        if (currentIndex !== 4) {
-                            nextButton.style.pointerEvents = 'auto';
-                            nextButton.style.color = 'white';
-                            nextButton.style.background = '#4966b1';
-                        }
-
-                        if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
-                            // Lấy dữ liệu đã lưu từ localStorage và thêm lại vào savedItemsContainer
-                            storedFormData = {
+                        storedFormData = {
                                 pickupdate: document.getElementById('pickupdate').value,
                                 pickuptime: document.getElementById('pickuptime').value,
                                 returndate: document.getElementById('returndate').value,
@@ -1725,6 +1558,146 @@
                                 pickuplocation: document.getElementById('pickuplocation').value,
                                 returnlocation: document.getElementById('returnlocation').value
                             };
+                        const pickupDateText = storedFormData.pickupdate;
+                        const returnDateText = storedFormData.returndate;
+
+                        // Chuyển các chuỗi ngày thành đối tượng Date
+                        const pickupDate = new Date(pickupDateText);
+                        const returnDate = new Date(returnDateText);
+
+                        // Tính số ngày chênh lệch
+                        const differenceInTime = returnDate.getTime() - pickupDate.getTime();
+                        const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+                            
+                        if(currentIndex === 0){
+                            nextButton.style.pointerEvents = 'auto';
+                            nextButton.style.color = 'white';
+                            nextButton.style.background = '#4966b1';
+                        }
+                        if (currentIndex === 1) {
+                            nextButton.style.pointerEvents = 'none';
+                            nextButton.style.background = '#e8e8e8';
+                            nextButton.style.color = '#999';
+                            toggleBikeNextButton(); 
+                            
+                            changePrice();
+                           
+                       }
+                       if(currentIndex === 5){
+                            // Lấy thẻ h2
+                            const dataH2 = document.getElementById('dataInput');
+
+                            // Lấy iframe
+                            const iframe = document.getElementById('myIframe');
+
+                            // Truyền dữ liệu từ thẻ h2 vào iframe khi thẻ h2 thay đổi
+                            const sendDataToIframe = () => {
+                                // Lấy giá trị của thẻ h2
+                                const data = dataH2.textContent.replace(/[₫,]/g, '').trim();
+                                console.log(data);
+
+                                // Truyền giá trị vào iframe
+                                iframe.contentWindow.postMessage(data, '*');
+                            };
+
+                            // Gọi hàm để gửi dữ liệu ngay khi tải trang
+                            sendDataToIframe();
+
+                            // Theo dõi sự thay đổi của thẻ h2 và gửi dữ liệu vào iframe
+                            const observer = new MutationObserver(sendDataToIframe);
+
+                            observer.observe(dataH2, { childList: true, subtree: true });
+                       }
+                       
+                       function changePrice(){
+                            var quantityDay = Math.max(1, Math.ceil(differenceInDays));
+                            const priceDayElements = document.querySelectorAll('.price-day');
+                            const priceWeekElements = document.querySelectorAll('.price-week');
+                            const priceMonthElements = document.querySelectorAll('.price-month');
+                            
+                            priceDayElements.forEach(element => {
+                                   element.style.display = "none";
+                                   element.classList.remove("price-current");
+                            });
+                            priceWeekElements.forEach(element => {
+                                element.style.display = "none";
+                                element.classList.remove("price-current");
+                            });
+                            priceMonthElements.forEach(element => {
+                               element.style.display = "none";
+                               element.classList.remove("price-current");
+                            });
+                            
+                            console.log(differenceInDays);
+                            
+                            if(quantityDay >= 1 && quantityDay <= 7){
+                                
+                                priceDayElements.forEach(element => {
+                                   element.style.display = "inline-block";
+                                   element.classList.add("price-current");
+                                });
+                            }
+                            else if(quantityDay >= 8 && quantityDay <= 30){
+                                
+                                priceWeekElements.forEach(element => {
+                                   element.style.display = "inline-block";
+                                   element.classList.add("price-current");
+                                });
+                            }
+                            else if(quantityDay >= 30){
+                                
+                                priceMonthElements.forEach(element => {
+                                   element.style.display = "inline-block";
+                                   element.classList.add("price-current");
+                                });
+                            }
+                       }
+
+                        if (currentIndex === 3) {
+                            nextButton.style.pointerEvents = 'auto';
+                            nextButton.style.color = 'white';
+                            nextButton.style.background = '#4966b1';
+                        }
+                        
+                        if (currentIndex === 2) {
+                            let total = 0;
+                            const numberMotorStates = {};
+                            const checkboxMotorContainer = document.getElementById('motorcyclelist');
+                            // Lấy tất cả các checkbox trong div
+                            const checkMotorboxes = checkboxMotorContainer.querySelectorAll('.option-checkbox:checked');
+                            // Lặp qua từng checkbox và lấy thông tin
+                            checkMotorboxes.forEach(checkbox => {
+                                const formMotorBox = checkbox.closest('.form-box');
+                                if (formMotorBox) {                                    
+                                    const numbers = formMotorBox.querySelectorAll('.form-number-bike');
+                                    numbers.forEach(number => {
+                                        const value = parseInt(number.value, 10);
+                                        total += value; // Cộng dồn giá trị vào tổng
+                                    });
+                                }
+                            });
+                            // Hàm tạo các tùy chọn cho thẻ <select>
+                            function createOptions(selectElement, min, max) {
+                                selectElement.innerHTML = ''; // Xóa các tùy chọn cũ nếu có
+                                for (let i = min; i <= max; i++) {
+                                    const option = document.createElement('option');
+                                    option.value = i;
+                                    option.text = i;
+                                    selectElement.appendChild(option);
+                                }
+                            }
+
+                            // Đặt max và min cho các input có class 'form-check-select'
+                            document.querySelectorAll('.form-check-select').forEach(input => {
+                                const max = total * 2;
+                                const min = 1;
+                                createOptions(input, min, max);
+                            });
+                        }
+                        if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
+                            changePrice();
+                            // Lấy dữ liệu đã lưu từ localStorage và thêm lại vào savedItemsContainer
+                            
                             if (storedFormData) {
                                 document.getElementById('pickupdatetext').textContent = storedFormData.pickupdate;
                                 document.getElementById('pickuploctext').textContent = storedFormData.pickuplocation;
@@ -1734,6 +1707,43 @@
                                 document.getElementById('returntimetext').textContent = storedFormData.returntime;
                             }
 
+                            //Add motorcycle have chosen
+                            const savedBikeContainer = document.getElementById('savedBikeContainer');
+                            savedBikeContainer.innerHTML = '';
+
+                            const checkboxMotorStates = {};
+                            const numberMotorStates = {};
+
+
+                            const checkboxMotorContainer = document.getElementById('motorcyclelist');
+
+                            // Lấy tất cả các checkbox trong div
+                            const checkMotorboxes = checkboxMotorContainer.querySelectorAll('.option-checkbox:checked');
+
+                            // Lặp qua từng checkbox và lấy thông tin
+                            checkMotorboxes.forEach(checkbox => {
+                                checkboxMotorStates[checkbox.id] = checkbox.checked;
+                                const formMotorBox = checkbox.closest('.form-box');
+                                if (formMotorBox) {
+                                    savedBikeContainer.insertAdjacentHTML('beforeend', formMotorBox.outerHTML);
+                                    const numbers = formMotorBox.querySelectorAll('.form-number-bike');
+                                    numbers.forEach(number => {
+                                        numberMotorStates[number.id] = number.value;
+                                    });
+                                }
+                            });
+                            
+                            console.log("Checkbox States: ", numberMotorStates);
+                            if (numberMotorStates) {
+                                Object.keys(numberMotorStates).forEach(numberId => {
+                                    const number = document.querySelector(`#savedBikeContainer #` + numberId);
+                                    if (number) {
+                                        number.value = numberMotorStates[numberId];
+                                        number.disabled = true;
+                                    }
+                                });
+                            }
+                            //Add assecc item have chosen
                             const savedItemsContainer = document.getElementById('savedItemsContainer');
                             savedItemsContainer.innerHTML = ''; // Clear any previous 
 
@@ -1747,9 +1757,9 @@
                             const checkboxes = checkboxContainer.querySelectorAll('.option-checkbox:checked');
 
                             // Lặp qua từng checkbox và lấy thông tin
-                            checkboxes.forEach(checkbox => {
-                                checkboxStates[checkbox.id] = checkbox.checked;
-                                const formBox = checkbox.closest('.form-box');
+                            checkboxes.forEach(checkboxI => {
+                                checkboxStates[checkboxI.id] = checkboxI.checked;
+                                const formBox = checkboxI.closest('.form-box');
                                 if (formBox) {
                                     savedItemsContainer.insertAdjacentHTML('beforeend', formBox.outerHTML);
                                     const selects = formBox.querySelectorAll('.form-check-select');
@@ -1758,10 +1768,12 @@
                                     });
                                 }
                             });
-
+                            
+                            console.log("Checkbox States: ", checkboxStates);
+                            console.log("Select States: ", selectStates);
                             if (checkboxStates) {
                                 Object.keys(checkboxStates).forEach(checkboxId => {
-                                    const checkbox = document.querySelector(`#savedItemsContainer #${checkboxId}`);
+                                    const checkbox = document.querySelector(`#savedItemsContainer #` + checkboxId);
                                     if (checkbox) {
                                         checkbox.checked = checkboxStates[checkboxId];
                                         checkbox.disabled = true;
@@ -1771,27 +1783,22 @@
 
                             if (selectStates) {
                                 Object.keys(selectStates).forEach(selectId => {
-                                    const select = document.querySelector(`#savedItemsContainer #${selectId}`);
+                                    const select = document.querySelector(`#savedItemsContainer #` + selectId);
                                     if (select) {
                                         select.value = selectStates[selectId];
                                         select.disabled = true;
                                     }
                                 });
                             }
-
-                            const formData = {
+                            
+                            formData = {
                                 first_name: document.getElementById('first_name').value,
                                 last_name: document.getElementById('last_name').value,
                                 email: document.getElementById('email').value,
                                 phonenumber: document.getElementById('phonenumber').value,
-                                address: document.getElementById('address').value,
-                                city: document.getElementById('city').value,
-                                birth_month: document.getElementById('birth_month').value,
-                                birth_date: document.getElementById('birth_date').value,
-                                birth_year: document.getElementById('birth_year').value,
-                                nationality: document.getElementById('nationality').value,
+                                address: document.getElementById('address').value,                           
+                                dob: document.getElementById('dob').value,                          
                                 gender: document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '',
-                                note: document.getElementById('note').value
                             };
 
                             if (formData) {
@@ -1799,273 +1806,431 @@
                                 document.getElementById('lastnametext').textContent = formData.last_name;
                                 document.getElementById('emailaddresstext').textContent = formData.email;
                                 document.getElementById('phonetext').textContent = formData.phonenumber;
-                                document.getElementById('addresstext').textContent = formData.address;
-                                document.getElementById('citytext').textContent = formData.city;
-                                document.getElementById('birthdaytext').textContent = `${formData.birth_date}/${formData.birth_month}/${formData.birth_year}`;
-                                                        document.getElementById('nationalitytext').textContent = formData.nationality;
-                                                        document.getElementById('gendertext').textContent = formData.gender;
-                                                        document.getElementById('notetext').textContent = formData.note;
-                                                    }
+                                document.getElementById('addresstext').textContent = formData.address;                         
+                                document.getElementById('birthdaytext').textContent = formData.dob;    
+                                document.getElementById('gendertext').textContent = formData.gender;
+                            }
 
-                                                    // Thêm tiêu đề h4 và dữ liệu số lượng với giá tiền vào div cụ thể trong item-container
-                                                    const formBoxTotal = document.getElementById('form-box-total');
-                                                    formBoxTotal.innerHTML = '';
-                                                    let totalAmount = 0;
+                            // Thêm tiêu đề h4 và dữ liệu số lượng với giá tiền vào div cụ thể trong item-container
+                            const formBoxTotal = document.getElementById('form-box-total');
+                            formBoxTotal.innerHTML = '';
+                            let totalAmount = 0;
+                            //calculator motorcycles
+                            checkMotorboxes.forEach(checkbox => {
+                                checkboxStates[checkbox.id] = checkbox.checked;
+                                const formBox = checkbox.closest('.form-box');
+                                if (formBox) {
+                                    const selects = formBox.querySelectorAll('.form-check-select');
+                                    selects.forEach(select => {
+                                        selectStates[select.id] = select.value;
+                                    });
 
-                                                    const savedBike = document.getElementById('savedBikeContainer');
-                                                    const title = savedBike.querySelector('h4').textContent;
-                                                    const priceLabel = savedBike.querySelector('.main-price').textContent;
-                                                    let price = 0;
+                                    // Lấy nội dung từ thẻ h4 và label
+                                    const title = formBox.querySelector('h4').textContent;
+                                    const priceLabel = formBox.querySelector('.price-current').textContent;
+                                    const quantity = formBox.querySelector('.form-number-bike').value;
+                                    let price = 0;
 
-                                                    if (priceLabel.trim().toLowerCase() !== 'free') {
-                                                        price = parseInt(priceLabel.replace(/\D/g, ''), 10);
-                                                    }
+                                    if (priceLabel.trim().toLowerCase() !== 'free') {
+                                        price = parseInt(priceLabel.replace(/\D/g, ''), 10);
+                                    }
+                                    
+                                    
 
-                                                    // Calculate total price
-                                                    const pickupDateText = storedFormData.pickupdate;
-                                                    const returnDateText = storedFormData.returndate;
+                                    // Quantity là số ngày chênh lệch giữa ngày trả và ngày pickup
+                                    var quantityDay = Math.max(1, Math.ceil(differenceInDays)); // Đảm bảo quantity ít nhất là 1
+                                    // const quantity = 1;
+                 
+                                    // Tính tổng giá
+                                    const totalPrice = quantityDay * price * quantity;
+                                    totalAmount += totalPrice;
 
-                                                    // Chuyển các chuỗi ngày thành đối tượng Date
-                                                    const pickupDate = new Date(pickupDateText);
-                                                    const returnDate = new Date(returnDateText);
+                                    // Create new div elements similar to formBoxTotal structure
+                                    const itemContainer = document.createElement('div');
+                                    itemContainer.classList.add('item-container');
 
-                                                    // Tính số ngày chênh lệch
-                                                    const differenceInTime = returnDate.getTime() - pickupDate.getTime();
-                                                    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+                                    const formComf70 = document.createElement('div');
+                                    formComf70.classList.add('form-comf-70');
+                                    formComf70.innerHTML = `<h4 style=" width: 65%;">`+ title +`</h4>
+                                                            <h4>x`+ quantityDay + ` Days<h4>`;
 
-                                                    // Quantity là số ngày chênh lệch giữa ngày trả và ngày pickup
-                                                    const quantity = Math.max(1, Math.ceil(differenceInDays)); // Đảm bảo quantity ít nhất là 1
-                                                    // const quantity = 1;
+                                    const formComf30 = document.createElement('div');
+                                    formComf30.classList.add('form-comf-30');
+                                    formComf30.innerHTML = `
+                                        <div style="width= 30%; position: relative; right: 9px;">
+                                        <p>x`+ quantity + `</p>
+                                        </div>
+                                        <div style="width= 30%">
+                                        <p>` + priceLabel +`</p>
+                                        </div>
+                                        <div style="width= 30%">
+                                        <h4>₫` + totalPrice.toLocaleString() +`</h4>
+                                        </div>
+                                        `;
+                                    itemContainer.appendChild(formComf70);
+                                    itemContainer.appendChild(formComf30);
+                                    formBoxTotal.appendChild(itemContainer);
+                                }
+                            });    
+                            
+                            // Calculator items
+                            checkboxes.forEach(checkbox => {
+                                checkboxStates[checkbox.id] = checkbox.checked;
+                                const formBox = checkbox.closest('.form-box');
+                                if (formBox) {
+                                    const selects = formBox.querySelectorAll('.form-check-select');
+                                    selects.forEach(select => {
+                                        selectStates[select.id] = select.value;
+                                    });
 
-                                                    const totalPrice = quantity * price;
-                                                    totalAmount += totalPrice;
+                                    // Lấy nội dung từ thẻ h4 và label
+                                    const title = formBox.querySelector('h4').textContent;
+                                    const priceLabel = formBox.querySelector('label[for="daily-checkbox"]').textContent;
+                                    let price = 0;
 
-                                                    // Create new div elements similar to formBoxTotal structure
-                                                    const itemContainer = document.createElement('div');
-                                                    itemContainer.classList.add('item-container');
+                                    if (priceLabel.trim().toLowerCase() !== 'free') {
+                                        price = parseInt(priceLabel.replace(/\D/g, ''), 10);
+                                    }
 
-                                                    const formComf70 = document.createElement('div');
-                                                    formComf70.classList.add('form-comf-70');
-                                                    formComf70.innerHTML = `<h4>${title}</h4>`;
+                                    // Lấy số lượng từ thẻ select hoặc mặc định là 1
+                                    let quantity = 1;
+                                    const select = formBox.querySelector('select');
+                                    if (select) {
+                                        quantity = parseInt(select.value, 10) || 1;
+                                    }
 
-                                                    const formComf30 = document.createElement('div');
-                                                    formComf30.classList.add('form-comf-30');
-                                                    formComf30.innerHTML = `
-                              <div style="width= 30%; position: relative; right: 9px;">
-                                  <p>x${quantity} Days</p>
-                              </div>
-                              <div style="width= 30%">
-                                  <p>${priceLabel}</p>
-                              </div>
-                              <div style="width= 30%">
-                                  <h4>₫${totalPrice.toLocaleString()}</h4>
-                              </div>
-                          `;
+                                    // Tính tổng giá
+                                    const totalPrice = quantity * price;
+                                    totalAmount += totalPrice;
 
-                                                    itemContainer.appendChild(formComf70);
-                                                    itemContainer.appendChild(formComf30);
-                                                    formBoxTotal.appendChild(itemContainer);
+                                    // Tạo các thẻ div mới
+                                    const itemContainer = document.createElement('div');
+                                    itemContainer.classList.add('item-container');
 
+                                    const formComf70 = document.createElement('div');
+                                    formComf70.classList.add('form-comf-70');
+                                    formComf70.innerHTML = `<h4>` + title +`</h4>`;
 
-                                                    checkboxes.forEach(checkbox => {
-                                                        checkboxStates[checkbox.id] = checkbox.checked;
-                                                        const formBox = checkbox.closest('.form-box');
-                                                        if (formBox) {
-                                                            const selects = formBox.querySelectorAll('.form-check-select');
-                                                            selects.forEach(select => {
-                                                                selectStates[select.id] = select.value;
-                                                            });
+                                    const formComf30 = document.createElement('div');
+                                    formComf30.classList.add('form-comf-30');
+                                    formComf30.innerHTML = `
+                                        <div style="width= 30%">
+                                        <p>x`+ quantity +`</p>
+                                        </div>
+                                        <div style="width= 30%">
+                                        <p>` + priceLabel + `</p>
+                                        </div>
+                                        <div style="width= 30%">
+                                        <h4>₫` + totalPrice.toLocaleString() + `</h4>
+                                        </div>
+                                        `;
 
-                                                            // Lấy nội dung từ thẻ h4 và label
-                                                            const title = formBox.querySelector('h4').textContent;
-                                                            const priceLabel = formBox.querySelector('label[for="daily-checkbox"]').textContent;
-                                                            let price = 0;
+                                    itemContainer.appendChild(formComf70);
+                                    itemContainer.appendChild(formComf30);
+                                    formBoxTotal.appendChild(itemContainer);
+                                }
+                            });
+                            // Tạo thẻ div item-total và thêm vào cuối savedItemsContainer
+                            const itemTotalContainer = document.createElement('div');
+                            itemTotalContainer.classList.add('item-total');
+                            itemTotalContainer.innerHTML = `
+                                <h4>Total :</h4>
+                                <h2 id="dataInput">₫`+ totalAmount.toLocaleString() +`</h2>
+                                `;
+                            formBoxTotal.appendChild(itemTotalContainer);
 
-                                                            if (priceLabel.trim().toLowerCase() !== 'free') {
-                                                                price = parseInt(priceLabel.replace(/\D/g, ''), 10);
-                                                            }
+                            const checkbox = document.getElementById('daily-checkbox-term');
+                            nextButton.style.pointerEvents = 'none';
+                            nextButton.style.background = '#e8e8e8';
+                            nextButton.style.color = '#999';
+                            
+                            // Function to toggle the next button based on the checkbox state
+                            checkbox.addEventListener('change', toggleNextButton);
+                            // Initial check
+                            toggleNextButton();
+                            
+                             
+                        }
 
-                                                            // Lấy số lượng từ thẻ select hoặc mặc định là 1
-                                                            let quantity = 1;
-                                                            const select = formBox.querySelector('select');
-                                                            if (select) {
-                                                                quantity = parseInt(select.value, 10) || 1;
-                                                            }
-
-                                                            // Tính tổng giá
-                                                            const totalPrice = quantity * price;
-                                                            totalAmount += totalPrice;
-
-                                                            // Tạo các thẻ div mới
-                                                            const itemContainer = document.createElement('div');
-                                                            itemContainer.classList.add('item-container');
-
-                                                            const formComf70 = document.createElement('div');
-                                                            formComf70.classList.add('form-comf-70');
-                                                            formComf70.innerHTML = `<h4>${title}</h4>`;
-
-                                                            const formComf30 = document.createElement('div');
-                                                            formComf30.classList.add('form-comf-30');
-                                                            formComf30.innerHTML = `
-                                  <div style="width= 30%">
-                                      <p>x${quantity}</p>
-                                  </div>
-                                  <div style="width= 30%">
-                                      <p>${priceLabel}</p>
-                                  </div>
-                                  <div style="width= 30%">
-                                      <h4>₫${totalPrice.toLocaleString()}</h4>
-                                  </div>
-                                  `;
-
-                                                            itemContainer.appendChild(formComf70);
-                                                            itemContainer.appendChild(formComf30);
-                                                            formBoxTotal.appendChild(itemContainer);
-                                                        }
-                                                    });
-                                                    // Tạo thẻ div item-total và thêm vào cuối savedItemsContainer
-                                                    const itemTotalContainer = document.createElement('div');
-                                                    itemTotalContainer.classList.add('item-total');
-                                                    itemTotalContainer.innerHTML = `
-                              <h4>Total :</h4>
-                              <h2>₫${totalAmount.toLocaleString()}</h2>
-                          `;
-                                                    formBoxTotal.appendChild(itemTotalContainer);
-
-                                                    const checkbox = document.getElementById('daily-checkbox');
-                                                    nextButton.style.pointerEvents = 'none';
-                                                    nextButton.style.background = '#e8e8e8';
-                                                    nextButton.style.color = '#999';
-
-                                                    // Function to toggle the next button based on the checkbox state
-                                                    function toggleNextButton() {
-                                                        if (checkbox.checked) {
-                                                            nextButton.style.pointerEvents = 'auto';
-                                                            nextButton.style.color = 'white';
-                                                            nextButton.style.background = '#4966b1';
-                                                        } else {
-                                                            nextButton.style.pointerEvents = 'none';
-                                                            nextButton.style.background = '#e8e8e8';
-                                                            nextButton.style.color = '#999';
-                                                        }
-                                                    }
-
-                                                    // Add event listener to the checkbox to monitor changes
-                                                    checkbox.addEventListener('change', toggleNextButton);
-
-                                                    // Initial check
-                                                    toggleNextButton();
-                                                }
-
-
-                                                return true;
-                                            }
-
-
-                                        });
-
-                                        document.addEventListener('DOMContentLoaded', function () {
-                                            // Function to simulate clicking on the next button of the multi-step form
-                                            function goToNextStep() {
-                                                var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
-                                                if (nextButton) {
-                                                    nextButton.click();
-                                                }
-                                            }
-
-                                            // Get all elements with the class "rent-button"
-                                            var rentButtons = document.querySelectorAll('.rent-button');
-
-                                            // Add event listener to each "Rent this Motorbike" button
-                                            rentButtons.forEach(function (button) {
-                                                button.addEventListener('click', function () {
-                                                    var parentDiv = event.target.closest('.form-box');
-                                                    if (parentDiv) {
-                                                        var parentDivClone = parentDiv.cloneNode(true);
-                                                        var rentButtons = parentDivClone.querySelectorAll('.rent-button');
-                                                        rentButtons.forEach(function (rentButton) {
-                                                            rentButton.parentNode.removeChild(rentButton);
-                                                        });
-                                                        const savedBikeContainer = document.getElementById('savedBikeContainer');
-                                                        savedBikeContainer.innerHTML = '';
-                                                        if (savedBikeContainer) {
-                                                            // parentDiv.parentNode.insertBefore(savedBikeContainer, parentDiv);
-                                                            savedBikeContainer.appendChild(parentDivClone);
-                                                        }
-                                                        console.log(parentDiv);  // Here you can handle the parent div as needed
-                                                    }
-                                                    // Call the function to go to the next step
-                                                    goToNextStep();
-                                                });
-                                            });
-                                        });
+                        function toggleNextButton() {
+                               const checkbox =document.getElementById('daily-checkbox-term');
+                               if (checkbox.checked) {
+                                   nextButton.style.pointerEvents = 'auto';
+                                   nextButton.style.color = 'white';
+                                   nextButton.style.background = '#4966b1';
+                               } else {
+                                   nextButton.style.pointerEvents = 'none';
+                                   nextButton.style.background = '#e8e8e8';
+                                   nextButton.style.color = '#999';
+                               }
+                        }
+                        
+                        
+                        
+                        return true;
+                    }
 
 
+                });
+                jQuery.extend(jQuery.validator.messages, {
+                    required: "",
+                    remote: "",
+                    email: "",
+                    url: "",
+                    date: "",
+                    dateISO: "",
+                    number: "",
+                    digits: "",
+                    creditcard: "",
+                    equalTo: ""
+                });
 
+                $.dobPicker({
+                    daySelector: '#birth_date',
+                    monthSelector: '#birth_month',
+                    yearSelector: '#birth_year',
+                    dayDefault: '',
+                    monthDefault: '',
+                    yearDefault: '',
+                    minimumAge: 0,
+                    maximumAge: 120
+                });
+                var marginSlider = document.getElementById('slider-margin');
+                if (marginSlider != undefined) {
+                    noUiSlider.create(marginSlider, {
+                        start: [1100],
+                        step: 100,
+                        connect: [true, false],
+                        tooltips: [true],
+                        range: {
+                            'min': 100,
+                            'max': 2000
+                        },
+                        pips: {
+                            mode: 'values',
+                            values: [100, 2000],
+                            density: 4
+                        },
+                        format: wNumb({
+                            decimals: 0,
+                            thousand: '',
+                            prefix: '$ ',
+                        })
+                    });
+                    var marginMin = document.getElementById('value-lower'),
+                            marginMax = document.getElementById('value-upper');
 
-                                        jQuery.extend(jQuery.validator.messages, {
-                                            required: "",
-                                            remote: "",
-                                            email: "",
-                                            url: "",
-                                            date: "",
-                                            dateISO: "",
-                                            number: "",
-                                            digits: "",
-                                            creditcard: "",
-                                            equalTo: ""
-                                        });
-
-                                        $.dobPicker({
-                                            daySelector: '#birth_date',
-                                            monthSelector: '#birth_month',
-                                            yearSelector: '#birth_year',
-                                            dayDefault: '',
-                                            monthDefault: '',
-                                            yearDefault: '',
-                                            minimumAge: 0,
-                                            maximumAge: 120
-                                        });
-                                        var marginSlider = document.getElementById('slider-margin');
-                                        if (marginSlider != undefined) {
-                                            noUiSlider.create(marginSlider, {
-                                                start: [1100],
-                                                step: 100,
-                                                connect: [true, false],
-                                                tooltips: [true],
-                                                range: {
-                                                    'min': 100,
-                                                    'max': 2000
-                                                },
-                                                pips: {
-                                                    mode: 'values',
-                                                    values: [100, 2000],
-                                                    density: 4
-                                                },
-                                                format: wNumb({
-                                                    decimals: 0,
-                                                    thousand: '',
-                                                    prefix: '$ ',
-                                                })
-                                            });
-                                            var marginMin = document.getElementById('value-lower'),
-                                                    marginMax = document.getElementById('value-upper');
-
-                                            marginSlider.noUiSlider.on('update', function (values, handle) {
-                                                if (handle) {
-                                                    marginMax.innerHTML = values[handle];
-                                                } else {
-                                                    marginMin.innerHTML = values[handle];
-                                                }
-                                            });
-                                        }
+                    marginSlider.noUiSlider.on('update', function (values, handle) {
+                        if (handle) {
+                            marginMax.innerHTML = values[handle];
+                        } else {
+                            marginMin.innerHTML = values[handle];
+                        }
+                    });
+                }
 
 
 
 
 
-                                    })(jQuery);
+            })(jQuery);
+            
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                
+                
+                const requiredFields = [
+                    document.getElementById('pickupdate'),
+                    document.getElementById('pickuptime'),
+                    document.getElementById('returndate'),
+                    document.getElementById('returntime'),
+                    document.getElementById('pickuplocation'),
+                    document.getElementById('returnlocation')
+                ];
+                
+                
+                function checkFields() {
+                    var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
+                    const allFieldsFilled = requiredFields.every(field => field.value.trim() !== '');
+                    if (allFieldsFilled) {
+                        nextButton.style.pointerEvents = 'auto';
+                        nextButton.style.color = 'white';
+                        nextButton.style.background = '#4966b1';
+                    } else {
+                        nextButton.style.pointerEvents = 'none';
+                        nextButton.style.background = '#e8e8e8';
+                        nextButton.style.color = '#999';
+
+                         const currentStepIndex = 1;
+                         const steps = document.querySelectorAll('.wizard ul[role="tablist"] li');
+
+                         steps.forEach((step, index) => {
+                             console.log(index);
+                             if (index > currentStepIndex) {
+                                 step.classList.remove('done');
+                                 step.classList.add('disabled');
+                             }
+                         });
+                    }
+                }
+                
+                
+                requiredFields.forEach(field => {
+                    field.addEventListener('input', checkFields);
+                });
+                
+               
+                // Initial check in case some fields are pre-filled
+                checkFields();
+                
+            });
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                
+                storedFormData = {
+                        pickupdate: document.getElementById('pickupdate').value,                             
+                        returndate: document.getElementById('returndate').value                    
+                    };
+                const pickupDateText = storedFormData.pickupdate;
+                const returnDateText = storedFormData.returndate;
+                
+                
+                // Chuyển các chuỗi ngày thành đối tượng Date
+                const pickupDate = new Date(pickupDateText);
+                const returnDate = new Date(returnDateText);
+                
+                console.log(pickupDate);
+                console.log(returnDateText);
+                
+                // Tính số ngày chênh lệch
+                const differenceInTime = returnDate.getTime() - pickupDate.getTime();
+                const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+                
+                
+                
+            });
+            
+            function validateForm() {
+                const requiredFields = [
+                    document.getElementById('first_name'),
+                    document.getElementById('last_name'),
+                    document.getElementById('email'),
+                    document.getElementById('phonenumber'),
+                    document.getElementById('address'),
+                    document.getElementById('dob'),
+                    document.querySelector('input[name="gender"]:checked')
+                ];
+
+                const allFieldsFilled = requiredFields.every(field => field && field.value.trim() !== '');
+
+                var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
+                if (allFieldsFilled) {
+                    nextButton.disabled = false;
+                    nextButton.style.pointerEvents = 'auto';
+                    nextButton.style.color = 'white';
+                    nextButton.style.background = '#4966b1';
+                } else {
+                    nextButton.disabled = true;
+                    nextButton.style.pointerEvents = 'none';
+                    nextButton.style.background = '#e8e8e8';
+                    nextButton.style.color = '#999';
+                }
+            }
+
+            
+           function toggleBikeNextButton() {
+                var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
+                const checkboxMotorContainer = document.getElementById('motorcyclelist');
+                const checkboxes = checkboxMotorContainer.querySelectorAll('.option-checkbox');
+                let isAnyChecked = false;
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        isAnyChecked = true;
+                    }
+                });
+
+                if (isAnyChecked) {
+                    nextButton.style.pointerEvents = 'auto';
+                    nextButton.style.color = 'white';
+                    nextButton.style.background = '#4966b1';
+                } else {
+                    nextButton.style.pointerEvents = 'none';
+                    nextButton.style.background = '#e8e8e8';
+                    nextButton.style.color = '#999';
+
+                     const currentStepIndex = 1;
+                     const steps = document.querySelectorAll('.wizard ul[role="tablist"] li');
+
+                     steps.forEach((step, index) => {
+                       
+                         if (index > currentStepIndex) {
+                             step.classList.remove('done');
+                             step.classList.add('disabled');
+                         }
+                     });
+                }
+            }
+                            
+            function incrementQuantity(motorcycleId) {
+                var checkbox = document.getElementById('daily-checkbox-' + motorcycleId);
+                var quantityInput = document.getElementById('daily-quantity-' + motorcycleId);
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+                if (!checkbox.checked) {
+                    checkbox.checked = true;
+                    checkbox.parentElement.style.borderColor = '#28a745';
+                }
+                toggleBikeNextButton();
+            }
+
+            function decrementQuantity(motorcycleId) {
+                var checkbox = document.getElementById('daily-checkbox-' + motorcycleId);
+                var quantityInput = document.getElementById('daily-quantity-' + motorcycleId);
+                if (quantityInput.value > 0) {
+                    quantityInput.value = parseInt(quantityInput.value) - 1;
+                    if(parseInt(quantityInput.value) === 0){
+                        checkbox.checked = false;
+                        checkbox.parentElement.style.borderColor = '';
+                    }
+                }
+                toggleBikeNextButton();
+
+            }
+            
+            function clearQuantity(motorcycleId) {
+                var checkbox = document.getElementById('daily-checkbox-' + motorcycleId);
+                var quantityInput = document.getElementById('daily-quantity-' + motorcycleId);              
+                checkbox.checked = false;
+                checkbox.parentElement.style.borderColor = '';
+                quantityInput.value = 0;   
+                toggleBikeNextButton();
+            }
+            
+           // Trong trang đã có sẵn
+            window.addEventListener('message', function(event) {
+                console.log("sadsadas");
+                // Kiểm tra xem tin nhắn có phải từ nguồn đáng tin cậy không
+                if (event.origin !== 'http://localhost:6789/MotorcyleHiringProject/vnpay_return.jsp') return;
+
+                // Xử lý tin nhắn tương ứng ở đây
+                if (event.data === 'payment_success') {
+                    yourFunctionName();
+                }
+            });
+
+
+            // Hàm JavaScript được kích hoạt khi thanh toán thành công
+            function yourFunctionName() {
+                console.log("okekeeeee");
+            }
+            
+
         </script>
+        <iframe id="myI" src="vnpay_return.jsp" style="width: 100%; height: 1000px; display:none;"></iframe>
+<!--        <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
+        <script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>-->
+        <script type="text/javascript">         
+            
+        </script>       
     </body>
 
 </html>

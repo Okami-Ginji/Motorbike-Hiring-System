@@ -4,8 +4,14 @@
  */
 package com.colorbike.controller;
 
+import com.colorbike.dao.AccessoryDAO;
+import com.colorbike.dao.AccountDAO;
 import com.colorbike.dao.MotorcycleDAO;
+import com.colorbike.dao.PriceListDAO;
+import com.colorbike.dto.Accessory;
+import com.colorbike.dto.Account;
 import com.colorbike.dto.Motorcycle;
+import com.colorbike.dto.PriceList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +19,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -34,9 +41,21 @@ public class BookingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        MotorcycleDAO dao = MotorcycleDAO.getInstance();
-        List<Motorcycle> listM = dao.getAll();
+        MotorcycleDAO daoM = MotorcycleDAO.getInstance();
+        List<Motorcycle> listM = daoM.getAll();
         request.setAttribute("listM", listM);
+        
+        PriceListDAO daoP = PriceListDAO.getInstance();
+        List<PriceList> listP = daoP.getAll();
+        request.setAttribute("listP", listP);
+        
+        AccessoryDAO daoA = AccessoryDAO.getInstance();
+        List<Accessory> listA = daoA.getAll();
+        request.setAttribute("listA", listA);
+        
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
         request.getRequestDispatcher("booking.jsp").forward(request, response);
     }
 

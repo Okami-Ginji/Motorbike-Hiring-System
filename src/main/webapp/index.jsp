@@ -146,7 +146,7 @@
                                                         <span class="cat">${b.brandName}</span>
                                                         <c:forEach items="${listP}" var="p">
                                                             <c:if test="${motor.priceListID == p.priceListId}">
-                                                                <p class="price ml-auto">${p.pricePerDay} <span>/day</span></p>
+                                                                <p class="price ml-auto">${p.dailyPriceForDay} <span>/day</span></p>
                                                             </c:if>
                                                         </c:forEach>
                                                     </div>

@@ -41,7 +41,6 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         return instance;
     }
 
-
     @Override
     public List<Motorcycle> getAll() {
         List<Motorcycle> list = new ArrayList<>();
@@ -52,23 +51,21 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    MotorcycleID,\n"
                     + "    Model,\n"
                     + "    Image,\n"
+                    + "    Displacement,\n"
                     + "    Description,\n"
-
                     + "    [MinAge],\n"
-
                     + "    BrandID,\n"
                     + "    CategoryID,\n"
                     + "    PriceListID\n"
                     + "FROM \n"
-
                     + "    dbo.Motorcycle;";
 
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
-                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
-                        rs.getInt(8)));
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9)));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,10 +82,9 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    MotorcycleID,\n"
                     + "    Model,\n"
                     + "    Image,\n"
+                    + "    Displacement,\n"
                     + "    Description,\n"
-
                     + "    [MinAge],\n"
-
                     + "    BrandID,\n"
                     + "    CategoryID,\n"
                     + "    PriceListID\n"
@@ -98,16 +94,15 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             stm.setString(1, id);
             rs = stm.executeQuery();
             while (rs.next()) {
-                return new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
-                        rs.getInt(8));
+                return new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
 
     //đếm số lượn motorcycles trong database
     public int getTotalMotorcycles() {
@@ -138,9 +133,9 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
             rs = stm.executeQuery();
             while (rs.next()) {
-                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
-                        rs.getInt(8)));
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9)));
             }
 
         } catch (Exception ex) {
@@ -149,7 +144,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
-    
+
     //Tìm kiếm xe theo tên
     public List<Motorcycle> searchMotorcycleByName(String key) {
         List<Motorcycle> list = new ArrayList<>();
@@ -161,16 +156,16 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             stm.setString(1, "%" + key + "%");
             rs = stm.executeQuery();
             while (rs.next()) {
-                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
-                        rs.getInt(8)));
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9)));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-    
+
     //Thanh lọc cơ thể (giá, hãng, loại, phân khối, nhu cầu, xe đc thuê nhiều nhất) 
 //    public List<Motorcycle> searchMotorcycleByCriteria() {
 //        
@@ -179,7 +174,6 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
     protected Object clone() throws CloneNotSupportedException {
         return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-   
 
     @Override
     public void insert(Motorcycle t) {

@@ -111,7 +111,7 @@ public class PriceListDAO implements Serializable {
 
     public static void main(String[] args) {
         PriceListDAO dao = getInstance();
-        List<PriceList> list = dao.getAll();
+        List<PriceList> list = dao.getAllPricing();
         for(PriceList x: list){
             System.out.println(x);
         }

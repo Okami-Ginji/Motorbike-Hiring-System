@@ -17,6 +17,7 @@ public class Motorcycle implements Serializable{
     private String motorcycleId;
     private String model;
     private String image;
+    private String displacementl;
     private String description;
     private int minAge;
     private int brandID;

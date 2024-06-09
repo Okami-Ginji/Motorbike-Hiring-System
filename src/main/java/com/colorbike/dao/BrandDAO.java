@@ -5,8 +5,9 @@
 package com.colorbike.dao;
 
 import com.colorbike.dto.Brand;
-import com.colorbike.dto.Customer;
 import com.colorbike.util.DBUtil;
+import java.io.Serializable;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-public class BrandDAO {
+public class BrandDAO implements Serializable {
 
     private static BrandDAO instance;
     private Connection conn = DBUtil.makeConnection();
@@ -34,7 +35,7 @@ public class BrandDAO {
         }
         return instance;
     }
-    
+
     public List<Brand> getAllBrand() {
         List<Brand> list = new ArrayList<>();
         PreparedStatement stm;
@@ -52,9 +53,10 @@ public class BrandDAO {
         }
         return list;
     }
-    
+
     public static void main(String[] args) {
         BrandDAO bd = BrandDAO.getInstance();
         System.out.println(bd.getAllBrand());
     }
+
 }

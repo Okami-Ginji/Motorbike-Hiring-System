@@ -3,15 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.colorbike.dao;
-
-import com.colorbike.dto.Brand;
-import com.colorbike.dto.PriceList;
-import com.colorbike.util.DBUtil;
-
 import com.colorbike.dto.PriceList;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +18,10 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
+
+
+
+
 public class PriceListDAO implements Serializable {
 
     private static PriceListDAO instance;
@@ -42,12 +40,15 @@ public class PriceListDAO implements Serializable {
         return instance;
     }
 
+
     public List<PriceList> getAllPriceList() {
+
 
         List<PriceList> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
+
 
             String sql = "SELECT * FROM PriceList";
             stm = conn.prepareStatement(sql);
@@ -55,6 +56,7 @@ public class PriceListDAO implements Serializable {
             while (rs.next()) {
                 //feedback.setContent(feedback.getContent()+ customerName);
                 list.add(new PriceList(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), rs.getDouble(4)));
+
             }
         } catch (Exception ex) {
             Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,21 +65,59 @@ public class PriceListDAO implements Serializable {
         return list;
     }
 
-    public static void main(String[] args) {
-        PriceListDAO bd = PriceListDAO.getInstance();
-        System.out.println(bd.getAllPriceList());
+
+    public PriceList getPricingByid(String id) {
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "SELECT * FROM PriceList WHERE priceListId = ?";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                int priceListId = rs.getInt("priceListId");
+                double pricePerDay = rs.getDouble("dailyPriceForDay");
+                double pricePerWeek = rs.getDouble("dailyPriceForWeek");
+                double pricePerMonth = rs.getDouble("dailyPriceForMonth");
+                return new PriceList(priceListId, pricePerDay, pricePerWeek, pricePerMonth);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
+
+   
+    public List<PriceList> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
     public void insert(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+
+ 
+
     public void update(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+
+
     public void delete(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
+    public static void main(String[] args) {
+        PriceListDAO dao = getInstance();
+        List<PriceList> list = dao.getAllPriceList();
+        for(PriceList x: list){
+            System.out.println(x);
+        }
+    }
+
 
 }

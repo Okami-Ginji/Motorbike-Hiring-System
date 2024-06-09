@@ -13,6 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+
 public class Motorcycle implements Serializable{
     private String motorcycleId;
     private String model;

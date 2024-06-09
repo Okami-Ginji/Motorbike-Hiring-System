@@ -16,7 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Policies implements Serializable{
-    private int id;
-    private String content;
+public class Demand implements Serializable{
+    private int demandId;
+    private String demand;
 }

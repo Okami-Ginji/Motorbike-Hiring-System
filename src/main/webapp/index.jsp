@@ -10,6 +10,7 @@
 <html lang="en">
 
     <head>
+        <meta charset="UTF-8"/>
         <jsp:include page="/includes/header.jsp" />  
     </head>
     <body>

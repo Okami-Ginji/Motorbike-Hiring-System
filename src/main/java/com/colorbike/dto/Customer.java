@@ -17,8 +17,8 @@ public class Customer implements Serializable{
     private int customerId;
     private String identityCard;
     private String identityCardImage;
-    private String issuedondate;
-    private String epedate;
+    private String issuedOnDate;
+    private String expDate;
     private String typeCard;
     private int typeId;
     private int accountId;

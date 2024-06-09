@@ -4,12 +4,14 @@
  */
 package com.colorbike.dao;
 
-import com.colorbike.dto.Booking;
+import com.colorbike.dto.Demand;
 import com.colorbike.dto.Motorcycle;
 import com.colorbike.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,38 +19,38 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-public class BookingDAO {
-     private static BookingDAO instance;
+public class DemandDAO {
+     private static DemandDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
     // Cấm new trực tiếp DAO
     //Chỉ new DAO qua hàm static getInstance() để quản lí được số object/instance đã new - SINGLETON DESIGN PATTERN
-    private BookingDAO() {
+    private DemandDAO() {
     }
 
-    public static BookingDAO getInstance() {
+    public static DemandDAO getInstance() {
 
         if (instance == null) {
-            instance = new BookingDAO();
+            instance = new DemandDAO();
         }
         return instance;
     }
     
-    public Booking getBookingById(String bookingId) {
+    public List<Demand> getAllDemand() {
+        List<Demand> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT * FROM Booking WHERE BookingID = ?";
+            String sql = "SELECT * FROM Demand";
+
             stm = conn.prepareStatement(sql);
-            stm.setString(1, bookingId);
             rs = stm.executeQuery();
             while (rs.next()) {
-                return new Booking(rs.getString("BookingID"), rs.getString("BookingDate"), rs.getString("StartDate"),
-                        rs.getString("EndDate"), rs.getString("DeliveryLocation"), rs.getString("ReturnedLocation"), rs.getInt("VoucherID"), rs.getInt("CustomerID"));
+                list.add(new Demand(rs.getInt(1), rs.getString(2)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DemandDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return list;
     }
 }

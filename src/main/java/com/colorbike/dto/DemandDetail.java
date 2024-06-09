@@ -4,7 +4,6 @@
  */
 package com.colorbike.dto;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Policies implements Serializable{
-    private int id;
-    private String content;
+public class DemandDetail {
+    private int demandDetailId;
+    private String motorcycleId;
+    private int demandId;
 }

@@ -13,18 +13,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class Motorcycle implements Serializable{
     private String motorcycleId;
     private String model;
     private String image;
+    private String displacement;
     private String description;
     private int minAge;
     private int brandID;
     private int categoryID;
     private int priceListID;
-    
-//    private int dailypriceforday;
-//    private int dailypriceforweek;
-//    private int dailypriceformonth;
 }

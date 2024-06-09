@@ -155,18 +155,18 @@
 
                 <h3 class="mt-5 text-center">Một số phụ kiện đi kèm</h3>
                 <div class="row">
-                    <c:forEach items="${listAccess}" var="listA">
+                    <c:forEach items="${listAccess}" var="listAccess">
                         <div style="margin-right: 67px" class="col-md-1 d-flex align-self-stretch ftco-animate">
                             <div class="media block-6 services">
                                 <div class="media-body py-md-1">
                                     <div class="d-flex mb-3 align-items-center">
                                         <div class="icon d-flex align-items-center justify-content-center" 
-                                             onclick="openModal('${listA.accessoryName}', '${listA.accessoryDescription}', '${listA.price * 1000} VNĐ', 'images/${listA.accessoryImage}')">
-                                            <img src="images/${listA.accessoryImgIcon}" alt="${listA.accessoryName}" style="width: 60px; height: 60px;">
+                                             onclick="openModal('${listAccess.accessoryName}', '${listAccess.accessoryDescription}', '${listAccess.price * 1000} VNĐ', 'images/${listAccess.accessoryImage}')">
+                                            <img src="images/${listAccess.accessoryImageicon}" alt="${listAccess.accessoryName}" style="width: 60px; height: 60px;">
                                         </div>
                                         <div class="text">
                                             <h3 style="margin-top: -17px" class="heading mb-0 pl-3 text-left">
-                                                ${listA.accessoryName}
+                                                ${listAccess.accessoryName}
                                             </h3>
                                         </div>
                                     </div>
@@ -425,5 +425,6 @@
                                     modal.style.display = "none";
                                 }
                             }
+                        
     </script>
 </html>

@@ -151,10 +151,30 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         return list;
     }
     
-    //Thanh lọc cơ thể (giá, hãng, loại, phân khối, nhu cầu, xe đc thuê nhiều nhất) 
-//    public List<Motorcycle> searchMotorcycleByCriteria() {
-//        
-//    }
+    //Thanh lọc (giá, hãng, loại, phân khối, nhu cầu) 
+    public List<Motorcycle> searchMotorcycleByCriteria() {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            StringBuilder sql = new StringBuilder("SELECT * FROM Motorcycle WHERE 1=1");
+            stm = conn.prepareStatement(sql.toString());
+            
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    private String generateParametersPlaceholders(int count) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            if (i > 0)
+                s.append(",");
+            s.append("?");
+        }
+        return s.toString();
+    }
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody

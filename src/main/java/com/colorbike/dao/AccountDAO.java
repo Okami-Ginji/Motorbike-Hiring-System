@@ -48,8 +48,14 @@ public class AccountDAO implements Serializable {
             stm.setString(2, passWord);
             rs = stm.executeQuery();
             if (rs.next()) {
+<<<<<<< HEAD
                 return new Account(rs.getInt("AccountId"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Gender"), rs.getString("DayOfBirth"), 
                         rs.getString("Address"), rs.getString("PhoneNumber"), rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
+=======
+                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
+>>>>>>> 053042c54a2e42c6d0dcdd42783514868dc0b722
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,8 +119,14 @@ public class AccountDAO implements Serializable {
             stm.setString(1, email);
             rs = stm.executeQuery();
             if (rs.next()) {
+<<<<<<< HEAD
                 return new Account(rs.getInt("AccountId"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Gender"), rs.getString("DayOfBirth"), 
                         rs.getString("Address"), rs.getString("PhoneNumber"), rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
+=======
+                return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
+>>>>>>> 053042c54a2e42c6d0dcdd42783514868dc0b722
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -24,5 +24,5 @@ public class Feedback implements  Serializable{
     private int feedbackID;
     private String content;
     private int rate;
-    private int customerID;
+    private String customerName;
 }

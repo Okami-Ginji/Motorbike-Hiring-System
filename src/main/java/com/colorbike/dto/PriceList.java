@@ -13,6 +13,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+<<<<<<< HEAD
+=======
+
+>>>>>>> 44b5f94da651db2b9709adaebb50460e8c04453a
 public class PriceList implements Serializable{
     private int priceListId;
     private double dailyPriceForDay;

@@ -19,45 +19,58 @@
 =======
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<<<<<<< HEAD
 >>>>>>> 053042c54a2e42c6d0dcdd42783514868dc0b722
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+=======
+
+
+>>>>>>> 44b5f94da651db2b9709adaebb50460e8c04453a
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }
+
+
             .filter-module {
                 padding: 20px;
                 background-color: #fff;
                 margin: 20px auto;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 border-radius: 8px;
             }
+
+
             .filter-container {
                 display: flex;
                 flex-wrap: wrap;
             }
+
             .filter-group {
                 margin-bottom: 35px;
                 position: relative;
                 margin-right: 30px;
             }
+
             .filter-button {
                 padding: 10px 20px;
                 border: 1px solid #00ff6f;
                 font-weight: bold;
+                background:#01D28E;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                /* transition: background-color 0.5s, box-shadow 0.3s; */
+            }
+
+            .filter-button:hover {
+                background-color: #1089FF;
+                color: #fff;
                 background-image: linear-gradient(to right, #75fed9, #00ff55);
                 color: #28a745;
                 cursor: pointer;
                 border-radius: 5px;
                 transition: background-color 0.5s, box-shadow 0.3s;
             }
-            .filter-button:hover {
-                background-color: #00ff6f;
-                color: #fff;
-            }
+
             .filter-options {
                 margin-top: 10px;
                 position: absolute;
@@ -73,6 +86,7 @@
                 width: 481px;
                 display: none;
             }
+
             .filter-options button {
                 padding: 12px;
                 border: 1px solid #ddd;
@@ -91,19 +105,25 @@
                 position: absolute;
                 top: -10px;
             }
+
+
             .filter-options button:hover {
                 background-color: #e2e6ea;
             }
+
             .filter-options button.selected {
-                background-color: #28a745;
+                background: linear-gradient#01D28E;
                 color: #fff;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
+
+
             .show-options {
                 display: block;
                 opacity: 1;
                 z-index: 100;
             }
+
             .filter-group .filter-button:after {
                 content: ' ▼';
             }
@@ -113,6 +133,7 @@
             .selected-filters {
                 margin-top: 20px;
             }
+
             .selected-filter {
                 display: inline-block;
                 padding: 5px 10px;
@@ -123,18 +144,24 @@
                 border-radius: 5px;
                 cursor: pointer;
             }
+
+
             .selected-filter:hover {
                 background-color: #f5c6cb;
             }
+
             .filter-search {
                 margin-top: 3px;
             }
-            .filter-search input{
+
+            .filter-search input {
                 border: 1px solid #00ff6f;
             }
+
             .filter-search button:hover {
                 opacity: 0.8;
             }
+
             .button-item-option {
                 margin-bottom: 12px;
                 margin-right: 12px;
@@ -181,6 +208,7 @@
                 background-color: #e9ecef;
                 border-color: #dee2e6;
             }
+
         </style>
     </head>
 
@@ -255,7 +283,7 @@
                         <button class="button-item-option" onclick="toggleSelection(this)">50cc</button>
                         <button class="button-item-option" onclick="toggleSelection(this)">75cc</button>
                         <button class="button-item-option" onclick="toggleSelection(this)">120cc</button>
-                        <button class="button-item-option"  onclick="toggleSelection(this)">150cc</button>
+                        <button class="button-item-option" onclick="toggleSelection(this)">150cc</button>
                         <button class="button-item-option" onclick="toggleSelection(this)">220cc</button>
                         <div class="btn-filter-group open">
                             <button onclick="closeOptions('massOptions')">Đóng</button>
@@ -277,10 +305,17 @@
                     </div>
                 </div>
                 <div class="filter-search filter-group">
+<<<<<<< HEAD
                     <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
                         <input value="${key}" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
                         <button style="font-weight:bold; color: #28a745;background-image: linear-gradient(to right, #75fed9, #00ff55);border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
                     </form>
+=======
+                        <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
+                            <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
+                            <button style="font-weight:bold; color: #28a745;background-image: linear-gradient(to right, #75fed9, #00ff55);border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>                           
+                        </form>
+>>>>>>> 44b5f94da651db2b9709adaebb50460e8c04453a
                 </div>
             </div>
             <div>
@@ -365,8 +400,7 @@
         <script src="js/bootstrap-datepicker.js"></script>
         <script src="js/jquery.timepicker.min.js"></script>
         <script src="js/scrollax.min.js"></script>
-        <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
         <script>
@@ -458,7 +492,7 @@
                         currentOpenOptions = options.classList.contains('show-options') ? options : null;
                     }
         </script>
-
+     
     </body>
 
 

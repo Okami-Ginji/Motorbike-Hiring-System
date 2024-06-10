@@ -227,26 +227,23 @@
                 <div class="filter-container">
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('priceOptions')">Giá</button>
-                        <div data-index="1" class="filter-options" id="priceOptions">
+                        <div class="filter-options" id="priceOptions">
                             <c:forEach items="${listPriceRange}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this)">
-                                    <c:if test="${o.minPrice == 0}">
-                                        Dưới
-                                    </c:if>
-                                    <c:if test="${o.minPrice != 0}">
-                                        <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/>
-                                    </c:if>
-                                    - 
-                                    <c:if test="${o.maxPrice != 0}">
-                                        <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>
-                                    </c:if>
-                                    VNĐ/day
-                                    <c:if test="${o.maxPrice == 0}">
-                                        trở lên
-                                    </c:if>
+                                <input hidden name="priceRanges" value="${o.minPrice + "," + o.maxPrice}"/>
+                                <button data-id="${o.minPrice + "," + o.maxPrice}" class="button-item-option" onclick="toggleSelection(this)">
+                                    <p> <c:if test="${o.minPrice == 0}">
+                                            Dưới <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
+                                        </c:if>
+                                        <c:if test="${o.minPrice != 0 && o.maxPrice != 0}">
+                                            <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/> - <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
+                                        </c:if>
+
+                                        <c:if test="${o.maxPrice == 0}">
+                                            <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/>VNĐ/day trở lên
+                                        </c:if>
+                                    </p>
                                 </button>
-                                    
-                                </c:forEach>
+                            </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('priceOptions')">Đóng</button>
                                 <button onclick="showResults()">Xem kết quả</button>
@@ -257,6 +254,7 @@
                         <button class="filter-button" onclick="toggleOptions('brandOptions')">Hãng</button>
                         <div class="filter-options" id="brandOptions">
                             <c:forEach items="${listBrand}" var="o">
+                                <input hidden name="brand" value="${o.brandID}" id="searchBrand">
                                 <button class="button-item-option" onclick="toggleSelection(this)">${o.brandName}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
@@ -316,85 +314,86 @@
                 </div>
             </div>
         </section>
-        <!-- end search -->
-        <section class="ftco-section bg-light">
-            <div class="container">
-                <div class="row">
-                    <c:forEach var="motorbike" items="${motorcycles}">
-                        <div class="col-lg-4">
-                            <div class="car-wrap rounded ftco-animate">
-                                <div class="img rounded d-flex align-items-end"
-                                     style="background-image: url('images/${motorbike.image}');">
-                                </div>
-                                <div class="text">
-                                    <h2 class="mb-0">
-                                        <a href="motorcycleDetail?id=${motorbike.motorcycleId}">${motorbike.model}</a>
-                                    </h2>
-                                    <div class="d-flex mb-3">
-                                        <!-- Category Name -->
-                                        <span class="cat">${categoryMap[motorbike.categoryID]}</span>
-
-                                        <!-- Price -->
-                                        <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
+        <form?
+             <!-- end search -->
+             <section class="ftco-section bg-light">
+                <div class="container">
+                    <div class="row">
+                        <c:forEach var="motorbike" items="${motorcycles}">
+                            <div class="col-lg-4">
+                                <div class="car-wrap rounded ftco-animate">
+                                    <div class="img rounded d-flex align-items-end"
+                                         style="background-image: url('images/${motorbike.image}');">
                                     </div>
-                                    <p class="d-flex mb-0 d-block">
-                                        <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
-                                        <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Details</a>
-                                    </p>
+                                    <div class="text">
+                                        <h2 class="mb-0">
+                                            <a href="motorcycleDetail?id=${motorbike.motorcycleId}">${motorbike.model}</a>
+                                        </h2>
+                                        <div class="d-flex mb-3">
+                                            <!-- Category Name -->
+                                            <span class="cat">${categoryMap[motorbike.categoryID]}</span>
+
+                                            <!-- Price -->
+                                            <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
+                                        </div>
+                                        <p class="d-flex mb-0 d-block">
+                                            <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                            <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Details</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
 
-                </div>
+                    </div>
 
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul class="pagination">
-                                <c:forEach begin="1" end="${endP}" var="i">
-                                    <li class="page-item ${currentIndex == i ? 'active' : ''}">
-                                        <a class="page-link" href="motorcycle?index=${i}">${i}</a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
+                    <div class="row mt-5">
+                        <div class="col text-center">
+                            <div class="block-27">
+                                <ul class="pagination">
+                                    <c:forEach begin="1" end="${endP}" var="i">
+                                        <li class="page-item ${currentIndex == i ? 'active' : ''}">
+                                            <a class="page-link" href="motorcycle?index=${i}">${i}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
-            </div>
-
-        </section>
-        <jsp:include page="/includes/footer.jsp" />
+            </section>
+            <jsp:include page="/includes/footer.jsp" />
 
 
 
-        <!-- loader -->
-        <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                    stroke="#F96D00" />
-            </svg></div>
+            <!-- loader -->
+            <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+                <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+                <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                        stroke="#F96D00" />
+                </svg></div>
 
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.easing.1.3.js"></script>
-        <script src="js/jquery.waypoints.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/aos.js"></script>
-        <script src="js/jquery.animateNumber.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
-        <script src="js/jquery.timepicker.min.js"></script>
-        <script src="js/scrollax.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-        <script src="js/google-map.js"></script>
-        <script src="js/main.js"></script>
-        <script>
+            <script src="js/jquery.min.js"></script>
+            <script src="js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.easing.1.3.js"></script>
+            <script src="js/jquery.waypoints.min.js"></script>
+            <script src="js/jquery.stellar.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/aos.js"></script>
+            <script src="js/jquery.animateNumber.min.js"></script>
+            <script src="js/bootstrap-datepicker.js"></script>
+            <script src="js/jquery.timepicker.min.js"></script>
+            <script src="js/scrollax.min.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+            <script src="js/google-map.js"></script>
+            <script src="js/main.js"></script>
+            <script>
                         function toggleOptions(id) {
                             var options = document.getElementById(id);
                             var button = options.previousElementSibling;
@@ -465,19 +464,30 @@
                             updateSelectedFilters();
                         }
 
+
                         function showResults() {
+                            var searchBrand = document.getElementById('searchBrand');
                             var selectedButtons = document.querySelectorAll('.filter-options button.selected');
                             var selectedFilters = Array.from(selectedButtons).map(function (button) {
-                                return button.textContent;
+                                return {
+                                    text: button.textContent,
+                                    groupId: button.closest('.filter-group')
+                                };
                             });
-                            alert('Selected filters: ' + selectedFilters.join(', '));
-                        }
 
+                            var url = 'searchCriteria?';
+                            selectedFilters.forEach(function (filter, index) {
+                                url += encodeURIComponent(filter.groupId) + '=' + encodeURIComponent(filter.text);
+                                if (index < selectedFilters.length - 1) {
+                                    url += '&';
+                                }
+                            });
+
+                            window.location.href = url;
+                        }
                         var currentOpenOptions = null;
 
-        </script>
 
+            </script>
     </body>
-
-
 </html>

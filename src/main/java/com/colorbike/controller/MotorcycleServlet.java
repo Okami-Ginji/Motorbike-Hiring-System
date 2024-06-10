@@ -15,7 +15,8 @@ import com.colorbike.dto.Category;
 import com.colorbike.dto.Demand;
 import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
-import com.colorbike.dto.SearchCriteria.*;
+import com.colorbike.dto.SearchCriteria;
+import com.colorbike.dto.SearchCriteria.PriceRange;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -44,7 +45,7 @@ public class MotorcycleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        SearchCriteria criteria = new SearchCriteria();
         List<Category> categories = categoryDAO.getAllCategory();
 //        List<Motorcycle> motorcycles = motorcycleDAO.getAll();
         List<PriceList> priceLists = priceListDAO.getAllPriceList();
@@ -77,6 +78,8 @@ public class MotorcycleServlet extends HttpServlet {
         for (PriceList priceList : priceLists) {
             priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
         }
+
+
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);
@@ -87,6 +90,6 @@ public class MotorcycleServlet extends HttpServlet {
         request.setAttribute("categoryMap", categoryMap);
         request.setAttribute("priceMap", priceMap);
 
-        request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
+        request.getRequestDispatcher("motorbikes_1.jsp").forward(request, response);
     }
 }

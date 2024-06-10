@@ -77,6 +77,7 @@
                 right: 30px;
                 background: transparent;
                 border: none;
+                transition: transform 0.3s ease;
                 color: white;
                 font-size: 1.2em;
                 cursor: pointer;

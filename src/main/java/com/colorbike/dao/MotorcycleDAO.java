@@ -51,6 +51,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    MotorcycleID,\n"
                     + "    Model,\n"
                     + "    Image,\n"
+                    + "    Displacement,\n"
                     + "    Description,\n"
                     + "    [MinAge],\n"
                     + "    BrandID,\n"
@@ -58,7 +59,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    PriceListID\n"
                     + "FROM \n"
                     + "    dbo.Motorcycle;";
-
+    //why không * đi
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -81,6 +82,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    MotorcycleID,\n"
                     + "    Model,\n"
                     + "    Image,\n"
+                    + "    Displacement,\n"
                     + "    Description,\n"
                     + "    [MinAge],\n"
                     + "    BrandID,\n"
@@ -228,7 +230,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     .append(")");
         }
         //lấy theo nhu cầu
-        
+
         if (!criteria.getDemandIDs().isEmpty()) {
             sql.append(" AND d.DemandId IN (")
                     .append(generateParameterPlaceholders(criteria.getDemandIDs().size()))

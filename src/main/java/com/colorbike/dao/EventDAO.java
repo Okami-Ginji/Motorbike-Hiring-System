@@ -6,6 +6,7 @@ package com.colorbike.dao;
 
 import com.colorbike.dto.Event;
 import com.colorbike.util.DBUtil;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author huypd
  */
-public class EventDAO {
+public class EventDAO implements Serializable {
 
     private static EventDAO instance;
     private Connection conn = DBUtil.makeConnection();

@@ -4,9 +4,11 @@
  */
 package com.colorbike.controller;
 
+import com.colorbike.dao.AccessoryDAO;
 import com.colorbike.dao.BrandDAO;
 import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
+import com.colorbike.dto.Accessory;
 import com.colorbike.dto.Brand;
 import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
@@ -38,10 +40,12 @@ public class MotorcycleDetailServlet extends HttpServlet {
         int priceListId = motorcycleDetail.getPriceListID();
 
         PriceList priceList = priceListDAO.getPricingByid(String.valueOf(priceListId));
+        List<Accessory> listAccess = AccessoryDAO.getInstance().getAll();
 
         request.setAttribute("motorcycleDetail", motorcycleDetail);
         request.setAttribute("brand", brand);
         request.setAttribute("priceList", priceList);
+        request.setAttribute("listAccess", listAccess);
         request.getRequestDispatcher("motorbikeDetails.jsp").forward(request, response);
     }
 

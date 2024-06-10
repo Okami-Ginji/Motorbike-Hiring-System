@@ -21,10 +21,10 @@ public class SearchCriteria {
     private List<Integer> categoryIDs;
     private List<Integer> demandIDs;
     private List<String> displacements;
-
     public void addPriceRange(int minPrice, int maxPrice) {
         this.priceRanges.add(new PriceRange(minPrice, maxPrice));
     }
+
 
 
     // Inner class to represent a price range

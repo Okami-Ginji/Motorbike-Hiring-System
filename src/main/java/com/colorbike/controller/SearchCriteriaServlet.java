@@ -4,13 +4,18 @@
  */
 package com.colorbike.controller;
 
+
 import com.colorbike.dao.BrandDAO;
 import com.colorbike.dao.CategoryDAO;
 import com.colorbike.dao.DemandDAO;
 import com.colorbike.dao.DemandPriceRangeDAO;
 import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
+import com.colorbike.dto.Brand;
+import com.colorbike.dto.Category;
+import com.colorbike.dto.Demand;
 import com.colorbike.dto.Motorcycle;
+import com.colorbike.dto.PriceList;
 import com.colorbike.dto.SearchCriteria;
 import com.colorbike.dto.SearchCriteria.PriceRange;
 import java.io.IOException;
@@ -20,47 +25,36 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- *
- * @author huypd
- */
+
 @WebServlet(name = "SearchCriteriaServlet", urlPatterns = {"/searchCriteria"})
 public class SearchCriteriaServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SearchCriteriaServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SearchCriteriaServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    MotorcycleDAO motorcycleDAO = MotorcycleDAO.getInstance();
+    CategoryDAO categoryDAO = CategoryDAO.getInstance();
+    PriceListDAO priceListDAO = PriceListDAO.getInstance();
+    BrandDAO brandDAO = BrandDAO.getInstance();
+    DemandDAO demandDAO = DemandDAO.getInstance();
+    DemandPriceRangeDAO demandPriceRangeDAO = DemandPriceRangeDAO.getInstance();
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MotorcycleDAO motorcycleDAO = MotorcycleDAO.getInstance();
+        String indexPage = request.getParameter("index");
+        if (indexPage == null) {
+            indexPage = "1";
+        }
+        int index = Integer.parseInt(indexPage);
 
+        int count = motorcycleDAO.getTotalMotorcycles();
+        int endPage = count / 9;
+        if (count % 9 != 0) {
+            endPage++;
+        }
+        
         String[] priceRanges = request.getParameterValues("priceRanges");
         String[] brands = request.getParameterValues("brands");
         String[] categories = request.getParameterValues("categories");
@@ -103,34 +97,42 @@ public class SearchCriteriaServlet extends HttpServlet {
                 criteria.addDemandID(Integer.parseInt(demandId));
             }
         }
-        List<Motorcycle> motorcycles = motorcycleDAO.searchMotorcycleByCriteria(criteria);
-//        response.getWriter().println(motorcycles);
+        List<Motorcycle> motorcycles = motorcycleDAO.searchMotorcycleByCriteria(criteria, index);
+        List<Category> categoriesList = categoryDAO.getAllCategory();
+        List<PriceList> priceLists = priceListDAO.getAllPriceList();
+        List<Brand> brandLists = brandDAO.getAllBrand();
+        List<String> listDisplacement = motorcycleDAO.getListDisplacements();
+        List<Demand> listDemand = demandDAO.getAllDemand();
+        List<PriceRange> listPriceRange = demandPriceRangeDAO.getListDemandPriceRanges();
+        request.setAttribute("endP", endPage);
+
+        Map<Integer, String> categoryMap = new HashMap<>();
+        for (Category category : categoriesList) {
+            categoryMap.put(category.getCategoryID(), category.getCategoryName());
+        }
+
+        Map<Integer, Double> priceMap = new HashMap<>();
+        for (PriceList priceList : priceLists) {
+            priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
+        }
+
+
+        request.setAttribute("listPriceRange", listPriceRange);
+        request.setAttribute("listDisplacement", listDisplacement);
+        request.setAttribute("listBrand", brandLists);
+        request.setAttribute("listDemand", listDemand);
+        request.setAttribute("categories", categoriesList);
+        request.setAttribute("priceLists", priceLists);
+        request.setAttribute("categoryMap", categoryMap);
+        request.setAttribute("priceMap", priceMap);
         request.setAttribute("motorcycles", motorcycles);
         request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
-        
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
 
 }

@@ -187,11 +187,11 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
     }
 
     //Thanh lọc (giá, hãng, loại, phân khối, nhu cầu) 
-    public List<Motorcycle> searchMotorcycleByCriteria(SearchCriteria criteria) {
+    public List<Motorcycle> searchMotorcycleByCriteria(SearchCriteria criteria, int index) {
         List<Motorcycle> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
-        StringBuilder sql = new StringBuilder("SELECT distinct m.* FROM Motorcycle m JOIN Demand_Detail d ON m.MotorcycleID = d.MotorcycleID WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT DISTINCT m.* FROM Motorcycle m JOIN Demand_Detail d ON m.MotorcycleID = d.MotorcycleID WHERE 1=1");
 
         if (criteria.getPriceRanges() != null && !criteria.getPriceRanges().isEmpty()) {
             sql.append(" AND PriceListID IN (SELECT PriceListID FROM PriceList WHERE ");
@@ -227,6 +227,9 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     .append(generateParameterPlaceholders(criteria.getDemandIDs().size()))
                     .append(")");
         }
+        
+        sql.append("\nORDER BY MotorcycleID OFFSET ? ROWS FETCH NEXT 9 ROW ONLY;");
+               
 
         try {
             stm = conn.prepareStatement(sql.toString());
@@ -262,6 +265,8 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     stm.setInt(parameterIndex++, demandID);
                 }
             }
+            
+            stm.setInt(parameterIndex++, (index - 1) * 9);
 
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -347,11 +352,11 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-        List<Motorcycle> list = dao.getTop5MotorcycleTheMostRental();
-
-        for (Motorcycle x : list) {
-            System.out.println(x);
-        }
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.addPriceRange(200, 230);
+        searchCriteria.addPriceRange(270, 230);
+        System.out.println(dao.getListDisplacements());
+        //System.out.println(dao.searchMotorcycleByCriteria(searchCriteria));
 //        System.out.println(dao.getListDisplacements());
     }
 }

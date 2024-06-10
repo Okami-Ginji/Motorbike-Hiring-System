@@ -77,6 +77,7 @@
                 right: 30px;
                 background: transparent;
                 border: none;
+                transition: transform 0.3s ease;
                 color: white;
                 font-size: 1.2em;
                 cursor: pointer;
@@ -87,7 +88,7 @@
                 color: #fff;
                 outline: none;
             }
-            
+
             .show-event-btn {
                 position: fixed;
                 bottom: 10px;
@@ -265,8 +266,8 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </div>
-                                                    </c:if>
-                                                </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
                                             <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"                                                                                                       class="btn btn-secondary py-2 ml-1">Details</a></p>
                                         </div>
                                     </div>
@@ -385,7 +386,7 @@
                                         <div class="text pt-4">
                                             <p class="mb-4">${feedback.content}</p>
                                             <p class="name">${feedback.customerName}</p>
-<!--                                            <span class="position">Marketing Manager</span>-->
+                                            <!--                                            <span class="position">Marketing Manager</span>-->
                                         </div>
                                     </div>
                                 </div>
@@ -535,15 +536,15 @@
         <script src="js/main.js"></script>
         <!-- thanh search -->
         <script>
-                function minimizeEventBox() {
-                    document.getElementById('eventBox').style.display = 'none';
-                    document.getElementById('showEventBtn').style.display = 'block';
-                }
+            function minimizeEventBox() {
+                document.getElementById('eventBox').style.display = 'none';
+                document.getElementById('showEventBtn').style.display = 'block';
+            }
 
-                function showEventBox() {
-                    document.getElementById('eventBox').style.display = 'block';
-                    document.getElementById('showEventBtn').style.display = 'none';
-                }
+            function showEventBox() {
+                document.getElementById('eventBox').style.display = 'block';
+                document.getElementById('showEventBtn').style.display = 'none';
+            }
         </script>
     </body>
 

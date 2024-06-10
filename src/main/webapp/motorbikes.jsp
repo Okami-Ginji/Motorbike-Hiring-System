@@ -227,9 +227,10 @@
                 <div class="filter-container">
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('priceOptions')">Giá</button>
-                        <div data-index="1" class="filter-options" id="priceOptions">
+                        <div class="filter-options" id="priceOptions">
                             <c:forEach items="${listPriceRange}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'priceRanges', '${o.minPrice}-${o.maxPrice}')">
+                                <input hidden name="priceRanges" value="${o.minPrice},${o.maxPrice}"/>
+                                <button data-id="${o.minPrice},${o.maxPrice}" class="button-item-option" onclick="toggleSelection(this)">
                                     <p> <c:if test="${o.minPrice == 0}">
                                             Dưới <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
                                         </c:if>
@@ -239,10 +240,9 @@
 
                                         <c:if test="${o.maxPrice == 0}">
                                             <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/>VNĐ/day trở lên
-                                        </c:if></p>
-
+                                        </c:if>
+                                    </p>
                                 </button>
-
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('priceOptions')">Đóng</button>
@@ -250,11 +250,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('brandOptions')">Hãng</button>
                         <div class="filter-options" id="brandOptions">
                             <c:forEach items="${listBrand}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'brands', '${o.brandID}')">${o.brandName}</button>
+                                <input hidden name="brands" value="${o.brandID}" id="searchBrand">
+                                <button class="button-item-option" data-id="${o.brandID}" 
+                                        onclick="toggleSelection(this)">${o.brandName}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('brandOptions')">Đóng</button>
@@ -262,11 +265,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('categoryOptions')">Loại</button>
                         <div class="filter-options" id="categoryOptions">
                             <c:forEach items="${categories}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'categories', '${o.categoryID}')">${o.categoryName}</button>
+                                <input hidden name="categories" value="${o.categoryID}" id="searchCategory">
+                                <button class="button-item-option"  data-id="${o.categoryID}" 
+                                        onclick="toggleSelection(this)">${o.categoryName}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('categoryOptions')">Đóng</button>
@@ -274,11 +280,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('massOptions')">Phân khối</button>
                         <div class="filter-options" id="massOptions">
                             <c:forEach items="${listDisplacement}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'displacements', 'o')">${o}</button>
+                                <input hidden name="displacements" value="${o}" id="searchDisplacement">
+                                <button class="button-item-option" data-id="${o}" 
+                                        onclick="toggleSelection(this)">${o}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('massOptions')">Đóng</button>
@@ -286,11 +295,13 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('needOptions')">Nhu cầu</button>
                         <div class="filter-options" id="needOptions">
                             <c:forEach items="${listDemand}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'demands', '${o.demandId}')">${o.demand}</button>
+                                <input hidden name="demands" value="${o.demandId}" id="searchDemand">
+                                <button class="button-item-option" data-id="${o.demandId}" onclick="toggleSelection(this)">${o.demand}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('needOptions')">Đóng</button>
@@ -298,28 +309,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="filter-search filter-group">
-                        <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
-                            <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
-                            <button style="font-weight:bold; color: #28a745;background-image: linear-gradient(to right, #75fed9, #00ff55);border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
-                <div>
-                    <form action="searcjCriteria">
-                        <input type="hidden" name="demandIDs" id="demandIDs">
-                        <input type="hidden" name="categoryIDs" id="categoryIDs">
-                        <input type="hidden" name="brandIDs" id="brandIDs">
-                        <input type="hidden" name="displacements" id="displacements">
-                        <input type="hidden" name="priceRanges" id="priceRanges">
+
+
+                    <div>
                         <button class="filter-button" onclick="showResults()">Xem kết quả</button>
-                    </form>
-                </div>
-                <div class="selected-filters" id="selectedFilters">
-                    <!--Selected filters will be displayed here--> 
+                    </div>
+                    <div class="selected-filters" id="selectedFilters">
+                        <!-- Selected filters will be displayed here -->
+                    </div>
                 </div>
             </div>
         </section>
+
         <!-- end search -->
         <section class="ftco-section bg-light">
             <div class="container">
@@ -416,7 +417,8 @@
                                 var options = document.getElementById(id);
                                 options.classList.remove('show-options');
                             }
-                            function toggleSelection(button, filterType, filterValue) {
+
+                            function toggleSelection(button) {
                                 button.classList.toggle('selected');
                                 updateSelectedFilters();
                             }
@@ -425,7 +427,7 @@
                                 var selectedButtons = document.querySelectorAll('.filter-options button.selected');
                                 var selectedFilters = Array.from(selectedButtons).map(function (button) {
                                     return {
-                                        text: button.textContent.trim(),
+                                        text: button.textContent,
                                         group: button.closest('.filter-group').querySelector('.filter-button').textContent.trim()
                                     };
                                 });
@@ -452,7 +454,7 @@
                             function removeSelectedFilter(filterDiv, text) {
                                 var filterOptionButtons = document.querySelectorAll('.filter-options button');
                                 filterOptionButtons.forEach(function (button) {
-                                    if (button.textContent.trim() === text) {
+                                    if (button.textContent === text) {
                                         button.classList.remove('selected');
                                     }
                                 });
@@ -467,20 +469,78 @@
                                 });
                                 updateSelectedFilters();
                             }
-
-                            function showResults() {
-                                var selectedButtons = document.querySelectorAll('.filter-options button.selected');
-                                var selectedFilters = Array.from(selectedButtons).map(function (button) {
-                                    return button.textContent.trim();
-                                });
-                                alert('Selected filters: ' + selectedFilters.join(', '));
-                            }
-
                             var currentOpenOptions = null;
 
+
+                            function showResults() {
+                                var selectedBrands = [];
+                                var selectedCategories = [];
+                                var selectedDisplacements = [];
+                                var selectedDemands = [];
+                                var selectedPriceRanges = [];
+
+                                var selectedPriceButton = document.querySelectorAll('#priceOptions .button-item-option.selected');
+                                selectedPriceButton.forEach(function (button) {
+                                    var priceRange = button.getAttribute('data-id');
+                                    if (priceRange) {
+                                        selectedPriceRanges.push(priceRange);
+                                    }
+                                });
+
+                                var selectedBrandButtons = document.querySelectorAll('#brandOptions .button-item-option.selected');
+                                selectedBrandButtons.forEach(function (button) {
+                                    var brandID = button.getAttribute('data-id');
+                                    if (brandID) {
+                                        selectedBrands.push(brandID);
+                                    }
+                                });
+
+                                var selectedCategoryButtons = document.querySelectorAll('#categoryOptions .button-item-option.selected');
+                                selectedCategoryButtons.forEach(function (button) {
+                                    var categoryID = button.getAttribute('data-id');
+                                    if (categoryID) {
+                                        selectedCategories.push(categoryID);
+                                    }
+                                });
+
+                                var selectedDisplacementButtons = document.querySelectorAll('#massOptions .button-item-option.selected');
+                                selectedDisplacementButtons.forEach(function (button) {
+                                    var displacement = button.getAttribute('data-id');
+                                    if (displacement) {
+                                        selectedDisplacements.push(displacement);
+                                    }
+                                });
+
+                                var selectedDemandButtons = document.querySelectorAll('#needOptions .button-item-option.selected');
+                                selectedDemandButtons.forEach(function (button) {
+                                    var demandID = button.getAttribute('data-id');
+                                    if (demandID) {
+                                        selectedDemands.push(demandID);
+                                    }
+                                });
+
+                                var url = 'searchCriteria?';
+                                if (selectedBrands.length > 0) {
+                                    url += 'brands=' + selectedBrands.join('&brands=') + '&';
+                                }
+                                if (selectedCategories.length > 0) {
+                                    url += 'categories=' + selectedCategories.join('&categories=') + '&';
+                                }
+                                if (selectedDisplacements.length > 0) {
+                                    url += 'displacements=' + selectedDisplacements.join('&displacements=') + '&';
+                                }
+                                if (selectedDemands.length > 0) {
+                                    url += 'demands=' + selectedDemands.join('&demands=') + '&';
+                                }
+                                if (selectedPriceRanges.length > 0) {
+                                    url += 'priceRanges=' + selectedPriceRanges.join('&priceRanges=') + '&';
+                                }
+
+                                // Remove the trailing '&'
+                                url = url.slice(0, -1);
+
+                                window.location.href = url;
+                            }
         </script>
-
     </body>
-
-
 </html>

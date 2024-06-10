@@ -13,6 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+
 public class Booking implements Serializable{
 
     private String bookingID, bookingDate, startDate, endDate, deliveryLocation, returnedLocation;

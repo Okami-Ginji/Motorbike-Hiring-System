@@ -1,5 +1,6 @@
 package com.colorbike.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -8,19 +9,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-//nhu cầu, khoảng giá, hãng, loại, phân khối
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class SearchCriteria {
+public class SearchCriteria implements Serializable{
 
-    private List<PriceRange> priceRanges;
-    private List<Integer> brandIDs;
-    private List<Integer> categoryIDs;
-    private List<Integer> demandIDs;
-    private List<String> displacements;
+    private List<PriceRange> priceRanges = new ArrayList<>();
+    private List<Integer> brandIDs = new ArrayList<>();
+    private List<Integer> categoryIDs = new ArrayList<>();
+    private List<Integer> demandIDs = new ArrayList<>();
+    private List<String> displacements = new ArrayList<>();
+
     public void addPriceRange(double minPrice, double maxPrice) {
         this.priceRanges.add(new PriceRange(minPrice, maxPrice));
     }
@@ -41,14 +42,12 @@ public class SearchCriteria {
         this.demandIDs.add(demandID);
     }
 
-    // Inner class to represent a price range
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
     @Setter
     @ToString
-    public static class PriceRange {
-
+    public static class PriceRange implements Serializable{
         private double minPrice;
         private double maxPrice;
     }

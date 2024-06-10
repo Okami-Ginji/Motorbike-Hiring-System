@@ -16,6 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+
 public class MotorcycleDetail implements Serializable {
     private int motorcycleDetailId;
     private String motorcycleId;

@@ -77,6 +77,7 @@
                 right: 30px;
                 background: transparent;
                 border: none;
+                transition: transform 0.3s ease;
                 color: white;
                 font-size: 1.2em;
                 cursor: pointer;
@@ -87,7 +88,7 @@
                 color: #fff;
                 outline: none;
             }
-            
+
             .show-event-btn {
                 position: fixed;
                 bottom: 10px;
@@ -251,7 +252,7 @@
                                 <div class="item">
                                     <div class="car-wrap rounded ftco-animate">
                                         <div class="img rounded d-flex align-items-end">
-                                            <img src="${motor.image}" alt="alt"/>
+                                            <img src="images/${motor.image}" alt="alt"/>
                                         </div>
                                         <div class="text">
                                             <h2 class="mb-0"><a href="#">${motor.model}</a></h2>
@@ -265,8 +266,8 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </div>
-                                                    </c:if>
-                                                </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
                                             <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"                                                                                                       class="btn btn-secondary py-2 ml-1">Details</a></p>
                                         </div>
                                     </div>
@@ -385,7 +386,13 @@
                                         <div class="text pt-4">
                                             <p class="mb-4">${feedback.content}</p>
                                             <p class="name">${feedback.customerName}</p>
-<!--                                            <span class="position">Marketing Manager</span>-->
+                                            <span>rated:</span>
+                                            <c:forEach begin="1" end="${feedback.rate}" var="star">
+                                                <span style="color: #F7D000;" class="ion-ios-star"></span>
+                                            </c:forEach>
+                                            <c:forEach begin="${feedback.rate + 1}" end="5" var="emptyStar">
+                                                <span class="ion-ios-star-outline"></span>
+                                            </c:forEach>
                                         </div>
                                     </div>
                                 </div>
@@ -535,15 +542,15 @@
         <script src="js/main.js"></script>
         <!-- thanh search -->
         <script>
-                function minimizeEventBox() {
-                    document.getElementById('eventBox').style.display = 'none';
-                    document.getElementById('showEventBtn').style.display = 'block';
-                }
+            function minimizeEventBox() {
+                document.getElementById('eventBox').style.display = 'none';
+                document.getElementById('showEventBtn').style.display = 'block';
+            }
 
-                function showEventBox() {
-                    document.getElementById('eventBox').style.display = 'block';
-                    document.getElementById('showEventBtn').style.display = 'none';
-                }
+            function showEventBox() {
+                document.getElementById('eventBox').style.display = 'block';
+                document.getElementById('showEventBtn').style.display = 'none';
+            }
         </script>
     </body>
 

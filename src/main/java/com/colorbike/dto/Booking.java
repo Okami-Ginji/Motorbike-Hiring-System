@@ -16,7 +16,7 @@ import lombok.ToString;
 
 public class Booking implements Serializable{
 
-    private String bookingID, bookingDate, startDate, endDate, deliveryLocation;
+    private String bookingID, bookingDate, startDate, endDate, deliveryLocation, returnedLocation;
     private int voucherID;
     private int customerID;
     

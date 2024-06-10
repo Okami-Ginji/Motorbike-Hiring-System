@@ -229,21 +229,21 @@
                         <button class="filter-button" onclick="toggleOptions('priceOptions')">Giá</button>
                         <div data-index="1" class="filter-options" id="priceOptions">
                             <c:forEach items="${listPriceRange}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'priceRanges', '${o.minPrice}-${o.maxPrice}')">
+                                <button class="button-item-option" onclick="toggleSelection(this)">
                                     <p> <c:if test="${o.minPrice == 0}">
-                                            Dưới <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
-                                        </c:if>
-                                        <c:if test="${o.minPrice != 0 && o.maxPrice != 0}">
-                                            <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/> - <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
-                                        </c:if>
-
-                                        <c:if test="${o.maxPrice == 0}">
-                                            <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/>VNĐ/day trở lên
-                                        </c:if></p>
-
+                                        Dưới <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
+                                    </c:if>
+                                    <c:if test="${o.minPrice != 0 && o.maxPrice != 0}">
+                                        <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/> - <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
+                                    </c:if>
+                                    
+                                    <c:if test="${o.maxPrice == 0}">
+                                        <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/>VNĐ/day trở lên
+                                    </c:if></p>
+                                   
                                 </button>
-
-                            </c:forEach>
+                                    
+                                </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('priceOptions')">Đóng</button>
                                 <button onclick="showResults()">Xem kết quả</button>
@@ -254,7 +254,7 @@
                         <button class="filter-button" onclick="toggleOptions('brandOptions')">Hãng</button>
                         <div class="filter-options" id="brandOptions">
                             <c:forEach items="${listBrand}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'brands', '${o.brandID}')">${o.brandName}</button>
+                                <button class="button-item-option" onclick="toggleSelection(this)">${o.brandName}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('brandOptions')">Đóng</button>
@@ -266,7 +266,7 @@
                         <button class="filter-button" onclick="toggleOptions('categoryOptions')">Loại</button>
                         <div class="filter-options" id="categoryOptions">
                             <c:forEach items="${categories}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'categories', '${o.categoryID}')">${o.categoryName}</button>
+                                <button class="button-item-option" onclick="toggleSelection(this)">${o.categoryName}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('categoryOptions')">Đóng</button>
@@ -278,7 +278,7 @@
                         <button class="filter-button" onclick="toggleOptions('massOptions')">Phân khối</button>
                         <div class="filter-options" id="massOptions">
                             <c:forEach items="${listDisplacement}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'displacements', 'o')">${o}</button>
+                                <button class="button-item-option" onclick="toggleSelection(this)">${o}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('massOptions')">Đóng</button>
@@ -290,7 +290,7 @@
                         <button class="filter-button" onclick="toggleOptions('needOptions')">Nhu cầu</button>
                         <div class="filter-options" id="needOptions">
                             <c:forEach items="${listDemand}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this, 'demands', '${o.demandId}')">${o.demand}</button>
+                                <button class="button-item-option" onclick="toggleSelection(this)">${o.demand}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('needOptions')">Đóng</button>
@@ -306,14 +306,7 @@
                     </div>
                 </div>
                 <div>
-                    <form action="searcjCriteria">
-                        <input type="hidden" name="demandIDs" id="demandIDs">
-                        <input type="hidden" name="categoryIDs" id="categoryIDs">
-                        <input type="hidden" name="brandIDs" id="brandIDs">
-                        <input type="hidden" name="displacements" id="displacements">
-                        <input type="hidden" name="priceRanges" id="priceRanges">
-                        <button class="filter-button" onclick="showResults()">Xem kết quả</button>
-                    </form>
+                    <button class="filter-button" onclick="showResults()">Xem kết quả</button>
                 </div>
                 <div class="selected-filters" id="selectedFilters">
                     <!--Selected filters will be displayed here--> 
@@ -399,84 +392,85 @@
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
         <script>
-                            function toggleOptions(id) {
-                                var options = document.getElementById(id);
-                                var button = options.previousElementSibling;
-                                if (currentOpenOptions && currentOpenOptions !== options) {
-                                    currentOpenOptions.classList.remove('show-options');
-                                    currentOpenOptions.previousElementSibling.classList.remove('open');
-                                }
-
-                                options.classList.toggle('show-options');
-                                button.classList.toggle('open');
-                                currentOpenOptions = options.classList.contains('show-options') ? options : null;
+                        function toggleOptions(id) {
+                            var options = document.getElementById(id);
+                            var button = options.previousElementSibling;
+                            if (currentOpenOptions && currentOpenOptions !== options) {
+                                currentOpenOptions.classList.remove('show-options');
+                                currentOpenOptions.previousElementSibling.classList.remove('open');
                             }
 
-                            function closeOptions(id) {
-                                var options = document.getElementById(id);
-                                options.classList.remove('show-options');
-                            }
-                            function toggleSelection(button, filterType, filterValue) {
-                                button.classList.toggle('selected');
-                                updateSelectedFilters();
-                            }
+                            options.classList.toggle('show-options');
+                            button.classList.toggle('open');
+                            currentOpenOptions = options.classList.contains('show-options') ? options : null;
+                        }
 
-                            function updateSelectedFilters() {
-                                var selectedButtons = document.querySelectorAll('.filter-options button.selected');
-                                var selectedFilters = Array.from(selectedButtons).map(function (button) {
-                                    return {
-                                        text: button.textContent.trim(),
-                                        group: button.closest('.filter-group').querySelector('.filter-button').textContent.trim()
-                                    };
-                                });
-                                var selectedFiltersContainer = document.getElementById('selectedFilters');
-                                selectedFiltersContainer.innerHTML = '';
-                                if (selectedFilters.length > 0) {
-                                    var header = document.createElement('h2');
-                                    header.textContent = 'Đang lọc theo';
-                                    selectedFiltersContainer.appendChild(header);
-                                    var clearAllButton = document.createElement('div');
-                                    clearAllButton.className = 'selected-filter';
-                                    clearAllButton.innerHTML = '<span>× Bỏ chọn tất cả</span>';
-                                    clearAllButton.onclick = clearAllSelections;
-                                    selectedFiltersContainer.appendChild(clearAllButton);
-                                }
-                                selectedFilters.forEach(function (filter) {
-                                    var filterDiv = document.createElement('div');
-                                    filterDiv.className = 'selected-filter';
-                                    filterDiv.innerHTML = '<span>' + filter.group + ': ' + filter.text + '</span><span class="remove-filter" onclick="removeSelectedFilter(this.parentElement, \'' + filter.text + '\')">&#10006;</span>';
-                                    selectedFiltersContainer.appendChild(filterDiv);
-                                });
-                            }
+                        function closeOptions(id) {
+                            var options = document.getElementById(id);
+                            options.classList.remove('show-options');
+                        }
 
-                            function removeSelectedFilter(filterDiv, text) {
-                                var filterOptionButtons = document.querySelectorAll('.filter-options button');
-                                filterOptionButtons.forEach(function (button) {
-                                    if (button.textContent.trim() === text) {
-                                        button.classList.remove('selected');
-                                    }
-                                });
-                                filterDiv.remove();
-                                updateSelectedFilters();
-                            }
+                        function toggleSelection(button) {
+                            button.classList.toggle('selected');
+                            updateSelectedFilters();
+                        }
 
-                            function clearAllSelections() {
-                                var selectedButtons = document.querySelectorAll('.filter-options button.selected');
-                                selectedButtons.forEach(function (button) {
+                        function updateSelectedFilters() {
+                            var selectedButtons = document.querySelectorAll('.filter-options button.selected');
+                            var selectedFilters = Array.from(selectedButtons).map(function (button) {
+                                return {
+                                    text: button.textContent.trim(),
+                                    group: button.closest('.filter-group').querySelector('.filter-button').textContent.trim()
+                                };
+                            });
+                            var selectedFiltersContainer = document.getElementById('selectedFilters');
+                            selectedFiltersContainer.innerHTML = '';
+                            if (selectedFilters.length > 0) {
+                                var header = document.createElement('h2');
+                                header.textContent = 'Đang lọc theo';
+                                selectedFiltersContainer.appendChild(header);
+                                var clearAllButton = document.createElement('div');
+                                clearAllButton.className = 'selected-filter';
+                                clearAllButton.innerHTML = '<span>× Bỏ chọn tất cả</span>';
+                                clearAllButton.onclick = clearAllSelections;
+                                selectedFiltersContainer.appendChild(clearAllButton);
+                            }
+                            selectedFilters.forEach(function (filter) {
+                                var filterDiv = document.createElement('div');
+                                filterDiv.className = 'selected-filter';
+                                filterDiv.innerHTML = '<span>' + filter.group + ': ' + filter.text + '</span><span class="remove-filter" onclick="removeSelectedFilter(this.parentElement, \'' + filter.text + '\')">&#10006;</span>';
+                                selectedFiltersContainer.appendChild(filterDiv);
+                            });
+                        }
+
+                        function removeSelectedFilter(filterDiv, text) {
+                            var filterOptionButtons = document.querySelectorAll('.filter-options button');
+                            filterOptionButtons.forEach(function (button) {
+                                if (button.textContent.trim() === text) {
                                     button.classList.remove('selected');
-                                });
-                                updateSelectedFilters();
-                            }
+                                }
+                            });
+                            filterDiv.remove();
+                            updateSelectedFilters();
+                        }
 
-                            function showResults() {
-                                var selectedButtons = document.querySelectorAll('.filter-options button.selected');
-                                var selectedFilters = Array.from(selectedButtons).map(function (button) {
-                                    return button.textContent.trim();
-                                });
-                                alert('Selected filters: ' + selectedFilters.join(', '));
-                            }
+                        function clearAllSelections() {
+                            var selectedButtons = document.querySelectorAll('.filter-options button.selected');
+                            selectedButtons.forEach(function (button) {
+                                button.classList.remove('selected');
+                            });
+                            updateSelectedFilters();
+                        }
 
-                            var currentOpenOptions = null;
+                        function showResults() {
+                            var selectedButtons = document.querySelectorAll('.filter-options button.selected');
+                            var selectedFilters = Array.from(selectedButtons).map(function (button) {
+                                return button.textContent.trim();
+                            });
+                            alert('Selected filters: ' + selectedFilters.join(', '));
+                        }
+
+                        var currentOpenOptions = null;
 
         </script>
 

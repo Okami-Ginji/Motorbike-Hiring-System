@@ -21,11 +21,25 @@ public class SearchCriteria {
     private List<Integer> categoryIDs;
     private List<Integer> demandIDs;
     private List<String> displacements;
-    public void addPriceRange(int minPrice, int maxPrice) {
+    public void addPriceRange(double minPrice, double maxPrice) {
         this.priceRanges.add(new PriceRange(minPrice, maxPrice));
     }
 
+    public void addBrandID(int brandID) {
+        this.brandIDs.add(brandID);
+    }
 
+    public void addCategoryID(int categoryID) {
+        this.categoryIDs.add(categoryID);
+    }
+
+    public void addDisplacement(String displacement) {
+        this.displacements.add(displacement);
+    }
+
+    public void addDemandID(int demandID) {
+        this.demandIDs.add(demandID);
+    }
 
     // Inner class to represent a price range
     @NoArgsConstructor

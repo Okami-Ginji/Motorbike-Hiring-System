@@ -252,7 +252,7 @@
                                 <div class="item">
                                     <div class="car-wrap rounded ftco-animate">
                                         <div class="img rounded d-flex align-items-end">
-                                            <img src="${motor.image}" alt="alt"/>
+                                            <img src="images/${motor.image}" alt="alt"/>
                                         </div>
                                         <div class="text">
                                             <h2 class="mb-0"><a href="#">${motor.model}</a></h2>
@@ -386,7 +386,13 @@
                                         <div class="text pt-4">
                                             <p class="mb-4">${feedback.content}</p>
                                             <p class="name">${feedback.customerName}</p>
-                                            <!--                                            <span class="position">Marketing Manager</span>-->
+                                            <span>rated:</span>
+                                            <c:forEach begin="1" end="${feedback.rate}" var="star">
+                                                <span style="color: #F7D000;" class="ion-ios-star"></span>
+                                            </c:forEach>
+                                            <c:forEach begin="${feedback.rate + 1}" end="5" var="emptyStar">
+                                                <span class="ion-ios-star-outline"></span>
+                                            </c:forEach>
                                         </div>
                                     </div>
                                 </div>

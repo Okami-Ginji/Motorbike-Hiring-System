@@ -53,4 +53,8 @@ public class DemandDAO {
         }
         return list;
     }
+    
+    public static void main(String[] args) {
+        System.out.println(DemandDAO.getInstance().getAllDemand());
+    }
 }

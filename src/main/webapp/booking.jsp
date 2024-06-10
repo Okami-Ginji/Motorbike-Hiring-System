@@ -993,11 +993,18 @@
             }
 
             .rent-button {
-            width: 92%; 
-            display: flex;
-            border: inset 5px;
-            border-radius: 5px;
-/*            padding: 2px;*/
+                background-color: #28a745;
+                color: black;
+                border: none;
+                padding: 15px 10px;
+                font-size: 1em;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 2px;
+                display: flex;
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
             }
 
             /*            .rent-button:hover {
@@ -1060,7 +1067,7 @@
             <div class="container">
                 <form method="POST" id="signup-form" class="signup-form" action="bookinghander">
                     <div >
-                        
+                        <button type="submit" id="paymentButton" style="display: none"></button>
                         <h3>Dates</h3>
                         <fieldset>
                             <h2>Connect Bank Account</h2>
@@ -1136,21 +1143,30 @@
                                                     </c:if>
                                                 </c:forEach>                                             
                                                 <p class="price-note">Không bao gồm thuế và bảo hiểm</p>                                                    
-                                                <div class="rent-button">
+<!--                                                <div class="rent-button">-->
                                                     <input style="display: none" type="checkbox"  id="daily-checkbox-${o.motorcycleId}" class="option-checkbox">
-                                                    <div class="quantity-container" >   
+<!--                                                    <div class="quantity-container" >   
                                                         <div style="display: grid; width: 20%;">
                                                             <button class="buttonMotor" id="plus" type="button" onclick="incrementQuantity('${o.motorcycleId}')">+</button>
                                                             <button class="buttonMotor" id="minus" type="button" onclick="decrementQuantity('${o.motorcycleId}')">-</button>
                                                         </div>
                                                         
-                                                            <input class="form-number-bike" type="number" id="daily-quantity-${o.motorcycleId}" value="0" min="0" readonly>
+                                                            <input class="form-number-bike" type="number" id="daily-quantity-${o.motorcycleId}" value="0" min="0" max="2" readonly>
                                                         
                                                         <button class="buttonMotor" id="clear" type="button" onclick="clearQuantity('${o.motorcycleId}')">x</button>
-                                                    </div>
+                                                    </div>-->
+<div class="rent-button">
+    <a>Chọn số lượng xe: </a>
+    <select class="form-check-select" id="daily-select-${o.motorcycleId}">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+</div>
                                                     
                                                        
-                                                </div>
+<!--                                                </div>-->
 <!--                                                    <label for="daily-checkbox">₫250.000/Day</label>-->
                                             </div>
                                                            
@@ -1238,7 +1254,7 @@
                                         </div>
                                         <div class="form-check">
                                             <div class="checkbox-container">
-                                                <input type="checkbox" id="daily-checkbox-${a.accessoryId}" class="option-checkbox">
+<!--                                                <input type="checkbox" id="daily-checkbox-${a.accessoryId}" class="option-checkbox">-->
                                                 <select class="form-check-select" id="daily-select-${a.accessoryId}">
                                                 </select>
                                                 <c:if test="${a.price eq 0}">
@@ -1351,7 +1367,7 @@
                                         <div class="form-comf-20">
                                             <div>
                                                 <label for="pickupdatetext" class="form-label">Pickup Date</label>
-                                                <p id="pickupdatetext"></p>
+                                                <p id="pickupdatetext" ></p>
                                             </div>
                                             <div>
                                                 <label for="pickuploctext" class="form-label">Pickup Location</label>
@@ -1466,6 +1482,8 @@
         <script src="vendor/nouislider/nouislider.min.js"></script>
         <script src="vendor/wnumb/wNumb.js"></script>
         <script>
+            let totalI = 0;
+            const numberAccessStatesI = {};
             (function ($) {
 
 
@@ -1575,11 +1593,11 @@
                             nextButton.style.background = '#4966b1';
                         }
                         if (currentIndex === 1) {
-                            nextButton.style.pointerEvents = 'none';
-                            nextButton.style.background = '#e8e8e8';
-                            nextButton.style.color = '#999';
-                            toggleBikeNextButton(); 
+//                            nextButton.style.pointerEvents = 'none';
+//                            nextButton.style.background = '#e8e8e8';
+//                            nextButton.style.color = '#999';
                             
+                            toggleBikeNextButton();
                             changePrice();
                            
                        }
@@ -1659,23 +1677,46 @@
                             nextButton.style.background = '#4966b1';
                         }
                         
-                        if (currentIndex === 2) {
-                            let total = 0;
-                            const numberMotorStates = {};
+                        if (currentIndex === 2) {                         
+                            let sum = 0;
                             const checkboxMotorContainer = document.getElementById('motorcyclelist');
-                            // Lấy tất cả các checkbox trong div
-                            const checkMotorboxes = checkboxMotorContainer.querySelectorAll('.option-checkbox:checked');
-                            // Lặp qua từng checkbox và lấy thông tin
-                            checkMotorboxes.forEach(checkbox => {
-                                const formMotorBox = checkbox.closest('.form-box');
-                                if (formMotorBox) {                                    
-                                    const numbers = formMotorBox.querySelectorAll('.form-number-bike');
-                                    numbers.forEach(number => {
-                                        const value = parseInt(number.value, 10);
-                                        total += value; // Cộng dồn giá trị vào tổng
-                                    });
+                            const selectBoxes = checkboxMotorContainer.querySelectorAll('.form-check-select');
+
+                            // Lặp qua từng select box và lấy thông tin nếu giá trị lớn hơn 0
+                            selectBoxes.forEach(selectBox => {
+                                const quantity = parseInt(selectBox.value);
+                                if (quantity > 0) {
+                                   sum += quantity;
                                 }
                             });
+                            
+                            if(sum !== totalI){
+                                totalI = sum;
+                                const checkboxContainer = document.getElementById('protection');
+                                // Đặt max và min cho các input có class 'form-check-select'
+                                checkboxContainer.querySelectorAll('.form-check-select').forEach(input => {
+                                    const max = sum * 2;
+                                    const min = 0;
+                                    createOptions(input, min, max);
+                                });
+                                if (numberAccessStatesI) {
+                                    console.log(Object.keys(numberAccessStatesI).length !== 0);
+                                    if(Object.keys(numberAccessStatesI).length !== 0){
+                                        Object.keys(numberAccessStatesI).forEach(numberId => {
+                                            const numberSelect = document.querySelector(`#protection #` + numberId);
+                                            if (numberSelect) {
+                                               
+                                                const value = typeof numberAccessStatesI[numberId] === 'number' && !isNaN(numberAccessStatesI[numberId]) ? numberAccessStatesI[numberId] : 0;
+                                                numberSelect.value = value;
+
+                                            }
+                                        });
+                                    }
+                                }                        
+                                
+                            }
+                          
+//                        
                             // Hàm tạo các tùy chọn cho thẻ <select>
                             function createOptions(selectElement, min, max) {
                                 selectElement.innerHTML = ''; // Xóa các tùy chọn cũ nếu có
@@ -1686,13 +1727,8 @@
                                     selectElement.appendChild(option);
                                 }
                             }
-
-                            // Đặt max và min cho các input có class 'form-check-select'
-                            document.querySelectorAll('.form-check-select').forEach(input => {
-                                const max = total * 2;
-                                const min = 1;
-                                createOptions(input, min, max);
-                            });
+                            
+                            
                         }
                         if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
                             changePrice();
@@ -1711,85 +1747,73 @@
                             const savedBikeContainer = document.getElementById('savedBikeContainer');
                             savedBikeContainer.innerHTML = '';
 
-                            const checkboxMotorStates = {};
+                     
                             const numberMotorStates = {};
 
 
                             const checkboxMotorContainer = document.getElementById('motorcyclelist');
 
-                            // Lấy tất cả các checkbox trong div
-                            const checkMotorboxes = checkboxMotorContainer.querySelectorAll('.option-checkbox:checked');
+                            //tất cả các select box trong div
+                            const selectBoxes = checkboxMotorContainer.querySelectorAll('.form-check-select');
 
-                            // Lặp qua từng checkbox và lấy thông tin
-                            checkMotorboxes.forEach(checkbox => {
-                                checkboxMotorStates[checkbox.id] = checkbox.checked;
-                                const formMotorBox = checkbox.closest('.form-box');
-                                if (formMotorBox) {
-                                    savedBikeContainer.insertAdjacentHTML('beforeend', formMotorBox.outerHTML);
-                                    const numbers = formMotorBox.querySelectorAll('.form-number-bike');
-                                    numbers.forEach(number => {
-                                        numberMotorStates[number.id] = number.value;
-                                    });
+                            // Lặp qua từng select box và lấy thông tin nếu giá trị lớn hơn 0
+                            selectBoxes.forEach(selectBox => {
+                                const quantity = parseInt(selectBox.value);
+                                if (quantity > 0) {
+                                    const formMotorBox = selectBox.closest('.form-box');
+                                    if (formMotorBox) {
+                                        savedBikeContainer.insertAdjacentHTML('beforeend', formMotorBox.outerHTML);
+                                        numberMotorStates[selectBox.id] = quantity;
+                                    }
                                 }
                             });
-                            
-                            console.log("Checkbox States: ", numberMotorStates);
+
+                             // Hiển thị các giá trị đã lưu trong numberMotorStates
                             if (numberMotorStates) {
                                 Object.keys(numberMotorStates).forEach(numberId => {
-                                    const number = document.querySelector(`#savedBikeContainer #` + numberId);
-                                    if (number) {
-                                        number.value = numberMotorStates[numberId];
-                                        number.disabled = true;
+                                    const numberSelect = document.querySelector(`#savedBikeContainer #` + numberId);
+                                    if (numberSelect) {
+                                        numberSelect.value = numberMotorStates[numberId];
+                                        numberSelect.disabled = true;  // Nếu bạn muốn vô hiệu hóa các select box đã được lưu
                                     }
                                 });
                             }
+                            
                             //Add assecc item have chosen
                             const savedItemsContainer = document.getElementById('savedItemsContainer');
                             savedItemsContainer.innerHTML = ''; // Clear any previous 
 
-                            const checkboxStates = {};
-                            const selectStates = {};
+                            const numberAccessStates = {};
 
 
                             const checkboxContainer = document.getElementById('protection');
 
                             // Lấy tất cả các checkbox trong div
-                            const checkboxes = checkboxContainer.querySelectorAll('.option-checkbox:checked');
+                            const checkboxes = checkboxContainer.querySelectorAll('.form-check-select');
 
                             // Lặp qua từng checkbox và lấy thông tin
-                            checkboxes.forEach(checkboxI => {
-                                checkboxStates[checkboxI.id] = checkboxI.checked;
-                                const formBox = checkboxI.closest('.form-box');
-                                if (formBox) {
-                                    savedItemsContainer.insertAdjacentHTML('beforeend', formBox.outerHTML);
-                                    const selects = formBox.querySelectorAll('.form-check-select');
-                                    selects.forEach(select => {
-                                        selectStates[select.id] = select.value;
-                                    });
+                            checkboxes.forEach(selectBox => {
+                                const quantity = parseInt(selectBox.value);
+                                if (quantity > 0) {
+                                    const formAccessBox = selectBox.closest('.form-box');
+                                    if (formAccessBox) {
+                                        savedItemsContainer.insertAdjacentHTML('beforeend', formAccessBox.outerHTML);
+                                        numberAccessStates[selectBox.id] = quantity;
+                                    }
                                 }
                             });
+                            if (numberAccessStates) {
+                                Object.keys(numberAccessStates).forEach(numberId => {
+                                    const numberSelect = document.querySelector(`#savedItemsContainer #` + numberId);
+                                    if (numberSelect) {
+                                        numberSelect.value = numberAccessStates[numberId];
+                                        numberSelect.disabled = true;  // Nếu bạn muốn vô hiệu hóa các select box đã được lưu
+                                    }
+                                });
+                            }
                             
-                            console.log("Checkbox States: ", checkboxStates);
-                            console.log("Select States: ", selectStates);
-                            if (checkboxStates) {
-                                Object.keys(checkboxStates).forEach(checkboxId => {
-                                    const checkbox = document.querySelector(`#savedItemsContainer #` + checkboxId);
-                                    if (checkbox) {
-                                        checkbox.checked = checkboxStates[checkboxId];
-                                        checkbox.disabled = true;
-                                    }
-                                });
-                            }
 
-                            if (selectStates) {
-                                Object.keys(selectStates).forEach(selectId => {
-                                    const select = document.querySelector(`#savedItemsContainer #` + selectId);
-                                    if (select) {
-                                        select.value = selectStates[selectId];
-                                        select.disabled = true;
-                                    }
-                                });
-                            }
+                          
                             
                             formData = {
                                 first_name: document.getElementById('first_name').value,
@@ -1810,125 +1834,105 @@
                                 document.getElementById('birthdaytext').textContent = formData.dob;    
                                 document.getElementById('gendertext').textContent = formData.gender;
                             }
-
+                            
+                           
+                            
                             // Thêm tiêu đề h4 và dữ liệu số lượng với giá tiền vào div cụ thể trong item-container
                             const formBoxTotal = document.getElementById('form-box-total');
                             formBoxTotal.innerHTML = '';
                             let totalAmount = 0;
                             //calculator motorcycles
-                            checkMotorboxes.forEach(checkbox => {
-                                checkboxStates[checkbox.id] = checkbox.checked;
-                                const formBox = checkbox.closest('.form-box');
-                                if (formBox) {
-                                    const selects = formBox.querySelectorAll('.form-check-select');
-                                    selects.forEach(select => {
-                                        selectStates[select.id] = select.value;
-                                    });
+                            const  savedBikeCal = document.querySelectorAll('#savedBikeContainer .form-box');
+                            savedBikeCal.forEach(formBox => { 
+                                const selects = formBox.querySelector('.form-check-select');
+                                const title = formBox.querySelector('h4').textContent;
+                                const priceLabel = formBox.querySelector('.main-price').textContent;
+                                const quantity = parseInt(selects.value, 10);
+                                let price = 0;
 
-                                    // Lấy nội dung từ thẻ h4 và label
-                                    const title = formBox.querySelector('h4').textContent;
-                                    const priceLabel = formBox.querySelector('.price-current').textContent;
-                                    const quantity = formBox.querySelector('.form-number-bike').value;
-                                    let price = 0;
-
-                                    if (priceLabel.trim().toLowerCase() !== 'free') {
-                                        price = parseInt(priceLabel.replace(/\D/g, ''), 10);
-                                    }
-                                    
-                                    
-
-                                    // Quantity là số ngày chênh lệch giữa ngày trả và ngày pickup
-                                    var quantityDay = Math.max(1, Math.ceil(differenceInDays)); // Đảm bảo quantity ít nhất là 1
-                                    // const quantity = 1;
-                 
-                                    // Tính tổng giá
-                                    const totalPrice = quantityDay * price * quantity;
-                                    totalAmount += totalPrice;
-
-                                    // Create new div elements similar to formBoxTotal structure
-                                    const itemContainer = document.createElement('div');
-                                    itemContainer.classList.add('item-container');
-
-                                    const formComf70 = document.createElement('div');
-                                    formComf70.classList.add('form-comf-70');
-                                    formComf70.innerHTML = `<h4 style=" width: 65%;">`+ title +`</h4>
-                                                            <h4>x`+ quantityDay + ` Days<h4>`;
-
-                                    const formComf30 = document.createElement('div');
-                                    formComf30.classList.add('form-comf-30');
-                                    formComf30.innerHTML = `
-                                        <div style="width= 30%; position: relative; right: 9px;">
-                                        <p>x`+ quantity + `</p>
-                                        </div>
-                                        <div style="width= 30%">
-                                        <p>` + priceLabel +`</p>
-                                        </div>
-                                        <div style="width= 30%">
-                                        <h4>₫` + totalPrice.toLocaleString() +`</h4>
-                                        </div>
-                                        `;
-                                    itemContainer.appendChild(formComf70);
-                                    itemContainer.appendChild(formComf30);
-                                    formBoxTotal.appendChild(itemContainer);
+                                if (priceLabel.trim().toLowerCase() !== 'free') {
+                                    price = parseInt(priceLabel.replace(/\D/g, ''), 10);
                                 }
-                            });    
-                            
-                            // Calculator items
-                            checkboxes.forEach(checkbox => {
-                                checkboxStates[checkbox.id] = checkbox.checked;
-                                const formBox = checkbox.closest('.form-box');
-                                if (formBox) {
-                                    const selects = formBox.querySelectorAll('.form-check-select');
-                                    selects.forEach(select => {
-                                        selectStates[select.id] = select.value;
-                                    });
 
-                                    // Lấy nội dung từ thẻ h4 và label
-                                    const title = formBox.querySelector('h4').textContent;
-                                    const priceLabel = formBox.querySelector('label[for="daily-checkbox"]').textContent;
-                                    let price = 0;
+                                // Quantity là số ngày chênh lệch giữa ngày trả và ngày pickup
+                                const quantityDay = Math.max(1, Math.ceil(differenceInDays)); // Đảm bảo quantity ít nhất là 1
 
-                                    if (priceLabel.trim().toLowerCase() !== 'free') {
-                                        price = parseInt(priceLabel.replace(/\D/g, ''), 10);
-                                    }
+                                // Tính tổng giá
+                                const totalPrice = quantityDay * price * quantity;
+                                totalAmount += totalPrice;
 
-                                    // Lấy số lượng từ thẻ select hoặc mặc định là 1
-                                    let quantity = 1;
-                                    const select = formBox.querySelector('select');
-                                    if (select) {
-                                        quantity = parseInt(select.value, 10) || 1;
-                                    }
+                                // Create new div elements similar to formBoxTotal structure
+                                const itemContainer = document.createElement('div');
+                                itemContainer.classList.add('item-container');
 
-                                    // Tính tổng giá
-                                    const totalPrice = quantity * price;
-                                    totalAmount += totalPrice;
+                                const formComf70 = document.createElement('div');
+                                formComf70.classList.add('form-comf-70');
+                                formComf70.innerHTML = `<h4 style="width: 65%;">` + title + `</h4>
+                                                        <h4>x` + quantityDay +  ` Days<h4>`;
 
-                                    // Tạo các thẻ div mới
-                                    const itemContainer = document.createElement('div');
-                                    itemContainer.classList.add('item-container');
-
-                                    const formComf70 = document.createElement('div');
-                                    formComf70.classList.add('form-comf-70');
-                                    formComf70.innerHTML = `<h4>` + title +`</h4>`;
-
-                                    const formComf30 = document.createElement('div');
-                                    formComf30.classList.add('form-comf-30');
-                                    formComf30.innerHTML = `
-                                        <div style="width= 30%">
+                                const formComf30 = document.createElement('div');
+                                formComf30.classList.add('form-comf-30');
+                                formComf30.innerHTML = `
+                                    <div style="width= 30%">
                                         <p>x`+ quantity +`</p>
                                         </div>
                                         <div style="width= 30%">
-                                        <p>` + priceLabel + `</p>
+                                        <p>₫` + price.toLocaleString() + `</p>
                                         </div>
                                         <div style="width= 30%">
                                         <h4>₫` + totalPrice.toLocaleString() + `</h4>
-                                        </div>
-                                        `;
+                                    </div>
+                                    `;
 
-                                    itemContainer.appendChild(formComf70);
-                                    itemContainer.appendChild(formComf30);
-                                    formBoxTotal.appendChild(itemContainer);
+                                itemContainer.appendChild(formComf70);
+                                itemContainer.appendChild(formComf30);
+                                formBoxTotal.appendChild(itemContainer);                                  
+                            });
+                            
+                            // Calculator items
+                            const  savedAsseccCal = document.querySelectorAll('#savedItemsContainer .form-box');
+                            savedAsseccCal.forEach(formBox => {                              
+                                // Lấy nội dung từ thẻ h4 và label
+                                const selects = formBox.querySelector('.form-check-select');
+                                const title = formBox.querySelector('h4').textContent;
+                                const priceLabel = formBox.querySelector('label[for="daily-checkbox"]').textContent;
+                                const quantity = parseInt(selects.value, 10);
+                                let price = 0;
+
+                                if (priceLabel.trim().toLowerCase() !== 'free') {
+                                    price = parseInt(priceLabel.replace(/\D/g, ''), 10);
                                 }
+
+                                // Tính tổng giá
+                                const totalPrice = quantity * price;
+                                totalAmount += totalPrice;
+
+                                // Tạo các thẻ div mới
+                                const itemContainer = document.createElement('div');
+                                itemContainer.classList.add('item-container');
+
+                                const formComf70 = document.createElement('div');
+                                formComf70.classList.add('form-comf-70');
+                                formComf70.innerHTML = `<h4>` + title +`</h4>`;
+
+                                const formComf30 = document.createElement('div');
+                                formComf30.classList.add('form-comf-30');
+                                formComf30.innerHTML = `
+                                    <div style="width= 30%">
+                                    <p>x`+ quantity +`</p>
+                                    </div>
+                                    <div style="width= 30%">
+                                    <p>` + priceLabel + `</p>
+                                    </div>
+                                    <div style="width= 30%">
+                                    <h4>₫` + totalPrice.toLocaleString() + `</h4>
+                                    </div>
+                                    `;
+
+                                itemContainer.appendChild(formComf70);
+                                itemContainer.appendChild(formComf30);
+                                formBoxTotal.appendChild(itemContainer);
+                                
                             });
                             // Tạo thẻ div item-total và thêm vào cuối savedItemsContainer
                             const itemTotalContainer = document.createElement('div');
@@ -2137,22 +2141,34 @@
                 }
             }
 
+            $("#motorcyclelist").on("change", ".form-check-select", function() {
+               toggleBikeNextButton();
+            });
             
            function toggleBikeNextButton() {
                 var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
-                const checkboxMotorContainer = document.getElementById('motorcyclelist');
-                const checkboxes = checkboxMotorContainer.querySelectorAll('.option-checkbox');
-                let isAnyChecked = false;
-                checkboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        isAnyChecked = true;
-                    }
+                // Kiểm tra nếu có bất kỳ select box nào có giá trị lớn hơn 0
+                var anySelected = $(".form-check-select", "#motorcyclelist").toArray().some(function(select) {
+                    return parseInt($(select).val()) > 0;
                 });
 
-                if (isAnyChecked) {
+                // Nếu có ít nhất một select box đã chọn, kích hoạt nút "Next"
+                if (anySelected) {
                     nextButton.style.pointerEvents = 'auto';
                     nextButton.style.color = 'white';
                     nextButton.style.background = '#4966b1';
+                    const checkboxContainer = document.getElementById('protection');
+                    // Lấy tất cả các checkbox trong div
+                    const checkboxes = checkboxContainer.querySelectorAll('.form-check-select');
+                    // Lặp qua từng checkbox và lấy thông tin
+                    checkboxes.forEach(selectBox => {
+                        const quantity = parseInt(selectBox.value);                     
+                        const formAccessBox = selectBox.closest('.form-box');
+                        if (formAccessBox) {
+                            numberAccessStatesI[selectBox.id] = quantity;
+                        }
+                    });
+                    
                 } else {
                     nextButton.style.pointerEvents = 'none';
                     nextButton.style.background = '#e8e8e8';
@@ -2205,32 +2221,45 @@
                 toggleBikeNextButton();
             }
             
-           // Trong trang đã có sẵn
-            window.addEventListener('message', function(event) {
-                console.log("sadsadas");
-                // Kiểm tra xem tin nhắn có phải từ nguồn đáng tin cậy không
-                if (event.origin !== 'http://localhost:6789/MotorcyleHiringProject/vnpay_return.jsp') return;
-
-                // Xử lý tin nhắn tương ứng ở đây
-                if (event.data === 'payment_success') {
-                    yourFunctionName();
-                }
-            });
+           
 
 
-            // Hàm JavaScript được kích hoạt khi thanh toán thành công
-            function yourFunctionName() {
-                console.log("okekeeeee");
+           // Kiểm tra nếu có dữ liệu nào được gửi từ servlet
+        function handlePaymentStatus(data) {
+            if (data.status === 'success') {
+                yourFunctionName(data);
             }
-            
+        }
+
+        window.addEventListener('storage', function(event) {
+            console.log(event.key);
+            if (event.key === 'payment_status') {
+                var paymentStatus = JSON.parse(event.newValue);
+                handlePaymentStatus(paymentStatus);
+            }
+        });
+
+        function yourFunctionName(data) {
+//            alert("Thanh toán thành công với mã giao dịch: " + data.txnRef);
+            document.getElementById("paymentButton").click();
+            // Thực hiện các hành động khác khi thanh toán thành công
+        }
+
+        // Nếu dữ liệu đã có sẵn trong LocalStorage khi trang được tải lại
+        var existingStatus = localStorage.getItem('payment_status');
+        if (existingStatus) {
+            handlePaymentStatus(JSON.parse(existingStatus));
+            localStorage.removeItem('payment_status');
+        }
+        
+        
+       
 
         </script>
         <iframe id="myI" src="vnpay_return.jsp" style="width: 100%; height: 1000px; display:none;"></iframe>
 <!--        <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
         <script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>-->
-        <script type="text/javascript">         
-            
-        </script>       
+         
     </body>
 
 </html>

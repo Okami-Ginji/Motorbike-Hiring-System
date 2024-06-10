@@ -3,12 +3,13 @@
     Created on : May 29, 2024, 10:23:03 AM
     Author     : DiepTCNN
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+        <title>Motorcycles Detail</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -32,12 +33,23 @@
         <link rel="stylesheet" href="css/flaticon.css">
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
+        <style>
+            /* Wrapper to control size and center content */
+            .img-wrapper {
+                display: flex; /* Enables flexbox layout */
+                justify-content: center; /* Centers the image horizontally */
+                width: 80%; /* Full width of the parent container */
+                margin-left: 10%;
+                
+            }
+            
+        </style>
     </head>
     <body>
 
         <jsp:include page="/includes/navbar.jsp" />
 
-        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/banner.jpg');" data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -53,26 +65,36 @@
         <section class="ftco-section ftco-car-details">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-12">
+                    <div class="col-md-12 detail">
                         <div class="car-details">
-                            <div class="img rounded" style="background-image: url(images/bg_1.jpg);"></div>
+                            <div class="img-wrapper">
+                                <div class="img" style="background-image: url('images/${motorcycleDetail.image}');"></div>
+                            </div>
                             <div class="text text-center">
-                                <span class="subheading">Cheverolet</span>
-                                <h2>Mercedes Grand Sedan</h2>
+                                <c:forEach var="brands" items="${brand}">
+                                    <c:if test="${brands.brandID == motorcycleDetail.brandID}">
+                                        <span class="subheading">${brands.brandName}</span>
+                                    </c:if>
+                                </c:forEach>
+                                <h2>${motorcycleDetail.model}</h2>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services">
                             <div class="media-body py-md-4">
                                 <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-dashboard"></span></div>
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <img src="images/bag.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
+                                    </div>
                                     <div class="text">
                                         <h3 class="heading mb-0 pl-3">
-                                            Mileage
-                                            <span>40,000</span>
+                                            Túi đựng giày
+                                            <span>2 cái</span>
                                         </h3>
                                     </div>
                                 </div>
@@ -83,61 +105,86 @@
                         <div class="media block-6 services">
                             <div class="media-body py-md-4">
                                 <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-pistons"></span></div>
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <img src="images/dungcu.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
+                                    </div>
                                     <div class="text">
                                         <h3 class="heading mb-0 pl-3">
-                                            Transmission
-                                            <span>Manual</span>
+                                            Bộ dụng cụ
+                                            <span>1 bộ</span>
                                         </h3>
                                     </div>
                                 </div>
                             </div>
-                        </div>      
+                        </div>    
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services">
                             <div class="media-body py-md-4">
                                 <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car-seat"></span></div>
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <img src="images/raincoat.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
+                                    </div>
                                     <div class="text">
                                         <h3 class="heading mb-0 pl-3">
-                                            Seats
-                                            <span>5 Adults</span>
+                                            Áo mưa
+                                            <span>2 cái</span>
                                         </h3>
                                     </div>
                                 </div>
                             </div>
-                        </div>      
+                        </div>     
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services">
                             <div class="media-body py-md-4">
                                 <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-backpack"></span></div>
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <img src="images/mubaohiem.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
+                                    </div>
                                     <div class="text">
                                         <h3 class="heading mb-0 pl-3">
-                                            Luggage
-                                            <span>4 Bags</span>
+                                            Mũ bảo hiểm
+                                            <span>2 cái</span>
                                         </h3>
                                     </div>
                                 </div>
                             </div>
-                        </div>      
+                        </div>     
                     </div>
                     <div class="col-md d-flex align-self-stretch ftco-animate">
                         <div class="media block-6 services">
                             <div class="media-body py-md-4">
                                 <div class="d-flex mb-3 align-items-center">
-                                    <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-diesel"></span></div>
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <img src="images/gangtay.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
+                                    </div>
                                     <div class="text">
                                         <h3 class="heading mb-0 pl-3">
-                                            Fuel
-                                            <span>Petrol</span>
+                                            Găng tay
+                                            <span>2 đôi</span>
                                         </h3>
                                     </div>
                                 </div>
                             </div>
-                        </div>      
+                        </div>     
+                    </div>
+                    <div class="col-md d-flex align-self-stretch ftco-animate">
+                        <div class="media block-6 services">
+                            <div class="media-body py-md-4">
+                                <div class="d-flex mb-3 align-items-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <img src="images/giakepdienthoai.png" alt="Mileage Icon" style="width: 50px; height: 50px;">
+                                    </div>
+                                    <div class="text">
+                                        <h3 class="heading mb-0 pl-3">
+                                            Kẹp điện thoại
+                                            <span>1 cái</span>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
                     </div>
                 </div>
                 <div class="row">
@@ -147,185 +194,62 @@
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Features</a>
+                                        <a class="nav-link active" id="pills-pricing-tab" data-toggle="pill" href="#pills-pricing" role="tab" aria-controls="pills-pricing" aria-expanded="true">Pricing</a>
                                     </li>
+
                                     <li class="nav-item">
                                         <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-expanded="true">Review</a>
-                                    </li>
+
                                 </ul>
                             </div>
-
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <ul class="features">
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>GPS</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Music</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <ul class="features">
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li>
-                                                <li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Water</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li>
-                                                <li class="remove"><span class="ion-ios-close"></span>Onboard computer</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <ul class="features">
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Audio input</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li>
-                                                <li class="check"><span class="ion-ios-checkmark"></span>Climate control</li>
-                                            </ul>
+
+                                <div class="tab-pane fade show active" id="pills-pricing" role="tabpanel" aria-labelledby="pills-pricing-tab">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-8">
+                                                <div class="card pricing-details">
+                                                    <div class="card-header text-white text-center">
+                                                        <h3>Pricing Details</h3>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <span>Price per day:</span>
+                                                                <span class="price">${priceList.dailyPriceForDay}</span>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <span>Price per week:</span>
+                                                                <span class="price">${priceList.dailyPriceForWeek}</span>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <span>Price per month:</span>
+                                                                <span class="price">${priceList.dailyPriceForMonth}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
+
 
                                 <div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
-                                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                                    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+                                    <p>${motorcycleDetail.description}</p>
+
                                 </div>
 
-                                <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <h3 class="head">23 Reviews</h3>
-                                            <div class="review d-flex">
-                                                <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-                                                <div class="desc">
-                                                    <h4>
-                                                        <span class="text-left">Jacob Webb</span>
-                                                        <span class="text-right">14 March 2018</span>
-                                                    </h4>
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                        </span>
-                                                        <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-                                                    </p>
-                                                    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-                                                </div>
-                                            </div>
-                                            <div class="review d-flex">
-                                                <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                                                <div class="desc">
-                                                    <h4>
-                                                        <span class="text-left">Jacob Webb</span>
-                                                        <span class="text-right">14 March 2018</span>
-                                                    </h4>
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                        </span>
-                                                        <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-                                                    </p>
-                                                    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-                                                </div>
-                                            </div>
-                                            <div class="review d-flex">
-                                                <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-                                                <div class="desc">
-                                                    <h4>
-                                                        <span class="text-left">Jacob Webb</span>
-                                                        <span class="text-right">14 March 2018</span>
-                                                    </h4>
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                        </span>
-                                                        <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-                                                    </p>
-                                                    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="rating-wrap">
-                                                <h3 class="head">Give a Review</h3>
-                                                <div class="wrap">
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            (98%)
-                                                        </span>
-                                                        <span>20 Reviews</span>
-                                                    </p>
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            (85%)
-                                                        </span>
-                                                        <span>10 Reviews</span>
-                                                    </p>
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            (70%)
-                                                        </span>
-                                                        <span>5 Reviews</span>
-                                                    </p>
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            (10%)
-                                                        </span>
-                                                        <span>0 Reviews</span>
-                                                    </p>
-                                                    <p class="star">
-                                                        <span>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            <i class="ion-ios-star"></i>
-                                                            (0%)
-                                                        </span>
-                                                        <span>0 Reviews</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -388,67 +312,7 @@
         </section>
 
 
-        <footer class="ftco-footer ftco-bg-dark ftco-section">
-            <div class="container">
-                <div class="row mb-5">
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2"><a href="#" class="logo">Car<span>book</span></a></h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                            <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4 ml-md-5">
-                            <h2 class="ftco-heading-2">Information</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">About</a></li>
-                                <li><a href="#" class="py-2 d-block">Services</a></li>
-                                <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-                                <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                                <li><a href="#" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Customer Support</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                                <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                                <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-                                <li><a href="#" class="py-2 d-block">How it works</a></li>
-                                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Have a Questions?</h2>
-                            <div class="block-23 mb-3">
-                                <ul>
-                                    <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                    <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <jsp:include page="/includes/footer.jsp" />
 
 
 
@@ -475,4 +339,52 @@
         <script src="js/main.js"></script>
 
     </body>
+    <style>
+        .pricing-details {
+            background: #ffffff;
+            border: 1px solid #e1e1e1;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .pricing-details:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .pricing-details .card-header {
+            background: linear-gradient(to right, #1089FF 0%, #1089FF 28%, #01D28E 91%, #01D28E 100%);
+            font-size: 1.75rem;
+            padding: 1rem;
+            border-bottom: none;
+        }
+
+        .pricing-details .card-body {
+            padding: 2rem;
+        }
+
+        .pricing-details .list-group-item {
+            font-size: 1.1rem;
+            border: none;
+            padding: 1rem 1.5rem;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .pricing-details .list-group-item:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        .pricing-details .list-group-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .pricing-details .price {
+            font-weight: bold;
+            color: #005cbf;
+            font-size: 30px;
+        }
+
+    </style>
 </html>

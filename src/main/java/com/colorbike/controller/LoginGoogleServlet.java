@@ -33,7 +33,6 @@ public class LoginGoogleServlet extends HttpServlet {
             acc = AccountDAO.getInstance().getAccountByEmail(email);
         }
         session.setAttribute("account", acc);
-        session.setAttribute("email", email);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     } 
     @Override

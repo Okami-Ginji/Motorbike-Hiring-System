@@ -93,9 +93,13 @@
                                     out.print("Thành công");
                         %>
                         
-                        <script>
-                            console.log("aaaaaa");
-                            window.postMessage('payment_success', 'http://localhost:6789/MotorcyleHiringProject/booking.jsp');
+                         <script>
+                            window.localStorage.setItem('payment_status', JSON.stringify({
+                                status: 'success',
+                                txnRef: '<%= request.getParameter("vnp_TxnRef") %>',
+                                amount: '<%= request.getParameter("vnp_Amount") %>',
+                                orderInfo: '<%= request.getParameter("vnp_OrderInfo") %>'
+                            }));
                         </script>
                         <%
                                 } else {

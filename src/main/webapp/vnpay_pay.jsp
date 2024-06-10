@@ -80,12 +80,23 @@
                     dataType: 'JSON',
                     success: function (x) {
                         if (x.code === '00') {
-                            var newWindow = window.open(x.data, '_blank');
-                            if (newWindow) {
-                                newWindow.focus();
-                            } else {
-                                alert('Trình duyệt của bạn đã chặn pop-up. Vui lòng tắt trình chặn pop-up và thử lại.');
-                            }
+//                            var newWindow = window.open(x.data, '_blank');
+//                            if (newWindow) {
+//                                newWindow.focus();
+//                            } else {
+//                                alert('Trình duyệt của bạn đã chặn pop-up. Vui lòng tắt trình chặn pop-up và thử lại.');
+//                            }
+
+                        var popUpWidth = 768;
+                        var popUpHeight = 600;
+                        var popUpLeft = (screen.width - popUpWidth) / 2;
+                        var popUpTop = (screen.height - popUpHeight) / 2;
+                        var newWindow = window.open(x.data, '_blank', 'width=' + popUpWidth + ',height=' + popUpHeight + ',top=' + popUpTop + ',left=' + popUpLeft);
+                        if (newWindow) {
+                            newWindow.focus();
+                        } else {
+                            alert('Trình duyệt của bạn đã chặn pop-up. Vui lòng tắt trình chặn pop-up và thử lại.');
+                        }
                         } else {
                             alert(x.Message);
                         }

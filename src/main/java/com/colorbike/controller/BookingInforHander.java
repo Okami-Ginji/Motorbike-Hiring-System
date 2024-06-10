@@ -65,10 +65,11 @@ public class BookingInforHander extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            String p = request.getParameter("aaa");
          try (PrintWriter out = response.getWriter()) {
            HttpSession session = request.getSession();
             String a = (String) session.getAttribute("pickup");
-             out.print(a);
+             out.print(p);
         }
     }
 

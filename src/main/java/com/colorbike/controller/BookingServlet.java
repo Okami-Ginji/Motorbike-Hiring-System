@@ -46,7 +46,7 @@ public class BookingServlet extends HttpServlet {
         request.setAttribute("listM", listM);
         
         PriceListDAO daoP = PriceListDAO.getInstance();
-        List<PriceList> listP = daoP.getAll();
+        List<PriceList> listP = daoP.getAllPricing();
         request.setAttribute("listP", listP);
         
         AccessoryDAO daoA = AccessoryDAO.getInstance();

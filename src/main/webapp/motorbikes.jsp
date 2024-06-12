@@ -72,7 +72,7 @@
                 opacity: 0;
                 padding: 10px 10px 0;
                 transition: .5s;
-                width: 481px;
+                width: 530px;
                 display: none;
             }
 
@@ -154,6 +154,7 @@
             .button-item-option {
                 margin-bottom: 12px;
                 margin-right: 12px;
+                width: 240px;
             }
             /* Reset some basic styles for the pagination list */
             .pagination {
@@ -229,8 +230,8 @@
                         <button class="filter-button" onclick="toggleOptions('priceOptions')">Giá</button>
                         <div class="filter-options" id="priceOptions">
                             <c:forEach items="${listPriceRange}" var="o">
-                                <input hidden name="priceRanges" value="${o.minPrice + "," + o.maxPrice}"/>
-                                <button data-id="${o.minPrice + "," + o.maxPrice}" class="button-item-option" onclick="toggleSelection(this)">
+                                <input hidden name="priceRanges" value="${o.minPrice},${o.maxPrice}"/>
+                                <button data-id="${o.minPrice},${o.maxPrice}" class="button-item-option" onclick="toggleSelection(this)">
                                     <p> <c:if test="${o.minPrice == 0}">
                                             Dưới <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
                                         </c:if>
@@ -250,12 +251,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('brandOptions')">Hãng</button>
                         <div class="filter-options" id="brandOptions">
                             <c:forEach items="${listBrand}" var="o">
-                                <input hidden name="brand" value="${o.brandID}" id="searchBrand">
-                                <button class="button-item-option" onclick="toggleSelection(this)">${o.brandName}</button>
+                                <input hidden name="brands" value="${o.brandID}" id="searchBrand">
+                                <button class="button-item-option" data-id="${o.brandID}" 
+                                        onclick="toggleSelection(this)">${o.brandName}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('brandOptions')">Đóng</button>
@@ -263,11 +266,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('categoryOptions')">Loại</button>
                         <div class="filter-options" id="categoryOptions">
                             <c:forEach items="${categories}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this)">${o.categoryName}</button>
+                                <input hidden name="categories" value="${o.categoryID}" id="searchCategory">
+                                <button class="button-item-option"  data-id="${o.categoryID}" 
+                                        onclick="toggleSelection(this)">${o.categoryName}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('categoryOptions')">Đóng</button>
@@ -275,11 +281,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('massOptions')">Phân khối</button>
                         <div class="filter-options" id="massOptions">
                             <c:forEach items="${listDisplacement}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this)">${o}</button>
+                                <input hidden name="displacements" value="${o}" id="searchDisplacement">
+                                <button class="button-item-option" data-id="${o}" 
+                                        onclick="toggleSelection(this)">${o}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('massOptions')">Đóng</button>
@@ -287,11 +296,13 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="filter-group">
                         <button class="filter-button" onclick="toggleOptions('needOptions')">Nhu cầu</button>
                         <div class="filter-options" id="needOptions">
                             <c:forEach items="${listDemand}" var="o">
-                                <button class="button-item-option" onclick="toggleSelection(this)">${o.demand}</button>
+                                <input hidden name="demands" value="${o.demandId}" id="searchDemand">
+                                <button class="button-item-option" data-id="${o.demandId}" onclick="toggleSelection(this)">${o.demand}</button>
                             </c:forEach>
                             <div class="btn-filter-group open">
                                 <button onclick="closeOptions('needOptions')">Đóng</button>
@@ -310,90 +321,91 @@
                     <button class="filter-button" onclick="showResults()">Xem kết quả</button>
                 </div>
                 <div class="selected-filters" id="selectedFilters">
-                    <!--Selected filters will be displayed here--> 
+                    <!-- Selected filters will be displayed here -->
                 </div>
             </div>
-        </section>
-        <form?
-             <!-- end search -->
-             <section class="ftco-section bg-light">
-                <div class="container">
-                    <div class="row">
-                        <c:forEach var="motorbike" items="${motorcycles}">
-                            <div class="col-lg-4">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end"
-                                         style="background-image: url('images/${motorbike.image}');">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0">
-                                            <a href="motorcycleDetail?id=${motorbike.motorcycleId}">${motorbike.model}</a>
-                                        </h2>
-                                        <div class="d-flex mb-3">
-                                            <!-- Category Name -->
-                                            <span class="cat">${categoryMap[motorbike.categoryID]}</span>
+        </div>
+    </section>
 
-                                            <!-- Price -->
-                                            <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
-                                        </div>
-                                        <p class="d-flex mb-0 d-block">
-                                            <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
-                                            <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Details</a>
-                                        </p>
-                                    </div>
-                                </div>
+    <!-- end search -->
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row">
+                <c:forEach var="motorbike" items="${motorcycles}">
+                    <div class="col-lg-4">
+                        <div class="car-wrap rounded ftco-animate">
+                            <div class="img rounded d-flex align-items-end"
+                                 style="background-image: url('images/${motorbike.image}');">
                             </div>
-                        </c:forEach>
+                            <div class="text">
+                                <h2 class="mb-0">
+                                    <a href="motorcycleDetail?id=${motorbike.motorcycleId}">${motorbike.model}</a>
+                                </h2>
+                                <div class="d-flex mb-3">
+                                    <!-- Category Name -->
+                                    <span class="cat">${categoryMap[motorbike.categoryID]}</span>
 
-                    </div>
-
-                    <div class="row mt-5">
-                        <div class="col text-center">
-                            <div class="block-27">
-                                <ul class="pagination">
-                                    <c:forEach begin="1" end="${endP}" var="i">
-                                        <li class="page-item ${currentIndex == i ? 'active' : ''}">
-                                            <a class="page-link" href="motorcycle?index=${i}">${i}</a>
-                                        </li>
-                                    </c:forEach>
-                                </ul>
+                                    <!-- Price -->
+                                    <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
+                                </div>
+                                <p class="d-flex mb-0 d-block">
+                                    <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                    <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Details</a>
+                                </p>
                             </div>
                         </div>
                     </div>
+                </c:forEach>
 
+            </div>
+
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <div class="block-27">
+                        <ul class="pagination">
+                            <c:forEach begin="1" end="${endP}" var="i">
+                                <li class="page-item ${currentIndex == i ? 'active' : ''}">
+                                    <a class="page-link" href="motorcycle?index=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
+            </div>
 
-            </section>
-            <jsp:include page="/includes/footer.jsp" />
+        </div>
 
-
-
-            <!-- loader -->
-            <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-                <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-                <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                        stroke="#F96D00" />
-                </svg></div>
+    </section>
+    <jsp:include page="/includes/footer.jsp" />
 
 
-            <script src="js/jquery.min.js"></script>
-            <script src="js/jquery-migrate-3.0.1.min.js"></script>
-            <script src="js/popper.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/jquery.easing.1.3.js"></script>
-            <script src="js/jquery.waypoints.min.js"></script>
-            <script src="js/jquery.stellar.min.js"></script>
-            <script src="js/owl.carousel.min.js"></script>
-            <script src="js/jquery.magnific-popup.min.js"></script>
-            <script src="js/aos.js"></script>
-            <script src="js/jquery.animateNumber.min.js"></script>
-            <script src="js/bootstrap-datepicker.js"></script>
-            <script src="js/jquery.timepicker.min.js"></script>
-            <script src="js/scrollax.min.js"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-            <script src="js/google-map.js"></script>
-            <script src="js/main.js"></script>
-            <script>
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00" />
+        </svg></div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+    <script>
                         function toggleOptions(id) {
                             var options = document.getElementById(id);
                             var button = options.previousElementSibling;
@@ -463,31 +475,78 @@
                             });
                             updateSelectedFilters();
                         }
-
-
-                        function showResults() {
-                            var searchBrand = document.getElementById('searchBrand');
-                            var selectedButtons = document.querySelectorAll('.filter-options button.selected');
-                            var selectedFilters = Array.from(selectedButtons).map(function (button) {
-                                return {
-                                    text: button.textContent,
-                                    groupId: button.closest('.filter-group')
-                                };
-                            });
-
-                            var url = 'searchCriteria?';
-                            selectedFilters.forEach(function (filter, index) {
-                                url += encodeURIComponent(filter.groupId) + '=' + encodeURIComponent(filter.text);
-                                if (index < selectedFilters.length - 1) {
-                                    url += '&';
-                                }
-                            });
-
-                            window.location.href = url;
-                        }
                         var currentOpenOptions = null;
 
 
-            </script>
-    </body>
+                        function showResults() {
+                            var selectedBrands = [];
+                            var selectedCategories = [];
+                            var selectedDisplacements = [];
+                            var selectedDemands = [];
+                            var selectedPriceRanges = [];
+
+                            var selectedPriceButton = document.querySelectorAll('#priceOptions .button-item-option.selected');
+                            selectedPriceButton.forEach(function (button) {
+                                var priceRange = button.getAttribute('data-id');
+                                if (priceRange) {
+                                    selectedPriceRanges.push(priceRange);
+                                }
+                            });
+
+                            var selectedBrandButtons = document.querySelectorAll('#brandOptions .button-item-option.selected');
+                            selectedBrandButtons.forEach(function (button) {
+                                var brandID = button.getAttribute('data-id');
+                                if (brandID) {
+                                    selectedBrands.push(brandID);
+                                }
+                            });
+
+                            var selectedCategoryButtons = document.querySelectorAll('#categoryOptions .button-item-option.selected');
+                            selectedCategoryButtons.forEach(function (button) {
+                                var categoryID = button.getAttribute('data-id');
+                                if (categoryID) {
+                                    selectedCategories.push(categoryID);
+                                }
+                            });
+
+                            var selectedDisplacementButtons = document.querySelectorAll('#massOptions .button-item-option.selected');
+                            selectedDisplacementButtons.forEach(function (button) {
+                                var displacement = button.getAttribute('data-id');
+                                if (displacement) {
+                                    selectedDisplacements.push(displacement);
+                                }
+                            });
+
+                            var selectedDemandButtons = document.querySelectorAll('#needOptions .button-item-option.selected');
+                            selectedDemandButtons.forEach(function (button) {
+                                var demandID = button.getAttribute('data-id');
+                                if (demandID) {
+                                    selectedDemands.push(demandID);
+                                }
+                            });
+
+                            var url = 'searchCriteria?';
+                            if (selectedBrands.length > 0) {
+                                url += 'brands=' + selectedBrands.join('&brands=') + '&';
+                            }
+                            if (selectedCategories.length > 0) {
+                                url += 'categories=' + selectedCategories.join('&categories=') + '&';
+                            }
+                            if (selectedDisplacements.length > 0) {
+                                url += 'displacements=' + selectedDisplacements.join('&displacements=') + '&';
+                            }
+                            if (selectedDemands.length > 0) {
+                                url += 'demands=' + selectedDemands.join('&demands=') + '&';
+                            }
+                            if (selectedPriceRanges.length > 0) {
+                                url += 'priceRanges=' + selectedPriceRanges.join('&priceRanges=') + '&';
+                            }
+
+                            // Remove the trailing '&'
+                            url = url.slice(0, -1);
+
+                            window.location.href = url;
+                        }
+    </script>
+</body>
 </html>

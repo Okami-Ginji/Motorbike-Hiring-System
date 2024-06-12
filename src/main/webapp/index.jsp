@@ -216,21 +216,20 @@
                     </div>
                 </div>
         </section>
-
-        <div class="event-box" id="eventBox">
+        <div class="event-box" id="eventBox" >
             <button class="minimize-btn" onclick="minimizeEventBox()">−</button>
             <div class="text-event text-center">
                 <h6>COLOR<span class="bike">BIKE</span> Tri Ân!</h6>
             </div>
             <div class="text-center">
-                <img onclick="window.location.href = 'event'" 
+                <img onclick="checkLogin('${sessionScope.account}')" 
                      src="https://img.lazcdn.com/g/p/5c721d75a2bb91f64ab172f2f47e1ee1.png_720x720q80.png" alt="alt"/>
             </div>
             <div class="text-center">
                 <p>Sale cực <span class="sale">HỜI</span></p>
             </div>
             <div class="text-center">
-                <button class="text-more" onclick="window.location.href = 'event'">Xem thêm</button>
+                <button class="text-more" onclick="checkLogin('${sessionScope.account}')">Xem thêm</button>
             </div>
         </div>
         <button class="show-event-btn" id="showEventBtn" onclick="showEventBox()">Event</button>
@@ -542,15 +541,24 @@
         <script src="js/main.js"></script>
         <!-- thanh search -->
         <script>
-            function minimizeEventBox() {
-                document.getElementById('eventBox').style.display = 'none';
-                document.getElementById('showEventBtn').style.display = 'block';
-            }
+                function minimizeEventBox() {
+                    document.getElementById('eventBox').style.display = 'none';
+                    document.getElementById('showEventBtn').style.display = 'block';
+                }
 
-            function showEventBox() {
-                document.getElementById('eventBox').style.display = 'block';
-                document.getElementById('showEventBtn').style.display = 'none';
-            }
+                function showEventBox() {
+                    document.getElementById('eventBox').style.display = 'block';
+                    document.getElementById('showEventBtn').style.display = 'none';
+                }
+
+                function checkLogin(account) {
+                    if (account !== '') {
+                        window.location.href = 'event';
+                    } else {
+                        window.location.href = 'login.jsp';
+                    }
+                }
+
         </script>
     </body>
 

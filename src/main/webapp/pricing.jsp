@@ -90,7 +90,7 @@
                                                         <p class="btn-custom"><a href="#">Rent a motorbike</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><small class="currency">$</small> ${p.dailyPriceForDay}</span>
+                                                                <span class="num"><small class="currency">$</small> ${p.dailyPriceForWeek}</span>
                                                                 <span class="per">/per week</span>
                                                             </h3>
                                                             <span class="subheading">$3/hour fuel surcharges</span>

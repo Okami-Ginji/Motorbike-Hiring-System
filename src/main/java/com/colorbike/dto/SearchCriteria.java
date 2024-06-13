@@ -1,5 +1,6 @@
 package com.colorbike.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SearchCriteria {
+public class SearchCriteria implements Serializable{
 
     private List<PriceRange> priceRanges = new ArrayList<>();
     private List<Integer> brandIDs = new ArrayList<>();
@@ -46,7 +47,7 @@ public class SearchCriteria {
     @Getter
     @Setter
     @ToString
-    public static class PriceRange {
+    public static class PriceRange implements Serializable{
         private double minPrice;
         private double maxPrice;
     }

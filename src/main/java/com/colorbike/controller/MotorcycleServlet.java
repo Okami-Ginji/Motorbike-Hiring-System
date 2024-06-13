@@ -45,9 +45,7 @@ public class MotorcycleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SearchCriteria criteria = new SearchCriteria();
         List<Category> categories = categoryDAO.getAllCategory();
-//        List<Motorcycle> motorcycles = motorcycleDAO.getAll();
         List<PriceList> priceLists = priceListDAO.getAllPriceList();
         List<Brand> brandLists = brandDAO.getAllBrand();
         List<String> listDisplacement = motorcycleDAO.getListDisplacements();

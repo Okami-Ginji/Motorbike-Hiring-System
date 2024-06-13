@@ -9,7 +9,7 @@
 <jsp:include page="/includes/header.jsp" />
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a style="font-size: 40px;" class="navbar-brand" href="index.jsp">Color<span>Bike</span></a>
+        <a style="font-size: 40px;" class="navbar-brand" href="home">Color<span>Bike</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
@@ -17,11 +17,10 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a style="font-size: larger;" href="index.jsp" class="nav-link">Home</a></li>
                 <li class="nav-item"><a style="font-size: larger;" href="about.jsp" class="nav-link">About</a></li>
                 <li class="nav-item"><a style="font-size: larger;" href="policies.jsp" class="nav-link">Policies&Terms</a>
                 </li>
-                <li class="nav-item"><a style="font-size: larger;" href="pricing.jsp" class="nav-link">Pricing</a></li>
+                <li class="nav-item"><a style="font-size: larger;" href="pricing" class="nav-link">Pricing</a></li>
 
                 <li class="nav-item"><a style="font-size: larger;" href="motorcycle" class="nav-link">Motorbikes</a></li>
                 <li class="nav-item"><a style="font-size: larger;" href="touristLocation" class="nav-link">Location</a></li>

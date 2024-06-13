@@ -59,7 +59,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "    PriceListID\n"
                     + "FROM \n"
                     + "    dbo.Motorcycle;";
-    //why không * đi
+            //why không * đi
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -187,20 +187,14 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
     }
 
     //Thanh lọc (giá, hãng, loại, phân khối, nhu cầu) 
-    public List<Motorcycle> searchMotorcycleByCriteria(SearchCriteria criteria) {
+    public List<Motorcycle> searchMotorcycleByCriteria(SearchCriteria criteria, int index) {
         List<Motorcycle> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
-        StringBuilder sql = new StringBuilder("SELECT m.*\n"
-                + "FROM Motorcycle m\n"
-                + "	JOIN Demand_Detail d\n"
-                + "	ON m.MotorcycleID = d.MotorcycleID\n"
-                + "WHERE 1=1");
-        //lấy theo giá
-        if (!criteria.getPriceRanges().isEmpty()) {
-            sql.append(" AND PriceListID IN (SELECT PriceListID\n"
-                    + "	FROM PriceList\n"
-                    + "	WHERE ");
+        StringBuilder sql = new StringBuilder("SELECT DISTINCT m.* FROM Motorcycle m JOIN Demand_Detail d ON m.MotorcycleID = d.MotorcycleID WHERE 1=1");
+
+        if (criteria.getPriceRanges() != null && !criteria.getPriceRanges().isEmpty()) {
+            sql.append(" AND PriceListID IN (SELECT PriceListID FROM PriceList WHERE ");
             for (int i = 0; i < criteria.getPriceRanges().size(); i++) {
                 if (i > 0) {
                     sql.append(" OR ");
@@ -209,57 +203,71 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             }
             sql.append(")");
         }
-        //lấy theo hãng
 
-        if (!criteria.getBrandIDs().isEmpty()) {
+        if (criteria.getBrandIDs() != null && !criteria.getBrandIDs().isEmpty()) {
             sql.append(" AND BrandID IN (")
                     .append(generateParameterPlaceholders(criteria.getBrandIDs().size()))
                     .append(")");
         }
-        //lấy theo loại
 
-        if (!criteria.getCategoryIDs().isEmpty()) {
+        if (criteria.getCategoryIDs() != null && !criteria.getCategoryIDs().isEmpty()) {
             sql.append(" AND CategoryID IN (")
                     .append(generateParameterPlaceholders(criteria.getCategoryIDs().size()))
                     .append(")");
         }
-        //lấy theo phân khối
-        if (!criteria.getDisplacements().isEmpty()) {
+
+        if (criteria.getDisplacements() != null && !criteria.getDisplacements().isEmpty()) {
             sql.append(" AND Displacement IN (")
                     .append(generateParameterPlaceholders(criteria.getDisplacements().size()))
                     .append(")");
         }
-        //lấy theo nhu cầu
 
-        if (!criteria.getDemandIDs().isEmpty()) {
+        if (criteria.getDemandIDs() != null && !criteria.getDemandIDs().isEmpty()) {
             sql.append(" AND d.DemandId IN (")
                     .append(generateParameterPlaceholders(criteria.getDemandIDs().size()))
                     .append(")");
         }
+        
+        sql.append("\nORDER BY MotorcycleID OFFSET ? ROWS FETCH NEXT 9 ROW ONLY;");
+               
+
         try {
             stm = conn.prepareStatement(sql.toString());
             int parameterIndex = 1;
-            //lấy theo giá
-            for (PriceRange p : criteria.getPriceRanges()) {
-                stm.setDouble(parameterIndex++, p.getMinPrice());
-                stm.setDouble(parameterIndex++, p.getMaxPrice());
+
+            if (criteria.getPriceRanges() != null) {
+                for (PriceRange p : criteria.getPriceRanges()) {
+                    stm.setDouble(parameterIndex++, p.getMinPrice());
+                    stm.setDouble(parameterIndex++, p.getMaxPrice());
+                }
             }
-            //lấy theo hãng
-            for (int brandID : criteria.getBrandIDs()) {
-                stm.setInt(parameterIndex++, brandID);
+
+            if (criteria.getBrandIDs() != null) {
+                for (int brandID : criteria.getBrandIDs()) {
+                    stm.setInt(parameterIndex++, brandID);
+                }
             }
-            //lấy theo loại
-            for (int categoryID : criteria.getCategoryIDs()) {
-                stm.setInt(parameterIndex++, categoryID);
+
+            if (criteria.getCategoryIDs() != null) {
+                for (int categoryID : criteria.getCategoryIDs()) {
+                    stm.setInt(parameterIndex++, categoryID);
+                }
             }
-            //lấy theo phân khối
-            for (String displacement : criteria.getDisplacements()) {
-                stm.setString(parameterIndex++, displacement);
+
+            if (criteria.getDisplacements() != null) {
+                for (String displacement : criteria.getDisplacements()) {
+                    stm.setString(parameterIndex++, displacement);
+                }
             }
-            //lấy theo nhu cầu
-            for (int demandID : criteria.getDemandIDs()) {
-                stm.setInt(parameterIndex++, demandID);
+
+            if (criteria.getDemandIDs() != null) {
+                for (int demandID : criteria.getDemandIDs()) {
+                    stm.setInt(parameterIndex++, demandID);
+                }
             }
+            
+            stm.setInt(parameterIndex++, (index - 1) * 9);
+
             rs = stm.executeQuery();
             while (rs.next()) {
                 list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
@@ -344,11 +352,11 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-//        List<Motorcycle> list = dao.getTop5MotorcycleTheMostRental();
-//
-//        for (Motorcycle x : list) {
-//            System.out.println(x);
-//        }
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.addPriceRange(200, 230);
+        searchCriteria.addPriceRange(270, 230);
         System.out.println(dao.getListDisplacements());
+        //System.out.println(dao.searchMotorcycleByCriteria(searchCriteria));
+//        System.out.println(dao.getListDisplacements());
     }
 }

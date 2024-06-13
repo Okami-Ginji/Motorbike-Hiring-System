@@ -77,6 +77,7 @@
                 right: 30px;
                 background: transparent;
                 border: none;
+                transition: transform 0.3s ease;
                 color: white;
                 font-size: 1.2em;
                 cursor: pointer;
@@ -87,7 +88,7 @@
                 color: #fff;
                 outline: none;
             }
-            
+
             .show-event-btn {
                 position: fixed;
                 bottom: 10px;
@@ -215,21 +216,20 @@
                     </div>
                 </div>
         </section>
-
-        <div class="event-box" id="eventBox">
+        <div class="event-box" id="eventBox" >
             <button class="minimize-btn" onclick="minimizeEventBox()">−</button>
             <div class="text-event text-center">
                 <h6>COLOR<span class="bike">BIKE</span> Tri Ân!</h6>
             </div>
             <div class="text-center">
-                <img onclick="window.location.href = 'event'" 
+                <img onclick="checkLogin('${sessionScope.account}')" 
                      src="https://img.lazcdn.com/g/p/5c721d75a2bb91f64ab172f2f47e1ee1.png_720x720q80.png" alt="alt"/>
             </div>
             <div class="text-center">
                 <p>Sale cực <span class="sale">HỜI</span></p>
             </div>
             <div class="text-center">
-                <button class="text-more" onclick="window.location.href = 'event'">Xem thêm</button>
+                <button class="text-more" onclick="checkLogin('${sessionScope.account}')">Xem thêm</button>
             </div>
         </div>
         <button class="show-event-btn" id="showEventBtn" onclick="showEventBox()">Event</button>
@@ -251,7 +251,7 @@
                                 <div class="item">
                                     <div class="car-wrap rounded ftco-animate">
                                         <div class="img rounded d-flex align-items-end">
-                                            <img src="${motor.image}" alt="alt"/>
+                                            <img src="images/${motor.image}" alt="alt"/>
                                         </div>
                                         <div class="text">
                                             <h2 class="mb-0"><a href="#">${motor.model}</a></h2>
@@ -265,8 +265,8 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </div>
-                                                    </c:if>
-                                                </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
                                             <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#"                                                                                                       class="btn btn-secondary py-2 ml-1">Details</a></p>
                                         </div>
                                     </div>
@@ -385,7 +385,13 @@
                                         <div class="text pt-4">
                                             <p class="mb-4">${feedback.content}</p>
                                             <p class="name">${feedback.customerName}</p>
-<!--                                            <span class="position">Marketing Manager</span>-->
+                                            <span>rated:</span>
+                                            <c:forEach begin="1" end="${feedback.rate}" var="star">
+                                                <span style="color: #F7D000;" class="ion-ios-star"></span>
+                                            </c:forEach>
+                                            <c:forEach begin="${feedback.rate + 1}" end="5" var="emptyStar">
+                                                <span class="ion-ios-star-outline"></span>
+                                            </c:forEach>
                                         </div>
                                     </div>
                                 </div>
@@ -544,6 +550,15 @@
                     document.getElementById('eventBox').style.display = 'block';
                     document.getElementById('showEventBtn').style.display = 'none';
                 }
+
+                function checkLogin(account) {
+                    if (account !== '') {
+                        window.location.href = 'event';
+                    } else {
+                        window.location.href = 'login.jsp';
+                    }
+                }
+
         </script>
     </body>
 

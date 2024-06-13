@@ -10,11 +10,16 @@
 <html lang="en">
 
     <head>
+        <jsp:include page="/includes/header.jsp" />
         <meta charset="utf-8">
         <title>FAQs</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
         <style type="text/css">
+
+
             body {
                 margin-top: 20px;
                 opacity: 0; /* Khởi đầu với độ trong suốt 0 */
@@ -45,7 +50,7 @@
 
             .faq-accordian {
                 position: relative;
-                z-index: 1;
+                /*z-index: 1;*/
             }
 
             .faq-accordian .card {
@@ -129,52 +134,53 @@
                 }
             }
 
-            /* breadcrumb */
+           
 
-            /* Style the list */
-            ul.breadcrumb {
-                padding: 10px 16px;
-                list-style: none;
-                background-color: #eee;
+            #backtoTopBtn {
+                display: none; /* Ẩn nút ban đầu */
+                position: fixed; /* Nút ở vị trí cố định trên màn hình */
+                bottom: 20px; /* Khoảng cách từ dưới cùng */
+                right: 30px; /* Khoảng cách từ bên phải */
+                z-index: 99; /* Đảm bảo nút nằm trên các phần tử khác */
+                border: none; /* Không viền */
+                outline: none; /* Không viền khi nhấp */
+                background: linear-gradient(to right, #1089FF 0%, #1089FF 28%, #01D28E 91%, #01D28E 100%);
+                color: white; /* Màu chữ */
+                cursor: pointer; /* Con trỏ chuyển thành tay khi di chuột */
+                padding: 15px; /* Khoảng đệm bên trong nút */
+                border-radius: 10px; /* Bo góc nút */
             }
 
-            /* Display list items side by side */
-            ul.breadcrumb li {
-                display: inline;
-                font-size: 18px;
+            #backtoTopBtn:hover {
+                background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+            }
+            .accordion .card-header h6 {
+                display: flex;                   /* Sử dụng flexbox để bố trí nội dung */
+                justify-content: space-between;  /* Căn giữa các phần tử theo chiều ngang */
+                align-items: center;             /* Căn giữa các phần tử theo chiều dọc */
             }
 
-            /* Add a slash symbol (/) before/behind each list item */
-            ul.breadcrumb li+li:before {
-                padding: 8px;
-                color: black;
-                content: "/\00a0";
+            .accordion .card-header i.fa-caret-down {
+                margin-left: auto;               /* Đẩy biểu tượng icon về phía cuối dòng */
+                font-size: 1.2em;                /* Thay đổi kích thước biểu tượng nếu cần */
+                display: flex;                   /* Đảm bảo rằng biểu tượng tuân theo bố trí flex */
             }
 
-            /* Add a color to all links inside the list */
-            ul.breadcrumb li a {
-                color: #0275d8;
-                text-decoration: none;
+            .accordion .card-header h6 .lni-chevron-up {
+                display: none;                   /* Ẩn span "lni-chevron-up" nếu không cần thiết */
             }
 
-            /* Add a color on mouse-over */
-            ul.breadcrumb li a:hover {
-                color: #01447e;
-                text-decoration: underline;
-            }
         </style>
     </head>
 
     <body>
-        <!-- breadcrumb -->
-        <div>
-            <ul class="breadcrumb">
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li>All List</li>
-            </ul>
-        </div>
-        <!-- end breadcrumbs -->
+        <jsp:include page="/includes/navbar.jsp" /> 
+        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');"
+                 data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+
+        </section>
+        
         <div class="faq_area section_padding_130" id="faq">
             <div class="container">
                 <div class="row justify-content-center">
@@ -198,8 +204,8 @@
                                      style="visibility: visible; animation-delay: ${0.2 + status.index * 0.1}s; animation-name: fadeInUp;">
                                     <div class="card-header" id="heading${status.index}">
                                         <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapse${status.index}"
-                                            aria-expanded="false" aria-controls="collapse${status.index}">
-                                            ${faq.question}<span class="lni-chevron-up"></span>
+                                            aria-expanded="false" aria-controls="collapse${status.index}"><i class="fa fa-question-circle" style="font-size:40px;color:#158BFF; margin-right: 1%;"></i>
+                                            ${faq.question}<i class="fa-solid fa-caret-down"></i><span class="lni-chevron-up"></span>
                                         </h6>
                                     </div>
                                     <div class="collapse" id="collapse${status.index}" aria-labelledby="heading${status.index}"
@@ -223,12 +229,37 @@
                     </div>
                 </div>
             </div>
+
         </div>
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript">
 
-        </script>
-    </body>
+        <a id="backToTopBtn" href="#" class="back-to-top">Back to Top</a>
 
+    </body> 
+
+    <script>
+        // Lắng nghe sự kiện scroll của trang
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            // Nếu scroll xuống 500px thì hiển thị nút "Back to Top", ngược lại ẩn đi
+            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+                document.getElementById("backToTopBtn").style.display = "block";
+            } else {
+                document.getElementById("backToTopBtn").style.display = "none";
+            }
+        }
+
+        // Xử lý sự kiện khi nút được nhấp
+        document.getElementById("backToTopBtn").onclick = function () {
+            // Cuộn trang lên đầu
+            document.body.scrollTop = 0; // Cho Safari
+            document.documentElement.scrollTop = 0; // Cho Chrome, Firefox, IE và Opera
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
 </html>

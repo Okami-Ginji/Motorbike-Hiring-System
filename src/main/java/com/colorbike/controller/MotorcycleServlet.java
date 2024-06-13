@@ -73,8 +73,8 @@ public class MotorcycleServlet extends HttpServlet {
         }
 
         Map<Integer, Double> priceMap = new HashMap<>();
-        for (PriceList priceList : priceLists) {
-            priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
+        for (PriceList p : priceLists) {
+            priceMap.put(p.getPriceListId(), p.getDailyPriceForDay());
         }
 
 

@@ -241,8 +241,6 @@
                 height: calc(100% - 10px);
                 top: 5px;
             }
-
-            }
             .tabs-container {
                 background-color: #f8f9fa; /* Màu nền của thanh chọn */
                 border: 1px solid #ddd; /* Đường viền của thanh chọn */

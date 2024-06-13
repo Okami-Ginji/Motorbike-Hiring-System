@@ -1,282 +1,214 @@
-<%-- 
-    Document   : bookingHistory
-    Created on : Jun 7, 2024, 12:15:49 AM
-    Author     : huypd
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-
-
-        <title>bs4 account tickets - Bootdey.com</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style type="text/css">
-            body{
-                background:#eee;
-            }
-            .main-container{
-                margin-top:40px;
-            }
-            .widget-author {
-                margin-bottom: 58px;
-            }
-            .author-card {
-                position: relative;
-                padding-bottom: 48px;
-                background-color: #fff;
-                box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
-            }
-            .author-card .author-card-cover {
-                position: relative;
-                width: 100%;
-                height: 100px;
-                background-position: center;
-                background-repeat: no-repeat;
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                background: url('https://cdn.visordown.com/field/image/H2R-01.jpg') no-repeat center center fixed;
                 background-size: cover;
+                font-family: 'Open Sans', sans-serif;
             }
-            .author-card .author-card-cover::after {
-                display: block;
-                position: absolute;
-                top: 0;
+            .booking-detail .detail-content p {
+                margin-bottom: 1rem;
+            }
+
+            .booking-detail .detail-actions {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .booking-detail .detail-actions button {
+                padding: 0.5rem 1rem;
+                border: none;
+                cursor: pointer;
+            }
+
+            .booking-detail .detail-actions button:nth-child(1) {
+                background-color: #ffc107;
+            }
+
+            .booking-detail .detail-actions button:nth-child(2) {
+                background-color: #28a745;
+            }
+
+            .booking-detail .detail-actions button:nth-child(3) {
+                background-color: #007BFF;
+            }
+
+            .booking-detail .detail-actions button:nth-child(4) {
+                background-color: #6c757d;
+            }
+
+            .booking-detail .detail-actions button:hover {
+                opacity: 0.9;
+            }
+            .extension-infooo {
+                display: none;
+                position: fixed;
+                z-index: 1;
                 left: 0;
+                top: 0;
                 width: 100%;
                 height: 100%;
-                content: '';
-                opacity: 0.5;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+                animation-name: fadeIn;
+                animation-duration: 0.5s;
             }
-            .author-card .author-card-cover > .btn {
-                position: absolute;
-                top: 12px;
-                right: 12px;
-                padding: 0 10px;
+            .extension-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 70%;
+                animation-name: slideIn;
+                animation-duration: 0.5s;
+                animation-fill-mode: forwards;
             }
-            .author-card .author-card-profile {
-                display: table;
-                position: relative;
-                margin-top: -22px;
-                padding-right: 15px;
-                padding-bottom: 16px;
-                padding-left: 20px;
-                z-index: 5;
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
             }
-            .author-card .author-card-profile .author-card-avatar, .author-card .author-card-profile .author-card-details {
-                display: table-cell;
-                vertical-align: middle;
+
+            @keyframes slideIn {
+                from {
+                    transform: translateY(-250px);
+                }
+                to {
+                    transform: translateY(0);
+                }
             }
-            .author-card .author-card-profile .author-card-avatar {
-                width: 85px;
-                border-radius: 50%;
-                box-shadow: 0 8px 20px 0 rgba(0, 0, 0, .15);
-                overflow: hidden;
-            }
-            .author-card .author-card-profile .author-card-avatar > img {
-                display: block;
-                width: 100%;
-            }
-            .author-card .author-card-profile .author-card-details {
-                padding-top: 20px;
-                padding-left: 15px;
-            }
-            .author-card .author-card-profile .author-card-name {
-                margin-bottom: 2px;
-                font-size: 14px;
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
                 font-weight: bold;
             }
-            .author-card .author-card-profile .author-card-position {
-                display: block;
-                color: #8c8c8c;
-                font-size: 12px;
-                font-weight: 600;
-            }
-            .author-card .author-card-info {
-                margin-bottom: 0;
-                padding: 0 25px;
-                font-size: 13px;
-            }
-            .author-card .author-card-social-bar-wrap {
-                position: absolute;
-                bottom: -18px;
-                left: 0;
-                width: 100%;
-            }
-            .author-card .author-card-social-bar-wrap .author-card-social-bar {
-                display: table;
-                margin: auto;
-                background-color: #fff;
-                box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .11);
-            }
-            .btn-style-1.btn-white {
-                background-color: #fff;
-            }
-            .list-group-item i {
-                display: inline-block;
-                margin-top: -1px;
-                margin-right: 8px;
-                font-size: 1.2em;
-                vertical-align: middle;
-            }
-            .mr-1, .mx-1 {
-                margin-right: .25rem !important;
-            }
 
-            .list-group-item.active:not(.disabled) {
-                border-color: #e7e7e7;
-                background: #fff;
-                color: #ac32e4;
-                cursor: default;
-                pointer-events: none;
-            }
-            .list-group-flush:last-child .list-group-item:last-child {
-                border-bottom: 0;
-            }
-
-            .list-group-flush .list-group-item {
-                border-right: 0 !important;
-                border-left: 0 !important;
-            }
-
-            .list-group-flush .list-group-item {
-                border-right: 0;
-                border-left: 0;
-                border-radius: 0;
-            }
-            .list-group-item.active {
-                z-index: 2;
-                color: #fff;
-                background-color: #007bff;
-                border-color: #007bff;
-            }
-            .list-group-item:last-child {
-                margin-bottom: 0;
-                border-bottom-right-radius: .25rem;
-                border-bottom-left-radius: .25rem;
-            }
-            a.list-group-item, .list-group-item-action {
-                color: #404040;
-                font-weight: 600;
-            }
-            .list-group-item {
-                padding-top: 16px;
-                padding-bottom: 16px;
-                -webkit-transition: all .3s;
-                transition: all .3s;
-                border: 1px solid #e7e7e7 !important;
-                border-radius: 0 !important;
-                color: #404040;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .08em;
-                text-transform: uppercase;
+            .close:hover,
+            .close:focus {
+                color: black;
                 text-decoration: none;
-            }
-            .list-group-item {
-                position: relative;
-                display: block;
-                padding: .75rem 1.25rem;
-                margin-bottom: -1px;
-                background-color: #fff;
-                border: 1px solid rgba(0,0,0,0.125);
-
-
-            }
-            .tabs-container {
-                background-color: #f8f9fa; /* Màu nền của thanh chọn */
-                border: 1px solid #ddd; /* Đường viền của thanh chọn */
-            }
-
-            .tab {
-                padding: 10px 20px;
                 cursor: pointer;
-                background-color: #ffffff; /* Màu nền của từng tab */
-                border-right: 1px solid #ddd; /* Đường viền giữa các tab */
-                text-align: center;
-                flex: 1; /* Đảm bảo các tab có kích thước đều nhau */
             }
 
-            .tab:last-child {
-                border-right: none; /* Loại bỏ đường viền phải của tab cuối cùng */
-            }
-
-            .tab:hover {
-                background-color: #e9ecef; /* Màu nền khi hover */
-            }
-
-            .tab.active {
-                background-color: #007bff; /* Màu nền của tab đang hoạt động */
-                color: #ffffff; /* Màu chữ của tab đang hoạt động */
+            .booking-detail {
+                background: #fff;
+                border-radius: 24px;
+                box-shadow: 0px 0 2px 0 rgba(0,0,0,0.25);
+                transform: translateX(-50%);
+                animation-name: fadeIn;
+                animation-duration: 1.5s;
+                animation-fill-mode: forwards;
+                padding: 31px;
+                border: 3px solid #000;
+                margin-top: 2rem;
+                width: 45%;
+                display: inline-block;
+                position: relative;
+                left: 50%;
             }
         </style>
     </head>
     <body>
+        <section style="border: none" class="booking-detail" id="booking-detail">
+            <h2 class="text-center mb-4">Chi Tiết Booking</h2>
+            <div class="detail-content">
+                <p><strong>Mã đơn:</strong> <span id="order-id">12345</span></p>
+                <p><strong>Tên các xe:</strong> <span id="vehicle-names">Honda Air Blade (x1), Yamaha Nouvo (x1)</span></p>
+                <p><strong>Thời gian booking: </strong>01/06/2024 13:30 PM</p>
+                <p><strong>Ngày bắt đầu: </strong><span id="start-date">01/06/2024</span></p>
+                <p><strong>Ngày trả xe: </strong><span id="end-date">05/06/2024</span></p>
+                <p><strong>Số lượng xe:</strong> <span id="vehicle-count">2</span></p>
+                <p><strong>Địa chỉ giao:</strong> <span id="delivery-address">123 Đường ABC, Quận 1</span></p>
+                <p><strong>Địa chỉ trả:</strong> <span id="return-address">456 Đường DEF, Quận 2</span></p>
+                <p><strong>Trạng thái giao xe:</strong> <span style="color: red" id="delivery-status">Đã giao</span></p>
+                <p><strong>Tổng giá:</strong> <span id="total-price">500,000 VND</span> (Đã thanh toán: <span id="amount-paid">500,000 VND</span>)</span></p>
+                <!--nếu đổi số > 500.000 sẽ có thanh toán :3 -->
+                <a style="cursor: pointer; text-decoration: underline" onclick="openExtension()"><strong>Xem thông tin gia hạn </strong></a>    
+                <p></p>
 
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <div class="container mb-4 main-container">
-            <div class="row">
-                <div class="col-lg-4 pb-5">
-
-                    <div class="author-card pb-3">
-                        <div class="author-card-cover" style="background-image: url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);"><a class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title data-original-title="You currently have 290 Reward points to spend"><i class="fa fa-award text-md"></i>&nbsp;290 points</a></div>
-                        <div class="author-card-profile">
-                            <div class="author-card-avatar"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams">
-                            </div>
-                            <div class="author-card-details">
-                                <h5 class="author-card-name text-lg">Daniel Adams</h5><span class="author-card-position">Joined February 06, 2017</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wizard">
-                        <nav class="list-group list-group-flush">
-                            <a class="list-group-item active" href="#">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fa fa-shopping-bag mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">Orders List</div>
-                                    </div><span class="badge badge-secondary">6</span>
-                                </div>
-                            </a><a class="list-group-item" href="profileCustomer.jsp" target="__blank"><i class="fa fa-user text-muted"></i>Profile Settings</a><a class="list-group-item" href="#"><i class="fa fa-map-marker text-muted"></i>Addresses</a>
-                            <a class="list-group-item" href="https://www.bootdey.com/snippets/view/bs4-wishlist-profile-page" tagert="__blank">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fa fa-heart mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">My Wishlist</div>
-                                    </div><span class="badge badge-secondary">3</span>
-                                </div>
-                            </a>
-                            <a class="list-group-item" href="#">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div><i class="fa fa-tag mr-1 text-muted"></i>
-                                        <div class="d-inline-block font-weight-medium text-uppercase">My Tickets</div>
-                                    </div><span class="badge badge-secondary">4</span>
-                                </div>
-                            </a>
-                        </nav>
-                    </div>
-                </div>
-
-               <div class="col-lg-8 pb-5">
-                    <div class="card">
-                        <div class="card-header">Booking Details</div>
-                        <div class="card-body">
-                            <h5>Mã đơn: 78A643CD409</h5>
-                            <p><strong>Tên xe:</strong> Honda Civic</p>
-                            <p><strong>Số lượng:</strong> 1</p>
-                            <p><strong>Ngày bắt đầu:</strong> August 08, 2017</p>
-                            <p><strong>Ngày trả:</strong> August 15, 2017</p>
-                            <p><strong>Trạng thái:</strong> <span class="badge badge-danger badge-status">Canceled</span></p>
-                            <p><strong>Tổng giá:</strong> $760.50</p>
-                            <a href="bookingHistory.jsp" class="btn btn-primary">Back to Booking History</a>
-                        </div>
+                <div class="extension-infooo" id="extension-info">
+                    <div class="extension-content">
+                        <span class="close" onclick="closeExtension()">&times;</span>
+                        <h4 class="text-center">Thông tin gia hạn</h4>
+                        <p><strong>ID Gia Hạn:</strong> <span id="extension-id">123</span></p>
+                        <p><strong>Ngày gia hạn:</strong> <span id="extension-date">10/06/2024</span></p>
+                        <p><strong>Ngày trả xe trước đó:</strong> <span id="previous-end-date">05/06/2024</span></p>
+                        <p><strong>Ngày trả xe mới:</strong> <span id="new-end-date">15/06/2024</span></p>
+                        <p><strong>Phí gia hạn:</strong> <span id="extension-fee">200,000 VND</span></p>
+                        <p><strong>Mã đặt xe:</strong> <span id="booking-id">12345</span></p>
+                        <p><strong>Tổng giá mới:</strong> <span id="new-total-price">1,200,000 VND</span></p>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript">
+            <div class="detail-actions">
+                <button id="pay-btn">Thanh toán</button>
+                <button onclick="openExtension()">Gia Hạn</button>
+                <button id="rebook-btn">Đặt lại</button>
+                <button onclick="closeDetail()">Quay về</button>
+            </div>
+        </section>
 
+
+        <script>
+            //demo dữ liệu
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            // document.getElementById('order-id').textContent = orderId;
+            // document.getElementById("vehicle-names").textContent = vehicleNames;
+            // document.getElementById("start-date").textContent = startDate;
+            // document.getElementById("end-date").textContent = endDate;
+            // document.getElementById("vehicle-count").textContent = vehicleCount;
+            // document.getElementById("delivery-address").textContent = deliveryAddress;
+            // document.getElementById("return-address").textContent = returnAddress;
+            // document.getElementById("booking-status").textContent = bookingStatus;
+            // document.getElementById("delivery-status").textContent = deliveryStatus;
+            // document.getElementById("total-price").textContent = totalPrice;
+            // document.getElementById("amount-paid").textContent = amountPaid;
+
+            //đủ tiền thì k hiện thanh toán
+            togglePayButton();
+            function togglePayButton() {
+                const payButton = document.getElementById("pay-btn");
+                const amount = document.getElementById("amount-paid");
+                const total = document.getElementById("total-price");
+
+                const amountPaid = parseFloat(amount.textContent.replace(/[^\d.]/g, '')); //regex: xóa ký tự đb
+                const totalPrice = parseFloat(total.textContent.replace(/[^\d.]/g, ''));
+
+                if (amountPaid < totalPrice) {
+                    payButton.style.display = "inline-block";
+                } else {
+                    payButton.style.display = "none";
+                }
+            }
+
+            function openExtension() {
+                document.getElementById('extension-info').style.display = 'block';
+            }
+            function closeExtension() {
+                document.getElementById('extension-info').style.display = 'none';
+            }
+            function closeDetail() {
+                window.location.href = 'bookingHistory.jsp';
+            }
         </script>
-
     </body>
 </html>

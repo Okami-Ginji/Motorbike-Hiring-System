@@ -87,7 +87,7 @@ public class MotorcycleServlet extends HttpServlet {
         request.setAttribute("priceLists", priceLists);
         request.setAttribute("categoryMap", categoryMap);
         request.setAttribute("priceMap", priceMap);
-        request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
 
+        request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
     }
 }

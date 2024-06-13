@@ -1,4 +1,3 @@
-
 package com.colorbike.controller;
 
 import com.colorbike.dao.AccountDAO;
@@ -58,16 +57,34 @@ public class UpdateProfileServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phonenumber");
         String userName = request.getParameter("username");
         String accountID = request.getParameter("accountID");
+
         try {
-            AccountDAO.getInstance().update(firstName, lastName, gender, dob, address, phoneNumber, email, userName, Integer.parseInt(accountID));
-            request.setAttribute("mess", "Update successfully!");
-            HttpSession session = request.getSession();
-            Account account = (Account) session.getAttribute("account");
-            session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
+            if (isEmptyOrNull(email) && isEmptyOrNull(userName)) {
+                request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Không được để trống email và username.");
+            } else {
+                if (!isEmptyOrNull(phoneNumber) && !phoneNumber.matches("\\d{9,12}")) {
+                    request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Số điện thoại không bao gồm chữ và bao gồm từ 9 đến 12 số.");
+                } else {
+                    if (isEmptyOrNull(firstName) || isEmptyOrNull(lastName) || isEmptyOrNull(address)
+                            || isEmptyOrNull(dob) || isEmptyOrNull(gender) || isEmptyOrNull(accountID)) {
+                        request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Vui lòng điền đầy đủ thông tin bắt buộc.");
+                    } else {
+                        AccountDAO.getInstance().update(firstName, lastName, gender, dob, address, phoneNumber, email, userName, Integer.parseInt(accountID));
+                        request.setAttribute("mess", "Cập nhật hồ sơ thành công!");
+                        HttpSession session = request.getSession();
+                        Account account = (Account) session.getAttribute("account");
+                        session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
+                    }
+                }
+            }
         } catch (NumberFormatException ex) {
             System.out.println(ex);
         }
         request.getRequestDispatcher("profileCustomer.jsp").forward(request, response);
+    }
+
+    private boolean isEmptyOrNull(String str) {
+        return str == null || str.trim().isEmpty();
     }
 
     /**

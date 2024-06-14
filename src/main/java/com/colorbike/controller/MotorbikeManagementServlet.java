@@ -56,7 +56,7 @@ public class MotorbikeManagementServlet extends HttpServlet {
         request.setAttribute("listB", listB);
         request.setAttribute("listC", listC);
         
-        request.getRequestDispatcher("motorbikeManagement.jsp").forward(request, response);
+        request.getRequestDispatcher("motorManage.jsp").forward(request, response);
         
     } 
 

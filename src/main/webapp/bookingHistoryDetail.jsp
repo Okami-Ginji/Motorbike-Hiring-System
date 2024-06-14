@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -139,9 +140,36 @@
                             <c:if test="${not loop.last}">,</c:if>
                         </c:forEach>
                 </p>
-                <p><strong>Thời gian dặt xe: </strong>${booking.bookingDate}</p>
-                <p><strong>Ngày bắt đầu: </strong><span id="start-date">${booking.startDate}</span></p>
-                <p><strong>Ngày trả xe: </strong><span id="end-date">${booking.endDate}</span></p>
+                <p><strong>Thời gian đặt xe: </strong>
+                    <c:set var="bookingDate" value="${booking.bookingDate}" />
+                    <c:set var="bookingYear" value="${fn:substring(bookingDate, 0, 4)}" />
+                    <c:set var="bookingMonth" value="${fn:substring(bookingDate, 5, 7)}" />
+                    <c:set var="bookingDay" value="${fn:substring(bookingDate, 8, 10)}" />
+                    <c:set var="bookingHour" value="${fn:substring(bookingDate, 11, 13)}" />
+                    <c:set var="bookingMinute" value="${fn:substring(bookingDate, 14, 16)}" />
+                    <c:set var="bookingSecond" value="${fn:substring(bookingDate, 17, 19)}" />
+                    ${bookingDay}-${bookingMonth}-${bookingYear} ${bookingHour}:${bookingMinute}:${bookingSecond}
+                </p>
+                <p><strong>Ngày bắt đầu: </strong><span id="start-date">
+                        <c:set var="startDate" value="${booking.startDate}" />
+                        <c:set var="startYear" value="${fn:substring(startDate, 0, 4)}" />
+                        <c:set var="startMonth" value="${fn:substring(startDate, 5, 7)}" />
+                        <c:set var="startDay" value="${fn:substring(startDate, 8, 10)}" />
+                        <c:set var="startHour" value="${fn:substring(startDate, 11, 13)}" />
+                        <c:set var="startMinute" value="${fn:substring(startDate, 14, 16)}" />
+                        <c:set var="startSecond" value="${fn:substring(startDate, 17, 19)}" />
+                        ${startDay}-${startMonth}-${startYear} ${startHour}:${startMinute}:${startSecond}
+                    </span></p>
+                <p><strong>Ngày trả xe: </strong><span id="end-date"> 
+                        <c:set var="endDate" value="${booking.endDate}" />
+                        <c:set var="endYear" value="${fn:substring(endDate, 0, 4)}" />
+                        <c:set var="endMonth" value="${fn:substring(endDate, 5, 7)}" />
+                        <c:set var="endDay" value="${fn:substring(endDate, 8, 10)}" />
+                         <c:set var="endHour" value="${fn:substring(endDate, 11, 13)}" />
+                        <c:set var="endMinute" value="${fn:substring(endDate, 14, 16)}" />
+                        <c:set var="endSecond" value="${fn:substring(endDate, 17, 19)}" />
+                        ${endDay}-${endMonth}-${endYear} ${endHour}:${endMinute}:${endSecond}
+                    </span></p>
                 <p><strong>Số lượng xe:</strong> <span id="vehicle-count">${fn:length(booking.listBookingDetails)}</span></p>
                 <p><strong>Địa chỉ giao:</strong> <span id="delivery-address">${booking.deliveryLocation}</span></p>
                 <p><strong>Địa chỉ trả:</strong> <span id="return-address">${booking.returnedLocation}</span></p>
@@ -151,7 +179,7 @@
                         <c:forEach items="${booking.listBookingDetails}" var="detail">
                             <c:set var="total" value="${total + detail.totalPrice}"/>
                         </c:forEach>
-                        ${total}VNĐ
+                        <fmt:formatNumber value="${total*1000}" type="currency" currencySymbol="VNĐ" />
                     </span> (Đã thanh toán: <span id="amount-paid">500,000 VND</span>)</span></p>
                 <!--nếu đổi số > 500.000 sẽ có thanh toán :3 -->
                 <a style="cursor: pointer; text-decoration: underline" onclick="openExtension()"><strong>Xem thông tin gia hạn </strong></a>    
@@ -167,17 +195,63 @@
                             </c:when>
                             <c:otherwise>
                                 <h4 class="text-center">Thông tin gia hạn</h4>
-                                <p><strong>Ngày gia hạn:</strong> <span id="extension-date">${extension.extensionDate}</span></p>
-                                <p><strong>Ngày trả xe trước đó:</strong> <span id="previous-end-date">${extension.previousEndDate}</span></p>
-                                <p><strong>Ngày trả xe mới:</strong> <span id="new-end-date">${extension.newEndDate}</span></p>
-                                <p><strong>Phí gia hạn:</strong> <span id="extension-fee">${extension.extensionFee}</span></p>
-                                <p><strong>Mã đặt xe:</strong> <span id="booking-id">${extension.bookingID}</span></p>
-                                <p><strong>Tổng giá mới:</strong> <span id="new-total-price">
+                                <p><strong>Ngày gia hạn:</strong>
+                                    <span id="extension-date">
+                                        <c:set var="extensionDate" value="${extension.extensionDate}" />
+                                        <c:set var="extYear" value="${fn:substring(extensionDate, 0, 4)}" />
+                                        <c:set var="extMonth" value="${fn:substring(extensionDate, 5, 7)}" />
+                                        <c:set var="extDay" value="${fn:substring(extensionDate, 8, 10)}" />
+                                        <c:set var="extHour" value="${fn:substring(extensionDate, 11, 13)}" />
+                                        <c:set var="extMinute" value="${fn:substring(extensionDate, 14, 16)}" />
+                                        <c:set var="extSecond" value="${fn:substring(extensionDate, 17, 19)}" />
+                                        ${extDay}-${extMonth}-${extYear} ${extHour}:${extMinute}:${extSecond}
+                                    </span>
+                                </p>
+
+                                <p><strong>Ngày trả xe trước đó:</strong>
+                                    <span id="previous-end-date">
+                                        <c:set var="previousEndDate" value="${extension.previousEndDate}" />
+                                        <c:set var="prevYear" value="${fn:substring(previousEndDate, 0, 4)}" />
+                                        <c:set var="prevMonth" value="${fn:substring(previousEndDate, 5, 7)}" />
+                                        <c:set var="prevDay" value="${fn:substring(previousEndDate, 8, 10)}" />
+                                        <c:set var="prevHour" value="${fn:substring(previousEndDate, 11, 13)}" />
+                                        <c:set var="prevMinute" value="${fn:substring(previousEndDate, 14, 16)}" />
+                                        <c:set var="prevSecond" value="${fn:substring(previousEndDate, 17, 19)}" />
+                                        ${prevDay}-${prevMonth}-${prevYear} ${prevHour}:${prevMinute}:${prevSecond}
+                                    </span>
+                                </p>
+
+                                <p><strong>Ngày trả xe mới:</strong>
+                                    <span id="new-end-date">
+                                        <c:set var="newEndDate" value="${extension.newEndDate}" />
+                                        <c:set var="newYear" value="${fn:substring(newEndDate, 0, 4)}" />
+                                        <c:set var="newMonth" value="${fn:substring(newEndDate, 5, 7)}" />
+                                        <c:set var="newDay" value="${fn:substring(newEndDate, 8, 10)}" />
+                                        <c:set var="newHour" value="${fn:substring(newEndDate, 11, 13)}" />
+                                        <c:set var="newMinute" value="${fn:substring(newEndDate, 14, 16)}" />
+                                        <c:set var="newSecond" value="${fn:substring(newEndDate, 17, 19)}" />
+                                        ${newDay}-${newMonth}-${newYear} ${newHour}:${newMinute}:${newSecond}
+                                    </span>
+                                </p>
+
+                                <p><strong>Phí gia hạn:</strong>
+                                    <span id="extension-fee">
+                                        <fmt:formatNumber value="${extension.extensionFee}" type="currency" currencySymbol="VNĐ" />
+                                    </span>
+                                </p>
+
+                                <p><strong>Mã đặt xe:</strong>
+                                    <span id="booking-id">${extension.bookingID}</span>
+                                </p>
+
+                                <p><strong>Tổng giá mới:</strong>
+                                    <span id="new-total-price">
                                         <c:set var="total" value="${total + extension.extensionFee}" />
-                                        ${total}VNĐ
-                                    </span></p>
-                                </c:otherwise>
-                            </c:choose>
+                                        <fmt:formatNumber value="${total*1000}" type="currency" currencySymbol="VNĐ" />
+                                    </span>
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
 
                     </div>
                 </div>

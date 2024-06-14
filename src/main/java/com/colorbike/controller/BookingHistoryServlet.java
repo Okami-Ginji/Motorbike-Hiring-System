@@ -33,7 +33,13 @@ public class BookingHistoryServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Account acc = (Account) session.getAttribute("account");
         String statusBooking = request.getParameter("status");
-        List<Booking> listB = bookingDAO.getBookingWithDetails(statusBooking, acc.getAccountId());
+        String deliveryStatus = null;
+        if (statusBooking.equals("confirmed"))
+            deliveryStatus = request.getParameter("deliveryStatus");
+        if (deliveryStatus == null)
+            deliveryStatus = "all";
+        List<Booking> listB = bookingDAO.getBookingWithDetails(statusBooking, deliveryStatus, acc.getAccountId());
+        request.setAttribute("deliveryStatus", deliveryStatus);
         request.setAttribute("listB", listB);
         request.setAttribute("status", statusBooking);
         request.getRequestDispatcher("bookingHistory.jsp").forward(request, response);

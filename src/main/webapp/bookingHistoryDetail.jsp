@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -130,16 +132,27 @@
         <section style="border: none" class="booking-detail" id="booking-detail">
             <h2 class="text-center mb-4">Chi Tiết Booking</h2>
             <div class="detail-content">
-                <p><strong>Mã đơn:</strong> <span id="booking-id">12345</span></p>
-                <p><strong>Tên các xe:</strong> <span id="vehicle-names">Honda Air Blade (x1), Yamaha Nouvo (x1)</span></p>
-                <p><strong>Thời gian booking: </strong>01/06/2024 13:30 PM</p>
-                <p><strong>Ngày bắt đầu: </strong><span id="start-date">01/06/2024</span></p>
-                <p><strong>Ngày trả xe: </strong><span id="end-date">05/06/2024</span></p>
-                <p><strong>Số lượng xe:</strong> <span id="vehicle-count">2</span></p>
-                <p><strong>Địa chỉ giao:</strong> <span id="delivery-address">123 Đường ABC, Quận 1</span></p>
-                <p><strong>Địa chỉ trả:</strong> <span id="return-address">456 Đường DEF, Quận 2</span></p>
-                <p><strong>Trạng thái giao xe:</strong> <span style="color: red" id="delivery-status">Đã giao</span></p>
-                <p><strong>Tổng giá:</strong> <span id="total-price">500,000 VND</span> (Đã thanh toán: <span id="amount-paid">500,000 VND</span>)</span></p>
+                <p><strong>Mã đơn:</strong> <span id="order-id">${booking.bookingID}</span></p>
+                <p><strong>Tên các xe:</strong> <span id="vehicle-names">
+                        <c:forEach var="entry" items="${motorcycleDetails}" varStatus="loop">
+                            ${entry.key} (x${entry.value})
+                            <c:if test="${not loop.last}">,</c:if>
+                        </c:forEach>
+                </p>
+                <p><strong>Thời gian dặt xe: </strong>${booking.bookingDate}</p>
+                <p><strong>Ngày bắt đầu: </strong><span id="start-date">${booking.startDate}</span></p>
+                <p><strong>Ngày trả xe: </strong><span id="end-date">${booking.endDate}</span></p>
+                <p><strong>Số lượng xe:</strong> <span id="vehicle-count">${fn:length(booking.listBookingDetails)}</span></p>
+                <p><strong>Địa chỉ giao:</strong> <span id="delivery-address">${booking.deliveryLocation}</span></p>
+                <p><strong>Địa chỉ trả:</strong> <span id="return-address">${booking.returnedLocation}</span></p>
+                <p><strong>Trạng thái giao xe:</strong> <span style="color: red" id="delivery-status">${booking.deliveryStatus}</span></p>
+                <p><strong>Tổng giá:</strong> <span id="total-price">
+                        <c:set var="total" value="0"/>
+                        <c:forEach items="${booking.listBookingDetails}" var="detail">
+                            <c:set var="total" value="${total + detail.totalPrice}"/>
+                        </c:forEach>
+                        ${total}VNĐ
+                    </span> (Đã thanh toán: <span id="amount-paid">500,000 VND</span>)</span></p>
                 <!--nếu đổi số > 500.000 sẽ có thanh toán :3 -->
                 <a style="cursor: pointer; text-decoration: underline" onclick="openExtension()"><strong>Xem thông tin gia hạn </strong></a>    
                 <p></p>
@@ -147,19 +160,29 @@
                 <div class="extension-infooo" id="extension-info">
                     <div class="extension-content">
                         <span class="close" onclick="closeExtension()">&times;</span>
-                        <h4 class="text-center">Thông tin gia hạn</h4>
-                        <p><strong>ID Gia Hạn:</strong> <span id="extension-id">123</span></p>
-                        <p><strong>Ngày gia hạn:</strong> <span id="extension-date">10/06/2024</span></p>
-                        <p><strong>Ngày trả xe trước đó:</strong> <span id="previous-end-date">05/06/2024</span></p>
-                        <p><strong>Ngày trả xe mới:</strong> <span id="new-end-date">15/06/2024</span></p>
-                        <p><strong>Phí gia hạn:</strong> <span id="extension-fee">200,000 VND</span></p>
-                        <p><strong>Mã đặt xe:</strong> <span id="booking-id">12345</span></p>
-                        <p><strong>Tổng giá mới:</strong> <span id="new-total-price">1,200,000 VND</span></p>
+                        <c:choose>
+                            <c:when test="${extension == null}">
+                                <p>Không có thông tin gia hạn nào/</p>
+                                <!--sửa lại chút chỗ này cho đẹp-->
+                            </c:when>
+                            <c:otherwise>
+                                <h4 class="text-center">Thông tin gia hạn</h4>
+                                <p><strong>Ngày gia hạn:</strong> <span id="extension-date">${extension.extensionDate}</span></p>
+                                <p><strong>Ngày trả xe trước đó:</strong> <span id="previous-end-date">${extension.previousEndDate}</span></p>
+                                <p><strong>Ngày trả xe mới:</strong> <span id="new-end-date">${extension.newEndDate}</span></p>
+                                <p><strong>Phí gia hạn:</strong> <span id="extension-fee">${extension.extensionFee}</span></p>
+                                <p><strong>Mã đặt xe:</strong> <span id="booking-id">${extension.bookingID}</span></p>
+                                <p><strong>Tổng giá mới:</strong> <span id="new-total-price">
+                                        <c:set var="total" value="${total + extension.extensionFee}" />
+                                        ${total}VNĐ
+                                    </span></p>
+                                </c:otherwise>
+                            </c:choose>
+
                     </div>
                 </div>
             </div>
             <div class="detail-actions">
-                <button id="cancel-btn">Hủy đơn</button>
                 <button id="pay-btn">Thanh toán</button>
                 <button onclick="openExtension()">Gia Hạn</button>
                 <button id="rebook-btn">Đặt lại</button>
@@ -210,36 +233,6 @@
             function closeDetail() {
                 window.location.href = 'bookingHistory.jsp';
             }
-
-            function cancelBooking() {
-                const orderId = document.getElementById('booking-id').textContent;
-
-                // Thực hiện hủy đơn ở đây (có thể là AJAX call đến server để cập nhật trạng thái)
-                // Ví dụ:
-                // Simulate backend update:
-                // const response = await fetch(`/api/cancelBooking?orderId=${orderId}`, {
-                //     method: 'POST',
-                // });
-                // if (response.ok) {
-                //     // Cập nhật giao diện
-                //     const row = document.querySelector(`#booking-table tbody tr.pending td:first-child`);
-                //     if (row) {
-                //         row.closest('tr').classList.add('cancelled');
-                //         row.closest('tr').classList.remove('pending');
-                //         row.closest('tr').style.display = ''; // Đảm bảo dòng này được hiển thị nếu đã bị ẩn bởi bộ lọc
-                //     }
-                // }
-
-                const row = document.querySelector(`#booking-table tbody tr.pending td:first-child`);
-                if (row) {
-                    row.closest('tr').classList.add('cancelled');
-                    row.closest('tr').classList.remove('pending');
-                    row.closest('tr').style.display = ''; // Đảm bảo dòng này được hiển thị nếu đã bị ẩn bởi bộ lọc
-                }
-
-                closeDetail();
-            }
-
         </script>
     </body>
 </html>

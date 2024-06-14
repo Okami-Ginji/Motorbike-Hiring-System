@@ -8,6 +8,7 @@ package com.colorbike.controller;
 import com.colorbike.dao.BookingDAO;
 import com.colorbike.dao.ExtensionDAO;
 import com.colorbike.dto.Booking;
+import com.colorbike.dto.Extension;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,32 +16,30 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
 
-/**
- *
- * @author huypd
- */
-@WebServlet(name="ExtensionServlet", urlPatterns={"/extension"})
-public class ExtensionServlet extends HttpServlet {
-    //LOGIC: Ấn vào 1 mục --> Xem detail và nhập newEndDate, submit --> Trả về trạng thái và gửi email
-
+@WebServlet(name="BookingHistoryDetailServlet", urlPatterns={"/bookingHistoryDetail"})
+public class BookingHistoryDetailServlet extends HttpServlet {
+   
+    BookingDAO bookingDAO = BookingDAO.getInstance();
+    ExtensionDAO extensionDAO = ExtensionDAO.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        String bookingId = request.getParameter("bookingId");
+        Booking booking = bookingDAO.getBookingById(bookingId);
+        Map<String, Integer> motorcycleDetails = bookingDAO.getMotorcycleDetailsByBookingID(bookingId);
+        Extension extension = extensionDAO.getExtensionByBookingID(bookingId);
+        request.setAttribute("extension", extension);
+        request.setAttribute("booking", booking);
+        request.setAttribute("motorcycleDetails", motorcycleDetails);
+        request.getRequestDispatcher("bookingHistoryDetail.jsp").forward(request, response);
     } 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        //chưa xong, đợi booking xong đã
-        String bookingId = request.getParameter("newEndDate"); //lấy bookingId của đơn thuê muốn gia hạn
-        BookingDAO bookingDAO = BookingDAO.getInstance();
-        Booking booking = bookingDAO.getBookingById(bookingId);
-        String newEndDate = request.getParameter("newEndDate");
-        ExtensionDAO extensionDAO = ExtensionDAO.getInstance();
-        extensionDAO.addExtension(newEndDate, newEndDate, 0, bookingId);
     }
 
 

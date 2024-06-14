@@ -1,6 +1,6 @@
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
-<%@page import="common.Config"%>
+<%@page import="com.colorbike.common.Config"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

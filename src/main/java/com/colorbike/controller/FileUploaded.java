@@ -64,7 +64,7 @@ public class FileUploaded {
 
     public static void main(String[] args) {
         // Example usage
-        String uploadDir = "src\\main\\webapp\\upload";
+        String uploadDir = "/upload";
         FileUploaded fileUploadHandler = new FileUploaded(uploadDir);
 
         // Assuming 'part' is obtained from an HTTP request in a servlet environment

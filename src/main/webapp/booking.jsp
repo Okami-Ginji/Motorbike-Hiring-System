@@ -195,7 +195,7 @@
                 display: block;
                 width: 100%;
                 font-size: 16px;
-                /* margin-bottom: 10px;*/
+                margin: 5px 0;
             }
 
             .text-input {
@@ -1065,7 +1065,8 @@
     <body>
         <div class="main">
             <div class="container">
-                <form method="POST" id="signup-form" class="signup-form" action="bookinghander">
+                <img src="upload/1.jpg">
+                <form method="POST" id="signup-form" class="signup-form" action="">
                     <div >
                         <button type="submit" id="paymentButton" style="display: none"></button>
                         <h3>Dates</h3>
@@ -1075,19 +1076,19 @@
                             <div class="form-row">
                                 <div class="form-flex">
                                     <div class="form-group">
-                                        <label for="pickupdate" class="form-label">Pickup Date</label>
+                                        <label for="pickupdate" class="form-label">Ngày nhận xe</label>
                                         <input type="date" name="pickupdate" id="pickupdate" value="2024-03-23" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="pickuptime" class="form-label">Pickup Time</label>
+                                        <label for="pickuptime" class="form-label">Giờ nhận xe</label>
                                         <input type="time" name="pickuptime" id="pickuptime"  value="09:44"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="returndate" class="form-label">Return Date</label>
+                                        <label for="returndate" class="form-label">Ngày trả xe</label>
                                         <input type="date" name="returndate" id="returndate" value="2024-03-23"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="returntime" class="form-label">Return Time</label>
+                                        <label for="returntime" class="form-label">Giờ trả xe</label>
                                         <input type="time" name="returntime" id="returntime" value="09:44"/>
                                     </div>
                                 </div>
@@ -1095,7 +1096,7 @@
                             <div class="form-row location">
                                 <div class="form-flex">
                                     <div class="form-group">
-                                        <label for="pickuplocation" class="form-label">Pickup Location</label>
+                                        <label for="pickuplocation" class="form-label">Địa điểm nhận xe</label>
                                         <select name="pickuplocation" id="pickuplocation" class="form-label">
                                             <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng">Da Nang Railway Station-202 Hải Phòng Street
                                             </option>
@@ -1104,7 +1105,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="returnlocation" class="form-label">Return Location</label>
+                                        <label for="returnlocation" class="form-label">Địa điểm trả xe</label>
                                         <select name="returnlocation" id="returnlocation" class="form-label">
                                             <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng">Da Nang Railway Station-202 Hải Phòng Street
                                             </option>
@@ -1129,7 +1130,7 @@
                                                 <label style="width: 100%" for="body-bg"><img src="images/${o.image}" alt=""></label>
                                             </div>
                                             <div class="form-text">
-                                                <h4>${o.model}</h4>
+                                                <h4 class="motor-name">${o.model} ${o.displacement}</h4>
                                                 <div class="form-doc" style="box-sizing: border-box;">
                                                     ${o.description}
                                                 </div>
@@ -1155,21 +1156,24 @@
                                                         
                                                         <button class="buttonMotor" id="clear" type="button" onclick="clearQuantity('${o.motorcycleId}')">x</button>
                                                     </div>-->
-<div class="rent-button">
-    <a>Chọn số lượng xe: </a>
-    <select class="form-check-select" id="daily-select-${o.motorcycleId}">
-        <option>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-    </select>
-</div>
-                                                    
-                                                       
-<!--                                                </div>-->
-<!--                                                    <label for="daily-checkbox">₫250.000/Day</label>-->
-                                            </div>
-                                                           
+                                                    <div class="rent-button">                                                     
+                                                        <c:set var="found" value="false" />
+                                                        <c:forEach var="entry" items="${listMA}">
+                                                            <c:if test="${entry.key eq o.motorcycleId}">
+                                                                <c:set var="found" value="true" />
+                                                                <a>Chọn số lượng xe: </a>
+                                                                <select class="form-check-select" id="daily-select-${o.motorcycleId}">
+                                                                    <c:forEach begin="0" end="${entry.value > 4 ? 4 : entry.value}" var="i">
+                                                                        <option value="${i}">${i}</option>
+                                                                    </c:forEach>
+                                                                </select>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <c:if test="${found eq false}">
+                                                            <a>Hết xe</a>
+                                                        </c:if>
+                                                    </div>
+                                            </div>                                                         
                                         </div>
                                     </c:forEach>                                  
                                 </div>
@@ -1258,7 +1262,7 @@
                                                 <select class="form-check-select" id="daily-select-${a.accessoryId}">
                                                 </select>
                                                 <c:if test="${a.price eq 0}">
-                                                    <label for="daily-checkbox">Free</label>
+                                                    <label for="daily-checkbox" class="items-free">Free</label>
                                                 </c:if>
                                                 <c:if test="${a.price ne 0}">
                                                     <label for="daily-checkbox">₫${a.price}.000</label>
@@ -1276,17 +1280,19 @@
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
                             <div class="fieldset-content">
                                 <c:if test="${not empty sessionScope.account}">
+                                    <input id="accountId" type="text" value="${account.accountId}" style="display: none">
+                                   
                                     <div class="form-row">
                                         <div class="form-flex">
                                             <div class="form-group">
-                                                <label class="form-label">First Name</label>
-                                                <input type="text" name="first_name" id="first_name" value="${account.firstName}" oninput="validateForm()"/>
-                                                <span class="text-input">First</span>
+                                                <label class="form-label">Họ</label>
+                                                <input type="text" name="first_name" id="first_name" value="${account.firstName}" oninput="validateForm()" disabled/>
+                                              
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label">Last Name</label>
-                                                <input type="text" name="last_name" id="last_name" value="${account.lastName}" oninput="validateForm()"/>
-                                                <span class="text-input">Last</span>
+                                                <label class="form-label">Tên</label>
+                                                <input type="text" name="last_name" id="last_name" value="${account.lastName}" oninput="validateForm()" disabled/>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -1294,64 +1300,108 @@
                                         <div class="form-flex">
                                             <div class="form-group">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" id="email" value="${account.email}" oninput="validateForm()"/>
-                                                <span class="text-input">Example :<span> Jeff@gmail.com</span></span>
+                                                <input type="email" name="email" id="email" value="${account.email}" oninput="validateForm()" disabled/>
+<!--                                                <span class="text-input">Example :<span> Jeff@gmail.com</span></span>-->
                                             </div>
                                             <div class="form-group">
-                                                <label for="phonenumber" class="form-label">Phone Numbers</label>
-                                                <input type="text" name="phonenumber" id="phonenumber" value="${account.phoneNumber}" oninput="validateForm()"/>
-                                                <span class="text-input">+84</span>
+                                                <label for="phonenumber" class="form-label">Số điện thoại</label>
+                                                <input type="text" name="phonenumber" id="phonenumber" value="${account.phoneNumber}" oninput="validateForm()" disabled/>
+<!--                                                <span class="text-input">+84</span>-->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-flex">
                                             <div class="form-group">
-                                                <label for="address" class="form-label">Address</label>
-                                                <input type="text" name="address" id="address" value="${account.address}" oninput="validateForm()"/>
+                                                <label for="address" class="form-label">Địa chỉ</label>
+                                                <input type="text" name="address" id="address" value="${account.address}" oninput="validateForm()" disabled/>
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-flex">
                                                     <div class="form-group">
-                                                         <label for="birth_date" class="form-label">Birth Date</label>
-                                                         <input type="date" name="dob" id="dob" value="${account.dob}" oninput="validateForm()"/>
-                                                     </div>
+                                                         <label for="birth_date" class="form-label">Ngày sinh</label>
+                                                         <input type="date" name="dob" id="dob" value="${account.dob}" oninput="validateForm()" disabled/>
+                                                    </div>
                                                     <div class="form-group">
-                                                        <label for="gender" class="form-label">Gender</label>
-                                                        <div class="form-radio-group">                                                       
-                                                            <label><input type="radio" name="gender" value="Male" ${account.gender == 'Nam' ? 'checked' : ''}> Male</label>
-                                                            <label><input type="radio" name="gender" value="Female" ${account.gender == 'Nữ' ? 'checked' : ''}> Female</label>
+                                                        <label for="gender" class="form-label">Giới tính</label>
+                                                        <div class="form-radio-group">   
+                                                            <label><input type="radio" name="gender" value="Không muốn tiết lộ" ${account.gender == 'Không muốn tiết lộ' ? 'checked' : ''} disabled>Bí mật</label>
+                                                            <label><input type="radio" name="gender" value="Nam" ${account.gender == 'Nam' ? 'checked' : ''} disabled>Nam</label>
+                                                            <label><input type="radio" name="gender" value="Nữ" ${account.gender == 'Nữ' ? 'checked' : ''} disabled>Nữ</label>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-enter">
-                                        <div class="form-row">
-                                            <div class="form-flex">
-                                                <div class="form-group" style="width: 40%;">
-                                                    <label for="drivernumber" class="form-label">Driver's License Number</label>
-                                                    <input type="text" name="drivernumber" id="drivernumber" />
-                                                </div>
-                                                <div style="width: 30%; display: flex; padding-right: 40px">
-                                                    <div class="form-group" style="width: 50%">
-                                                        <label for="issuedon" class="form-label">Issued On</label>
-                                                        <input type="date" name="issuedon" id="issuedon" />
-                                                    </div>
-                                                    <div class="form-group" style="width: 50%">
-                                                        <label for="expdate" class="form-label">Exp. Date</label>
-                                                        <input type="date" name="expdate" id="expdate" />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group" style="width: 30%">
-                                                    <label for="expdate" class="form-label">Image</label>
-                                                    <input style="padding: 0" type="file" name="image" id="image" />
-                                                </div>
+                                    <c:set var="flag" value="false" />                   
+                                    <c:forEach items="${listC}" var="c">
+                                        <c:if test="${account.accountId eq c.accountId}">
+                                            <p style="display: none" id="customerId">${c.customerId}</p>
+                                            <c:set var="flag" value="true" />
+                                            <div class="form-enter">
+                                                <div class="form-row">
+                                                    <div class="form-flex">
+                                                        <div class="form-group" style="width: 40%;">
+                                                            <label for="drivernumber" class="form-label">CCCD/CMND</label>
+                                                            <input type="text" name="drivernumber" id="identityCard" value="${c.identityCard}" oninput="validateForm()"/>
+                                                        </div>
+                                                        <div style="width: 30%; display: flex; padding-right: 40px">
+                                                            <div class="form-group" style="width: 50%">
+                                                                <label for="issuedon" class="form-label">Ngày cấp</label>
+                                                                <input type="date" name="issuedon" id="issuedon" value="${c.issuedOnDate}" oninput="validateForm()"/>
+                                                            </div>
+                                                            <div class="form-group" style="width: 50%">
+                                                                <label for="expdate" class="form-label">Ngày hết hạn</label>
+                                                                <input type="date" name="expdate" id="expdate" value="${c.expDate}" oninput="validateForm()"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group" style="width: 30%">
+                                                            <label for="expdate" class="form-label">Cập nhật ảnh</label>
+              
+                                                            <input style="padding: 0" type="file" name="image" id="image" />
+                                                            
+                                                        </div>
 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:if test="${flag eq false}">
+                                        <p style="display: none" id="customerId">Not</p>
+                                        <div style="margin-top: 10px; color: red">
+                                            <a>*Hãy cung cấp thông tin CCCD/CMND của bạn để tiếp tục</a>
+                                        </div>
+                                        
+                                        <div class="form-enter">
+                                            
+                                            <div class="form-row">
+                                                <div class="form-flex">
+                                                    <div class="form-group" style="width: 40%;">
+                                                        <label for="drivernumber" class="form-label">CCCD/CMND</label>
+                                                        <input type="text" name="drivernumber" id="identityCard" oninput="validateForm()"/>
+                                                    </div>
+                                                    <div style="width: 30%; display: flex; padding-right: 40px">
+                                                        <div class="form-group" style="width: 50%">
+                                                            <label for="issuedon" class="form-label">Ngày cấp</label>
+                                                            <input type="date" name="issuedon" id="issuedon" oninput="validateForm()"/>
+                                                        </div>
+                                                        <div class="form-group" style="width: 50%">
+                                                            <label for="expdate" class="form-label">Ngày hết hạn</label>
+                                                            <input type="date" name="expdate" id="expdate" oninput="validateForm()"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" style="width: 30%">
+                                                        <label for="expdate" class="form-label">Tải ảnh lên</label>
+                                                        <input style="padding: 0" type="file" name="image" id="image" />
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </c:if>                                 
                                 </c:if>
                             </div>
                         </fieldset>
@@ -1462,6 +1512,7 @@
 
                         <h3>Payments</h3>
                         <fieldset>
+                            <a onclick="yourFunctionName()">aaaaa</a>
                             <h2>Connect Bank Account</h2>
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
                             <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 1000px;"></iframe>
@@ -1509,8 +1560,8 @@
                     stepsOrientation: "vertical",
                     titleTemplate: '<div class="title"><span class="step-number">#index#</span><span class="step-text">#title#</span></div>',
                     labels: {
-                        previous: 'Previous',
-                        next: 'Next',
+                        previous: 'Lùi lại',
+                        next: 'Tiếp theo',
                         finish: 'Finish',
                         current: '',
                     },
@@ -1672,9 +1723,10 @@
                        }
 
                         if (currentIndex === 3) {
-                            nextButton.style.pointerEvents = 'auto';
-                            nextButton.style.color = 'white';
-                            nextButton.style.background = '#4966b1';
+                            validateForm();
+//                            nextButton.style.pointerEvents = 'auto';
+//                            nextButton.style.color = 'white';
+//                            nextButton.style.background = '#4966b1';
                         }
                         
                         if (currentIndex === 2) {                         
@@ -1695,10 +1747,17 @@
                                 const checkboxContainer = document.getElementById('protection');
                                 // Đặt max và min cho các input có class 'form-check-select'
                                 checkboxContainer.querySelectorAll('.form-check-select').forEach(input => {
-                                    const max = sum * 2;
+                                    const label = input.nextElementSibling;
+                                    let max = sum * 2;
                                     const min = 0;
+                                    
+                                    if (label.classList.contains('items-free')) {
+                                        max = sum;
+                                    }
                                     createOptions(input, min, max);
+                                    
                                 });
+                                
                                 if (numberAccessStatesI) {
                                     console.log(Object.keys(numberAccessStatesI).length !== 0);
                                     if(Object.keys(numberAccessStatesI).length !== 0){
@@ -1731,6 +1790,8 @@
                             
                         }
                         if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
+                             var image = document.getElementById('image').files[0]; // Lấy file ảnh
+                             console.log(image);
                             changePrice();
                             // Lấy dữ liệu đã lưu từ localStorage và thêm lại vào savedItemsContainer
                             
@@ -2122,7 +2183,10 @@
                     document.getElementById('phonenumber'),
                     document.getElementById('address'),
                     document.getElementById('dob'),
-                    document.querySelector('input[name="gender"]:checked')
+                    document.querySelector('input[name="gender"]:checked'),
+                    document.getElementById('identityCard'),
+                    document.getElementById('issuedon'),
+                    document.getElementById('expdate')
                 ];
 
                 const allFieldsFilled = requiredFields.every(field => field && field.value.trim() !== '');
@@ -2239,10 +2303,144 @@
             }
         });
 
-        function yourFunctionName(data) {
+        
+        function collectAccessoryData() {
+            const accessories = [];
+            const savedItemsContainer = document.getElementById('savedItemsContainer');
+            // Lặp qua tất cả các phần tử có class "form-box"
+            savedItemsContainer.querySelectorAll('.form-box').forEach(box => {
+                const select = box.querySelector('.form-check-select');
+                const quantity = parseInt(select.value);
+                const id = select.id.split('-').pop();  // Lấy accessoryId từ id của select box
+                const priceLabel = box.querySelector('.form-check .checkbox-container label');
+                const priceText = priceLabel ? priceLabel.textContent.replace('₫', '').replace('.000', '').trim() : '0';
+                const price = priceText.includes('Free') ? 0 : parseInt(priceText, 10);
+                // Nếu số lượng lớn hơn 0, thêm vào danh sách
+                if (quantity > 0) {
+                    accessories.push({
+                        id: id,
+                        quantity: quantity.toString(),
+                        price: parseInt(price)
+                    });
+                }
+            });
+
+            return accessories;
+        }
+        function yourFunctionName() {
+            var formData = new FormData();
 //            alert("Thanh toán thành công với mã giao dịch: " + data.txnRef);
-            document.getElementById("paymentButton").click();
-            // Thực hiện các hành động khác khi thanh toán thành công
+             // Lấy các giá trị từ các thẻ <p>
+            var pickupDate = document.getElementById("pickupdatetext").textContent.trim();
+            var pickupTime = document.getElementById("pickuptimetext").textContent.trim();
+            var pickupLocation = document.getElementById("pickuploctext").textContent.trim();
+            var returnLocation = document.getElementById("returnloctext").textContent.trim();
+            var returnDate = document.getElementById("returndatetext").textContent.trim();
+            var returnTime = document.getElementById("returntimetext").textContent.trim();
+            var accountId = document.getElementById("accountId").textContent.trim();
+            var fistname = document.getElementById("firstnametext").textContent.trim();
+            var lastname = document.getElementById("lastnametext").textContent.trim();
+            var phone = document.getElementById("phonetext").textContent.trim();
+            var email = document.getElementById("emailaddresstext").textContent.trim();
+            var address = document.getElementById("address").textContent.trim();
+            var dob = document.getElementById("dob").textContent.trim();
+            var customerId = document.getElementById("customerId").textContent.trim();
+            var issuedon = document.getElementById("issuedon").textContent.trim();
+            var expdate = document.getElementById("expdate").textContent.trim();
+            var total = document.getElementById("dataInput").textContent.trim();
+            
+            var genderElements = document.getElementsByName("gender");
+            var gender;
+            for (var i = 0; i < genderElements.length; i++) {
+                if (genderElements[i].checked) {
+                    gender = genderElements[i].value;
+                    break;
+                }
+            }
+            
+            // Chuyển các chuỗi ngày thành đối tượng Date
+            const pickupD = new Date(pickupDate);
+            const returnD = new Date(returnDate);
+
+            // Tính số ngày chênh lệch
+            const differenceInTime = returnD.getTime() - pickupD.getTime();
+            const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+            
+             // Quantity là số ngày chênh lệch giữa ngày trả và ngày pickup
+            const quantityDay = Math.max(1, Math.ceil(differenceInDays));
+            
+            const bikeDetails = [];
+
+            const checkboxMotorContainer = document.getElementById('savedBikeContainer');
+
+            // tất cả các select box trong div
+            const selectBoxes = checkboxMotorContainer.querySelectorAll('.form-check-select');
+
+            // Lặp qua từng select box và lấy thông tin nếu giá trị lớn hơn 0
+            selectBoxes.forEach(selectBox => {
+                const quantity = parseInt(selectBox.value);
+                if (quantity > 0) {
+                    const formMotorBox = selectBox.closest('.form-box');
+                    if (formMotorBox) {
+                        const bikeName = formMotorBox.querySelector('.motor-name').textContent;
+                        const bikePrice = formMotorBox.querySelector('.price-current').textContent;
+                        const price = parseInt(bikePrice.replace('₫', '').replace('.000/Day', '').trim());
+                        const totalPrice = quantityDay * price;
+//                        const price = priceLabel ? priceLabel.textContent.replace('₫', '').replace('.000', '').trim() : 0;
+                        // Lưu từng chiếc xe theo số lượng
+                        for (let i = 0; i < quantity; i++) {                                                                                    
+                            bikeDetails.push({ name: bikeName, price: totalPrice.toString() });
+                        }
+                    }
+                }
+            });
+            const accessoriesData = collectAccessoryData();
+
+            console.log(bikeDetails);
+            console.log(accessoriesData);
+            console.log(fistname);
+            var data = {
+                pickupDate: pickupDate + " " + pickupTime,
+                pickupLocation: pickupLocation,
+                returnLocation: returnLocation,
+                returnDate: returnDate + " " + returnTime,
+                accountId: accountId,          
+                fistname : fistname,
+                lastname : lastname, 
+                phone : phone,
+                email : email,
+                address: address,
+                dob: dob,
+                gender: gender,
+                bikeDetails: bikeDetails,
+                accessories: accessoriesData,
+                total : total
+            };
+            
+             // Convert object to JSON and append to formData
+            formData.append("jsonData", JSON.stringify(data));
+
+            // Add file to formData (ensure you have input type="file" with id="fileInput")
+            var fileInput = document.getElementById('image');
+            if (fileInput.files.length > 0) {
+                formData.append("file", fileInput.files[0]);
+            }
+            // Gửi dữ liệu tới servlet bằng AJAX
+            $.ajax({
+                type: "POST",
+                url: "bookinghandler", // Thay đổi URL tới servlet của bạn
+//                data: JSON.stringify(data),              
+//                contentType: "application/json",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log("Data sent successfully:", response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error sending data:", error);
+                }
+            });
         }
 
         // Nếu dữ liệu đã có sẵn trong LocalStorage khi trang được tải lại

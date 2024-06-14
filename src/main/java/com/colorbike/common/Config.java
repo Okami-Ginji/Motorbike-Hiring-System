@@ -1,5 +1,5 @@
 
-package common;
+package com.colorbike.common;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;

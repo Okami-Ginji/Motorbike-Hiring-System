@@ -4,12 +4,18 @@
  */
 package com.colorbike.controller;
 
+import com.colorbike.dao.BrandDAO;
 import com.colorbike.dao.CategoryDAO;
+import com.colorbike.dao.DemandDAO;
+import com.colorbike.dao.DemandPriceRangeDAO;
 import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
+import com.colorbike.dto.Brand;
 import com.colorbike.dto.Category;
+import com.colorbike.dto.Demand;
 import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
+import com.colorbike.dto.SearchCriteria.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,16 +38,20 @@ public class MotorcycleServlet extends HttpServlet {
     MotorcycleDAO motorcycleDAO = MotorcycleDAO.getInstance();
     CategoryDAO categoryDAO = CategoryDAO.getInstance();
     PriceListDAO priceListDAO = PriceListDAO.getInstance();
-
+    BrandDAO brandDAO = BrandDAO.getInstance();
+    DemandDAO demandDAO = DemandDAO.getInstance();
+    DemandPriceRangeDAO demandPriceRangeDAO = DemandPriceRangeDAO.getInstance();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         List<Category> categories = categoryDAO.getAllCategory();
 //        List<Motorcycle> motorcycles = motorcycleDAO.getAll();
-        List<PriceList> priceLists = priceListDAO.getAllPricing();
-
-        
+        List<PriceList> priceLists = priceListDAO.getAllPriceList();
+        List<Brand> brandLists = brandDAO.getAllBrand();
+        List<String> listDisplacement = motorcycleDAO.getListDisplacements();
+        List<Demand> listDemand = demandDAO.getAllDemand();
+        List<PriceRange> listPriceRange = demandPriceRangeDAO.getListDemandPriceRanges();
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
@@ -57,10 +67,7 @@ public class MotorcycleServlet extends HttpServlet {
         List<Motorcycle> motorcycles = motorcycleDAO.pagingMotorcycles(index);
 
         request.setAttribute("endP", endPage);
-        
-        
-        
-        
+
         Map<Integer, String> categoryMap = new HashMap<>();
         for (Category category : categories) {
             categoryMap.put(category.getCategoryID(), category.getCategoryName());
@@ -70,7 +77,10 @@ public class MotorcycleServlet extends HttpServlet {
         for (PriceList priceList : priceLists) {
             priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
         }
-
+        request.setAttribute("listPriceRange", listPriceRange);
+        request.setAttribute("listDisplacement", listDisplacement);
+        request.setAttribute("listBrand", brandLists);
+        request.setAttribute("listDemand", listDemand);
         request.setAttribute("motorcycles", motorcycles);
         request.setAttribute("categories", categories);
         request.setAttribute("priceLists", priceLists);

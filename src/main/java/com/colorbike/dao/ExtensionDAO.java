@@ -6,16 +6,20 @@ package com.colorbike.dao;
 
 import com.colorbike.dto.Extension;
 import com.colorbike.util.DBUtil;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author huypd
  */
-public class ExtensionDAO {
+public class ExtensionDAO implements Serializable{
 
     private static ExtensionDAO instance;
     private Connection conn = DBUtil.makeConnection();
@@ -33,9 +37,8 @@ public class ExtensionDAO {
         return instance;
     }
 
-
     public boolean adđExtension(String previousEndDate, String newEndDate,
-                        double extensionFee, String bookingId) {
+            double extensionFee, String bookingId) {
         String sql = "INSERT INTO [dbo].[Extension]\n"
                 + "           ([ExtensionDate]\n"
                 + "           ,[PreviousEndDate]\n"
@@ -58,6 +61,37 @@ public class ExtensionDAO {
             System.out.println(e);
         }
         return false;
+    }
+
+    public Extension getExtensionByBookingID(String bookingID) {
+        PreparedStatement stm;
+        ResultSet rs;
+
+        String sql = "SELECT * FROM Extension WHERE BookingID = ?";
+
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, bookingID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Extension extension = new Extension();
+                extension.setExtensionID(rs.getInt("ExtensionID"));
+                extension.setExtensionDate(rs.getString("ExtensionDate"));
+                extension.setPreviousEndDate(rs.getString("PreviousEndDate"));
+                extension.setNewEndDate(rs.getString("NewEndDate"));
+                extension.setExtensionFee(rs.getDouble("ExtenstionFee"));
+                extension.setBookingID(rs.getString("BookingID"));
+                extension.setStaffID(rs.getString("StaffID"));
+                return extension;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ExtensionDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(ExtensionDAO.getInstance().getExtensionByBookingID("BOOK000006"));
     }
 
 }

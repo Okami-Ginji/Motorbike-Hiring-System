@@ -19,11 +19,15 @@
                 height: 100vh;
                 background: url('https://powersports.honda.com/-/media/products/segment/street/sport/category-mp/hero/desktop/2024/sport-segment-hero-01-2400x1350.jpg') no-repeat center center fixed;
                 background-size: cover;
-                font-family: 'Open Sans', sans-serif;
+                font-family: 'Poppins', sans-serif;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #1C1D22;
             }
             .mainDiv {
                 display: flex;
-                min-height: 100%;
                 align-items: center;
                 justify-content: center;
                 background-color: rgba(249, 249, 249, 0.3);
@@ -34,11 +38,11 @@
                 width: 500px;
                 border-color: white;
                 background: #fff;
-                padding: 30px 0;
+                padding-bottom: 30px;
                 border-radius: 4px;
                 box-shadow: 0px 0 2px 0 rgba(0,0,0,0.25);
-                transform: translateY(-100px);
-                transition: transform 0.7s ease-out, opacity 0.5s ease-out;
+                transform: translateY(-170px);
+                transition: transform 0.3s ease-out, opacity 0.8s ease-out;
             }
             .cardStyle.visible {
                 opacity: 0.9;
@@ -49,7 +53,7 @@
                 margin: auto;
                 display: flex;
                 flex-direction: column;
-                
+
             }
             .formTitle {
                 font-weight: 600;
@@ -59,7 +63,6 @@
             }
             .inputLabel {
                 font-size: 13px;
-                color: #666;
                 margin-bottom: 6px;
                 margin-top: 24px;
             }
@@ -136,6 +139,21 @@
                     transform: rotate(360deg);
                 }
             }
+            .input-wrapper {
+                position: relative;
+                display: inline-block;
+            }
+            .input-wrapper input {
+                width: 100%;
+            }
+            .input-wrapper span {
+                position: absolute;
+                top: 50%;
+                right: -10px;
+                transform: translateY(-50%);
+                cursor: pointer;
+                font-size: 20px;
+            }
         </style>
     </head>
     <body>
@@ -156,21 +174,36 @@
                     </c:if>
                     <div class="inputDiv">
                         <label class="inputLabel" for="password">Old Password</label>
-                        <input type="password" id="password" name="password" required>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" required>
+                            <span id="password-eye-2" onclick="showPassword('password')">
+                                <i class="ri-eye-off-line"></i>
+                            </span>
+                        </div>
+
                     </div>
 
                     <div class="inputDiv">
                         <label class="inputLabel" for="newPassword">New Password</label>
-                        <input type="password" id="newPassword" name="newPassword" required>
+                        <div class="input-wrapper">
+                            <input type="password" id="newPassword" name="newPassword" required>
+                            <span id="password-eye-2" onclick="showPassword('newPassword')">
+                                <i class="ri-eye-off-line"></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="inputDiv">
                         <label class="inputLabel" for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <div class="input-wrapper">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <span id="password-eye-2" onclick="showPassword('confirmPassword')">
+                                <i class="ri-eye-off-line"></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="buttonWrapper" >
-                        <button type="submit" id="submitButton" onclick="validateSignupForm()" class="submitButton pure-button pure-button-primary">
+                        <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary">
                             <span>CHANGE</span>
-                            <span id="loader"></span>
                         </button>
                     </div>
                 </form>
@@ -178,9 +211,11 @@
         </div>
         <div>
             <a href="profileCustomer.jsp" style="position: absolute; top: 20px; left: 20px; text-decoration: none; color: #000">
-                <i class="ti-arrow-left" style="font-size: 40px"> </i>
+                <i style="font-size: 60px;" class="ri-arrow-left-line"></i>
             </a>
         </div>
+
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var form = document.getElementById('changePasswordForm');
@@ -188,60 +223,21 @@
                     form.classList.add('visible');
                 }, 100);
             });
-
-            var password = document.getElementById("password"),
-                    newPassword = document.getElementById("newPassword"),
-                    confirm_password = document.getElementById("confirmPassword");
-
             document.getElementById('signupLogo').src = "images/anh4.png";
-            enableSubmitButton();
 
-            function validatePassword() {
-                if (newPassword.value != confirm_password.value) {
-                    confirm_password.setCustomValidity("Passwords Don't Match");
-                    return false;
+            function showPassword(inputId) {
+                const passInput = document.getElementById(inputId);
+                const icon = passInput.nextElementSibling.querySelector('i');
+
+                if (passInput.type === 'password') {
+                    passInput.type = 'text';
+                    icon.className = 'ri-eye-line';
                 } else {
-                    confirm_password.setCustomValidity('');
-                    return true;
+                    passInput.type = 'password';
+                    icon.className = 'ri-eye-off-line';
                 }
             }
 
-            password.onchange = validatePassword;
-            newPassword.onkeyup = validatePassword;
-            confirm_password.onkeyup = validatePassword;
-
-            function enableSubmitButton() {
-                document.getElementById('submitButton').disabled = false;
-                document.getElementById('loader').style.display = 'none';
-            }
-
-            function disableSubmitButton() {
-                document.getElementById('submitButton').disabled = true;
-                document.getElementById('loader').style.display = 'unset';
-            }
-
-            function validateSignupForm() {
-                var form = document.getElementById('signupForm');
-
-                for (var i = 0; i < form.elements.length; i++) {
-                    if (form.elements[i].value === '' && form.elements[i].hasAttribute('required')) {
-                        console.log('There are some required fields!');
-                        return false;
-                    }
-                }
-                if (!validatePassword()) {
-                    return false;
-                }
-                return true;
-            }
-
-            function showPassword(inputId, button) {
-                const passwordInput = document.getElementById(inputId);
-                const icon = button.querySelector("i");
-                const isVisible = passwordInput.type === "password";
-                passwordInput.type = isVisible ? "text" : "password";
-                icon.className = isVisible ? "ri-eye-off-line" : "ri-eye-line";
-            }
         </script>
     </body>
 </html>

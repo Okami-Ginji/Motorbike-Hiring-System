@@ -130,7 +130,7 @@
         <section style="border: none" class="booking-detail" id="booking-detail">
             <h2 class="text-center mb-4">Chi Tiết Booking</h2>
             <div class="detail-content">
-                <p><strong>Mã đơn:</strong> <span id="order-id">12345</span></p>
+                <p><strong>Mã đơn:</strong> <span id="booking-id">12345</span></p>
                 <p><strong>Tên các xe:</strong> <span id="vehicle-names">Honda Air Blade (x1), Yamaha Nouvo (x1)</span></p>
                 <p><strong>Thời gian booking: </strong>01/06/2024 13:30 PM</p>
                 <p><strong>Ngày bắt đầu: </strong><span id="start-date">01/06/2024</span></p>
@@ -159,6 +159,7 @@
                 </div>
             </div>
             <div class="detail-actions">
+                <button id="cancel-btn">Hủy đơn</button>
                 <button id="pay-btn">Thanh toán</button>
                 <button onclick="openExtension()">Gia Hạn</button>
                 <button id="rebook-btn">Đặt lại</button>
@@ -209,6 +210,36 @@
             function closeDetail() {
                 window.location.href = 'bookingHistory.jsp';
             }
+
+            function cancelBooking() {
+                const orderId = document.getElementById('booking-id').textContent;
+
+                // Thực hiện hủy đơn ở đây (có thể là AJAX call đến server để cập nhật trạng thái)
+                // Ví dụ:
+                // Simulate backend update:
+                // const response = await fetch(`/api/cancelBooking?orderId=${orderId}`, {
+                //     method: 'POST',
+                // });
+                // if (response.ok) {
+                //     // Cập nhật giao diện
+                //     const row = document.querySelector(`#booking-table tbody tr.pending td:first-child`);
+                //     if (row) {
+                //         row.closest('tr').classList.add('cancelled');
+                //         row.closest('tr').classList.remove('pending');
+                //         row.closest('tr').style.display = ''; // Đảm bảo dòng này được hiển thị nếu đã bị ẩn bởi bộ lọc
+                //     }
+                // }
+
+                const row = document.querySelector(`#booking-table tbody tr.pending td:first-child`);
+                if (row) {
+                    row.closest('tr').classList.add('cancelled');
+                    row.closest('tr').classList.remove('pending');
+                    row.closest('tr').style.display = ''; // Đảm bảo dòng này được hiển thị nếu đã bị ẩn bởi bộ lọc
+                }
+
+                closeDetail();
+            }
+
         </script>
     </body>
 </html>

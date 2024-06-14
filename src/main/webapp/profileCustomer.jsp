@@ -375,7 +375,7 @@
                                     <label for="account-password">Password</label>
                                     <div class="input-with-button">
                                         <input style="border: 1px solid #000;" class="form-control" name="pass" type="password" id="account-password" value="${account.passWord}" readonly>
-                                        <button class="btn btn-style-1 btn-primary" type="button" data-toast data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfully." style="background-color: grey;" onclick="window.location.href = 'changepassword.jsp'">Change Password</button>
+                                        <button class="btn btn-style-1 btn-primary" type="button" data-toast data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfully." style="background-color: grey;" onclick="window.location.href = 'changepassword'">Change Password</button>
                                     </div>
                                 </div>
                             </div>

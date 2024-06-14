@@ -37,7 +37,7 @@ public class ExtensionDAO implements Serializable{
         return instance;
     }
 
-    public boolean adđExtension(String previousEndDate, String newEndDate,
+    public boolean addExtension(String previousEndDate, String newEndDate,
             double extensionFee, String bookingId) {
         String sql = "INSERT INTO [dbo].[Extension]\n"
                 + "           ([ExtensionDate]\n"

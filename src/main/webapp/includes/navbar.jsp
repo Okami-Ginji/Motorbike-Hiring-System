@@ -39,7 +39,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="myDropdown">
 
                             <a class="dropdown-item" href="profileCustomer.jsp">Thông tin cá nhân</a>
-                            <a class="dropdown-item" href="">Quản lý đặt hàng</a>
+                            <a class="dropdown-item" href="bookingHistory?status=all">Quản lý đặt hàng</a>
                             <a class="dropdown-item" href="logout">Đăng xuất</a>
                         </div>
 

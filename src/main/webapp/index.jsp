@@ -108,6 +108,110 @@
                 background: #ff6b6b;
                 outline: none;
             }
+
+            .follow-container {
+                display: flex;
+                height: 100vh;
+            }
+
+            .sidebar {
+                height: 60%;
+                width: 250px;
+                background: linear-gradient(135deg, #5aa389, rgb(2, 195, 255));
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(300px);
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                position: fixed;
+                top: 148px;
+                bottom: 0px;
+                right: 0;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+
+            .sidebar-content {
+                text-align: center;
+                padding: 20px;
+            }
+
+            .sidebar-content p {
+                margin-bottom: 20px;
+                font-size: 1.1em;
+                text-align: justify;
+            }
+
+            .sidebar-content button {
+                background: rgb(0,208, 141);
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                font-size: 1em;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: background 0.3s ease, transform 0.3s ease;
+            }
+
+            .sidebar-content button:hover {
+                background: #2c3e50;
+                transform: scale(1.05);
+            }
+
+            .sidebar-action {
+                background-color: rgb(1, 210, 142);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                position: fixed;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), background 0.3s ease;
+                z-index: 1001;
+            }
+
+            .sidebar-action:hover {
+                background-color: rgb(2, 255, 162);
+            }
+
+            .sidebar-action span {
+                font-size: 24px;
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar-action .notification-dot {
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-action.open {
+                right: 255px;
+            }
+
+            .sidebar-action.open span {
+                transform: rotate(180deg);
+            }
+            .bike {
+                color: rgb(0, 255, 140);
+            }
+
         </style>
         <meta charset="UTF-8"/>
     </head>
@@ -139,7 +243,22 @@
                 </div>
             </div>
         </div>
-
+        <c:if test="${not empty requestScope.book}">
+            <div class="follow-container">
+                <div class="sidebar" id="sidebar">
+                    <div class="sidebar-content">
+                        <p>Cảm ơn bạn đã sử dụng dịch vụ của <span><strong>COLOR<span class="bike">BIKE</span></strong></span>, hãy bấm vào đây để theo dõi nhanh đơn hàng của mình nhé!</p>
+                        <a href="bookingHistoryDetail?bookingId=${requestScope.book.bookingID}">
+                            <button>Theo dõi đơn hàng</button>
+                        </a>                   
+                    </div>
+                </div>
+                <div onclick="SidebarAction()" class="sidebar-action" id="sidebarAction">
+                    <span>&#9664;</span>
+                    <div class="notification-dot"></div>
+                </div>
+            </div>
+        </c:if>
 
         <section class="ftco-section ftco-no-pt bg-light">
             <div class="container">
@@ -541,24 +660,37 @@
         <script src="js/main.js"></script>
         <!-- thanh search -->
         <script>
-                function minimizeEventBox() {
-                    document.getElementById('eventBox').style.display = 'none';
-                    document.getElementById('showEventBtn').style.display = 'block';
-                }
+            function minimizeEventBox() {
+                document.getElementById('eventBox').style.display = 'none';
+                document.getElementById('showEventBtn').style.display = 'block';
+            }
 
-                function showEventBox() {
-                    document.getElementById('eventBox').style.display = 'block';
-                    document.getElementById('showEventBtn').style.display = 'none';
-                }
+            function showEventBox() {
+                document.getElementById('eventBox').style.display = 'block';
+                document.getElementById('showEventBtn').style.display = 'none';
+            }
 
-                function checkLogin(account) {
-                    if (account !== '') {
-                        window.location.href = 'event';
-                    } else {
-                        window.location.href = 'login.jsp';
+            function checkLogin(account) {
+                if (account !== '') {
+                    window.location.href = 'event';
+                } else {
+                    window.location.href = 'login.jsp';
+                }
+            }
+
+            function SidebarAction() {
+                const sidebar = document.getElementById('sidebar');
+                const sidebarAction = document.getElementById('sidebarAction');
+
+                sidebar.classList.toggle('open');
+                sidebarAction.classList.toggle('open');
+                if (sidebarAction.classList.contains('open')) {
+                    const notificationDot = document.querySelector('.notification-dot');
+                    if (notificationDot) {
+                        notificationDot.style.display = 'none';
                     }
                 }
-
+            }
         </script>
     </body>
 

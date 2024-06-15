@@ -463,6 +463,8 @@
                                                         applyFilter(filter);
                                                         confirmedFilters.style.display = "none";
                                                         window.location.href = "bookingHistory?status=" + filter;
+
+
                                                     });
                                                 });
                                                 checkURL();

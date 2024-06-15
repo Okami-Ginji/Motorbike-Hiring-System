@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -399,10 +400,10 @@
                     <div class="confirmed-filters" id="confirmed-filters">
                         <label for="confirmed-status">Đã xác nhận:</label>
                         <select id="confirmed-status">
-                            <option value="all">Tất cả trạng thái</option>
-                            <option value="not-delivered">Chưa giao</option>
-                            <option value="delivered">Đã giao</option>
-                            <option value="returned">Đã trả</option>
+                            <option value="all" <c:if test="${empty deliveryStatus || 'all' eq deliveryStatus}">selected</c:if>>Tất cả trạng thái</option>
+                            <option value="notDelivered" <c:if test="${'notDelivered' eq deliveryStatus}">selected</c:if>>Chưa giao</option>
+                            <option value="delivered" <c:if test="${'delivered' eq deliveryStatus}">selected</c:if>>Đã giao</option>
+                            <option value="returned" <c:if test="${'returned' eq deliveryStatus}">selected</c:if>>Đã trả</option>
                         </select>
                     </div>
                     <div class="table-responsive">
@@ -423,8 +424,21 @@
                                 <c:forEach items="${listB}" var="o">
                                     <tr class="${status}">
                                         <td>${o.bookingID}</td>
-                                        <td>${o.startDate}</td>
-                                        <td>${o.endDate}</td>
+                                        <td>
+                                            <c:set var="startDate" value="${o.startDate}" />
+                                            <c:set var="startYear" value="${fn:substring(startDate, 0, 4)}" />
+                                            <c:set var="startMonth" value="${fn:substring(startDate, 5, 7)}" />
+                                            <c:set var="startDay" value="${fn:substring(startDate, 8, 10)}" />
+                                            ${startDay}-${startMonth}-${startYear}
+                                        </td>
+
+                                        <td>
+                                            <c:set var="endDate" value="${o.endDate}" />
+                                            <c:set var="endYear" value="${fn:substring(endDate, 0, 4)}" />
+                                            <c:set var="endMonth" value="${fn:substring(endDate, 5, 7)}" />
+                                            <c:set var="endDay" value="${fn:substring(endDate, 8, 10)}" />
+                                            ${endDay}-${endMonth}-${endYear}
+                                        </td>
                                         <td>${fn:length(o.listBookingDetails)}</td>
                                         <td>${o.statusBooking}</td>
                                         <td>
@@ -432,7 +446,7 @@
                                             <c:forEach items="${o.listBookingDetails}" var="detail">
                                                 <c:set var="total" value="${total + detail.totalPrice}"/>
                                             </c:forEach>
-                                            ${total}VNĐ
+                                            <fmt:formatNumber value="${total*1000}" type="currency" currencySymbol="VNĐ" />
                                         </td>
                                         <td class="text-center"><a href="bookingHistoryDetail?bookingId=${o.bookingID}" class="btn btn-info" title="" data-toggle="tooltip" onclick="showBookingDetail(this)" data-original-title="View"><i class="fa fa-eye"></i></a></td>
                                     </tr>
@@ -474,6 +488,7 @@
                                                 confirmedStatusSelect.addEventListener("change", () => {
                                                     const filter = confirmedStatusSelect.value;
                                                     applyConfirmedFilter(filter);
+                                                    window.location.href = "bookingHistory?status=confirmed&deliveryStatus=" + filter;
                                                 });
                                             }
 

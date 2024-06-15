@@ -71,27 +71,36 @@ public class BookingDAO {
     }
 
     //all, pending, confirmed, cancelled
-    public List<Booking> getBookingWithDetails(String statusBooking, int accountID) {
+    public List<Booking> getBookingWithDetails(String statusBooking, String deliveryStatus, int accountID) {
         PreparedStatement stm;
         ResultSet rs;
         List<Booking> list = new ArrayList<>();
-        StringBuilder sql1 = new StringBuilder("SELECT * FROM Booking\n"
+        StringBuilder sql = new StringBuilder("SELECT * FROM Booking\n"
                 + "WHERE CustomerID = (\n"
                 + "	SELECT CustomerID FROM Customer WHERE AccountID = ?)");
         if (!"all".equals(statusBooking)) {
-            sql1.append(" AND");
+            sql.append(" AND");
             if ("pending".equals(statusBooking)) {
-                sql1.append(" StatusBooking = N'Chờ xác nhận'");
+                sql.append(" StatusBooking = N'Chờ xác nhận'");
             }
             if ("confirmed".equals(statusBooking)) {
-                sql1.append(" StatusBooking = N'Đã xác nhận'");
+                sql.append(" StatusBooking = N'Đã xác nhận'"); 
+                if (!deliveryStatus.equals("all")) {
+                    sql.append(" AND DeliveryStatus = ");
+                    if (deliveryStatus.equals("notDelivered"))
+                        sql.append("N'Chưa giao'");
+                    if (deliveryStatus.equals("delivered"))
+                        sql.append("N'Đã giao'");
+                    if (deliveryStatus.equals("returned"))
+                        sql.append("N'Đã trả'");
+                }
             }
             if ("cancelled".equals(statusBooking)) {
-                sql1.append(" StatusBooking = N'Đã hủy'");
+                sql.append(" StatusBooking = N'Đã hủy'");
             }
         }
         try {
-            stm = conn.prepareStatement(sql1.toString());
+            stm = conn.prepareStatement(sql.toString());
             stm.setInt(1, accountID);
             rs = stm.executeQuery();
             while (rs.next()) {

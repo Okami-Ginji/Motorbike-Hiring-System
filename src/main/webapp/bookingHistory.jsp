@@ -448,7 +448,6 @@
         <script>
                                             document.addEventListener("DOMContentLoaded", () => {
                                                 initializeFilters();
-                                                initializeDetailButtons();
                                             });
 
                                             // Initialize filters and add event listeners
@@ -462,16 +461,12 @@
                                                     button.addEventListener("click", () => {
                                                         const filter = button.getAttribute("data-filter");
                                                         applyFilter(filter);
-
                                                         confirmedFilters.style.display = "none";
-
                                                         window.location.href = "bookingHistory?status=" + filter;
-                                                        
-
                                                     });
                                                 });
                                                 checkURL();
-                                                
+
 
                                                 // Add event listener to confirmed status select
                                                 confirmedStatusSelect.addEventListener("change", () => {
@@ -487,7 +482,6 @@
                                                 }
                                             }
 
-
                                             // Apply filter for confirmed status
                                             function applyConfirmedFilter(filter) {
                                                 document.querySelectorAll("#booking-table tbody tr.confirmed").forEach(row => {
@@ -498,12 +492,6 @@
                                                     }
                                                 });
                                             }
-
-
-
-
-
-
                                             // Apply filter based on the status (all, pending, confirmed, cancelled)
                                             function applyFilter(filter) {
                                                 document.querySelectorAll("#booking-table tbody tr").forEach(row => {
@@ -515,19 +503,6 @@
                                                 });
 
                                             }
-
-
-                                            // Show booking detail
-                                            function showBookingDetail(button) {
-                                                const row = button.closest("tr");
-                                                const bookingId = row.cells[0].textContent;
-                                                window.location.href = 'bookingHistoryDetail?bookingId=' + bookingId;  // Change link to servlet
-                                            }
-
-
-
-
-
         </script>
 
 

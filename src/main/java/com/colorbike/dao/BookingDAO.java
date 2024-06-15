@@ -129,7 +129,7 @@ public class BookingDAO {
                 + "	where BookingID = ?\n"
                 + ")\n"
                 + "GROUP BY m.MotorcycleID, m.Model";
-        try { 
+        try {
             stm = conn.prepareStatement(sql);
             stm.setString(1, bookingID);
             rs = stm.executeQuery();
@@ -138,14 +138,54 @@ public class BookingDAO {
                 int quantity = rs.getInt("Quantity");
                 motorcycleDetails.put(model, quantity);
             }
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return motorcycleDetails;
     }
 
+    public boolean updateBookingStatus(String bookingID, String status) {
+        PreparedStatement stm;
+        String sql = "UPDATE Booking SET StatusBooking = ? WHERE BookingID = ?";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, status);
+            stm.setString(2, bookingID);
+            int rowAffect = stm.executeUpdate();
+            if (rowAffect > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public Booking getLastestBooking(int accountId) {
+        PreparedStatement stm;
+        ResultSet rs;
+        String sql = "SELECT TOP 1 *\n"
+                + "FROM Booking\n"
+                + "WHERE CustomerID = (SELECT CustomerID FROM Customer WHERE AccountID = ?)\n"
+                + "ORDER BY BookingDate DESC;";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setInt(1, accountId);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         BookingDAO bookingDAO = BookingDAO.getInstance();
-        System.out.println(bookingDAO.getMotorcycleDetailsByBookingID("BOOK000006"));
+//        System.out.println(bookingDAO.getMotorcycleDetailsByBookingID("BOOK000006"));
+//        System.out.println(bookingDAO.updateBookingStatus("BOOK000006", "Đã hủy"));
+            System.out.println(bookingDAO.getLastestBooking(10));
     }
 }

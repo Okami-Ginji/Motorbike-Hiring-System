@@ -54,6 +54,7 @@
             .booking-detail .detail-actions button:hover {
                 opacity: 0.9;
             }
+            .cancellation,
             .extension-infooo {
                 display: none;
                 position: fixed;
@@ -68,6 +69,7 @@
                 animation-name: fadeIn;
                 animation-duration: 0.5s;
             }
+            .cancellation-content,
             .extension-content {
                 background-color: #fefefe;
                 margin: 5% auto;
@@ -126,11 +128,37 @@
                 position: relative;
                 left: 50%;
             }
+            .bike {
+                color: rgb(0,208, 141);
+            }
+
+            .button-group {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin: 20px 0;
+            }
+
+            .button-cancel {
+                flex: 1;
+                margin: 0 19%;
+                padding: 10px 20px;
+            }
         </style>
     </head>
     <body>
         <section style="border: none" class="booking-detail" id="booking-detail">
             <h2 class="text-center mb-4">Chi Tiết Booking</h2>
+            <c:if test="${not empty sessionScope.cancelSuccess}">
+                <p style="color: green; font-size: 17px; font-weight: bold; font-style: initial">${sessionScope.cancelSuccess}</p>
+                <c:remove var="cancelSuccess" scope="session"/>
+            </c:if>
+            <c:if test="${not empty sessionScope.cancelFail}">
+                <p style="color: red; font-size: 17px; font-weight: bold; font-style: initial">${sessionScope.cancelFail}</p>
+                <c:remove var="cancelFail" scope="session"/>
+
+            </c:if>
+
             <div class="detail-content">
                 <p><strong>Mã đơn:</strong> <span id="order-id">${booking.bookingID}</span></p>
                 <p><strong>Tên các xe:</strong> <span id="vehicle-names">
@@ -145,14 +173,16 @@
                 <p><strong>Số lượng xe:</strong> <span id="vehicle-count">${fn:length(booking.listBookingDetails)}</span></p>
                 <p><strong>Địa chỉ giao:</strong> <span id="delivery-address">${booking.deliveryLocation}</span></p>
                 <p><strong>Địa chỉ trả:</strong> <span id="return-address">${booking.returnedLocation}</span></p>
-                <p><strong>Trạng thái giao xe:</strong> <span style="color: red" id="delivery-status">${booking.deliveryStatus}</span></p>
+                    <c:if test="${statusBooking == 'Đã xác nhận'}">
+                    <p><strong>Trạng thái giao xe:</strong> <span style="color: red" id="delivery-status">${booking.deliveryStatus}</span></p>
+                    </c:if>
                 <p><strong>Tổng giá:</strong> <span id="total-price">
                         <c:set var="total" value="0"/>
                         <c:forEach items="${booking.listBookingDetails}" var="detail">
                             <c:set var="total" value="${total + detail.totalPrice}"/>
                         </c:forEach>
-                        ${total}VNĐ
-                    </span> (Đã thanh toán: <span id="amount-paid">500,000 VND</span>)</span></p>
+                        ${total} VNĐ
+                    </span> (Đã thanh toán: <span id="amount-paid">500.0 VNĐ</span>)</p>
                 <!--nếu đổi số > 500.000 sẽ có thanh toán :3 -->
                 <a style="cursor: pointer; text-decoration: underline" onclick="openExtension()"><strong>Xem thông tin gia hạn </strong></a>    
                 <p></p>
@@ -183,39 +213,53 @@
                 </div>
             </div>
             <div class="detail-actions">
-                <button id="pay-btn">Thanh toán</button>
-                <button onclick="openExtension()">Gia Hạn</button>
-                <button id="rebook-btn">Đặt lại</button>
+                <c:if test="${statusBooking == 'Chờ xác nhận'}">
+                    <button onclick="openCancellation()">Hủy đơn</button>
+                </c:if>
+                <c:if test="${statusBooking != 'Đã hủy'}">
+                    <button id="pay-btn">Thanh toán</button>
+                </c:if>
+                <c:if test="${statusBooking != 'Đã hủy' && booking.deliveryStatus != 'Đã trả'}">
+                    <button id="extension">Gia Hạn</button>
+                </c:if>
+                <c:if test="${statusBooking == 'Đã hủy' || booking.deliveryStatus == 'Đã trả'}">
+                    <button id="rebook-btn">Đặt lại</button>
+                </c:if>
                 <button onclick="closeDetail()">Quay về</button>
             </div>
+
+            <form id="cancel-form" action="cancelbooking" method="get">
+                <input type="hidden" id="bookingId" name="bookingId" value="${booking.bookingID}">
+                <div class="cancellation" id="cancellation-info">
+                    <div style="width: 80%; height: 80%"class="text-center cancellation-content p-4">
+                        <span class="close" onclick="closeCancellation()">&times;</span>                    
+                        <h2 class="p-3 fw-bold">Xác Nhận Hủy Đơn</h2>
+                        <p class="mb-0">Bạn có chắc chắn muốn hủy đơn này hay không?</p>
+                        <p><span class="fw-bold">COLOR<span class="bike fw-bold">BIKE</span></span> muốn biết lý do hủy đơn của bạn.</p>
+                        <textarea name="cancelreason" style="width: 90%; height: 46%;" id="cancelReason" rows="4" cols="50" placeholder="Nhập lý do hủy đơn..."></textarea>
+                        <br>
+                        <div class="button-group">
+                            <button type="submit" class="button-cancel btn btn-outline-dark" onclick="submitCancelForm()">Gửi</button>
+                            <button class="button-cancel btn btn-outline-dark" onclick="closeCancellation()">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
         </section>
 
 
         <script>
-            //demo dữ liệu
-            const urlParams = new URLSearchParams(window.location.search);
-            const orderId = urlParams.get('orderId');
-            // document.getElementById('order-id').textContent = orderId;
-            // document.getElementById("vehicle-names").textContent = vehicleNames;
-            // document.getElementById("start-date").textContent = startDate;
-            // document.getElementById("end-date").textContent = endDate;
-            // document.getElementById("vehicle-count").textContent = vehicleCount;
-            // document.getElementById("delivery-address").textContent = deliveryAddress;
-            // document.getElementById("return-address").textContent = returnAddress;
-            // document.getElementById("booking-status").textContent = bookingStatus;
-            // document.getElementById("delivery-status").textContent = deliveryStatus;
-            // document.getElementById("total-price").textContent = totalPrice;
-            // document.getElementById("amount-paid").textContent = amountPaid;
-
-            //đủ tiền thì k hiện thanh toán
-            togglePayButton();
+            document.addEventListener("DOMContentLoaded", function () {
+                togglePayButton();
+            });
             function togglePayButton() {
                 const payButton = document.getElementById("pay-btn");
-                const amount = document.getElementById("amount-paid");
-                const total = document.getElementById("total-price");
+                const amount = document.getElementById("amount-paid").textContent.trim();
+                const total = document.getElementById("total-price").textContent.trim();
 
-                const amountPaid = parseFloat(amount.textContent.replace(/[^\d.]/g, '')); //regex: xóa ký tự đb
-                const totalPrice = parseFloat(total.textContent.replace(/[^\d.]/g, ''));
+                const amountPaid = parseFloat(amount.replace(/[^\d]/g, ''));
+                const totalPrice = parseFloat(total.replace(/[^\d]/g, ''));
 
                 if (amountPaid < totalPrice) {
                     payButton.style.display = "inline-block";
@@ -223,6 +267,7 @@
                     payButton.style.display = "none";
                 }
             }
+
 
             function openExtension() {
                 document.getElementById('extension-info').style.display = 'block';
@@ -233,6 +278,37 @@
             function closeDetail() {
                 window.location.href = 'bookingHistory.jsp';
             }
+
+            function openCancellation() {
+                document.getElementById('cancellation-info').style.display = 'block';
+            }
+
+            function closeCancellation() {
+                document.getElementById('cancellation-info').style.display = 'none';
+            }
+
+            //click ngoài là tắt 
+            window.onclick = function (event) {
+                var extension = document.getElementById("extension-info");
+                var cancellation = document.getElementById("cancellation-info");
+
+                if (event.target === extension) {
+                    extension.style.display = "none";
+                }
+
+                if (event.target === cancellation) {
+                    cancellation.style.display = "none";
+                }
+            };
+            //esc để thoát
+            window.onkeydown = function (event) {
+                var extension = document.getElementById("extension-info");
+                var cancellation = document.getElementById("cancellation-info");
+                if (event.key === "Escape" || event.key === "Esc") {
+                    extension.style.display = "none";
+                    cancellation.style.display = "none";
+                }
+            };
         </script>
     </body>
 </html>

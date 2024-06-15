@@ -66,7 +66,7 @@ public class PriceListDAO implements Serializable {
     }
 
 
-    public PriceList getPricingByid(String id) {
+     public PriceList getPricingByid(String id) {
         PreparedStatement stm;
         ResultSet rs;
         try {
@@ -111,13 +111,12 @@ public class PriceListDAO implements Serializable {
     }
 
 
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         PriceListDAO dao = getInstance();
         List<PriceList> list = dao.getAllPriceList();
         for(PriceList x: list){
             System.out.println(x);
         }
     }
-
 
 }

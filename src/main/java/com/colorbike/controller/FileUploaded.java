@@ -27,12 +27,13 @@ public class FileUploaded {
             uploadDir.mkdirs(); // Tạo thư mục nếu chưa tồn tại
         }
     }
+    
 
-    public String handleFileUpload(Part part) throws IOException {
+    public String handleFileUpload(Part part, String fileName) throws IOException {
         String originalFileName = getFileName(part);
         if (originalFileName != null && !originalFileName.isEmpty()) {
             String newFileName = generateNewFileName(originalFileName);
-            String filePath = uploadPath + File.separator + newFileName;
+            String filePath = uploadPath + File.separator + fileName;
             File file = new File(filePath);
             Files.copy(part.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
             return filePath;

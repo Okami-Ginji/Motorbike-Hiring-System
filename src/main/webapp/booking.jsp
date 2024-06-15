@@ -1065,7 +1065,7 @@
     <body>
         <div class="main">
             <div class="container">
-                <img src="upload/1.jpg">
+              
                 <form method="POST" id="signup-form" class="signup-form" action="">
                     <div >
                         <button type="submit" id="paymentButton" style="display: none"></button>
@@ -1280,7 +1280,7 @@
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
                             <div class="fieldset-content">
                                 <c:if test="${not empty sessionScope.account}">
-                                    <input id="accountId" type="text" value="${account.accountId}" style="display: none">
+                                    <a id="accountId"  style="display: none">${account.accountId}</a>
                                    
                                     <div class="form-row">
                                         <div class="form-flex">
@@ -1515,7 +1515,7 @@
                             <a onclick="yourFunctionName()">aaaaa</a>
                             <h2>Connect Bank Account</h2>
                             <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
-                            <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 1000px;"></iframe>
+                            <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 550px; border-style: hidden"></iframe>
                             
                         </fieldset>
                     </div>
@@ -1790,6 +1790,15 @@
                             
                         }
                         if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
+                            const checkbox = document.getElementById('daily-checkbox-term');
+                            nextButton.style.pointerEvents = 'none';
+                            nextButton.style.background = '#e8e8e8';
+                            nextButton.style.color = '#999';
+                            
+                            // Function to toggle the next button based on the checkbox state
+                            checkbox.addEventListener('change', toggleNextButton);
+                            // Initial check
+                            toggleNextButton();
                              var image = document.getElementById('image').files[0]; // Lấy file ảnh
                              console.log(image);
                             changePrice();
@@ -2004,15 +2013,7 @@
                                 `;
                             formBoxTotal.appendChild(itemTotalContainer);
 
-                            const checkbox = document.getElementById('daily-checkbox-term');
-                            nextButton.style.pointerEvents = 'none';
-                            nextButton.style.background = '#e8e8e8';
-                            nextButton.style.color = '#999';
-                            
-                            // Function to toggle the next button based on the checkbox state
-                            checkbox.addEventListener('change', toggleNextButton);
-                            // Initial check
-                            toggleNextButton();
+                           
                             
                              
                         }
@@ -2342,21 +2343,15 @@
             var lastname = document.getElementById("lastnametext").textContent.trim();
             var phone = document.getElementById("phonetext").textContent.trim();
             var email = document.getElementById("emailaddresstext").textContent.trim();
-            var address = document.getElementById("address").textContent.trim();
-            var dob = document.getElementById("dob").textContent.trim();
+            var address = document.getElementById("addresstext").textContent.trim();
+            var dob = document.getElementById("birthdaytext").textContent.trim();
+            var gender = document.getElementById("gendertext").textContent.trim();
             var customerId = document.getElementById("customerId").textContent.trim();
-            var issuedon = document.getElementById("issuedon").textContent.trim();
-            var expdate = document.getElementById("expdate").textContent.trim();
+            var identityCard = document.getElementById("identityCard").value;
+            var issuedon = document.getElementById("issuedon").value;
+            var expdate = document.getElementById("expdate").value;
             var total = document.getElementById("dataInput").textContent.trim();
             
-            var genderElements = document.getElementsByName("gender");
-            var gender;
-            for (var i = 0; i < genderElements.length; i++) {
-                if (genderElements[i].checked) {
-                    gender = genderElements[i].value;
-                    break;
-                }
-            }
             
             // Chuyển các chuỗi ngày thành đối tượng Date
             const pickupD = new Date(pickupDate);
@@ -2412,6 +2407,10 @@
                 address: address,
                 dob: dob,
                 gender: gender,
+                customerId : customerId,
+                identityCard : identityCard,
+                issuedon : issuedon,
+                expdate : expdate,
                 bikeDetails: bikeDetails,
                 accessories: accessoriesData,
                 total : total

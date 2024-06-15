@@ -13,6 +13,7 @@ import com.colorbike.dao.CustomerDAO;
 import com.colorbike.dao.MotorcycleDetailDAO;
 import com.colorbike.dao.MotorcycleStatusDAO;
 import com.colorbike.dto.AccessoryDetail;
+import com.colorbike.dto.Customer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -276,24 +277,9 @@ public class BookingInforHander extends HttpServlet {
         HashMap<String, Object> dataMap = new HashMap<>();
         Part filePart = null;
         
-        Gson gson = new Gson();
-        try {
-            Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
-            dataMap.putAll(gson.fromJson((String) dataMap.get("jsonData"), type));
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JSON format");
-            return;
-        }
         
-        //Create or Update Customer
-        CustomerDAO daoC = CustomerDAO.getInstance();
-        String customerId = (String) dataMap.get("customerId");
-        String issuedon = (String) dataMap.get("issuedon");
-        String expdate = (String) dataMap.get("expdate");
-        if(!customerId.equalsIgnoreCase("Not")){
-            daoC.
-        }
+        
+       
 
          //Initialize FileUploaded with upload directory
 //        String uploadPath = getServletContext().getRealPath("/upload");
@@ -315,24 +301,53 @@ public class BookingInforHander extends HttpServlet {
                 dataMap.put(fieldName, value);
             }
         }
+        
+        
 
+        // Convert JSON data to HashMap
+        Gson gson = new Gson();
+         try {
+             Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
+             dataMap.putAll(gson.fromJson((String) dataMap.get("jsonData"), type));
+         } catch (Exception e) {
+             e.printStackTrace();
+             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JSON format");
+             return;
+         }
+         
+          //Create or Update Customer
+        CustomerDAO daoC = CustomerDAO.getInstance();
+        String customerId = (String) dataMap.get("customerId");
+        String identityCard = (String) dataMap.get("identityCard");
+        String issuedon = (String) dataMap.get("issuedon");
+        String expdate = (String) dataMap.get("expdate");
+        int accountId = Integer.parseInt((String) dataMap.get("accountId"));
+        
         // Save file if present
         String uploadedFilePath = null;
+        String filename = "imageIdC" + customerId + ".jpg";
+        
+        if(customerId.equalsIgnoreCase("Not")){          
+            daoC.createNewCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", 1, accountId);
+            filename = "imageIdC" + daoC.getCustomerbyAccountID(accountId).getCustomerId() + ".jpg";
+            daoC.updateCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", accountId);
+        } else {
+            daoC.updateCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", Integer.parseInt(customerId));           
+        }
+        
         if (filePart != null) {
-            uploadedFilePath = fileUploaded.handleFileUpload(filePart);
+            uploadedFilePath = fileUploaded.handleFileUpload(filePart, filename);
             dataMap.put("filePath", uploadedFilePath);
             request.setAttribute("message", "File uploaded successfully: " + uploadedFilePath);
         }
-
-        // Convert JSON data to HashMap
-       
+        
 
         // Process other data from dataMap
         String pickupDate = (String) dataMap.get("pickupDate");
         String pickupLocation = (String) dataMap.get("pickupLocation");
         String returnLocation = (String) dataMap.get("returnLocation");
         String returnDate = (String) dataMap.get("returnDate");
-        int accountId = Integer.parseInt((String) dataMap.get("accountId")) ;
+        
         String firstname = (String) dataMap.get("fistname");
         String lastname = (String) dataMap.get("lastname");
         String phone = (String) dataMap.get("phone");
@@ -359,7 +374,7 @@ public class BookingInforHander extends HttpServlet {
         // Save booking data to database
         // Assume BookingDAO is a class to handle database operations
         BookingDAO dao = BookingDAO.getInstance();
-        dao.addBooing(bookingid, formattedDateTime, pickupDate, returnDate, pickupLocation, returnLocation, 0,2 );
+        dao.addBooing(bookingid, formattedDateTime, pickupDate, returnDate, pickupLocation, returnLocation, 0, daoC.getCustomerbyAccountID(accountId).getCustomerId());
 
         // Process bike details
         Type bikeListType = new TypeToken<ArrayList<HashMap<String, String>>>() {}.getType();

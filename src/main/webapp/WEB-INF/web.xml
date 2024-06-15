@@ -11,9 +11,4 @@
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
-    
-    <context-param>
-    <param-name>UPLOAD_DIRECTORY</param-name>
-    <param-value>upload</param-value>
-    </context-param>
 </web-app>

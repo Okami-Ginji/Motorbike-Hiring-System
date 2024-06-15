@@ -14,22 +14,44 @@
         <!-- Custom styles for this template -->
         <link href="assets/jumbotron-narrow.css" rel="stylesheet">      
         <script src="assets/jquery-1.11.3.min.js"></script>
+        <style>
+            .table-responsive{
+                width: 52%;
+                background: #F9F9F9;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+                padding: 27px;
+/*                margin: 20px auto;*/
+            }
+            .container{
+                display: flex;
+                justify-content: space-between;
+            }
+            
+             .btn-default {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            }
+            .btn-default:hover {
+                background-color: #0056b3;
+            }
+        </style>
     </head>
 
-    <body>
+    <body style="background: #F9F9F9;">
 
-         <div class="container">
-           <div class="header clearfix">
-
-                <h3 class="text-muted">VNPAY DEMO</h3>
-            </div>
-            <h3>Tạo mới đơn hàng</h3>
-            <div class="table-responsive">
+         <div class="container" >
+             <div>
+                 
+             </div>
+            <div class="table-responsive" >
                 <form id="frmCreateOrder">        
-                    <div class="form-group">
-                        <label for="amount">Số tiền</label>
-                        <input class="form-control" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" name="amount" type="number" value="10000" />
-                    </div>
+                    
+                      
+                        <input class="form-control" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" name="amount" type="number" value="10000" style="display: none" />
+                  
                      <h4>Chọn phương thức thanh toán</h4>
                     <div class="form-group">
                         <h5>Cách 1: Chuyển hướng sang Cổng VNPAY chọn phương thức thanh toán</h5>
@@ -43,8 +65,8 @@
                        <input type="radio" id="bankCode" name="bankCode" value="VNBANK">
                        <label for="bankCode">Thanh toán qua thẻ ATM/Tài khoản nội địa</label><br>
                        
-                       <input type="radio" id="bankCode" name="bankCode" value="INTCARD">
-                       <label for="bankCode">Thanh toán qua thẻ quốc tế</label><br>
+<!--                       <input type="radio" id="bankCode" name="bankCode" value="INTCARD">
+                       <label for="bankCode">Thanh toán qua thẻ quốc tế</label><br>-->
                        
                     </div>
                     <div class="form-group">
@@ -58,12 +80,22 @@
                     <button type="submit" class="btn btn-default">Thanh toán</button>
                 </form>
             </div>
-            <p>
-                &nbsp;
-            </p>
-            <footer class="footer">
-                <p>&copy; VNPAY 2020</p>
-            </footer>
+             <div class="table-responsive" style="width: 40%" >
+                   <div class="form-group">
+                        <label for="amount">Số tiền</label>
+                        <input class="form-control" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount1" max="100000000" min="1" name="amount" type="number" value="10000" />
+                    </div>
+                     <h4>Chọn phương thức thanh toán</h4>
+                    <div class="form-group">
+                        <h5>Cách 1: Chuyển hướng sang Cổng VNPAY chọn phương thức thanh toán</h5>
+                       <input type="radio" Checked="True" id="bankCode" name="bankCode" value="">
+                       <label for="bankCode">Cổng thanh toán VNPAYQR</label><br>
+                      
+                       
+                    </div>
+                   
+               
+            </div>
         </div>
           
         <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />

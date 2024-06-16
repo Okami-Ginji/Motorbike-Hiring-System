@@ -5,11 +5,13 @@
 package com.colorbike.controller;
 
 import com.colorbike.dao.AccountDAO;
+import com.colorbike.dao.BookingDAO;
 import com.colorbike.dao.BrandDAO;
 import com.colorbike.dao.FeedbackDAO;
 import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
 import com.colorbike.dto.Account;
+import com.colorbike.dto.Booking;
 import com.colorbike.dto.Brand;
 import com.colorbike.dto.Feedback;
 import com.colorbike.dto.Motorcycle;
@@ -49,20 +51,26 @@ public class HomeServlet extends HttpServlet {
         MotorcycleDAO md = MotorcycleDAO.getInstance();//view featured motorbikes
         BrandDAO bd = BrandDAO.getInstance();
         PriceListDAO pd = PriceListDAO.getInstance();
-
         List<Feedback> listF = fd.getAllFeedback();
         List<Motorcycle> listM = md.getTop5MotorcycleTheMostRental();
         List<Brand> listB = bd.getAllBrand();
         List<PriceList> listP = pd.getAllPriceList();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        
+
+        if (account != null) {
+            Booking book = BookingDAO.getInstance().getLastestBooking(account.getAccountId());
+            if (book != null) {
+                request.setAttribute("book", book);
+            } else {
+                request.removeAttribute("book");
+            }
+        }
         session.setAttribute("account", account);
         request.setAttribute("listF", listF);
         request.setAttribute("listM", listM);
         request.setAttribute("listB", listB);
         request.setAttribute("listP", listP);
-
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

@@ -143,6 +143,22 @@
                 </div>
             </div>
         </div>
+        <c:if test="${not empty requestScope.book}">
+            <div class="follow-container">
+                <div class="sidebar" id="sidebar">
+                    <div class="sidebar-content">
+                        <p>Cảm ơn bạn đã sử dụng dịch vụ của <span><strong>COLOR<span class="bike">BIKE</span></strong></span>, hãy bấm vào đây để theo dõi nhanh đơn hàng của mình nhé!</p>
+                        <a href="bookingHistoryDetail?bookingId=${requestScope.book.bookingID}">
+                            <button>Theo dõi đơn hàng</button>
+                        </a>                   
+                    </div>
+                </div>
+                <div onclick="SidebarAction()" class="sidebar-action" id="sidebarAction">
+                    <span>&#9664;</span>
+                    <div class="notification-dot"></div>
+                </div>
+            </div>
+        </c:if>
 
 
         <section class="ftco-section ftco-no-pt bg-light">

@@ -343,7 +343,7 @@
                                         <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
                                     </div>
                                     <p class="d-flex mb-0 d-block">
-                                        <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                        <a href="booking?motorcycleid=${motorbike.motorcycleId}" class="btn btn-primary py-2 mr-1">Book now</a>
                                         <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Details</a>
                                     </p>
                                 </div>

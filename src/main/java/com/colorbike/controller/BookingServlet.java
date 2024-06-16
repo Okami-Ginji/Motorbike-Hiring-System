@@ -22,6 +22,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -44,7 +47,27 @@ public class BookingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String pickuploc = request.getParameter("pickuploc");
+        String returnloc = request.getParameter("returnloc");
+        String pickUpDateStr = request.getParameter("pickupdate");
+        String returnDateStr = request.getParameter("returndate");
+        String pickUpTime = request.getParameter("pickuptime");
+        String returnTime = request.getParameter("returntime");
+        request.setAttribute("pickuploc", pickuploc);
+        request.setAttribute("returnloc", returnloc);
+        request.setAttribute("pickupdate", pickUpDateStr);
+        request.setAttribute("returndate", returnDateStr);
+        request.setAttribute("pickuptime", pickUpTime);
+        request.setAttribute("returntime", returnTime);
+       
         MotorcycleDAO daoM = MotorcycleDAO.getInstance();
+        //Tu mototcycle vao
+        String motorcycleid = request.getParameter("motorcycleid");
+        Motorcycle motorcycle =daoM.getMotorcycleByid(motorcycleid);
+        request.setAttribute("chosenmotor", motorcycleid);
+        
+        
         List<Motorcycle> listM = daoM.getAll();
         LinkedHashMap<String, String> map = daoM.getAllAvailableMotorCycle();
         request.setAttribute("listM", listM);

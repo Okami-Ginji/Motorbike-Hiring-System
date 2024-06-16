@@ -1058,38 +1058,64 @@
                 border-style: none;
                 height: 40px;
             }
-            /*# sourceMappingURL=style.css.map */
+            /* Lớp phủ toàn trang */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5); /* Nền bán trong suốt */
+                display: none; /* Ẩn theo mặc định */
+                justify-content: center;
+                align-items: center;
+                z-index: 9999; /* Đảm bảo nằm trên cùng */
+            }
+            .overlay.active {
+                display: flex; /* Hiển thị lớp phủ khi active */
+            }
+            .overlay span {
+                color: #fff;
+                font-size: 24px;
+            }
+            
+            label.error{
+                display: none !important;
+            }
         </style>
     </head>
 
     <body>
+        <div class="overlay" id="overlay">
+            <span>Đang xử lý...</span>
+        </div>
         <div class="main">
             <div class="container">
               
                 <form method="POST" id="signup-form" class="signup-form" action="">
                     <div >
                         <button type="submit" id="paymentButton" style="display: none"></button>
-                        <h3>Dates</h3>
+                        <h3>Ngày giờ</h3>
                         <fieldset>
-                            <h2>Connect Bank Account</h2>
-                            <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+                            <h2>NGÀY & GIỜ</h2>
+                            <p class="desc">Hãy lựa chọn ngày giờ và địa điểm bạn muốn giao / trả xe</p>
                             <div class="form-row">
                                 <div class="form-flex">
                                     <div class="form-group">
                                         <label for="pickupdate" class="form-label">Ngày nhận xe</label>
-                                        <input type="date" name="pickupdate" id="pickupdate" value="2024-03-23" />
+                                        <input type="date" name="pickupdate" id="pickupdate" value="${pickupdate}"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="pickuptime" class="form-label">Giờ nhận xe</label>
-                                        <input type="time" name="pickuptime" id="pickuptime"  value="09:44"/>
+                                        <input type="time" name="pickuptime" id="pickuptime" value="${pickuptime}" />
                                     </div>
                                     <div class="form-group">
                                         <label for="returndate" class="form-label">Ngày trả xe</label>
-                                        <input type="date" name="returndate" id="returndate" value="2024-03-23"/>
+                                        <input type="date" name="returndate" id="returndate" value="${returndate}" />
                                     </div>
                                     <div class="form-group">
                                         <label for="returntime" class="form-label">Giờ trả xe</label>
-                                        <input type="time" name="returntime" id="returntime" value="09:44"/>
+                                        <input type="time" name="returntime" id="returntime" value="${returntime}"/>
                                     </div>
                                 </div>
                             </div>
@@ -1098,92 +1124,127 @@
                                     <div class="form-group">
                                         <label for="pickuplocation" class="form-label">Địa điểm nhận xe</label>
                                         <select name="pickuplocation" id="pickuplocation" class="form-label">
-                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng">Da Nang Railway Station-202 Hải Phòng Street
+                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${pickuploc == "1" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
                                             </option>
-                                            <option value="Da Nang International Airport">Da Nang International Airport</option>
-                                            <option value="Your own address">Your own address</option>
+                                            <option value="Da Nang International Airport" ${pickuploc == "2" ? 'selected' : ''}>Da Nang International Airport</option>
+                                            <option value="Your own address" ${pickuploc == "3" ? 'selected' : ''}>Your own address</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="returnlocation" class="form-label">Địa điểm trả xe</label>
                                         <select name="returnlocation" id="returnlocation" class="form-label">
-                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng">Da Nang Railway Station-202 Hải Phòng Street
+                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${returnloc == "1" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
                                             </option>
-                                            <option value="Da Nang International Airport">Da Nang International Airport</option>
-                                            <option value="Your own address">Your own address</option>
+                                            <option value="Da Nang International Airport" ${returnloc == "2" ? 'selected' : ''}>Da Nang International Airport</option>
+                                            <option value="Your own address" ${returnloc == "3" ? 'selected' : ''}>Your own address</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
 
-                        <h3>Motorbikes</h3>
+                        <h3>Xe máy</h3>
                         <fieldset>
-                            <h2>SELECTED MOTORBIKE CLASS</h2>
-                            <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+                            <h2>CHỌN XE MÁY</h2>
+                            <p class="desc">Hãy chọn những chiếc xe tuyệt vời nhất cho hành trình của bạn</p>
                             
                             <div class="fieldset-content">
                                 <div class="scrollable-vertical" id="motorcyclelist">
                                     <c:forEach items="${listM}" var="o">
-                                        <div class="form-box">
-                                            <div class="form-img-bike">
-                                                <label style="width: 100%" for="body-bg"><img src="images/${o.image}" alt=""></label>
-                                            </div>
-                                            <div class="form-text">
-                                                <h4 class="motor-name">${o.model} ${o.displacement}</h4>
-                                                <div class="form-doc" style="box-sizing: border-box;">
-                                                    ${o.description}
+                                        <c:if test="${o.motorcycleId eq chosenmotor}">
+                                            <div class="form-box">
+                                                <div class="form-img-bike">
+                                                    <label style="width: 100%" for="body-bg"><img src="images/${o.image}" alt=""></label>
                                                 </div>
-                                            </div>
-                                            <div class="form-check"> 
-                                                <c:forEach items="${listP}" var="p">
-                                                    <c:if test="${p.priceListId eq o.priceListID}">
-                                                        <h2 class="main-price price-day" >₫${p.dailyPriceForDay}00/Day</h2>
-                                                        <h2 class="main-price price-week" >₫${p.dailyPriceForWeek}00/Day</h2>
-                                                        <h2 class="main-price price-month" >₫${p.dailyPriceForMonth}00/Day</h2>
-                                                    </c:if>
-                                                </c:forEach>                                             
-                                                <p class="price-note">Không bao gồm thuế và bảo hiểm</p>                                                    
-<!--                                                <div class="rent-button">-->
-                                                    <input style="display: none" type="checkbox"  id="daily-checkbox-${o.motorcycleId}" class="option-checkbox">
-<!--                                                    <div class="quantity-container" >   
-                                                        <div style="display: grid; width: 20%;">
-                                                            <button class="buttonMotor" id="plus" type="button" onclick="incrementQuantity('${o.motorcycleId}')">+</button>
-                                                            <button class="buttonMotor" id="minus" type="button" onclick="decrementQuantity('${o.motorcycleId}')">-</button>
-                                                        </div>
-                                                        
-                                                            <input class="form-number-bike" type="number" id="daily-quantity-${o.motorcycleId}" value="0" min="0" max="2" readonly>
-                                                        
-                                                        <button class="buttonMotor" id="clear" type="button" onclick="clearQuantity('${o.motorcycleId}')">x</button>
-                                                    </div>-->
-                                                    <div class="rent-button">                                                     
-                                                        <c:set var="found" value="false" />
-                                                        <c:forEach var="entry" items="${listMA}">
-                                                            <c:if test="${entry.key eq o.motorcycleId}">
-                                                                <c:set var="found" value="true" />
-                                                                <a>Chọn số lượng xe: </a>
-                                                                <select class="form-check-select" id="daily-select-${o.motorcycleId}">
-                                                                    <c:forEach begin="0" end="${entry.value > 4 ? 4 : entry.value}" var="i">
-                                                                        <option value="${i}">${i}</option>
-                                                                    </c:forEach>
-                                                                </select>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                        <c:if test="${found eq false}">
-                                                            <a>Hết xe</a>
-                                                        </c:if>
+                                                <div class="form-text">
+                                                    <h4 class="motor-name">${o.model} ${o.displacement}</h4>
+                                                    <div class="form-doc" style="box-sizing: border-box;">
+                                                        ${o.description}
                                                     </div>
-                                            </div>                                                         
-                                        </div>
+                                                </div>
+                                                <div class="form-check"> 
+                                                    <c:forEach items="${listP}" var="p">
+                                                        <c:if test="${p.priceListId eq o.priceListID}">
+                                                            <h2 class="main-price price-day" >₫${p.dailyPriceForDay}00/Ngày</h2>
+                                                            <h2 class="main-price price-week" >₫${p.dailyPriceForWeek}00/Ngày</h2>
+                                                            <h2 class="main-price price-month" >₫${p.dailyPriceForMonth}00/Ngày</h2>
+                                                        </c:if>
+                                                    </c:forEach>                                             
+                                                    <p class="price-note">Không bao gồm thuế và bảo hiểm</p>                                                    
+                                                        <input style="display: none" type="checkbox"  id="daily-checkbox-${o.motorcycleId}" class="option-checkbox">
+                                                        <div class="rent-button">                                                     
+                                                            <c:set var="found" value="false" />
+                                                            <c:forEach var="entry" items="${listMA}">
+                                                                <c:if test="${entry.key eq o.motorcycleId}">
+                                                                    <c:set var="found" value="true" />
+                                                                    <a>Chọn số lượng xe: </a>
+                                                                    <select class="form-check-select" id="daily-select-${o.motorcycleId}">
+                                                                        <c:forEach begin="0" end="${entry.value > 5 ? 5 : entry.value}" var="i">
+                                                                            <option value="${i}" ${i == "1" ? 'selected' : ''}>${i}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <c:if test="${found eq false}">
+                                                                <a>Hết xe</a>
+                                                            </c:if>
+                                                        </div>
+                                                </div>                                                         
+                                            </div>
+                                           
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:forEach items="${listM}" var="o">
+                                        <c:if test="${o.motorcycleId ne chosenmotor}">
+                                            <div class="form-box">
+                                                <div class="form-img-bike">
+                                                    <label style="width: 100%" for="body-bg"><img src="images/${o.image}" alt=""></label>
+                                                </div>
+                                                <div class="form-text">
+                                                    <h4 class="motor-name">${o.model} ${o.displacement}</h4>
+                                                    <div class="form-doc" style="box-sizing: border-box;">
+                                                        ${o.description}
+                                                    </div>
+                                                </div>
+                                                <div class="form-check"> 
+                                                    <c:forEach items="${listP}" var="p">
+                                                        <c:if test="${p.priceListId eq o.priceListID}">
+                                                            <h2 class="main-price price-day" >₫${p.dailyPriceForDay}00/Ngày</h2>
+                                                            <h2 class="main-price price-week" >₫${p.dailyPriceForWeek}00/Ngày</h2>
+                                                            <h2 class="main-price price-month" >₫${p.dailyPriceForMonth}00/Ngày</h2>
+                                                        </c:if>
+                                                    </c:forEach>                                             
+                                                    <p class="price-note">Không bao gồm thuế và bảo hiểm</p>                                                                                             
+                                                        <input style="display: none" type="checkbox"  id="daily-checkbox-${o.motorcycleId}" class="option-checkbox">
+                                                        <div class="rent-button">                                                     
+                                                            <c:set var="found" value="false" />
+                                                            <c:forEach var="entry" items="${listMA}">
+                                                                <c:if test="${entry.key eq o.motorcycleId}">
+                                                                    <c:set var="found" value="true" />
+                                                                    <a>Chọn số lượng xe: </a>
+                                                                    <select class="form-check-select" id="daily-select-${o.motorcycleId}">
+                                                                        <c:forEach begin="0" end="${entry.value > 5 ? 5 : entry.value}" var="i">
+                                                                            <option value="${i}">${i}</option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <c:if test="${found eq false}">
+                                                                <a>Hết xe</a>
+                                                            </c:if>
+                                                        </div>
+                                                </div>                                                         
+                                            </div>
+                                        </c:if>
                                     </c:forEach>                                  
                                 </div>
                             </div>
                         </fieldset>
 
-                        <h3>Extras</h3>
+                        <h3>Phụ kiện đi kèm</h3>
                         <fieldset>
-                            <h2>PROTECTIONS & COVERAGES</h2>
-                            <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+                            <h2>PHỤ KIỆN ĐI KÈM</h2>
+                            <p class="desc">Hãy chọn những phụ kiện có thể giúp ích cho hành trình của bạn</p>
                             <div class="scrollable-vertical" id="protection">
 <!--                                <h4>SERVICES</h4>
                                 <div class="form-box">
@@ -1244,7 +1305,7 @@
                                 </div>-->
 
 
-                                <h4>EQUIPMENTS</h4>
+<!--                                <h4>EQUIPMENTS</h4>-->
                                 <c:forEach items="${listA}" var="a">
                                     <div class="form-box">
                                         <div class="form-img">
@@ -1253,7 +1314,7 @@
                                         <div class="form-text">
                                             <h4>${a.accessoryName}</h4>
                                             <div class="form-doc" style="box-sizing: border-box;">
-                                                ${a.accessoryDescription};
+                                                ${a.accessoryDescription}
                                             </div>
                                         </div>
                                         <div class="form-check">
@@ -1274,10 +1335,10 @@
                             </div>
                         </fieldset>
 
-                        <h3>Customer</h3>
+                        <h3>Khách hàng</h3>
                         <fieldset>
-                            <h2>Personal information</h2>
-                            <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+                            <h2>THÔNG TIN CÁ NHÂN</h2>
+                            <p class="desc">Hãy xác nhận hoặc cập nhật thông tin của bạn</p>
                             <div class="fieldset-content">
                                 <c:if test="${not empty sessionScope.account}">
                                     <a id="accountId"  style="display: none">${account.accountId}</a>
@@ -1286,12 +1347,12 @@
                                         <div class="form-flex">
                                             <div class="form-group">
                                                 <label class="form-label">Họ</label>
-                                                <input type="text" name="first_name" id="first_name" value="${account.firstName}" oninput="validateForm()" disabled/>
+                                                <input type="text" name="first_name" id="first_name" value="${account.firstName}" oninput="validateForm()" />
                                               
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label">Tên</label>
-                                                <input type="text" name="last_name" id="last_name" value="${account.lastName}" oninput="validateForm()" disabled/>
+                                                <input type="text" name="last_name" id="last_name" value="${account.lastName}" oninput="validateForm()" />
                                                 
                                             </div>
                                         </div>
@@ -1300,12 +1361,12 @@
                                         <div class="form-flex">
                                             <div class="form-group">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" id="email" value="${account.email}" oninput="validateForm()" disabled/>
+                                                <input type="email" name="email" id="email" value="${account.email}" oninput="validateForm()" />
 <!--                                                <span class="text-input">Example :<span> Jeff@gmail.com</span></span>-->
                                             </div>
                                             <div class="form-group">
                                                 <label for="phonenumber" class="form-label">Số điện thoại</label>
-                                                <input type="text" name="phonenumber" id="phonenumber" value="${account.phoneNumber}" oninput="validateForm()" disabled/>
+                                                <input type="text" name="phonenumber" id="phonenumber" value="${account.phoneNumber}" oninput="validateForm()"/>
 <!--                                                <span class="text-input">+84</span>-->
                                             </div>
                                         </div>
@@ -1314,20 +1375,20 @@
                                         <div class="form-flex">
                                             <div class="form-group">
                                                 <label for="address" class="form-label">Địa chỉ</label>
-                                                <input type="text" name="address" id="address" value="${account.address}" oninput="validateForm()" disabled/>
+                                                <input type="text" name="address" id="address" value="${account.address}" oninput="validateForm()" />
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-flex">
                                                     <div class="form-group">
                                                          <label for="birth_date" class="form-label">Ngày sinh</label>
-                                                         <input type="date" name="dob" id="dob" value="${account.dob}" oninput="validateForm()" disabled/>
+                                                         <input type="date" name="dob" id="dob" value="${account.dob}" oninput="validateForm()" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="gender" class="form-label">Giới tính</label>
                                                         <div class="form-radio-group">   
-                                                            <label><input type="radio" name="gender" value="Không muốn tiết lộ" ${account.gender == 'Không muốn tiết lộ' ? 'checked' : ''} disabled>Bí mật</label>
-                                                            <label><input type="radio" name="gender" value="Nam" ${account.gender == 'Nam' ? 'checked' : ''} disabled>Nam</label>
-                                                            <label><input type="radio" name="gender" value="Nữ" ${account.gender == 'Nữ' ? 'checked' : ''} disabled>Nữ</label>
+                                                            <label><input type="radio" name="gender" value="Không muốn tiết lộ" ${account.gender == 'Không muốn tiết lộ' ? 'checked' : ''} >Bí mật</label>
+                                                            <label><input type="radio" name="gender" value="Nam" ${account.gender == 'Nam' ? 'checked' : ''} >Nam</label>
+                                                            <label><input type="radio" name="gender" value="Nữ" ${account.gender == 'Nữ' ? 'checked' : ''} >Nữ</label>
                                                             
                                                         </div>
                                                     </div>
@@ -1406,102 +1467,116 @@
                             </div>
                         </fieldset>
 
-                        <h3>Confirm</h3>
+                        <h3>Xác nhận</h3>
                         <fieldset>
-                            <h2>Set Financial Goals</h2>
-                            <p class="desc">Set up your money limit to reach the future plan</p>
+                            <h2>XÁC NHẬN ĐƠN ĐẶT XE</h2>
+                            <p class="desc">Hãy xác nhận thông tin và đồng ý với các điều khoản dịch vụ </p>
                             <div class="fieldset-content">
                                 <div class="scrollable-vertical">
-                                    <h4>DATE & TIME</h4>
+                                    <h4>NGÀY & GIỜ</h4>
                                     <div class="form-box">
                                         <div class="form-comf-20">
                                             <div>
-                                                <label for="pickupdatetext" class="form-label">Pickup Date</label>
+                                                <label for="pickupdatetext" class="form-label">Ngày nhận xe</label>
                                                 <p id="pickupdatetext" ></p>
                                             </div>
                                             <div>
-                                                <label for="pickuploctext" class="form-label">Pickup Location</label>
+                                                <label for="pickuploctext" class="form-label">Địa điểm nhận xe</label>
                                                 <p id="pickuploctext"></p>
                                             </div>
 
                                         </div>
                                         <div class="form-comf-20">
                                             <div>
-                                                <label for="pickuptimetext" class="form-label">Pickup Time</label>
+                                                <label for="pickuptimetext" class="form-label">Giờ nhận xe</label>
                                                 <p id="pickuptimetext"></p>
                                             </div>
                                             <div>
-                                                <label for="returnloctext" class="form-label">Return Location</label>
+                                                <label for="returnloctext" class="form-label">Địa điểm trả xe</label>
                                                 <p id="returnloctext"></p>
                                             </div>
 
                                         </div>
                                         <div class="form-comf-20">
                                             <div>
-                                                <label for="returndatetext" class="form-label">Return Date</label>
+                                                <label for="returndatetext" class="form-label">Ngày trả xe</label>
                                                 <p id="returndatetext"></p>
                                             </div>
                                         </div>
                                         <div class="form-comf-20">
                                             <div>
-                                                <label for="returntimetext" class="form-label">Return Time</label>
+                                                <label for="returntimetext" class="form-label">Giờ trả xe</label>
                                                 <p id="returntimetext"></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <h4>SELECTED MOTORBIKE CLASS</h4>
+                                    <h4>ĐÃ CHỌN XE MÁY</h4>
                                     <div id="savedBikeContainer"></div>
-                                    <h4>ACCOMPANIED SERVICES</h4>
+                                    <h4>PHỤ KIỆN ĐI KÈM</h4>
                                     <div id="savedItemsContainer">
                                     </div>
-                                    <h4>GENERAL</h4>
+                                    <h4>TỔNG QUAN</h4>
                                     <div class="form-box">
                                         <div class="form-comf-50">
                                             <div class="form-comf-text">
-                                                <label for="firstnametext" class="form-label">First Name</label>
+                                                <label for="firstnametext" class="form-label">Họ</label>
                                                 <p id="firstnametext"></p>
                                             </div>
                                             <div class="form-comf-text">
-                                                <label for="emailaddresstext" class="form-label">Email Address</label>
+                                                <label for="emailaddresstext" class="form-label">Email</label>
                                                 <p id="emailaddresstext"> </p>
                                             </div>
                                             <div class="form-comf-text">
-                                                <label for="addresstext" class="form-label">Address</label>
+                                                <label for="addresstext" class="form-label">Địa chỉ</label>
                                                 <p id="addresstext"> </p>
                                             </div>
                                             <div class="form-comf-text">
-                                                <label for="gendertext" class="form-label">Gender</label>
+                                                <label for="gendertext" class="form-label">Giới tính</label>
                                                 <p id="gendertext"> </p>
                                             </div>
                                         </div>
                                         <div class="form-comf-50">
                                             <div class="form-comf-text">
-                                                <label for="lastnametext" class="form-label">Last Name</label>
+                                                <label for="lastnametext" class="form-label">Tên</label>
                                                 <p id="lastnametext"></p>
                                             </div>
                                             <div class="form-comf-text">
-                                                <label for="phonetext" class="form-label">Phone Number</label>
+                                                <label for="phonetext" class="form-label">Số điện thoại</label>
                                                 <p id="phonetext"> </p>
                                             </div>
                                             <div class="form-comf-text">
-                                                <label for="birthdaytext" class="form-label">Birthday</label>
+                                                <label for="birthdaytext" class="form-label">Ngày sinh</label>
                                                 <p id="birthdaytext"> </p>
                                             </div>
-                                            <div class="form-comf-text">
-                                                <label for="notetext" class="form-label">Note</label>
-                                                <p id="notetext"> </p>
-
-                                            </div>
+                                           
                                         </div>
                                     </div>
-                                    <h4>TOTAL</h4>
+                                    <h4>THÔNG TIN KHÁC</h4>
+                                     <div class="form-box">
+                                        
+                                         <div class="form-comf-text" style="width: 50%">
+                                                <label for="identityCardtext" class="form-label">CCCD/CMND</label>
+                                                <p id="identityCardtext"></p>
+                                            </div>
+                                            <div class="form-comf-text" style="width: 25%">
+                                                <label for="issuedontext" class="form-label">Ngày cấp</label>
+                                                <p id="issuedontext"> </p>
+                                            </div>
+                                            <div class="form-comf-text" style="width: 25%">
+                                                <label for="expdatetext" class="form-label">Ngày hết hạn</label>
+                                                <p id="expdatetext"> </p>
+                                            </div>                                                                      
+                                    </div>
+                      
+                                    
+                                    <h4>TỔNG TIỀN</h4>
                                     <div class="form-box-total" id="form-box-total">
 
                                     </div>
                                     <div class="form-check">
                                         <div class="checkbox-container">
                                             <input type="checkbox" id="daily-checkbox-term">
-                                            <label for="daily-checkbox">Term and conditions</label>
+                                            <label>Đồng ý<a href="policies.jsp" target="_blank"> điều khoản dịch vụ</a></label>
                                         </div>
                                     </div>
                                 </div>
@@ -1510,11 +1585,11 @@
 
 
 
-                        <h3>Payments</h3>
+                        <h3>Thanh toán</h3>
                         <fieldset>
-                            <a onclick="yourFunctionName()">aaaaa</a>
-                            <h2>Connect Bank Account</h2>
-                            <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+<!--                            <a onclick="yourFunctionName()">aaaaa</a>-->
+                            <h2>THANH TOÁN CỌC</h2>
+                            <p class="desc">Hãy thanh toán số tiền cọc theo bên dưới để hoàn thành đơn đặt xe của bạn</p>
                             <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 550px; border-style: hidden"></iframe>
                             
                         </fieldset>
@@ -1789,6 +1864,13 @@
                             
                             
                         }
+                        
+                        if(currentIndex !== 5){
+                            const steps = document.querySelectorAll('.wizard ul[role="tablist"] li');
+                            steps[5].classList.remove('done');
+                            steps[5].classList.add('disabled');
+                        }
+                        
                         if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
                             const checkbox = document.getElementById('daily-checkbox-term');
                             nextButton.style.pointerEvents = 'none';
@@ -1893,6 +1975,9 @@
                                 address: document.getElementById('address').value,                           
                                 dob: document.getElementById('dob').value,                          
                                 gender: document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '',
+                                identityCard : document.getElementById("identityCard").value,
+                                issuedon : document.getElementById("issuedon").value,
+                                expdate : document.getElementById("expdate").value                              
                             };
 
                             if (formData) {
@@ -1903,6 +1988,9 @@
                                 document.getElementById('addresstext').textContent = formData.address;                         
                                 document.getElementById('birthdaytext').textContent = formData.dob;    
                                 document.getElementById('gendertext').textContent = formData.gender;
+                                document.getElementById('identityCardtext').textContent = formData.identityCard;
+                                document.getElementById('issuedontext').textContent = formData.issuedon;   
+                                document.getElementById('expdatetext').textContent = formData.expdate;   
                             }
                             
                            
@@ -1938,7 +2026,7 @@
                                 const formComf70 = document.createElement('div');
                                 formComf70.classList.add('form-comf-70');
                                 formComf70.innerHTML = `<h4 style="width: 65%;">` + title + `</h4>
-                                                        <h4>x` + quantityDay +  ` Days<h4>`;
+                                                        <h4>x` + quantityDay +  ` Ngày<h4>`;
 
                                 const formComf30 = document.createElement('div');
                                 formComf30.classList.add('form-comf-30');
@@ -2008,7 +2096,7 @@
                             const itemTotalContainer = document.createElement('div');
                             itemTotalContainer.classList.add('item-total');
                             itemTotalContainer.innerHTML = `
-                                <h4>Total :</h4>
+                                <h4>Tổng :</h4>
                                 <h2 id="dataInput">₫`+ totalAmount.toLocaleString() +`</h2>
                                 `;
                             formBoxTotal.appendChild(itemTotalContainer);
@@ -2103,8 +2191,7 @@
             
             
             document.addEventListener('DOMContentLoaded', () => {
-                
-                
+                              
                 const requiredFields = [
                     document.getElementById('pickupdate'),
                     document.getElementById('pickuptime'),
@@ -2114,6 +2201,57 @@
                     document.getElementById('returnlocation')
                 ];
                 
+                // Function to format date to YYYY-MM-DD
+                const formatDate = (date) => {
+                    const d = new Date(date);
+                    let month = '' + (d.getMonth() + 1);
+                    let day = '' + d.getDate();
+                    const year = d.getFullYear();
+
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+
+                    return [year, month, day].join('-');
+                };
+                
+                const pickupdate = requiredFields[0];
+                const returndate = requiredFields[2];
+                // Set the min attribute for pickupdate
+                const today = new Date();
+                today.setDate(today.getDate() + 1); // Minimum pick-up date is tomorrow
+                pickupdate.min = formatDate(today);
+                returndate.min = formatDate(today);
+                
+                pickupdate.addEventListener('change', () => {
+                    const pickupdateValue = new Date(pickupdate.value);
+                    pickupdateValue.setDate(pickupdateValue.getDate() + 1); // Minimum return date is one day after pick-up date
+                    returndate.min = formatDate(pickupdateValue);
+
+                    if (new Date(returndate.value) <= new Date(pickupdate.min)) {
+                        returndate.value = formatDate(pickupdateValue);
+                    }
+                });
+                
+                returndate.addEventListener('change', () => {
+                    const returndateValue = new Date(returndate.value);
+                    returndateValue.setDate(returndateValue.getDate() - 1); // Minimum return date is one day after pick-up date
+                    pickupdate.max = formatDate(returndateValue);
+
+                    if (new Date(returndate.value) <= new Date(pickupdate.min)) {
+                        pickupdate.value = formatDate(returndateValue);
+                    }
+                });
+
+                // Initialize the values if they are empty
+                if (!pickupdate.value) {
+                    pickupdate.value = formatDate(today);
+                }
+
+                if (!returndate.value) {
+                    const defaultReturnDate = new Date(pickupdate.value);
+                    defaultReturnDate.setDate(defaultReturnDate.getDate() + 1);
+                    returndate.value = formatDate(defaultReturnDate);
+                }
                 
                 function checkFields() {
                     var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
@@ -2288,14 +2426,28 @@
             
            
 
-
+        window.addEventListener('message', (event) => {
+            if (event.data === 'activateOverlay') {
+                const overlay = document.getElementById('overlay');
+                overlay.classList.add('active');
+//                
+//                // Thực hiện các hành động cần thiết tại đây, ví dụ: tắt overlay sau 3 giây
+//                setTimeout(() => {
+//                    overlay.classList.remove('active');
+//                }, 30000000);
+            }
+            if(event.data === 'stopOverlay') {
+                const overlay = document.getElementById('overlay');
+                overlay.classList.remove('active');
+            }
+        });
            // Kiểm tra nếu có dữ liệu nào được gửi từ servlet
         function handlePaymentStatus(data) {
             if (data.status === 'success') {
                 yourFunctionName(data);
             }
         }
-
+        
         window.addEventListener('storage', function(event) {
             console.log(event.key);
             if (event.key === 'payment_status') {
@@ -2440,6 +2592,7 @@
                     console.error("Error sending data:", error);
                 }
             });
+//            window.location.href = 'index.jsp';
         }
 
         // Nếu dữ liệu đã có sẵn trong LocalStorage khi trang được tải lại

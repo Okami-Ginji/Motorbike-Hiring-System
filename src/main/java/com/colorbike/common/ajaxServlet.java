@@ -37,9 +37,6 @@ public class ajaxServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-        String pickuplocation = req.getParameter("pickuplocation");
-        HttpSession session = req.getSession();
-        session.setAttribute("pickup", pickuplocation);
         
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";

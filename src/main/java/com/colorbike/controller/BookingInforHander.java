@@ -37,7 +37,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -271,6 +273,7 @@ public class BookingInforHander extends HttpServlet {
 //        return bookingCode;
 //    }
  
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -330,7 +333,7 @@ public class BookingInforHander extends HttpServlet {
         if(customerId.equalsIgnoreCase("Not")){          
             daoC.createNewCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", 1, accountId);
             filename = "imageIdC" + daoC.getCustomerbyAccountID(accountId).getCustomerId() + ".jpg";
-            daoC.updateCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", accountId);
+            daoC.updateCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", daoC.getCustomerbyAccountID(accountId).getCustomerId());
         } else {
             daoC.updateCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", Integer.parseInt(customerId));           
         }
@@ -387,10 +390,14 @@ public class BookingInforHander extends HttpServlet {
         MotorcycleStatusDAO daoMS = MotorcycleStatusDAO.getInstance();
         BookingDetailDAO daoBD = BookingDetailDAO.getInstance();
         Random random = new Random();
+        
+        // Map để lưu số lượng xe theo tên
+        LinkedHashMap<String, Integer> bikeCounts = new LinkedHashMap<>();
 
         for (HashMap<String, String> bikeDetail : bikeDetails) {
             String bikeName = bikeDetail.get("name");
             int bikePrice = Integer.parseInt(bikeDetail.get("price"));
+            bikeCounts.put(bikeName, bikeCounts.getOrDefault(bikeName, 0) + 1);
             List<Integer> list = daoMD.getListAvailableMotorcycleDetailIdByMotorcycleName(bikeName);
             int randomElement = list.get(random.nextInt(list.size()));
             daoMS.insertMotorcycleStatus(randomElement, "STAFF00001", "Chờ xử lý", formattedDateString, "Chờ nhân viên xác nhận");
@@ -411,78 +418,87 @@ public class BookingInforHander extends HttpServlet {
         }
 
         // Send confirmation email
-        String link = "<!DOCTYPE html>\n" +
-                "<html lang=\"vi\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"UTF-8\">\n" +
-                "    <title>Thông tin đặt xe</title>\n" +
-                "    <style>\n" +
-                "        body {\n" +
-                "            font-family: Arial, sans-serif;\n" +
-                "        }\n" +
-                "        .container {\n" +
-                "            max-width: 600px;\n" +
-                "            margin: 0 auto;\n" +
-                "            padding: 20px;\n" +
-                "            border: 1px solid #ddd;\n" +
-                "            border-radius: 10px;\n" +
-                "        }\n" +
-                "        .header {\n" +
-                "            font-size: 18px;\n" +
-                "            font-weight: bold;\n" +
-                "            margin-bottom: 20px;\n" +
-                "        }\n" +
-                "        .info, .vehicle-info, .note {\n" +
-                "            margin-bottom: 20px;\n" +
-                "        }\n" +
-                "        .info div, .vehicle-info div {\n" +
-                "            margin-bottom: 10px;\n" +
-                "        }\n" +
-                "        .info div span, .vehicle-info div span {\n" +
-                "            font-weight: bold;\n" +
-                "        }\n" +
-                "        .note ul {\n" +
-                "            list-style: none;\n" +
-                "            padding: 0;\n" +
-                "        }\n" +
-                "        .note ul li {\n" +
-                "            margin-bottom: 10px;\n" +
-                "        }\n" +
-                "    </style>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<div class=\"container\">\n" +
-                "    <div class=\"header\">Thông tin đặt xe của bạn</div>\n" +
-                "    <div class=\"info\">\n" +
-                "        <div><span>Họ tên:</span> " + firstname + " " + lastname + "</div>\n" +
-                "        <div><span>Số điện thoại:</span> " + phone + "</div>\n" +
-                "        <div><span>Email:</span> " + email + "</div>\n" +
-                "        <div><span>Ngày nhận xe:</span> " + pickupDate + "</div>\n" +
-                "        <div><span>Ngày trả xe:</span> " + returnDate + "</div>\n" +
-                "        <div><span>Địa điểm nhận xe:</span> " + pickupLocation + "</div>\n" +
-                "        <div><span>Địa điểm trả xe:</span> " + returnLocation + "</div>\n" +
-                "    </div>\n" +
-                "    <div class=\"vehicle-info\">\n" +
-                "        <div class=\"header\">Thông tin xe:</div>\n" +
-                "        <div><span>Tên xe:</span> " + bikeDetails.get(0).get("name") + "</div>\n" +
-                "        <div><span>Giá thuê:</span> " + total + " VND</div>\n" +
-                "    </div>\n" +
-                "    <div class=\"note\">\n" +
-                "        <div class=\"header\">Lưu ý:</div>\n" +
-                "        <ul>\n" +
-                "            <li>Vui lòng mang theo giấy tờ tùy thân khi nhận xe.</li>\n" +
-                "            <li>Kiểm tra kỹ thông tin xe trước khi nhận.</li>\n" +
-                "            <li>Liên hệ với chúng tôi nếu có bất kỳ thắc mắc nào.</li>\n" +
-                "        </ul>\n" +
-                "    </div>\n" +
-                "</div>\n" +
-                "</body>\n" +
-                "</html>";
-        SendEmail.sendVerificationEmail(email, link);
+       StringBuilder emailContent = new StringBuilder();
+        emailContent.append("<!DOCTYPE html>\n");
+        emailContent.append("<html lang=\"vi\">\n");
+        emailContent.append("<head>\n");
+        emailContent.append("    <meta charset=\"UTF-8\">\n");
+        emailContent.append("    <title>Thông tin đặt xe</title>\n");
+        emailContent.append("    <style>\n");
+        emailContent.append("        body {\n");
+        emailContent.append("            font-family: Arial, sans-serif;\n");
+        emailContent.append("        }\n");
+        emailContent.append("        .container {\n");
+        emailContent.append("            max-width: 600px;\n");
+        emailContent.append("            margin: 0 auto;\n");
+        emailContent.append("            padding: 20px;\n");
+        emailContent.append("            border: 1px solid #ddd;\n");
+        emailContent.append("            border-radius: 10px;\n");
+        emailContent.append("        }\n");
+        emailContent.append("        .header {\n");
+        emailContent.append("            font-size: 18px;\n");
+        emailContent.append("            font-weight: bold;\n");
+        emailContent.append("            margin-bottom: 20px;\n");
+        emailContent.append("        }\n");
+        emailContent.append("        .info, .vehicle-info, .note {\n");
+        emailContent.append("            margin-bottom: 20px;\n");
+        emailContent.append("        }\n");
+        emailContent.append("        .info div, .vehicle-info div {\n");
+        emailContent.append("            margin-bottom: 10px;\n");
+        emailContent.append("        }\n");
+        emailContent.append("        .info div span, .vehicle-info div span {\n");
+        emailContent.append("            font-weight: bold;\n");
+        emailContent.append("        }\n");
+        emailContent.append("        .note ul {\n");
+        emailContent.append("            list-style: none;\n");
+        emailContent.append("            padding: 0;\n");
+        emailContent.append("        }\n");
+        emailContent.append("        .note ul li {\n");
+        emailContent.append("            margin-bottom: 10px;\n");
+        emailContent.append("        }\n");
+        emailContent.append("    </style>\n");
+        emailContent.append("</head>\n");
+        emailContent.append("<body>\n");
+        emailContent.append("<div class=\"container\">\n");
+        emailContent.append("    <div class=\"header\">Thông tin đặt xe của bạn</div>\n");
+        emailContent.append("    <div class=\"info\">\n");
+        emailContent.append("        <div><span>Họ tên:</span> ").append(firstname).append(" ").append(lastname).append("</div>\n");
+        emailContent.append("        <div><span>Số điện thoại:</span> ").append(phone).append("</div>\n");
+        emailContent.append("        <div><span>Email:</span> ").append(email).append("</div>\n");
+        emailContent.append("        <div><span>Ngày nhận xe:</span> ").append(pickupDate).append("</div>\n");
+        emailContent.append("        <div><span>Ngày trả xe:</span> ").append(returnDate).append("</div>\n");
+        emailContent.append("        <div><span>Địa điểm nhận xe:</span> ").append(pickupLocation).append("</div>\n");
+        emailContent.append("        <div><span>Địa điểm trả xe:</span> ").append(returnLocation).append("</div>\n");
+        emailContent.append("    </div>\n");
+        emailContent.append("    <div class=\"vehicle-info\">\n");
+        emailContent.append("        <div class=\"header\">Thông tin xe:</div>\n");
+
+        // Lặp qua danh sách xe và thêm thông tin vào email
+        for (Map.Entry<String, Integer> entry : bikeCounts.entrySet()) {
+            String bikeName = entry.getKey();
+            int quantity = entry.getValue();
+            emailContent.append("        <div><span>Tên xe:</span> ").append(bikeName).append("             x").append(quantity).append("</div>\n");
+//            emailContent.append("        <div><span>Số lượng:</span> x").append(quantity).append(" VND</div>\n");
+        }
+        emailContent.append("<div><span>Phí thuê xe dự tính:</span> ").append(total).append(" VND</div>");
+        emailContent.append("    </div>\n");
+        emailContent.append("    <div class=\"note\">\n");
+        emailContent.append("        <div class=\"header\">Lưu ý:</div>\n");
+        emailContent.append("        <ul>\n");
+        emailContent.append("            <li>Vui lòng mang theo giấy tờ tùy thân khi nhận xe.</li>\n");
+        emailContent.append("            <li>Kiểm tra kỹ thông tin xe trước khi nhận.</li>\n");
+        emailContent.append("            <li>Liên hệ với chúng tôi nếu có bất kỳ thắc mắc nào.</li>\n");
+        emailContent.append("        </ul>\n");
+        emailContent.append("    </div>\n");
+        emailContent.append("</div>\n");
+        emailContent.append("</body>\n");
+        emailContent.append("</html>\n");
+        SendEmail.sendVerificationEmail(email, emailContent.toString());
 
         // Set the response content type
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(gson.toJson(dataMap));
+//        response.sendRedirect("index.jsp");
     }
 
     private String generateBookingCode() {

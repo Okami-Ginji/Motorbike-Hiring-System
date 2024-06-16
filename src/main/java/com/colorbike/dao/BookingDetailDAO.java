@@ -10,6 +10,7 @@ import com.colorbike.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,7 +59,31 @@ public class BookingDetailDAO {
 
     }
     
+    public void addBookingDetail(int MotorcycleDetailID, String BookingID, double TotalPrice) {
+        String sql = "INSERT INTO [dbo].[Booking Detail]\n"
+                + "           ([MotorcycleDetailID]\n"
+                + "           ,[BookingID]\n"
+                + "           ,[TotalPrice])\n"
+                + "     VALUES\n"
+                + "           (?, ?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, MotorcycleDetailID);
+            ps.setString(2, BookingID);
+            ps.setDouble(3, TotalPrice);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
     public static void main(String[] args) {
-        System.out.println(BookingDetailDAO.getInstance().getListBookingDetails("BOOK000006"));
+        BookingDetailDAO dao = getInstance();
+        dao.addBookingDetail(3,"BOOK271639",200.000);
+       
+//        List<Motorcycle> list = dao.searchMotorcycleByName("maha");
+//        for (Motorcycle x : list) {
+//            System.out.println(x);
+//        }
     }
 }

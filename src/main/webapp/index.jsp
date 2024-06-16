@@ -108,110 +108,10 @@
                 background: #ff6b6b;
                 outline: none;
             }
-
-            .follow-container {
-                display: flex;
-                height: 100vh;
+            
+            .form-control option{
+                color: black;
             }
-
-            .sidebar {
-                height: 60%;
-                width: 250px;
-                background: linear-gradient(135deg, #5aa389, rgb(2, 195, 255));
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transform: translateX(300px);
-                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-                position: fixed;
-                top: 148px;
-                bottom: 0px;
-                right: 0;
-                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-                z-index: 1000;
-            }
-
-            .sidebar-content {
-                text-align: center;
-                padding: 20px;
-            }
-
-            .sidebar-content p {
-                margin-bottom: 20px;
-                font-size: 1.1em;
-                text-align: justify;
-            }
-
-            .sidebar-content button {
-                background: rgb(0,208, 141);
-                border: none;
-                color: white;
-                padding: 10px 20px;
-                font-size: 1em;
-                border-radius: 25px;
-                cursor: pointer;
-                transition: background 0.3s ease, transform 0.3s ease;
-            }
-
-            .sidebar-content button:hover {
-                background: #2c3e50;
-                transform: scale(1.05);
-            }
-
-            .sidebar-action {
-                background-color: rgb(1, 210, 142);
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                cursor: pointer;
-                position: fixed;
-                top: 50%;
-                right: 10px;
-                transform: translateY(-50%);
-                transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), background 0.3s ease;
-                z-index: 1001;
-            }
-
-            .sidebar-action:hover {
-                background-color: rgb(2, 255, 162);
-            }
-
-            .sidebar-action span {
-                font-size: 24px;
-                transition: transform 0.3s ease;
-            }
-
-            .sidebar-action .notification-dot {
-                width: 10px;
-                height: 10px;
-                background-color: red;
-                border-radius: 50%;
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .sidebar-action.open {
-                right: 255px;
-            }
-
-            .sidebar-action.open span {
-                transform: rotate(180deg);
-            }
-            .bike {
-                color: rgb(0, 255, 140);
-            }
-
         </style>
         <meta charset="UTF-8"/>
     </head>
@@ -260,39 +160,55 @@
             </div>
         </c:if>
 
+
         <section class="ftco-section ftco-no-pt bg-light">
             <div class="container">
                 <div class="row no-gutters">
                     <div class="col-md-12	featured-top">
                         <div class="row no-gutters">
                             <div class="col-md-4 d-flex align-items-center">
-                                <form action="#" class="request-form ftco-animate bg-primary">
+                                <form action="booking" class="request-form ftco-animate bg-primary">
                                     <h2>Make your trip</h2>
                                     <div class="form-group">
-                                        <label for="" class="label">Pick-up location</label>
-                                        <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                                        <label for="" class="label">Địa điểm nhận xe</label>
+                                        <select name="pickuploc" id="pickuplocation" class="form-control">
+                                            <option value="1">Da Nang Railway Station-202 Hải Phòng Street</option>                    
+                                            <option value="2">Da Nang International Airport</option>
+                                            <option value="3">Your own address</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="label">Drop-off location</label>
-                                        <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                                        <label for="" class="label">Địa điểm trả xe</label>
+                                        <select name="returnloc" id="returnlocation" class="form-control">
+                                          <option value="1">Da Nang Railway Station-202 Hải Phòng Street</option>                    
+                                            <option value="2">Da Nang International Airport</option>
+                                            <option value="3">Your own address</option>
+                                        </select>
                                     </div>
                                     <div class="d-flex">
                                         <div class="form-group mr-2">
-                                            <label for="" class="label">Pick-up date</label>
-                                            <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
+                                            <label for="" class="label">Ngày nhận xe</label>
+                                            <input type="date" name="pickupdate" class="form-control" id="pickupdate"  placeholder="Ngày">
                                         </div>
                                         <div class="form-group ml-2">
-                                            <label for="" class="label">Drop-off date</label>
-                                            <input type="text" class="form-control" id="book_off_date" placeholder="Date">
+                                            <label for="" class="label">Ngày trả xe</label>
+                                            <input type="date" name="returndate" class="form-control" id="returndate"  placeholder="Ngày">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="" class="label">Pick-up time</label>
-                                        <input type="text" class="form-control" id="time_pick" placeholder="Time">
+                                    <div class="d-flex">
+                                        <div class="form-group mr-2">
+                                        <label for="" class="label">Giờ nhận xe</label>
+                                        <input type="time" name="pickuptime" class="form-control" id="pickuptime" placeholder="Thời gian">
                                     </div>
+                                        <div class="form-group ml-2">
+                                            <label for="" class="label">Giờ trả xe</label>
+                                            <input type="time" name="returntime" class="form-control" id="returntime" placeholder="Thời gian">
+                                        </div>
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <!-- <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4" /> -->
-                                        <a href="booking.jsp" class="btn btn-secondary py-3 px-4">Rent A Car Now</a>
+                                        <button type="submit"  class="btn btn-secondary py-3 px-4">Rent A Car Now</button>
                                     </div>
                                 </form>
                             </div>
@@ -660,37 +576,120 @@
         <script src="js/main.js"></script>
         <!-- thanh search -->
         <script>
-            function minimizeEventBox() {
-                document.getElementById('eventBox').style.display = 'none';
-                document.getElementById('showEventBtn').style.display = 'block';
-            }
-
-            function showEventBox() {
-                document.getElementById('eventBox').style.display = 'block';
-                document.getElementById('showEventBtn').style.display = 'none';
-            }
-
-            function checkLogin(account) {
-                if (account !== '') {
-                    window.location.href = 'event';
-                } else {
-                    window.location.href = 'login.jsp';
+                function minimizeEventBox() {
+                    document.getElementById('eventBox').style.display = 'none';
+                    document.getElementById('showEventBtn').style.display = 'block';
                 }
-            }
 
-            function SidebarAction() {
-                const sidebar = document.getElementById('sidebar');
-                const sidebarAction = document.getElementById('sidebarAction');
+                function showEventBox() {
+                    document.getElementById('eventBox').style.display = 'block';
+                    document.getElementById('showEventBtn').style.display = 'none';
+                }
 
-                sidebar.classList.toggle('open');
-                sidebarAction.classList.toggle('open');
-                if (sidebarAction.classList.contains('open')) {
-                    const notificationDot = document.querySelector('.notification-dot');
-                    if (notificationDot) {
-                        notificationDot.style.display = 'none';
+                function checkLogin(account) {
+                    if (account !== '') {
+                        window.location.href = 'event';
+                    } else {
+                        window.location.href = 'login.jsp';
                     }
                 }
-            }
+                
+                 document.addEventListener('DOMContentLoaded', () => {                            
+                    const requiredFields = [
+                        document.getElementById('pickupdate'),
+                        document.getElementById('pickuptime'),
+                        document.getElementById('returndate'),
+                        document.getElementById('returntime')
+                    
+                    ];
+
+                    // Function to format date to YYYY-MM-DD
+                    const formatDate = (date) => {
+                        const d = new Date(date);
+                        let month = '' + (d.getMonth() + 1);
+                        let day = '' + d.getDate();
+                        const year = d.getFullYear();
+
+                        if (month.length < 2) month = '0' + month;
+                        if (day.length < 2) day = '0' + day;
+
+                        return [year, month, day].join('-');
+                    };
+
+                    const pickupdate = requiredFields[0];
+                    const returndate = requiredFields[2];
+                    // Set the min attribute for pickupdate
+                    const today = new Date();
+                    today.setDate(today.getDate() + 1); // Minimum pick-up date is tomorrow
+                    pickupdate.min = formatDate(today);
+                    returndate.min = formatDate(today);
+
+                    pickupdate.addEventListener('change', () => {
+                        const pickupdateValue = new Date(pickupdate.value);
+                        pickupdateValue.setDate(pickupdateValue.getDate() + 1); // Minimum return date is one day after pick-up date
+                        returndate.min = formatDate(pickupdateValue);
+
+                        if (new Date(returndate.value) <= new Date(pickupdate.min)) {
+                            returndate.value = formatDate(pickupdateValue);
+                        }
+                    });
+
+                    returndate.addEventListener('change', () => {
+                        const returndateValue = new Date(returndate.value);
+                        returndateValue.setDate(returndateValue.getDate() - 1); // Minimum return date is one day after pick-up date
+                        pickupdate.max = formatDate(returndateValue);
+
+                        if (new Date(returndate.value) <= new Date(pickupdate.min)) {
+                            pickupdate.value = formatDate(returndateValue);
+                        }
+                    });
+
+    //                // Initialize the values if they are empty
+    //                if (!pickupdate.value) {
+    //                    pickupdate.value = formatDate(today);
+    //                }
+    //
+    //                if (!returndate.value) {
+    //                    const defaultReturnDate = new Date(pickupdate.value);
+    //                    defaultReturnDate.setDate(defaultReturnDate.getDate() + 1);
+    //                    returndate.value = formatDate(defaultReturnDate);
+    //                }
+
+                    function checkFields() {
+                        var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
+                        const allFieldsFilled = requiredFields.every(field => field.value.trim() !== '');
+                        if (allFieldsFilled) {
+                            nextButton.style.pointerEvents = 'auto';
+                            nextButton.style.color = 'white';
+                            nextButton.style.background = '#4966b1';
+                        } else {
+                            nextButton.style.pointerEvents = 'none';
+                            nextButton.style.background = '#e8e8e8';
+                            nextButton.style.color = '#999';
+
+                             const currentStepIndex = 1;
+                             const steps = document.querySelectorAll('.wizard ul[role="tablist"] li');
+
+                             steps.forEach((step, index) => {
+                                 console.log(index);
+                                 if (index > currentStepIndex) {
+                                     step.classList.remove('done');
+                                     step.classList.add('disabled');
+                                 }
+                             });
+                        }
+                    }
+
+
+                    requiredFields.forEach(field => {
+                        field.addEventListener('input', checkFields);
+                    });
+
+
+                    // Initial check in case some fields are pre-filled
+                    checkFields();
+
+                });
         </script>
     </body>
 

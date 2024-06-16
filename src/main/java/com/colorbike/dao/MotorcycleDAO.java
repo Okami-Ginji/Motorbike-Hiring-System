@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +73,48 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
-
+    
+    public LinkedHashMap<String, String> getAllAvailableMotorCycle(){
+        PreparedStatement stm;
+        ResultSet rs;
+        LinkedHashMap<String, String> list = new LinkedHashMap<>();
+        try {
+            String sql = "WITH LatestStatus AS (\n" +
+                        "    SELECT\n" +
+                        "        ms.MotorcycleDetailID,\n" +
+                        "        ms.Status,\n" +
+                        "        ROW_NUMBER() OVER (PARTITION BY ms.MotorcycleDetailID ORDER BY ms.MotorcycleStatusID DESC) AS RowNum\n" +
+                        "    FROM\n" +
+                        "        [dbo].[Motorcycle Status] ms\n" +
+                        ")\n" +
+                        "SELECT\n" +
+                        "    m.MotorcycleID,\n" +
+                        "    COUNT(md.MotorcycleDetailID) AS AvailableCount\n" +
+                        "FROM\n" +
+                        "    [dbo].[Motorcycle] m\n" +
+                        "INNER JOIN\n" +
+                        "    [dbo].[Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n" +
+                        "INNER JOIN\n" +
+                        "    LatestStatus ls ON md.MotorcycleDetailID = ls.MotorcycleDetailID AND ls.RowNum = 1\n" +
+                        "WHERE\n" +
+                        "    ls.Status like N'Có sẵn'\n" +
+                        "GROUP BY\n" +
+                        "    m.MotorcycleID\n" +
+                        "ORDER BY\n" +
+                        "    m.MotorcycleID;";
+          
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                String motorcycleID = rs.getString("MotorcycleID");
+                String availableCount = rs.getString("AvailableCount");
+                list.put(motorcycleID, availableCount);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
     //Lấy xe máy theo id ==> xem detail
     public Motorcycle getMotorcycleByid(String id) {
         PreparedStatement stm;
@@ -102,6 +144,36 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public void addMotorcycle(Motorcycle motor) {
+        String sql = "INSERT INTO [dbo].[Motorcycle]\n"
+                + "           ([MotorcycleID]\n"
+                + "           ,[Model]\n"
+                + "           ,[Image]\n"
+                + "           ,[Displacement]\n"
+                + "           ,[Description]\n"
+                + "           ,[MinAge]\n"
+                + "           ,[BrandID]\n"
+                + "           ,[CategoryID]\n"
+                + "           ,[PriceListID])\n"
+                + "     VALUES\n"
+                + "           (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, motor.getMotorcycleId());
+            ps.setString(2, motor.getModel());
+            ps.setString(3, motor.getImage());
+            ps.setString(4, motor.getDisplacement());
+            ps.setString(5, motor.getDescription());
+            ps.setInt(6, motor.getMinAge());
+            ps.setInt(7, motor.getBrandID());
+            ps.setInt(8, motor.getCategoryID());
+            ps.setInt(9, motor.getPriceListID());         
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     //đếm số lượn motorcycles trong database

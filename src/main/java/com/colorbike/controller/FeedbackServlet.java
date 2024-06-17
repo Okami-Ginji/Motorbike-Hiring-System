@@ -109,7 +109,7 @@ public class FeedbackServlet extends HttpServlet {
             String content = request.getParameter("content");
 
             Account acc = (Account) session.getAttribute("account");
-            Customer cus = CustomerDAO.getInstance().getCustomerbyAccountId(acc.getAccountId());
+            Customer cus = CustomerDAO.getInstance().getCustomerbyAccountID(acc.getAccountId());
             Feedback fb = FeedbackDAO.getInstance().getFeedbackByBookingId(bookingId);
 
             int productRating = product != null && !product.isEmpty() ? Integer.parseInt(product) : 0;

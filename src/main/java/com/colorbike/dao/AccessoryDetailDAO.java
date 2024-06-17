@@ -4,10 +4,92 @@
  */
 package com.colorbike.dao;
 
+import com.colorbike.dto.AccessoryDetail;
+import com.colorbike.dto.MotorcycleStatus;
+import com.colorbike.util.DBUtil;
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author huypd
  */
-public class AccessoryDetailDAO {
+public class AccessoryDetailDAO implements Serializable, DAO<AccessoryDetail> {
+    private static AccessoryDetailDAO instance;
+    private Connection conn = DBUtil.makeConnection();
+
+    // Cấm new trực tiếp DAO
+    //Chỉ new DAO qua hàm static getInstance() để quản lí được số object/instance đã new - SINGLETON DESIGN PATTERN
+    private AccessoryDetailDAO() {
+    }
+
+    public static AccessoryDetailDAO getInstance() {
+
+        if (instance == null) {
+            instance = new AccessoryDetailDAO();
+        }
+        return instance;
+    }
+        
+    public void insertMotorcycleStatus(int motorcycleStatusId, String staffid, String status,String updatedate, String note) {
+        String sql = "INSERT INTO [dbo].[Motorcycle Status] ([MotorcycleDetailID], [StaffID], [Status], [UpdateDate], [Note])\n" +
+                    "VALUES (?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, motorcycleStatusId);
+            ps.setString(2, staffid);
+            ps.setString(3, status);
+            ps.setString(4, updatedate);
+            ps.setString(5, note);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     
+    public static void main(String[] args) {
+        AccessoryDetailDAO dao = getInstance();
+        dao.insert(new AccessoryDetail("BOOK000001", 2, 4, 200));
+        
+    }
+
+    @Override
+    public List<AccessoryDetail> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void insert(AccessoryDetail t) {
+        String sql = "INSERT INTO [AccessoryDetail] ([BookingID], AccessoryID, Quantity, [TotalPrice]) \n" +
+                        "VALUES \n" +
+                        "(?, ?, ?, ?);";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, t.getBookingID());
+            ps.setInt(2, t.getAccessoryID());
+            ps.setInt(3, t.getQuantity());
+            ps.setDouble(4, t.getTotalPrice());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    @Override
+    public void update(AccessoryDetail t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void delete(AccessoryDetail t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
+
+   
 }

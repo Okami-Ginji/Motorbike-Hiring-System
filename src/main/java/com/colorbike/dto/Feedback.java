@@ -20,9 +20,25 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Feedback implements  Serializable{
+public class Feedback implements Serializable {
+
     private int feedbackID;
     private String content;
-    private int rate;
+    private int productRate;
+    private int serviceRate;
+    private int deliveryRate;
     private String customerName;
+    private String customerImage;
+    private int CustomerId;
+    private String BookingID;
+
+    public Feedback(int fbId, String content, int productRate, int serviceRate, int deliveryRate, int customerId, String bookingId) {
+        this.feedbackID = fbId;
+        this.content = content;
+        this.productRate = productRate;
+        this.serviceRate = serviceRate;
+        this.deliveryRate = deliveryRate;
+        this.CustomerId = customerId;
+        this.BookingID = bookingId;
+    }
 }

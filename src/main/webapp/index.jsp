@@ -134,13 +134,13 @@
 
             .sidebar-content {
                 text-align: center;
-                padding: 20px;
+                padding-left: 20px;
             }
 
             .sidebar-content p {
                 margin-bottom: 20px;
                 font-size: 1.1em;
-                text-align: justify;
+                text-align: left;
             }
 
             .sidebar-content button {
@@ -243,7 +243,7 @@
                 </div>
             </div>
         </div>
-        <c:if test="${not empty requestScope.book}">
+        <c:if test="${not empty requestScope.book && statusBooking != 'Đã hủy'}">
             <div class="follow-container">
                 <div class="sidebar" id="sidebar">
                     <div class="sidebar-content">
@@ -500,15 +500,15 @@
                             <c:forEach items="${listF}" var="feedback">
                                 <div class="item">
                                     <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                        <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)"></div>
+                                        <div class="user-img mb-2" style="background-image: url(images/${feedback.customerImage})"></div>
                                         <div class="text pt-4">
-                                            <p class="mb-4">${feedback.content}</p>
+                                            <p style="height: 142px; text-align: justify" class="mb-4">${feedback.content}</p>
                                             <p class="name">${feedback.customerName}</p>
-                                            <span>rated:</span>
-                                            <c:forEach begin="1" end="${feedback.rate}" var="star">
+                                            <span>Rated:</span>
+                                            <c:forEach begin="1" end="${(feedback.productRate + feedback.serviceRate + feedback.deliveryRate) / 3}" var="star">
                                                 <span style="color: #F7D000;" class="ion-ios-star"></span>
                                             </c:forEach>
-                                            <c:forEach begin="${feedback.rate + 1}" end="5" var="emptyStar">
+                                            <c:forEach begin="${(feedback.productRate + feedback.serviceRate + feedback.deliveryRate) / 3 + 1}" end="5" var="emptyStar">
                                                 <span class="ion-ios-star-outline"></span>
                                             </c:forEach>
                                         </div>

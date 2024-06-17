@@ -51,7 +51,7 @@ public class HomeServlet extends HttpServlet {
         MotorcycleDAO md = MotorcycleDAO.getInstance();//view featured motorbikes
         BrandDAO bd = BrandDAO.getInstance();
         PriceListDAO pd = PriceListDAO.getInstance();
-        List<Feedback> listF = fd.getAllFeedback();
+        List<Feedback> listF = fd.getAllFeedbacks();
         List<Motorcycle> listM = md.getTop5MotorcycleTheMostRental();
         List<Brand> listB = bd.getAllBrand();
         List<PriceList> listP = pd.getAllPriceList();
@@ -62,8 +62,10 @@ public class HomeServlet extends HttpServlet {
             Booking book = BookingDAO.getInstance().getLastestBooking(account.getAccountId());
             if (book != null) {
                 request.setAttribute("book", book);
+                request.setAttribute("statusBooking", book.getStatusBooking());
             } else {
                 request.removeAttribute("book");
+                request.removeAttribute("statusBooking");
             }
         }
         session.setAttribute("account", account);
@@ -71,6 +73,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("listM", listM);
         request.setAttribute("listB", listB);
         request.setAttribute("listP", listP);
+
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

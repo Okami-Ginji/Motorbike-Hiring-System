@@ -4,14 +4,19 @@
  */
 package com.colorbike.dao;
 
+import com.colorbike.dto.Customer;
 import com.colorbike.util.DBUtil;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author huypd
  */
 public class CustomerDAO {
+
     private static CustomerDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
@@ -27,5 +32,25 @@ public class CustomerDAO {
         }
         return instance;
     }
+
+    public Customer getCustomerbyAccountId(int accountId) {
+        String sql = "Select * from Customer where AccountID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Customer c = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3),
+                rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8));
+                return c;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
     
+    public static void main(String[] args) {
+        System.out.println(getInstance().getCustomerbyAccountId(10));
+    }
 }

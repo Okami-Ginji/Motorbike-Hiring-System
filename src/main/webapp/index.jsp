@@ -112,6 +112,104 @@
             .form-control option{
                 color: black;
             }
+
+            .sidebar {
+                height: 60%;
+                width: 250px;
+                background: linear-gradient(135deg, #5aa389, rgb(2, 195, 255));
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(300px);
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                position: fixed;
+                top: 148px;
+                bottom: 0px;
+                right: 0;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+
+            .sidebar-content {
+                text-align: center;
+                padding-left: 20px;
+            }
+
+            .sidebar-content p {
+                margin-bottom: 20px;
+                font-size: 1.1em;
+                text-align: left;
+            }
+
+            .sidebar-content button {
+                background: rgb(0,208, 141);
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                font-size: 1em;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: background 0.3s ease, transform 0.3s ease;
+            }
+
+            .sidebar-content button:hover {
+                background: #2c3e50;
+                transform: scale(1.05);
+            }
+
+            .sidebar-action {
+                background-color: rgb(1, 210, 142);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                position: fixed;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), background 0.3s ease;
+                z-index: 1001;
+            }
+
+            .sidebar-action:hover {
+                background-color: rgb(2, 255, 162);
+            }
+
+            .sidebar-action span {
+                font-size: 24px;
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar-action .notification-dot {
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-action.open {
+                right: 255px;
+            }
+
+            .sidebar-action.open span {
+                transform: rotate(180deg);
+            }
+            .bike {
+                color: rgb(0, 255, 140);
+            }
         </style>
         <meta charset="UTF-8"/>
     </head>
@@ -143,7 +241,7 @@
                 </div>
             </div>
         </div>
-        <c:if test="${not empty requestScope.book}">
+        <c:if test="${not empty requestScope.book && statusBooking != 'Đã hủy'}">
             <div class="follow-container">
                 <div class="sidebar" id="sidebar">
                     <div class="sidebar-content">
@@ -416,15 +514,15 @@
                             <c:forEach items="${listF}" var="feedback">
                                 <div class="item">
                                     <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                        <div class="user-img mb-2" style="background-image: url(images/person_1.jpg)"></div>
+                                        <div class="user-img mb-2" style="background-image: url(images/${feedback.customerImage})"></div>
                                         <div class="text pt-4">
-                                            <p class="mb-4">${feedback.content}</p>
+                                            <p style="height: 142px; text-align: justify" class="mb-4">${feedback.content}</p>
                                             <p class="name">${feedback.customerName}</p>
-                                            <span>rated:</span>
-                                            <c:forEach begin="1" end="${feedback.rate}" var="star">
+                                            <span>Rated:</span>
+                                            <c:forEach begin="1" end="${(feedback.productRate + feedback.serviceRate + feedback.deliveryRate) / 3}" var="star">
                                                 <span style="color: #F7D000;" class="ion-ios-star"></span>
                                             </c:forEach>
-                                            <c:forEach begin="${feedback.rate + 1}" end="5" var="emptyStar">
+                                            <c:forEach begin="${(feedback.productRate + feedback.serviceRate + feedback.deliveryRate) / 3 + 1}" end="5" var="emptyStar">
                                                 <span class="ion-ios-star-outline"></span>
                                             </c:forEach>
                                         </div>

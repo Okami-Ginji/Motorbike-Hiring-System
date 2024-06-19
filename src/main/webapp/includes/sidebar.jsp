@@ -17,7 +17,7 @@
     /* Sidebar Styles */
     .sidebar {
         background-color: #fff;
-        color: #337ab7; /* Updated text color */
+        color: #1089FF; /* Updated text color */
         height: 100%;
         position: fixed;
         width: 250px;
@@ -154,12 +154,12 @@
         <li>
             <a href="#"><i class="fa fa-wrench fa-fw"></i> Services <i class="fa arrow"></i></a>
             <ul>
-                <li><a href="panels-wells.html">Customer Support</a></li>
+                <li><a href="contactStaff.jsp">Customer Support</a></li>
                 <li><a href="buttons.html">View Feedback</a></li>
                 <li><a href="faqs">FAQs Management</a></li>
-                <li><a href="#">Event Management</a></li>
-                <li><a href="#">Tourism Location Management</a></li>
-                <li><a href="#">Accessories Management</a></li>
+                <li><a href="eventStaffServlet">Event Management</a></li>
+                <li><a href="TourismLocationServletStaff">Tourism Location Management</a></li>
+                <li><a href="accessoriesStaffServlet">Accessories Management</a></li>
             </ul>
         </li>
         <li>
@@ -187,10 +187,7 @@
         </li>
     </ul>
 
-    <!-- Sidebar Footer -->
-    <div class="sidebar-footer">
-        <p>&copy; 2024 My Company</p>
-    </div>
+    
 </aside>
 <!-- /.sidebar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

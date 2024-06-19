@@ -75,7 +75,28 @@ public class FAQDAO implements Serializable, DAO<FAQDAO> {
             stm.setString(1, id);
             stm.executeUpdate();
         } catch (Exception e) {
+            System.out.println(e);
         }
+    }
+
+    public void updateFAQs(FAQ faq) {
+        PreparedStatement stm;
+        try {
+            String sql = "UPDATE FAQ SET Question = ?, Answer = ? WHERE QuestionID = ?";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, faq.getQuestion());
+            stm.setString(2, faq.getAnswer());
+            stm.setInt(3, faq.getQuestionID());
+
+            int rowsUpdated = stm.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("FAQ updated successfully.");
+            } else {
+                System.out.println("No FAQ updated.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating FAQ: " + e.getMessage());
+        }    
     }
 
     @Override
@@ -99,13 +120,15 @@ public class FAQDAO implements Serializable, DAO<FAQDAO> {
     }
 
     public static void main(String[] args) {
-//        FAQ newFAQ = new FAQ();
-//        newFAQ.setQuestion("What is Java?");
-//        newFAQ.setAnswer("Java is a programming language.");
+        FAQ updatedFAQ = new FAQ();
+        updatedFAQ.setQuestionID(9); // ID của FAQ mà bạn muốn cập nhật
+        updatedFAQ.setQuestion("What is Java?");
+        updatedFAQ.setAnswer("Java is a high-level, class-based, object-oriented programming language.");
 
         // Tạo đối tượng DAO và gọi phương thức addNewFAQs
         FAQDAO faqDAO = new FAQDAO();
+        faqDAO.updateFAQs(updatedFAQ);
 //        faqDAO.addNewFAQs(newFAQ);
-        System.out.println(faqDAO.getAllFAQ());
+        //System.out.println(faqDAO.getAllFAQ());
     }
 }

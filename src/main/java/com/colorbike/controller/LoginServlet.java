@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         request.setAttribute("rem", rem);
 
         if (request.getSession().getAttribute("account") != null) {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("home");
             return;
         }
         request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -91,7 +91,7 @@ public class LoginServlet extends HttpServlet {
 
             // Điều chỉnh logic chuyển hướng dựa trên RoleID
             if (account.getRoleID() == 1) {
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("home");
             } else if (account.getRoleID() == 2 || account.getRoleID() == 3) {
                 response.sendRedirect("homeStaff.jsp");
             }

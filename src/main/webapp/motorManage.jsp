@@ -44,17 +44,18 @@
                 font-family: 'Montserrat', sans-serif;
             }
 
-            .vertical-tab-container {
+            .tab-container {
                 display: flex;
+                flex-direction: column;
                 height: 100vh;
             }
 
-            /* Nội dung tab bên trái */
+            /* Nội dung tab */
             .tab-content {
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
-                background: rgba(30, 151, 191, 0.1);
+                /*background: rgba(30, 151, 191, 0.1);*/
             }
 
             .tab-content h3 {
@@ -65,33 +66,21 @@
                 margin: 0 0 7px;
             }
 
-            /* Danh sách tab bên phải dưới dạng khung */
-            .vertical-tab {
-                width: 20%;
-                min-width: 20%;
+            /* Danh sách tab ngang */
+            .nav-tabs {
                 display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                margin: 15% 20px 0 20px;/* Khoảng cách xung quanh khung */
+                margin-top: 0; /* Xóa khoảng trống phía trên */
+                padding-left: 0; /* Xóa padding bên trái */
+                margin-left: 3%;
+                border-bottom: 2px solid #ddd;
             }
 
-            .vertical-tab .nav-tabs {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                border: 1px solid #ddd; /* Thêm viền chỉ cho phần tab */
-                border-radius: 8px; /* Tạo góc bo cho viền tab */
-                background-color: #f9f9f9; /* Màu nền cho phần tab */
-                padding: 10px; /* Khoảng cách bên trong viền */
+
+            .nav-tabs li {
+                margin-right: 10px;
             }
 
-            .vertical-tab .nav-tabs li {
-                width: 100%;
-                margin-bottom: 10px; /* Khoảng cách giữa các tab */
-            }
-
-            .vertical-tab .nav-tabs li a {
+            .nav-tabs li a {
                 color: #222;
                 background: transparent;
                 font-size: 17px;
@@ -101,54 +90,35 @@
                 text-transform: uppercase;
                 padding: 12px 15px;
                 margin: 0;
-                border: none; /* Loại bỏ viền xung quanh từng tab */
-                border-radius: 4px; /* Góc bo nhẹ cho từng tab */
-                overflow: hidden;
-                position: relative;
-                z-index: 1;
-                transition: all 0.3s ease 0.3s;
+                border: none;
+                border-radius: 4px;
+                transition: all 0.3s ease;
             }
 
-            .vertical-tab .nav-tabs li a:hover,
-            .vertical-tab .nav-tabs li.active a {
+            .nav-tabs li a:hover,
+            .nav-tabs li.active a {
                 color: #1e97bf;
                 background: rgba(30, 151, 191, 0.1);
+                border-block-end: solid; 
+writing-mode: horizontal-tb;
             }
 
+            /* Thiết kế phản hồi cho màn hình nhỏ */
             @media only screen and (max-width: 767px) {
-                .vertical-tab-container {
+                .nav-tabs {
                     flex-direction: column;
+                    align-items: flex-start;
                 }
 
-                .vertical-tab {
-                    width: 100%;
-                    height: auto;
-                    margin: 10px 0; /* Reset khoảng cách trên cho màn hình nhỏ */
-                }
-
-                .vertical-tab .nav-tabs {
-                    flex-direction: row;
-                    justify-content: flex-start;
-                    overflow-x: auto;
-                    white-space: nowrap;
-                }
-
-                .vertical-tab .nav-tabs li {
-                    width: auto;
-                    flex: 1;
-                    margin-bottom: 0; /* Bỏ khoảng cách giữa các tab trên màn hình nhỏ */
+                .nav-tabs li {
+                    margin-right: 0;
+                    margin-bottom: 10px;
                 }
 
                 .tab-content {
-                    height: auto;
-                    border-left: none;
-                    border-top: none;
+                    padding: 10px;
                 }
             }
-
-            /*        body {
-                        background-color: #f8f9fa;
-                    }*/
 
             .container-fluid {
                 padding: 2rem 0;
@@ -173,24 +143,15 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
 
-            /* .table-image img {
-                max-width: 100px;
-            } */
-
             .table thead th {
                 border: none;
-                background-color: #007bff;
+                background-color: #6E9DC5;
                 color: #fff;
                 text-align: center;
             }
 
             .table tbody tr:hover {
                 background-color: #f1f1f1;
-            }
-
-            .action-buttons {
-                /* display: flex;
-                justify-content: center; */
             }
 
             .action-buttons .btn {
@@ -225,13 +186,20 @@
                 display: flex;
                 justify-content: center;
             }
-            .container-fluid{
+
+            .container-fluid {
                 background: #E1EDF2;
             }
-            
-            .addnew, .editmotor{
+
+            .addnew,
+            .editmotor {
                 margin-left: 15%;
             }
+            .alert {
+                margin-top: 10px; /* Khoảng cách từng thông báo */
+                display: none; /* Ẩn thông báo mặc định */
+            }
+
         </style>
     </head>
 
@@ -239,12 +207,20 @@
         <div class="col-md-2">
             <jsp:include page="/includes/sidebar.jsp" /> 
         </div>
-        <div class="vertical-tab-container col-md-10">
-            <!-- Nội dung tab bên trái -->
+        <div class="container-fluid tab-container">
+            <!-- Danh sách tab ngang -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#Section1"
+                                                          aria-controls="home" role="tab"
+                                                          data-toggle="tab">Display All Motorbikes</a></li>
+                <li role="presentation"><a href="#Section2"
+                                           aria-controls="profile" role="tab"
+                                           data-toggle="tab">Add New Motorbike</a></li>
+            </ul>
+            <!-- Nội dung tab -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active"
-                     id="Section1">
-
+                <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                    <!-- Nội dung phần tab Display All Motorbikes -->
                     <div class="container-fluid">
                         <div class="row tableview">
                             <div class="col-12">
@@ -267,41 +243,27 @@
                                         <tr>
                                             <th scope="row">1</th>
                                             <td class="w-25">
-                                                <img
-                                                    src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg"
-                                                    class="img-fluid img-thumbnail"
-                                                    alt="Sheep">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg"
+                                                     class="img-fluid img-thumbnail" alt="Sheep">
                                             </td>
-                                            <td>Bootstrap 4 CDN and Starter
-                                                Template</td>
+                                            <td>Bootstrap 4 CDN and Starter Template</td>
                                             <td>913</td>
-                                            <td>Lorem ipsum dolor sit amet
-                                                consectetur adipisicing elit.
-                                                Aliquam, reprehenderit
-                                                blanditiis similique aspernatur
-                                                quasi nam recusandae.
-                                                Necessitatibus id corporis
-                                                sit
-                                                quidem minus quibusdam ipsum,
-                                                non ullam! Facilis quibusdam in
-                                                delectus!</td>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                Aliquam, reprehenderit blanditiis similique aspernatur quasi nam recusandae.
+                                                Necessitatibus id corporis sit quidem minus quibusdam ipsum, non ullam! Facilis
+                                                quibusdam in delectus!
+                                            </td>
                                             <td>10</td>
                                             <td>Bootstrap</td>
                                             <td>Tutorial</td>
                                             <td>$99</td>
                                             <td class="action-buttons">
                                                 <div class="buttons">
-                                                    <button
-                                                        class="btn btn-primary btn-sm"
-                                                        onclick="editRow(this)">
-                                                        <i
-                                                            class="fas fa-edit"></i>
+                                                    <button class="btn btn-primary btn-sm" onclick="editRow(this)">
+                                                        <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button
-                                                        class="btn btn-danger btn-sm"
-                                                        onclick="deleteRow(this)">
-                                                        <i
-                                                            class="fas fa-trash"></i>
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">
+                                                        <i class="fas fa-trash"></i>
                                                     </button>
                                                 </div>
                                             </td>
@@ -309,13 +271,10 @@
                                         <tr>
                                             <th scope="row">2</th>
                                             <td class="w-25">
-                                                <img
-                                                    src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg"
-                                                    class="img-fluid img-thumbnail"
-                                                    alt="Sheep">
+                                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg"
+                                                     class="img-fluid img-thumbnail" alt="Sheep">
                                             </td>
-                                            <td>Bootstrap Grid 4 Tutorial and
-                                                Examples</td>
+                                            <td>Bootstrap Grid 4 Tutorial and Examples</td>
                                             <td>1.434</td>
                                             <td>3.417</td>
                                             <td>8</td>
@@ -324,17 +283,11 @@
                                             <td>$49</td>
                                             <td class="action-buttons">
                                                 <div class="buttons">
-                                                    <button
-                                                        class="btn btn-primary btn-sm"
-                                                        onclick="editRow(this)">
-                                                        <i
-                                                            class="fas fa-edit"></i>
+                                                    <button class="btn btn-primary btn-sm" onclick="editRow(this)">
+                                                        <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button
-                                                        class="btn btn-danger btn-sm"
-                                                        onclick="deleteRow(this)">
-                                                        <i
-                                                            class="fas fa-trash"></i>
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">
+                                                        <i class="fas fa-trash"></i>
                                                     </button>
                                                 </div>
                                             </td>
@@ -344,152 +297,55 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div role="tabpanel" class="tab-pane fade addnew" id="Section2">
-
-                    <!-- Add Product -->
+                <div role="tabpanel" class="tab-pane fade" id="Section2">
+                    <!-- Nội dung phần tab Add New Motorbike -->
                     <section>
                         <div class="container-fluid">
                             <div class="row ">
                                 <div class="col-lg-10 col-md-8 ml-auto">
-                                    <div
-                                        class="row align-items-center pt-md-5 mt-md-5 mb-5">
-                                        <div class="col-10">
-                                            <div class="card">
-                                                <div
-                                                    class="card-title text-center mt-3">
-                                                    <h3>Thêm xe máy mới</h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <form action>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productname">Product
-                                                                Name:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productname"
-                                                                   placeholder="Enter Product Name">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                Name Can't Be
-                                                                Empty</div>
+                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
+                                        <div class="col-md-12">
+                                            <div class="addnew">
+                                                <form class="addnew-motorbike-form">
+                                                    <h3>Add New Motorbike</h3>
+                                                    <div class="form-group">
+                                                        <input type="file" class="form-control-file" id="motorbikeImage">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Enter model">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="number" class="form-control"
+                                                               placeholder="Enter displacement">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="3"
+                                                                  placeholder="Enter description"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="number" class="form-control" placeholder="Enter min age">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Enter brand">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Enter category">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="number" class="form-control" placeholder="Enter price">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-dark">Thêm xe máy</button>
+                                                    <div class="feedback mt-3">
+                                                        <div id="success-message" class="alert alert-success" style="display: none;">
+                                                            Motorbike added successfully!
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
+                                                        <div id="error-message" class="alert alert-danger" style="display: none;">
+                                                            File Format Not Supported
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productprice">Product
-                                                                Price:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productprice"
-                                                                   placeholder="Enter Product Price">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                Price Can't Be
-                                                                Empty</div>
 
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <p>Product Image:</p>
-                                                        <div
-                                                            class="custom-file">
-
-                                                            <input type="file"
-                                                                   class="custom-file-input"
-                                                                   id="productimage"
-                                                                   required>
-                                                            <label
-                                                                class="custom-file-label"
-                                                                for="productimage">Choose
-                                                                file...</label>
-                                                            <div
-                                                                class="invalid-feedback">File
-                                                                Format Not
-                                                                Supported</div>
-                                                        </div>
-                                                        <button
-                                                            class="btn btn-dark mt-5 mx-auto d-block"
-                                                            type="submit">Thêm xe máy</button>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -498,247 +354,191 @@
                         </div>
                     </section>
                 </div>
-                <div role="tabpanel" class="tab-pane fade editmotor" id="Section3">
-                    <!-- Add Product -->
-                    <section>
-                        <div class="container-fluid">
-                            <div class="row ">
-                                <div class="col-lg-10 col-md-8 ml-auto">
-                                    <div
-                                        class="row align-items-center pt-md-5 mt-md-5 mb-5">
-                                        <div class="col-10">
-                                            <div class="card">
-                                                <div
-                                                    class="card-title text-center mt-3">
-                                                    <h3>Cập nhập xe máy</h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <form action>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productname">Product
-                                                                Name:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productname"
-                                                                   placeholder="Enter Product Name">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                Name Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productprice">Product
-                                                                Price:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productprice"
-                                                                   placeholder="Enter Product Price">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                Price Can't Be
-                                                                Empty</div>
-
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label
-                                                                for="productid">Product
-                                                                Id:</label>
-                                                            <input type="text"
-                                                                   class="form-control"
-                                                                   id="productid"
-                                                                   placeholder="Enter Product Id">
-                                                            <div
-                                                                class="invalid-feedback">Product
-                                                                ID Can't Be
-                                                                Empty</div>
-                                                        </div>
-                                                        <p>Product Image:</p>
-                                                        <div
-                                                            class="custom-file">
-
-                                                            <input type="file"
-                                                                   class="custom-file-input"
-                                                                   id="productimage"
-                                                                   required>
-                                                            <label
-                                                                class="custom-file-label"
-                                                                for="productimage">Choose
-                                                                file...</label>
-                                                            <div
-                                                                class="invalid-feedback">File
-                                                                Format Not
-                                                                Supported</div>
-                                                        </div>
-                                                        <button
-                                                            class="btn btn-dark mt-5 mx-auto d-block"
-                                                            type="submit">Cập nhập
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                </div>
-
-            </div>
-
-            <!-- Danh sách tab bên phải -->
-            <div class="vertical-tab">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#Section1"
-                                                              aria-controls="home" role="tab"
-                                                              data-toggle="tab">Dislay All Motorbikes</a></li>
-                    <li role="presentation"><a href="#Section2"
-                                               aria-controls="profile" role="tab"
-                                               data-toggle="tab">Add New Motorbike</a></li>
-                    <!-- <li role="presentation"><a href="#Section3"
-                            aria-controls="messages" role="tab"
-                            data-toggle="tab">Update Motorbike</a></li> -->
-
-                </ul>
             </div>
         </div>
 
+
+
         <script>
-            function editRow(button) {
-                // Lấy hàng chứa nút 'edit' được nhấn
-                var row = button.closest('tr');
+                                                        function editRow(button) {
+                                                        // Lấy hàng chứa nút 'edit' được nhấn
+                                                        var  row  =  button.closest('tr');
+                                                                // Lấy dữ liệu từ hàng được chọn
+                                                                var  id  =  row.cells[0].textContent.trim();
+                                                                var  imageSrc  =  row.cells[1].querySelector('img').src;
+                                                                var  model  =  row.cells[2].textContent.trim();
+                                                                var  displacement  =  row.cells[3].textContent.trim();
+                                                                var  description  =  row.cells[4].textContent.trim();
+                                                                var  minAge  =  row.cells[5].textContent.trim();
+                                                                var  brand  =  row.cells[6].textContent.trim();
+                                                                var      category      =      row.cells[7].textContent.trim();
+                                                                var      price      =      row.cells[8].textContent.trim();
+                                                                // Tạo tab "Update Motorbike" nếu chưa tồn tại
+                                                                if      (!document.querySelector('#update-tab')) {
+                                                        var      updateTab      =      document.createElement('li');
+                                                                updateTab.setAttribute('role',      'presentation');
+                                                                updateTab.id      =      'update-tab';
+                                                                updateTab.innerHTML      =      '<a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Update Motorbike</a>';
+                                                                // Thêm tab "Update Motorbike" vào danh sách tab
+                                                                var      tabsList      =      document.querySelector('.nav-tabs');
+                                                                tabsList.appendChild(updateTab);
+                                                                // Thêm nội dung cho tab "Update Motorbike"
+                                                                var      tabContent      =      document.querySelector('.tab-content');
+                                                                var      updateContent      =      document.createElement('div');
+                                                                updateContent.id      =      'Section3';
+                                                                updateContent.classList.add('tab-pane',      'fade');
+                                                                updateContent.setAttribute('role',      'tabpanel');
+                                                                updateContent.innerHTML      =      `
+            <section class="update-motorbike-section">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-lg-10 col-md-8 ml-auto">
+                                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
+                                                    <div class="col-md-12">
+                                                        <div class="editmotor">
+                                                    <form class="update-motorbike-form">
+                                            <h3>Update Motorbike</h3>
+                                        <div class="form-group">
+                                            <label for="productname">Model:</label>
+                                            <input type="text" class="form-control" id="productname" placeholder="Enter model">
+                                                </div>
+                                                <div class="form-group">
+                                                     <label for="productid">ID:</label>
+                                            <input type="text" class="form-control" id="productid" placeholder="Enter ID" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                            <label for="productprice">Price:</label>
+                                            <input type="number" class="form-control" id="productprice" placeholder="Enter price">
+                                            </div>
+                                                <div class="form-group">
+                                                    <label for="productimage">Current Image:</label>
+                                                    <img id="productimage" src="${imageSrc}" alt="Motorbike Image" class="img-fluid img-thumbnail">
+                                            </div>
+                                            <div class="form-group">
+                                            <label for="productimageupload">Upload New Image:</label>
+                                            <input type="file" class="form-control-file" id="productimageupload" accept="image/*">
+                                                    </div>
+                                                    <!-- Các trường khác nếu có -->
+                                                        <div class="form-group">
+                                                <label for="displacement">Displacement:</label>
+                                                <input type="number" class="form-control" id="displacement" placeholder="Enter displacement">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Description:</label>
+                                                <textarea class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="minage">Min Age:</label>
+                                                <input type="number" class="form-control" id="minage" placeholder="Enter min age">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="brand">Brand:</label>
+                                                <input type="text" class="form-control" id="brand" placeholder="Enter brand">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="category">Category:</label>
+                                                <input type="text" class="form-control" id="category" placeholder="Enter category">
+                                            </div>
+                                            <button type="submit" class="btn btn-dark">Update Motorbike</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+        tabContent.appendChild(updateContent);
+    }
 
-                // Lấy dữ liệu từ hàng được chọn
-                var id = row.cells[0].textContent.trim();
-                var imageSrc = row.cells[1].querySelector('img').src;
-                var model = row.cells[2].textContent.trim();
-                var displacement = row.cells[3].textContent.trim();
-                var description = row.cells[4].textContent.trim();
-                var minAge = row.cells[5].textContent.trim();
-                var brand = row.cells[6].textContent.trim();
-                var category = row.cells[7].textContent.trim();
-                var price = row.cells[8].textContent.trim();
+    // Chuyển sang tab "Update Motorbike"
+    document.querySelector('#update-tab a').click();
 
-                // Tạo tab "Update Motorbike" nếu chưa tồn tại
-                if (!document.querySelector('#update-tab')) {
-                    var updateTab = document.createElement('li');
-                    updateTab.setAttribute('role', 'presentation');
-                    updateTab.id = 'update-tab';
-                    updateTab.innerHTML = '<a href="#Section3" aria-controls="messages" role="tab" data-toggle="tab">Update Motorbike</a>';
+    // Điền thông tin vào form "Update Motorbike"
+    document.querySelector('#productname').value = model;
+    document.querySelector('#productid').value = id;
+    document.querySelector('#productprice').value = price;
 
-                    // Thêm tab "Update Motorbike" vào danh sách tab
-                    var tabsList = document.querySelector('.nav-tabs');
-                    tabsList.appendChild(updateTab);
-                }
+    // Điền các trường bổ sung nếu có
+    document.querySelector('#displacement').value = displacement;
+    document.querySelector('#description').value = description;
+    document.querySelector('#minage').value = minAge;
+    document.querySelector('#brand').value = brand;
+    document.querySelector('#category').value = category;
 
-                // Chuyển sang tab "Update Motorbike"
-                document.querySelector('#update-tab a').click();
+    // Đặt hình ảnh
+    document.querySelector('#productimage').src = imageSrc;
 
-                // Điền thông tin vào form "Update Motorbike"
-                document.querySelector('#productname').value = model;
-                document.querySelector('#productid').value = id;
-                document.querySelector('#productprice').value = price;
+    // Xử lý sự kiện upload ảnh
+    document.querySelector('#productimageupload').addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector('#productimage').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
 
-                // Nếu bạn có thêm các trường khác, hãy điền chúng ở đây
-                // Ví dụ:
-                // document.querySelector('#displacement').value = displacement;
-                // document.querySelector('#description').value = description;
-                // document.querySelector('#minage').value = minAge;
-                // document.querySelector('#brand').value = brand;
-                // document.querySelector('#category').value = category;
+// Hàm xóa tab "Update Motorbike" khi không cần thiết
+function removeUpdateTab() {
+    var updateTab = document.querySelector('#update-tab');
+    if (updateTab) {
+        updateTab.remove();
+    }
+}
 
-                // Đặt hình ảnh (nếu có trường này trong form)
-                // document.querySelector('#productimage').src = imageSrc;
-            }
+// Lắng nghe sự kiện khi DOM đã tải xong
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Lấy tất cả các tab trừ tab "Update Motorbike"
+    var tabs = document.querySelectorAll('.nav-tabs li:not(#update-tab) a');
 
-            // Hàm xóa tab "Update Motorbike" khi không cần thiết
-            function removeUpdateTab() {
-                var updateTab = document.querySelector('#update-tab');
-                if (updateTab) {
-                    updateTab.remove();
-                }
-            }
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                // Lấy tất cả các tab trừ tab "Update Motorbike"
-                var tabs = document.querySelectorAll('.nav-tabs li:not(#update-tab) a');
+    // Thêm sự kiện cho các tab
+    tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            removeUpdateTab();
+        });
+    });
+});
 
-                // Thêm sự kiện cho các tab
-                tabs.forEach(tab => {
-                    tab.addEventListener('click', (e) => {
-                        removeUpdateTab();
-                    });
-                });
-            });
+// Hàm xử lý khi click vào nút 'Thêm xe máy'
+function addMotorbike(event) {
+    event.preventDefault(); // Ngăn chặn việc gửi form mặc định
+    var form = document.querySelector('form'); // Chọn form thêm xe máy
+    var formData = new FormData(form); // Tạo FormData từ form
+    var productImage = document.querySelector('#productimageupload').files[0]; // Lấy tệp ảnh từ input
+
+    // Kiểm tra định dạng ảnh (chỉ cho phép ảnh)
+    if (!productImage.type.startsWith('image/')) {
+        document.querySelector('#error-message').style.display = 'block'; // Hiển thị thông báo lỗi
+        return; // Dừng lại nếu định dạng không phải là ảnh
+    }
+
+    // Ẩn thông báo lỗi nếu có
+    document.querySelector('#error-message').style.display = 'none';
+
+    // Gửi yêu cầu thêm xe máy
+    fetch('add_motorbike_url', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            document.querySelector('#success-message').style.display = 'block'; // Hiển thị thông báo thành công
+            form.reset(); // Xóa nội dung form sau khi thêm thành công
+        } else {
+            throw new Error('Failed to add motorbike'); // Ném lỗi nếu không thêm thành công
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error); // Log lỗi ra console nếu có lỗi xảy ra
+    });
+}
+
+
         </script>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

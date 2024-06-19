@@ -95,11 +95,11 @@ public class EventDAO implements Serializable {
     }
 
     public static void main(String[] args) {
-//        for (Event e : EventDAO.getInstance().getAllEvent()) {
-//            System.out.println(e);
-//        }
-        for (Event e : EventDAO.getInstance().searchCompanyByName("Le")) {
+        for (Event e : EventDAO.getInstance().getAllEvent()) {
             System.out.println(e);
         }
+//        for (Event e : EventDAO.getInstance().searchCompanyByName("Le")) {
+//            System.out.println(e);
+//        }
     }
 }

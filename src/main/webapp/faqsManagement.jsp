@@ -25,6 +25,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.min.css" rel="stylesheet">
 
         <style type="text/css">
             body {
@@ -280,19 +281,22 @@
                                             <div class="col-md-10">
                                                 <p data-toggle="collapse" class="faq-question">${faq.question}</p>
                                                 <p class="faq-answer">${faq.answer}</p>
-                                                <small>Added by <strong>Staff</strong> <i class="fa fa-clock-o"></i> Today 2:40 pm
-                                                    - 24.06.2014</small>
+                                                <small>Added by <strong>Staff</strong> <i class="fa fa-clock-o"></i> Today 2:40 pm - 24.06.2014</small>
                                             </div>
 
                                             <div class="faq-actions col-md-2 text-right">
-                                                <!-- Nút Edit -->
-                                                <button type="button" class="btn btn-info btn-sm edit-btn" title="Edit">
+                                                <button type="button" class="btn btn-info btn-sm edit-btn" title="Edit"
+                                                        data-toggle="modal" data-target="#editFAQModal"
+                                                        onclick="populateEditForm('${faq.questionID}', '${faq.question}', '${faq.answer}')">
                                                     <i class="fa-solid fa-pen-to-square" style="color: white;"></i>
                                                 </button>
+
+
                                                 <!-- Nút Delete -->
-                                                <a href="deleteFAQs?questionID=${faq.questionID}" class="btn btn-danger btn-sm delete-btn" title="Delete">
+                                                <button type="button" class="btn btn-danger btn-sm delete-btn" title="Delete" 
+                                                        onclick="confirmDelete('${faq.questionID}')">
                                                     <i class="fa-solid fa-trash-can" style="color: white;"></i>
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -326,20 +330,65 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Modal Form Cập Nhật FAQ -->
+                <div class="modal fade" id="editFAQModal" tabindex="-1" role="dialog" aria-labelledby="editFAQModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form id="updateFAQForm" action="UpdateFAQsServletStaff" method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editFAQModalLabel">Chỉnh sửa FAQs</h5>
+                                    <!--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>-->
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="questionID" id="editQuestionID" />
+                                    <div class="form-group">
+                                        <label for="editQuestion">Question</label>
+                                        <input type="text" class="form-control" id="editQuestion" name="question" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editAnswer">Answer</label>
+                                        <textarea class="form-control" id="editAnswer" name="answer" rows="4" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
         <button id="backtoTopBtn" onclick="topFunction()" title="Go to top">
             <i class="fa fa-arrow-up"></i>
         </button>
 
+        <script type="text/javascript">
+            // Populate the edit form with the existing data
+            function populateEditForm(questionID, question, answer) {
+                document.getElementById('editQuestionID').value = questionID;
+                document.getElementById('editQuestion').value = question;
+                document.getElementById('editAnswer').value = answer;
+                // Hiển thị modal khi dữ liệu được điền vào form
+                $('#editFAQModal').modal('show'); // Sử dụng jQuery để hiển thị modal
+            }
+        </script>
+
+
         <script>
             let mybutton = document.getElementById("backtoTopBtn");
-
             // Khi người dùng cuộn xuống 20px từ đầu tài liệu, hiển thị nút
             window.onscroll = function () {
                 scrollFunction();
             };
-
             function scrollFunction() {
                 if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                     mybutton.style.display = "block";
@@ -355,11 +404,36 @@
                     behavior: 'smooth'
                 });
             }
+
+
+
+        </script>
+
+        <script type="text/javascript">
+            function confirmDelete(questionID) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1089FF',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Vâng, xóa nó!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'deleteFAQs?questionID=' + questionID;
+                    }
+                })
+            }
         </script>
 
 
+        <!-- SweetAlert CSS -->
+        <!-- SweetAlert JS -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.7/dist/sweetalert2.all.min.js"></script>
 
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Modal -->
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>

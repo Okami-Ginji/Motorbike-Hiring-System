@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @author ADMIN
  */
 @WebServlet(name = "FaqsServletStaff", urlPatterns = {"/faqs"})
-public class FaqsServletStaff extends HttpServlet {
+public class AddFaqsServletStaff extends HttpServlet {
 
     FAQDAO faqdao = FAQDAO.getInstance();
 
@@ -55,13 +55,7 @@ public class FaqsServletStaff extends HttpServlet {
                 request.getRequestDispatcher("faqsManagement.jsp").forward(request, response);
             }
         } catch (Exception e) {
-            // Ghi log lỗi chi tiết
-            Logger.getLogger(FaqsServletStaff.class.getName()).log(Level.SEVERE, "Lỗi khi thêm FAQ", e);
-
-            // Đặt thông báo lỗi vào request để hiển thị trong JSP
-            request.setAttribute("errorMessage", "Đã xảy ra lỗi khi thêm FAQ. Vui lòng thử lại.");
-            
-            request.getRequestDispatcher("faqsManagement.jsp").forward(request, response);
+            Logger.getLogger(AddFaqsServletStaff.class.getName()).log(Level.SEVERE, "Lỗi khi thêm FAQ", e);
         }
     }
 }

@@ -377,7 +377,7 @@ public class BookingInforHander extends HttpServlet {
         // Save booking data to database
         // Assume BookingDAO is a class to handle database operations
         BookingDAO dao = BookingDAO.getInstance();
-        dao.addBooing(bookingid, formattedDateTime, pickupDate, returnDate, pickupLocation, returnLocation, 0, daoC.getCustomerbyAccountID(accountId).getCustomerId());
+        dao.addBooking(bookingid, formattedDateTime, pickupDate, returnDate, pickupLocation, returnLocation, 0, daoC.getCustomerbyAccountID(accountId).getCustomerId());
 
         // Process bike details
         Type bikeListType = new TypeToken<ArrayList<HashMap<String, String>>>() {}.getType();

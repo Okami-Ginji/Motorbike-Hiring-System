@@ -1737,7 +1737,7 @@
                             // Truyền dữ liệu từ thẻ h2 vào iframe khi thẻ h2 thay đổi
                             const sendDataToIframe = () => {
                                 // Lấy giá trị của thẻ h2
-                                const data = dataH2.textContent.replace(/[₫,]/g, '').trim();
+                                const data = dataH2.textContent.replace(/[₫,.]/g, '').trim(); // Lấy dữ liệu và xóa dấu chấm và dấu chấm câu
                                 console.log(data);
 
                                 // Truyền giá trị vào iframe

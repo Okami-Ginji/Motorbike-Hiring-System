@@ -40,7 +40,8 @@ public class BookingDAO {
         return instance;
     }
     
-    public void addBooing(String bookingID,String bookingDate,String startDate,String endDate, String deliveryLocation,String returnedLocation, Integer voucherID, int customerID){
+
+    public void addBooking(String bookingID,String bookingDate,String startDate,String endDate, String deliveryLocation,String returnedLocation, Integer voucherID, int customerID){
         String sql = " INSERT INTO [dbo].[Booking] (\n" +
                     "    [BookingID], \n" +
                     "    [BookingDate], \n" +
@@ -98,6 +99,35 @@ public class BookingDAO {
             System.out.println(e);
         }
     }
+    public List<Map<String, Object>> getMotorcyclesByBookingID(String bookingID) {
+        PreparedStatement stm;
+        ResultSet rs;
+        List<Map<String, Object>> motorcycleList = new ArrayList<>();
+        String sql = "SELECT m.Model, COUNT(m.MotorcycleID) AS Quantity, m.Image, c.CategoryName "
+                + "FROM Motorcycle m "
+                + "JOIN [Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID "
+                + "JOIN Category c ON c.CategoryID = m.CategoryID "
+                + "WHERE md.MotorcycleDetailID IN (SELECT MotorcycleDetailID FROM [Booking Detail] WHERE BookingID = ?) "
+                + "GROUP BY m.Model, m.Image, c.CategoryName";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, bookingID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> motorcycleInfo = new HashMap<>();
+                motorcycleInfo.put("Model", rs.getString("Model"));
+                motorcycleInfo.put("Quantity", rs.getInt("Quantity"));
+                motorcycleInfo.put("Image", rs.getString("Image"));
+                motorcycleInfo.put("CategoryName", rs.getString("CategoryName"));
+
+                motorcycleList.add(motorcycleInfo);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return motorcycleList;
+    }
+
     
     public Booking getBookingById(String bookingId) {
         PreparedStatement stm;

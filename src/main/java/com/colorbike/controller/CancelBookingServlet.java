@@ -4,34 +4,23 @@
  */
 package com.colorbike.controller;
 
-import com.colorbike.dao.AccountDAO;
 import com.colorbike.dao.BookingDAO;
-import com.colorbike.dao.BrandDAO;
-import com.colorbike.dao.FeedbackDAO;
-import com.colorbike.dao.MotorcycleDAO;
-import com.colorbike.dao.PriceListDAO;
-import com.colorbike.dto.Account;
-import com.colorbike.dto.Booking;
-import com.colorbike.dto.Brand;
-import com.colorbike.dto.Feedback;
-import com.colorbike.dto.Motorcycle;
-import com.colorbike.dto.PriceList;
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.colorbike.dao.CancellationDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
- * @author DiepTCNN
+ * @author MINH TUAN
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "CancelBookingServlet", urlPatterns = {"/cancelbooking"})
+public class CancelBookingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,36 +34,18 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        FeedbackDAO fd = FeedbackDAO.getInstance(); //view feedback
-
-        MotorcycleDAO md = MotorcycleDAO.getInstance();//view featured motorbikes
-        BrandDAO bd = BrandDAO.getInstance();
-        PriceListDAO pd = PriceListDAO.getInstance();
-        List<Feedback> listF = fd.getAllFeedbacks();
-        List<Motorcycle> listM = md.getTop5MotorcycleTheMostRental();
-        List<Brand> listB = bd.getAllBrand();
-        List<PriceList> listP = pd.getAllPriceList();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-
-        if (account != null) {
-            Booking book = BookingDAO.getInstance().getLastestBooking(account.getAccountId());
-            if (book != null) {
-                request.setAttribute("book", book);
-                request.setAttribute("statusBooking", book.getStatusBooking());
-            } else {
-                request.removeAttribute("book");
-                request.removeAttribute("statusBooking");
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CancelBookingServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CancelBookingServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        session.setAttribute("account", account);
-        request.setAttribute("listF", listF);
-        request.setAttribute("listM", listM);
-        request.setAttribute("listB", listB);
-        request.setAttribute("listP", listP);
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,7 +60,22 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String bookingId = request.getParameter("bookingId");
+        String cancelReason = request.getParameter("cancelreason");
+        HttpSession session = request.getSession();
+
+        if (cancelReason != null && !cancelReason.trim().isEmpty()) {
+            boolean isInserted = CancellationDAO.getInstance().insertCancellation(cancelReason, bookingId);
+            BookingDAO.getInstance().updateBookingStatus(bookingId, "Đã hủy");
+            if (isInserted) {
+                session.setAttribute("cancelSuccess", "Hủy đơn thành công");
+            } else {
+                session.setAttribute("cancelFail", "Hủy đơn thất bại... Vui lòng thử lại");
+            }
+        } else {
+            session.setAttribute("cancelFail", "Hủy đơn thất bại! Vui lòng nhập lý do hủy đơn ...");
+        }
+        response.sendRedirect("bookingHistoryDetail?bookingId=" + bookingId);
     }
 
     /**

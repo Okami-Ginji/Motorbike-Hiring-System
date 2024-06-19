@@ -18,6 +18,7 @@
     .sidebar {
         background-color: #fff;
         color: #1089FF; /* Updated text color */
+
         height: 100%;
         position: fixed;
         width: 250px;
@@ -160,6 +161,7 @@
                 <li><a href="eventStaffServlet">Event Management</a></li>
                 <li><a href="TourismLocationServletStaff">Tourism Location Management</a></li>
                 <li><a href="accessoriesStaffServlet">Accessories Management</a></li>
+
             </ul>
         </li>
         <li>
@@ -187,7 +189,14 @@
         </li>
     </ul>
 
+<<<<<<< HEAD
     
+=======
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        <p>&copy; 2024 My Company</p>
+    </div>
+>>>>>>> main
 </aside>
 <!-- /.sidebar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

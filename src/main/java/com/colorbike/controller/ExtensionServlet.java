@@ -40,7 +40,7 @@ public class ExtensionServlet extends HttpServlet {
         Booking booking = bookingDAO.getBookingById(bookingId);
         String newEndDate = request.getParameter("newEndDate");
         ExtensionDAO extensionDAO = ExtensionDAO.getInstance();
-        extensionDAO.adđExtension(newEndDate, newEndDate, 0, bookingId);
+        extensionDAO.addExtension(newEndDate, newEndDate, 0, bookingId);
     }
 
 

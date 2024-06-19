@@ -177,9 +177,9 @@ public class CustomerDAO implements Serializable, DAO<Customer> {
     
     public static void main(String[] args) {
         CustomerDAO dao = getInstance();
-//        dao.createNewCustomer("12321331","Ayaka_20240614123417.png" , "2024-3-24", "2024-3-24", "CMND/CCCD", 1, 2);
-        System.out.println(dao.getCustomerbyID(2));
-        dao.updateCustomer( "3210002499400", "Ayaka_20240614123417.png", "2013-01-07", "2013-01-07", "CMND/CCCD",2);
+        //dao.createNewCustomer("12321331","Ayaka_20240614123417.png" , "2024-3-24", "2024-3-24", "CMND/CCCD", 1, 2);
+        System.out.println(dao.getCustomerbyAccountID(2));
+       // dao.updateCustomer( "3210002499400", "Ayaka_20240614123417.png", "2013-01-07", "2013-01-07", "CMND/CCCD",2);
 //        List<Motorcycle> list = dao.searchMotorcycleByName("maha");
 //        for (Motorcycle x : list) {
 //            System.out.println(x);

@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="website icon" type="png" href="images\logo.png">
         <jsp:include page="/includes/header.jsp" />
         <meta charset="utf-8">
         <title>FAQs</title>

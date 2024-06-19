@@ -10,6 +10,7 @@
 <html lang="en">
 
     <head>
+        <link rel="website icon" type="png" href="images\logo.png">
         <jsp:include page="/includes/header.jsp" />
         <!-- thanh search -->
         <link rel="stylesheet" type="text/css"
@@ -212,10 +213,10 @@
             <div class="container">
                 <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
                     <div class="col-md-9 ftco-animate pb-5">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
-                                        class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i
+                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang Chủ<i
+                                        class="ion-ios-arrow-forward"></i></a></span> <span>Xe máy<i
                                     class="ion-ios-arrow-forward"></i></span></p>
-                        <h1 class="mb-3 bread">Choose Your Car</h1>
+                        <h1 class="mb-3 bread">Lựa chọn xe máy</h1>
                     </div>
                 </div>
             </div>
@@ -313,7 +314,7 @@
                      <div class="filter-search filter-group">
                         <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
                             <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
-                            <button style="font-weight:bold; color: #28a745;background-image: linear-gradient(to right, #75fed9, #00ff55);border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
+                            <button style="font-weight:bold; color: #28a745;background:#01D28E;border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
                         </form>
                     </div>
                 </div>
@@ -348,8 +349,8 @@
                                         <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
                                     </div>
                                     <p class="d-flex mb-0 d-block">
-                                        <a href="booking?motorcycleid=${motorbike.motorcycleId}" class="btn btn-primary py-2 mr-1">Book now</a>
-                                        <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Details</a>
+                                        <a href="booking?motorcycleid=${motorbike.motorcycleId}" class="btn btn-primary py-2 mr-1">Thuê Ngay</a>
+                                        <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Chi tiết</a>
                                     </p>
                                 </div>
                             </div>

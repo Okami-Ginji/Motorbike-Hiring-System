@@ -112,7 +112,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                 "                <h3 class=\"card-title\">Đặt lại mật khẩu ColorBike</h3>\n" +
                 "                <p>Chúng tôi nghe nói rằng bạn đã mất mật khẩu. Rất tiếc về điều đó!</p>\n" +
                 "                <p>Nhưng đừng lo lắng! Bạn có thể sử dụng nút dưới đây để đặt lại mật khẩu của mình:</p>\n" +
-                "                <a href='http://localhost:6789/MotorcyleHiringProject/verify?token=" + token + "'class=\"reset-button\">Đặt lại mật khẩu của bạn</a>\n" +
+                "                <a href='http://localhost:8080/MotorcyleHiringProject/verify?token=" + token + "'class=\"reset-button\">Đặt lại mật khẩu của bạn</a>\n" +
                 "                <p>Nếu bạn không sử dụng liên kết này trong vòng 5 phút, nó sẽ hết hạn. Để nhận liên kết đặt lại mật khẩu mới, hãy truy cập: <a href=\"http://localhost:9999/MotorcyleHiringProject/forgotpassword.jsp\">forgot password</a></p>\n" +
                 "                <p>Cảm ơn,<br>Nhóm hỗ trợ ColorBike</p>\n" +
                 "            </div>\n" +

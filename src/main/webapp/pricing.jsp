@@ -9,10 +9,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+        <title>Giá</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <link rel="website icon" type="png" href="images\logo.png">
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
@@ -43,8 +43,8 @@
             <div class="container">
                 <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
                     <div class="col-md-9 ftco-animate pb-5">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Pricing <i class="ion-ios-arrow-forward"></i></span></p>
-                        <h1 class="mb-3 bread">Pricing</h1>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang Chủ<i class="ion-ios-arrow-forward"></i></a></span> <span>Bảng Giá<i class="ion-ios-arrow-forward"></i></span></p>
+                        <h1 class="mb-3 bread">Bảng Giá</h1>
                     </div>
                 </div>
             </div>
@@ -60,9 +60,9 @@
                                     <tr class="text-center">
                                         <th>&nbsp;</th>
                                         <th>&nbsp;</th>
-                                        <th class="bg-primary heading">Per Day Rate</th>
-                                        <th class="bg-dark heading">Per Week Rate</th>
-                                        <th class="bg-black heading">Per Month Rate</th>
+                                        <th class="bg-primary heading">Thuê theo ngày</th>
+                                        <th class="bg-dark heading">Thuê theo tuần</th>
+                                        <th class="bg-black heading">Thuê theo tháng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,35 +76,35 @@
                                                     </td>
 
                                                     <td class="price">
-                                                        <p class="btn-custom"><a href="#">Rent a motorbike</a></p>
+                                                        <p class="btn-custom"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><small class="currency">$</small> ${p.dailyPriceForDay}</span>
-                                                                <span class="per">/per hour</span>
+                                                                <span class="per">/ngày</span>
                                                             </h3>
-                                                            <span class="subheading">$3/hour fuel surcharges</span>
+                                                            <span class="subheading">Có thiết bị đi kèm</span>
                                                         </div>
                                                     </td>
 
                                                     <td class="price">
-                                                        <p class="btn-custom"><a href="#">Rent a motorbike</a></p>
+                                                        <p class="btn-custom"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><small class="currency">$</small> ${p.dailyPriceForWeek}</span>
-                                                                <span class="per">/per week</span>
+                                                                <span class="per">/tuần</span>
                                                             </h3>
-                                                            <span class="subheading">$3/hour fuel surcharges</span>
+                                                            <span class="subheading">Có thiết bị đi kèm</span>
                                                         </div>
                                                     </td>
 
                                                     <td class="price">
-                                                        <p class="btn-custom"><a href="#">Rent a motorbike</a></p>
+                                                        <p class="btn-custom"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><small class="currency">$</small> ${p.dailyPriceForMonth}</span>
-                                                                <span class="per">/per month</span>
+                                                                <span class="per">/tháng</span>
                                                             </h3>
-                                                            <span class="subheading">$3/hour fuel surcharges</span>
+                                                            <span class="subheading">Có thiết bị đi kèm</span>
                                                         </div>
                                                     </td>
                                                 </tr><!-- END TR-->

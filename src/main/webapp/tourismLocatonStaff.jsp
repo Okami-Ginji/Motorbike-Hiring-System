@@ -35,6 +35,7 @@
             .tab-content {
                 flex: 1;
                 padding: 20px;
+                background-color: #E0E0E0;
                 overflow-y: auto;
             }
 
@@ -97,6 +98,7 @@
 
             .tableview {
                 width: 95%;
+             
                 margin: 0 auto;
             }
 

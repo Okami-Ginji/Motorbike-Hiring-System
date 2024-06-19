@@ -9,6 +9,7 @@
 <html lang="en">
 
     <head>
+        <link rel="website icon" type="png" href="images\logo.png">
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
@@ -238,51 +239,51 @@
                 <img src="images/register.png" alt="header" />
             </div>
             <div class="containerContent col-md-6">
-                <h3>Welcome to COLORBIKE</h3>
-                <h1>Register</h1>
+                <h3>Chào Mừng Bạn Đến Với COLORBIKE</h3>
+                <h1>Tạo Tài Khoản</h1>
                 <form action="register" method="post">
                     <div class="inputRow">
-                        <input type="text" name="firstname" placeholder="Enter your FirstName" />
+                        <input type="text" name="firstname" placeholder="Nhập Tên" />
                     </div>
                     <div class="inputRow">
-                        <input type="text" name="lastname" placeholder="Enter your LastName" />
+                        <input type="text" name="lastname" placeholder="Nhập Họ" />
                     </div>
                     <select id="gender" name="gender" class="inputRow">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="unknown">Unknown</option>
+                        <option value="male">Nam</option>
+                        <option value="female">Nữ</option>
+                        <option value="unknown">Không Xác Định</option>
                     </select>
                     <div class="inputRow">
                         <input type="text" name="phone" id="phone"
-                               placeholder="Enter your Phone Number" />                       
+                               placeholder="Nhập Số Điện Thoại" />                       
                     </div>
                     <div id="phone-error" style="color: red; margin-bottom: 1rem;"></div>
 
                     <div class="inputRow">
-                        <input type="date" name="dob" placeholder="Enter your Data of birth" />
+                        <input type="date" name="dob" placeholder="Nhập Ngày\Tháng\Năm Sinh" />
                     </div>
                     <div class="inputRow">
-                        <input type="text" name="address" placeholder="Enter your Address" />
+                        <input type="text" name="address" placeholder="Nhập Địa Chỉ" />
                     </div>
                     <div class="inputRow">
-                        <input type="email" name="email" placeholder="Enter your Email" />
+                        <input type="email" name="email" placeholder="Nhập Email" />
                     </div>
                     <div class="inputRow">
-                        <input type="text" name="username" placeholder="Enter your Username" />
+                        <input type="text" name="username" placeholder="Nhập Tên Tài Khoản" />
                     </div>
                     <div class="inputRow">
                         <input type="password" class="eye" name="password" id="password"
-                               value="" placeholder="Password" required/>
+                               value="" placeholder="Nhập Mật Khẩu" required/>
                         <span id="password-eye-1"><i class="ri-eye-off-line"></i></span>
                     </div>
                     <div class="inputRow">
                         <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation"
-                               value="" placeholder="Confirm Password" required/>
+                               value="" placeholder="Nhập Lại Mật Khẩu" required/>
                         <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
                     </div>
 
                     <div style="color: red; margin-left:30px; ">${info}</div><br>
-                    <button type="submit" name="register-submit" id="register-submit">Create new account</button>
+                    <button type="submit" name="register-submit" id="register-submit">Tạo Tài Khoản</button>
                 </form>
                 <h6>Or continue with</h6>
                 <div class="logins">
@@ -291,7 +292,7 @@
                     <a href="#"><img src="images/facebook.png"
                                      alt="facebook" /></a>
                 </div>
-                <p>I have an account <a href="#">Log in</a></p>
+                <p>Nếu bạn đã có tài khoản <a href="login.jsp">Đăng Nhập</a></p>
             </div>
 
         </div>

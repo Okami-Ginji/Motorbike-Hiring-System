@@ -1386,9 +1386,9 @@
                                                     <div class="form-group">
                                                         <label for="gender" class="form-label">Giới tính</label>
                                                         <div class="form-radio-group">   
-                                                            <label><input type="radio" name="gender" value="Không muốn tiết lộ" ${account.gender == 'Không muốn tiết lộ' ? 'checked' : ''} >Bí mật</label>
-                                                            <label><input type="radio" name="gender" value="Nam" ${account.gender == 'Nam' ? 'checked' : ''} >Nam</label>
-                                                            <label><input type="radio" name="gender" value="Nữ" ${account.gender == 'Nữ' ? 'checked' : ''} >Nữ</label>
+                                                            <label><input type="radio" name="gender" value="Không muốn tiết lộ" ${account.gender == 'Không muốn tiết lộ' ? 'checked' : ''} onclick="validateForm()">Bí mật</label>
+                                                            <label><input type="radio" name="gender" value="Nam" ${account.gender == 'Nam' ? 'checked' : ''} onclick="validateForm()">Nam</label>
+                                                            <label><input type="radio" name="gender" value="Nữ" ${account.gender == 'Nữ' ? 'checked' : ''} onclick="validateForm()">Nữ</label>
                                                             
                                                         </div>
                                                     </div>
@@ -1587,7 +1587,7 @@
 
                         <h3>Thanh toán</h3>
                         <fieldset>
-<!--                            <a onclick="yourFunctionName()">aaaaa</a>-->
+                            <a onclick="yourFunctionName()">aaaaa</a>
                             <h2>THANH TOÁN CỌC</h2>
                             <p class="desc">Hãy thanh toán số tiền cọc theo bên dưới để hoàn thành đơn đặt xe của bạn</p>
                             <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 550px; border-style: hidden"></iframe>
@@ -1737,7 +1737,8 @@
                             // Truyền dữ liệu từ thẻ h2 vào iframe khi thẻ h2 thay đổi
                             const sendDataToIframe = () => {
                                 // Lấy giá trị của thẻ h2
-                                const data = dataH2.textContent.replace(/[₫,]/g, '').trim();
+                                const data = dataH2.textContent.replace(/[₫,.]/g, '').trim(); // Lấy dữ liệu và xóa dấu chấm và dấu chấm câu
+
                                 console.log(data);
 
                                 // Truyền giá trị vào iframe
@@ -1872,6 +1873,10 @@
                         }
                         
                         if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
+                            var accountId = document.getElementById("accountId").textContent.trim();
+                            console.log(accountId + "accountId123");
+                            var customerId = document.getElementById("customerId").textContent.trim();
+                            console.log(customerId + "customerId123343");
                             const checkbox = document.getElementById('daily-checkbox-term');
                             nextButton.style.pointerEvents = 'none';
                             nextButton.style.background = '#e8e8e8';

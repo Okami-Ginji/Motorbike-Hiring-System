@@ -10,7 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ColorBike Events</title>
+        <title>ColorBike Tourism Location</title>
+        <link rel="website icon" type="png" href="images\logo.png">
         <style>
             /* breadcrumb */
 

@@ -40,30 +40,32 @@ public class BookingDAO {
         return instance;
     }
     
-    public void addBooing(String bookingID,String bookingDate,String startDate,String endDate,String deliveryLocation,String returnedLocation, Integer voucherID, int customerID){
+    public void addBooing(String bookingID,String bookingDate,String startDate,String endDate, String deliveryLocation,String returnedLocation, Integer voucherID, int customerID){
         String sql = " INSERT INTO [dbo].[Booking] (\n" +
                     "    [BookingID], \n" +
                     "    [BookingDate], \n" +
                     "    [StartDate], \n" +
                     "    [EndDate], \n" +
+                    "    [StatusBooking], \n" +
                     "    [DeliveryLocation], \n" +
                     "    [ReturnedLocation], \n" +
                     "    [DeliveryStatus], \n" +
                     "    [VoucherID], \n" +
                     "    [CustomerID]\n" +
                     ") VALUES"
-                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlNoVoucher = " INSERT INTO [dbo].[Booking] (\n" +
                     "    [BookingID], \n" +
                     "    [BookingDate], \n" +
                     "    [StartDate], \n" +
                     "    [EndDate], \n" +
+                    "    [StatusBooking], \n" +
                     "    [DeliveryLocation], \n" +
                     "    [ReturnedLocation], \n" +
                     "    [DeliveryStatus], \n" +
                     "    [CustomerID]\n" +
                     ") VALUES"
-                    + " (?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             if(voucherID == 0){
                 PreparedStatement ps = conn.prepareStatement(sqlNoVoucher);
@@ -71,10 +73,11 @@ public class BookingDAO {
                 ps.setString(2, bookingDate);
                 ps.setString(3, startDate);
                 ps.setString(4, endDate);
-                ps.setString(5, deliveryLocation);
-                ps.setString(6, returnedLocation);
-                ps.setString(7, "Chưa giao");
-                ps.setInt(8, customerID);
+                ps.setString(5, "Chờ xác nhận");
+                ps.setString(6, deliveryLocation);
+                ps.setString(7, returnedLocation);
+                ps.setString(8, "Chưa giao");
+                ps.setInt(9, customerID);
                 ps.executeUpdate();
             }else {
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -82,11 +85,12 @@ public class BookingDAO {
                 ps.setString(2, bookingDate);
                 ps.setString(3, startDate);
                 ps.setString(4, endDate);
-                ps.setString(5, deliveryLocation);
-                ps.setString(6, returnedLocation);
-                ps.setString(7, "Chưa giao");
-                ps.setInt(8, voucherID);
-                ps.setInt(9, customerID);
+                ps.setString(5, "Chờ xác nhận");
+                ps.setString(6, deliveryLocation);
+                ps.setString(7, returnedLocation);
+                ps.setString(8, "Chưa giao");
+                ps.setInt(9, voucherID);
+                ps.setInt(10, customerID);
                 ps.executeUpdate();
             }
             
@@ -139,25 +143,21 @@ public class BookingDAO {
                 sql.append(" StatusBooking = N'Chờ xác nhận'");
             }
             if ("confirmed".equals(statusBooking)) {
-                sql.append(" StatusBooking = N'Đã xác nhận'");
+                sql.append(" StatusBooking = N'Đã xác nhận'"); 
                 if (!deliveryStatus.equals("all")) {
                     sql.append(" AND DeliveryStatus = ");
-                    if (deliveryStatus.equals("notDelivered")) {
+                    if (deliveryStatus.equals("notDelivered"))
                         sql.append("N'Chưa giao'");
-                    }
-                    if (deliveryStatus.equals("delivered")) {
+                    if (deliveryStatus.equals("delivered"))
                         sql.append("N'Đã giao'");
-                    }
-                    if (deliveryStatus.equals("returned")) {
+                    if (deliveryStatus.equals("returned"))
                         sql.append("N'Đã trả'");
-                    }
                 }
             }
             if ("cancelled".equals(statusBooking)) {
-                sql.append("StatusBooking = N'Đã hủy'");
+                sql.append(" StatusBooking = N'Đã hủy'");
             }
         }
-        sql.append(" ORDER BY BookingDate DESC");
         try {
             stm = conn.prepareStatement(sql.toString());
             stm.setInt(1, accountID);
@@ -241,7 +241,7 @@ public class BookingDAO {
             stm.setInt(1, accountId);
             rs = stm.executeQuery();
             if (rs.next()) {
-                return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), 
                         rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
             }
         } catch (SQLException ex) {
@@ -250,40 +250,10 @@ public class BookingDAO {
         return null;
     }
 
-    public List<Map<String, Object>> getMotorcyclesByBookingID(String bookingID) {
-        PreparedStatement stm;
-        ResultSet rs;
-        List<Map<String, Object>> motorcycleList = new ArrayList<>();
-        String sql = "SELECT m.Model, COUNT(m.MotorcycleID) AS Quantity, m.Image, c.CategoryName "
-                + "FROM Motorcycle m "
-                + "JOIN [Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID "
-                + "JOIN Category c ON c.CategoryID = m.CategoryID "
-                + "WHERE md.MotorcycleDetailID IN (SELECT MotorcycleDetailID FROM [Booking Detail] WHERE BookingID = ?) "
-                + "GROUP BY m.Model, m.Image, c.CategoryName";
-        try {
-            stm = conn.prepareStatement(sql);
-            stm.setString(1, bookingID);
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                Map<String, Object> motorcycleInfo = new HashMap<>();
-                motorcycleInfo.put("Model", rs.getString("Model"));
-                motorcycleInfo.put("Quantity", rs.getInt("Quantity"));
-                motorcycleInfo.put("Image", rs.getString("Image"));
-                motorcycleInfo.put("CategoryName", rs.getString("CategoryName"));
-
-                motorcycleList.add(motorcycleInfo);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return motorcycleList;
-    }
-
     public static void main(String[] args) {
         BookingDAO bookingDAO = BookingDAO.getInstance();
-        System.out.println(bookingDAO.getMotorcycleDetailsByBookingID("BOOK000006"));
+//        System.out.println(bookingDAO.getMotorcycleDetailsByBookingID("BOOK000006"));
 //        System.out.println(bookingDAO.updateBookingStatus("BOOK000006", "Đã hủy"));
-//        System.out.println(bookingDAO.getLastestBooking(10));
-        System.out.println(bookingDAO.getMotorcyclesByBookingID("BOOK000006"));
+            System.out.println(bookingDAO.getLastestBooking(10));
     }
 }

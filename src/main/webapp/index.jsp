@@ -108,7 +108,7 @@
                 background: #ff6b6b;
                 outline: none;
             }
-            
+
             .form-control option{
                 color: black;
             }
@@ -278,7 +278,7 @@
                                     <div class="form-group">
                                         <label for="" class="label">Địa điểm trả xe</label>
                                         <select name="returnloc" id="returnlocation" class="form-control">
-                                          <option value="1">Da Nang Railway Station-202 Hải Phòng Street</option>                    
+                                            <option value="1">Da Nang Railway Station-202 Hải Phòng Street</option>                    
                                             <option value="2">Da Nang International Airport</option>
                                             <option value="3">Your own address</option>
                                         </select>
@@ -295,15 +295,15 @@
                                     </div>
                                     <div class="d-flex">
                                         <div class="form-group mr-2">
-                                        <label for="" class="label">Giờ nhận xe</label>
-                                        <input type="time" name="pickuptime" class="form-control" id="pickuptime" placeholder="Thời gian">
-                                    </div>
+                                            <label for="" class="label">Giờ nhận xe</label>
+                                            <input type="time" name="pickuptime" class="form-control" id="pickuptime" placeholder="Thời gian">
+                                        </div>
                                         <div class="form-group ml-2">
                                             <label for="" class="label">Giờ trả xe</label>
                                             <input type="time" name="returntime" class="form-control" id="returntime" placeholder="Thời gian">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <!-- <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4" /> -->
                                         <button type="submit"  class="btn btn-secondary py-3 px-4">Rent A Car Now</button>
@@ -674,120 +674,136 @@
         <script src="js/main.js"></script>
         <!-- thanh search -->
         <script>
-                function minimizeEventBox() {
-                    document.getElementById('eventBox').style.display = 'none';
-                    document.getElementById('showEventBtn').style.display = 'block';
-                }
+            function minimizeEventBox() {
+                document.getElementById('eventBox').style.display = 'none';
+                document.getElementById('showEventBtn').style.display = 'block';
+            }
 
-                function showEventBox() {
-                    document.getElementById('eventBox').style.display = 'block';
-                    document.getElementById('showEventBtn').style.display = 'none';
-                }
+            function showEventBox() {
+                document.getElementById('eventBox').style.display = 'block';
+                document.getElementById('showEventBtn').style.display = 'none';
+            }
 
-                function checkLogin(account) {
-                    if (account !== '') {
-                        window.location.href = 'event';
-                    } else {
-                        window.location.href = 'login.jsp';
+            function checkLogin(account) {
+                if (account !== '') {
+                    window.location.href = 'event';
+                } else {
+                    window.location.href = 'login.jsp';
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const requiredFields = [
+                    document.getElementById('pickupdate'),
+                    document.getElementById('pickuptime'),
+                    document.getElementById('returndate'),
+                    document.getElementById('returntime')
+
+                ];
+
+                // Function to format date to YYYY-MM-DD
+                const formatDate = (date) => {
+                    const d = new Date(date);
+                    let month = '' + (d.getMonth() + 1);
+                    let day = '' + d.getDate();
+                    const year = d.getFullYear();
+
+                    if (month.length < 2)
+                        month = '0' + month;
+                    if (day.length < 2)
+                        day = '0' + day;
+
+                    return [year, month, day].join('-');
+                };
+
+                const pickupdate = requiredFields[0];
+                const returndate = requiredFields[2];
+                // Set the min attribute for pickupdate
+                const today = new Date();
+                today.setDate(today.getDate() + 1); // Minimum pick-up date is tomorrow
+                pickupdate.min = formatDate(today);
+                returndate.min = formatDate(today);
+
+                pickupdate.addEventListener('change', () => {
+                    const pickupdateValue = new Date(pickupdate.value);
+                    pickupdateValue.setDate(pickupdateValue.getDate() + 1); // Minimum return date is one day after pick-up date
+                    returndate.min = formatDate(pickupdateValue);
+
+                    if (new Date(returndate.value) <= new Date(pickupdate.min)) {
+                        returndate.value = formatDate(pickupdateValue);
                     }
-                }
-                
-                 document.addEventListener('DOMContentLoaded', () => {                            
-                    const requiredFields = [
-                        document.getElementById('pickupdate'),
-                        document.getElementById('pickuptime'),
-                        document.getElementById('returndate'),
-                        document.getElementById('returntime')
-                    
-                    ];
-
-                    // Function to format date to YYYY-MM-DD
-                    const formatDate = (date) => {
-                        const d = new Date(date);
-                        let month = '' + (d.getMonth() + 1);
-                        let day = '' + d.getDate();
-                        const year = d.getFullYear();
-
-                        if (month.length < 2) month = '0' + month;
-                        if (day.length < 2) day = '0' + day;
-
-                        return [year, month, day].join('-');
-                    };
-
-                    const pickupdate = requiredFields[0];
-                    const returndate = requiredFields[2];
-                    // Set the min attribute for pickupdate
-                    const today = new Date();
-                    today.setDate(today.getDate() + 1); // Minimum pick-up date is tomorrow
-                    pickupdate.min = formatDate(today);
-                    returndate.min = formatDate(today);
-
-                    pickupdate.addEventListener('change', () => {
-                        const pickupdateValue = new Date(pickupdate.value);
-                        pickupdateValue.setDate(pickupdateValue.getDate() + 1); // Minimum return date is one day after pick-up date
-                        returndate.min = formatDate(pickupdateValue);
-
-                        if (new Date(returndate.value) <= new Date(pickupdate.min)) {
-                            returndate.value = formatDate(pickupdateValue);
-                        }
-                    });
-
-                    returndate.addEventListener('change', () => {
-                        const returndateValue = new Date(returndate.value);
-                        returndateValue.setDate(returndateValue.getDate() - 1); // Minimum return date is one day after pick-up date
-                        pickupdate.max = formatDate(returndateValue);
-
-                        if (new Date(returndate.value) <= new Date(pickupdate.min)) {
-                            pickupdate.value = formatDate(returndateValue);
-                        }
-                    });
-
-    //                // Initialize the values if they are empty
-    //                if (!pickupdate.value) {
-    //                    pickupdate.value = formatDate(today);
-    //                }
-    //
-    //                if (!returndate.value) {
-    //                    const defaultReturnDate = new Date(pickupdate.value);
-    //                    defaultReturnDate.setDate(defaultReturnDate.getDate() + 1);
-    //                    returndate.value = formatDate(defaultReturnDate);
-    //                }
-
-                    function checkFields() {
-                        var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
-                        const allFieldsFilled = requiredFields.every(field => field.value.trim() !== '');
-                        if (allFieldsFilled) {
-                            nextButton.style.pointerEvents = 'auto';
-                            nextButton.style.color = 'white';
-                            nextButton.style.background = '#4966b1';
-                        } else {
-                            nextButton.style.pointerEvents = 'none';
-                            nextButton.style.background = '#e8e8e8';
-                            nextButton.style.color = '#999';
-
-                             const currentStepIndex = 1;
-                             const steps = document.querySelectorAll('.wizard ul[role="tablist"] li');
-
-                             steps.forEach((step, index) => {
-                                 console.log(index);
-                                 if (index > currentStepIndex) {
-                                     step.classList.remove('done');
-                                     step.classList.add('disabled');
-                                 }
-                             });
-                        }
-                    }
-
-
-                    requiredFields.forEach(field => {
-                        field.addEventListener('input', checkFields);
-                    });
-
-
-                    // Initial check in case some fields are pre-filled
-                    checkFields();
-
                 });
+
+                returndate.addEventListener('change', () => {
+                    const returndateValue = new Date(returndate.value);
+                    returndateValue.setDate(returndateValue.getDate() - 1); // Minimum return date is one day after pick-up date
+                    pickupdate.max = formatDate(returndateValue);
+
+                    if (new Date(returndate.value) <= new Date(pickupdate.min)) {
+                        pickupdate.value = formatDate(returndateValue);
+                    }
+                });
+
+                //                // Initialize the values if they are empty
+                //                if (!pickupdate.value) {
+                //                    pickupdate.value = formatDate(today);
+                //                }
+                //
+                //                if (!returndate.value) {
+                //                    const defaultReturnDate = new Date(pickupdate.value);
+                //                    defaultReturnDate.setDate(defaultReturnDate.getDate() + 1);
+                //                    returndate.value = formatDate(defaultReturnDate);
+                //                }
+
+                function checkFields() {
+                    var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
+                    const allFieldsFilled = requiredFields.every(field => field.value.trim() !== '');
+                    if (allFieldsFilled) {
+                        nextButton.style.pointerEvents = 'auto';
+                        nextButton.style.color = 'white';
+                        nextButton.style.background = '#4966b1';
+                    } else {
+                        nextButton.style.pointerEvents = 'none';
+                        nextButton.style.background = '#e8e8e8';
+                        nextButton.style.color = '#999';
+
+                        const currentStepIndex = 1;
+                        const steps = document.querySelectorAll('.wizard ul[role="tablist"] li');
+
+                        steps.forEach((step, index) => {
+                            console.log(index);
+                            if (index > currentStepIndex) {
+                                step.classList.remove('done');
+                                step.classList.add('disabled');
+                            }
+                        });
+                    }
+                }
+
+
+                requiredFields.forEach(field => {
+                    field.addEventListener('input', checkFields);
+                });
+
+
+                // Initial check in case some fields are pre-filled
+                checkFields();
+
+            });
+            
+            function SidebarAction() {
+                const sidebar = document.getElementById('sidebar');
+                const sidebarToggle = document.getElementById('sidebarAction');
+
+                sidebar.classList.toggle('open');
+                sidebarToggle.classList.toggle('open');
+                if (sidebarToggle.classList.contains('open')) {
+                    const notificationDot = document.querySelector('.notification-dot');
+                    if (notificationDot) {
+                        notificationDot.style.display = 'none';
+                    }
+                }
+            }
         </script>
     </body>
 

@@ -40,30 +40,32 @@ public class BookingDAO {
         return instance;
     }
     
-    public void addBooing(String bookingID,String bookingDate,String startDate,String endDate,String deliveryLocation,String returnedLocation, Integer voucherID, int customerID){
+    public void addBooing(String bookingID,String bookingDate,String startDate,String endDate, String deliveryLocation,String returnedLocation, Integer voucherID, int customerID){
         String sql = " INSERT INTO [dbo].[Booking] (\n" +
                     "    [BookingID], \n" +
                     "    [BookingDate], \n" +
                     "    [StartDate], \n" +
                     "    [EndDate], \n" +
+                    "    [StatusBooking], \n" +
                     "    [DeliveryLocation], \n" +
                     "    [ReturnedLocation], \n" +
                     "    [DeliveryStatus], \n" +
                     "    [VoucherID], \n" +
                     "    [CustomerID]\n" +
                     ") VALUES"
-                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlNoVoucher = " INSERT INTO [dbo].[Booking] (\n" +
                     "    [BookingID], \n" +
                     "    [BookingDate], \n" +
                     "    [StartDate], \n" +
                     "    [EndDate], \n" +
+                    "    [StatusBooking], \n" +
                     "    [DeliveryLocation], \n" +
                     "    [ReturnedLocation], \n" +
                     "    [DeliveryStatus], \n" +
                     "    [CustomerID]\n" +
                     ") VALUES"
-                    + " (?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             if(voucherID == 0){
                 PreparedStatement ps = conn.prepareStatement(sqlNoVoucher);
@@ -71,10 +73,11 @@ public class BookingDAO {
                 ps.setString(2, bookingDate);
                 ps.setString(3, startDate);
                 ps.setString(4, endDate);
-                ps.setString(5, deliveryLocation);
-                ps.setString(6, returnedLocation);
-                ps.setString(7, "Chưa giao");
-                ps.setInt(8, customerID);
+                ps.setString(5, "Chờ xác nhận");
+                ps.setString(6, deliveryLocation);
+                ps.setString(7, returnedLocation);
+                ps.setString(8, "Chưa giao");
+                ps.setInt(9, customerID);
                 ps.executeUpdate();
             }else {
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -82,11 +85,12 @@ public class BookingDAO {
                 ps.setString(2, bookingDate);
                 ps.setString(3, startDate);
                 ps.setString(4, endDate);
-                ps.setString(5, deliveryLocation);
-                ps.setString(6, returnedLocation);
-                ps.setString(7, "Chưa giao");
-                ps.setInt(8, voucherID);
-                ps.setInt(9, customerID);
+                ps.setString(5, "Chờ xác nhận");
+                ps.setString(6, deliveryLocation);
+                ps.setString(7, returnedLocation);
+                ps.setString(8, "Chưa giao");
+                ps.setInt(9, voucherID);
+                ps.setInt(10, customerID);
                 ps.executeUpdate();
             }
             

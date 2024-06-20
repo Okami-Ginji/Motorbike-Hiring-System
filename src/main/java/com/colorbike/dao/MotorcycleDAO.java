@@ -146,6 +146,55 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         return null;
     }
     
+    
+    public LinkedHashMap<Motorcycle, Integer> getListMotorcycleByBookingId(String id) {
+        PreparedStatement stm;
+        ResultSet rs;
+        LinkedHashMap<Motorcycle, Integer> list = new LinkedHashMap<>();
+        try {
+            String sql = "SELECT\n" +
+                        "    m.MotorcycleID,\n" +
+                        "    m.Model,\n" +
+                        "    m.Image,\n" +
+                        "    m.Displacement,\n" +
+                        "    m.Description,\n" +
+                        "    m.MinAge,\n" +
+                        "    m.BrandID,\n" +
+                        "    m.CategoryID,\n" +
+                        "    m.PriceListID,\n" +
+                        "    COUNT(bd.BookingDetailID) AS Quantity\n" +
+                        "FROM\n" +
+                        "    [dbo].[Booking Detail] bd\n" +
+                        "JOIN\n" +
+                        "    [dbo].[Motorcycle Detail] md ON bd.MotorcycleDetailID = md.MotorcycleDetailID\n" +
+                        "JOIN\n" +
+                        "    [dbo].[Motorcycle] m ON md.MotorcycleID = m.MotorcycleID\n" +
+                        "WHERE\n" +
+                        "    bd.BookingID = ?\n" +
+                        "GROUP BY\n" +
+                        "    m.MotorcycleID,\n" +
+                        "    m.Model,\n" +
+                        "    m.Image,\n" +
+                        "    m.Displacement,\n" +
+                        "    m.Description,\n" +
+                        "    m.MinAge,\n" +
+                        "    m.BrandID,\n" +
+                        "    m.CategoryID,\n" +
+                        "    m.PriceListID;";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, id);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.put(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9)) ,
+                        rs.getInt(10));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public void addMotorcycle(Motorcycle motor) {
         String sql = "INSERT INTO [dbo].[Motorcycle]\n"
                 + "           ([MotorcycleID]\n"

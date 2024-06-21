@@ -1093,12 +1093,13 @@
             <div class="container">
               
                 <form method="POST" id="signup-form" class="signup-form" action="">
+                    
                     <div >
                         <button type="submit" id="paymentButton" style="display: none"></button>
                         <h3>Ngày giờ</h3>
                         <fieldset>
-                            <h2>NGÀY & GIỜ</h2>
-                            <p class="desc">Hãy lựa chọn ngày giờ và địa điểm bạn muốn giao / trả xe</p>
+                            <h2>NGÀY & GIỜ GIA HẠN</h2>
+                            <p class="desc">Hãy lựa chọn ngày giờ gia hạn</p>
                             <div class="form-row">
                                 <div class="form-flex">
                                     <div class="form-group">
@@ -1111,16 +1112,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="returndate" class="form-label">Ngày trả xe</label>
-                                        <input type="date" name="returndate" id="returndate"  value="${endDate}"/>
+                                        <input type="date" name="returndate" id="returndate"  />
                                     </div>
                                     <div class="form-group">
                                         <label for="returntime" class="form-label">Giờ trả xe</label>
-                                        <input type="time" name="returntime" id="returntime" value="${endTime}" />
+                                        <input type="time" name="returntime" id="returntime"  />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row location">
                                 <c:if test="${not empty booking}">
+                                    <input type="datetime" id="returndatepre" style="display: none" value="${booking.endDate}">
+                                    <input id="bookingid" style="display: none" value="${booking.bookingID}">
                                     <div class="form-flex">
                                     <div class="form-group">
                                         <label for="pickuplocation" class="form-label">Địa điểm nhận xe</label>
@@ -1133,7 +1136,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="returnlocation" class="form-label">Địa điểm trả xe</label>
-                                        <select name="returnlocation" id="returnlocation" class="form-label">
+                                        <select name="returnlocation" id="returnlocation" class="form-label" disabled>
                                             <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${booking.returnedLocation == "Da Nang Railway Station-202 Hải Phòng Street" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
                                             </option>
                                             <option value="Da Nang International Airport" ${booking.returnedLocation == "Da Nang International Airport" ? 'selected' : ''}>Da Nang International Airport</option>
@@ -1149,7 +1152,7 @@
                     
                         <h3>Xác nhận</h3>
                         <fieldset>
-                            <h2>XÁC NHẬN ĐƠN ĐẶT XE</h2>
+                            <h2>XÁC NHẬN ĐƠN GIA HẠN</h2>
                             <p class="desc">Hãy xác nhận thông tin và đồng ý với các điều khoản dịch vụ </p>
                             <div class="fieldset-content">
                                 <div class="scrollable-vertical">
@@ -1182,6 +1185,7 @@
                                                 <label for="returndatetext" class="form-label">Ngày trả xe</label>
                                                 <p id="returndatetext"></p>
                                             </div>
+                                            
                                         </div>
                                         <div class="form-comf-20">
                                             <div>
@@ -1239,7 +1243,7 @@
                                                 </div>
                                                 <div class="form-check">
                                                     <div class="checkbox-container">
-                                                        <select class="form-check-select" id="daily-select-${a.key.accessoryId}">
+                                                        <select class="form-check-select" id="daily-select-${a.key.accessoryId}" disabled>
                                                             <option value="${a.value}" selected}>${a.value}</option>
                                                         </select>
                                                         <c:if test="${a.key.price eq 0}">
@@ -1266,7 +1270,7 @@
                                 </div>
                             </div>
                         </fieldset>
-
+                        <h2 id="listpayment" style="display: none"><c:forEach items="${listPM}" var="pm">${pm.paymentAmount},</c:forEach></h2>
 
 
                         <h3>Thanh toán</h3>
@@ -1405,17 +1409,25 @@
 
                        if(currentIndex === 2){
                             // Lấy thẻ h2
-                            const dataH2 = document.getElementById('dataInput');
-
+                            const datatotalH2 = document.getElementById('dataInput');
+                            const datapaymentH2 = document.getElementById('listpayment');
                             // Lấy iframe
                             const iframe = document.getElementById('myIframe');
 
                             // Truyền dữ liệu từ thẻ h2 vào iframe khi thẻ h2 thay đổi
                             const sendDataToIframe = () => {
                                 // Lấy giá trị của thẻ h2
-                                const data = dataH2.textContent.replace(/[₫,]/g, '').trim();
-                                console.log(data);
-
+                                const dataTotal = datatotalH2.textContent.replace(/[₫,]/g, '').trim();
+                                const dataPayment = datapaymentH2.textContent.slice(0, -1).split(',').map(item => item.replace(/[₫,.]/g, '').trim());
+                                
+                                console.log(dataPayment);
+                                
+                                // Tạo một đối tượng chứa dữ liệu từ cả hai thẻ h2
+                                const data = {
+                                    dataTotal: dataTotal,
+                                    dataPayment: dataPayment
+                                };
+            
                                 // Truyền giá trị vào iframe
                                 iframe.contentWindow.postMessage(data, '*');
                             };
@@ -1426,7 +1438,7 @@
                             // Theo dõi sự thay đổi của thẻ h2 và gửi dữ liệu vào iframe
                             const observer = new MutationObserver(sendDataToIframe);
 
-                            observer.observe(dataH2, { childList: true, subtree: true });
+                            observer.observe(datatotalH2, { childList: true, subtree: true });
                        }
                        
                        function changePrice(){
@@ -1713,57 +1725,28 @@
                     document.getElementById('returnlocation')
                 ];
                 
-                // Function to format date to YYYY-MM-DD
-                const formatDate = (date) => {
-                    const d = new Date(date);
-                    let month = '' + (d.getMonth() + 1);
-                    let day = '' + d.getDate();
-                    const year = d.getFullYear();
+                const returnDatePreInput = document.getElementById("returndatepre");
+                const returnTimeInput = document.getElementById("returndate");
 
-                    if (month.length < 2) month = '0' + month;
-                    if (day.length < 2) day = '0' + day;
+                if (returnDatePreInput && returnTimeInput) {
+                    // Lấy giá trị của returndatepre
+                    let returnDatePre = new Date(returnDatePreInput.value);
 
-                    return [year, month, day].join('-');
-                };
-                
-                const pickupdate = requiredFields[0];
-                const returndate = requiredFields[2];
-                // Set the min attribute for pickupdate
-                const today = new Date();
-                today.setDate(today.getDate() + 1); // Minimum pick-up date is tomorrow
-                pickupdate.min = formatDate(today);
-                returndate.min = formatDate(today);
-                
-                pickupdate.addEventListener('change', () => {
-                    const pickupdateValue = new Date(pickupdate.value);
-                    pickupdateValue.setDate(pickupdateValue.getDate() + 1); // Minimum return date is one day after pick-up date
-                    returndate.min = formatDate(pickupdateValue);
+                    // Thêm 1 ngày
+                    returnDatePre.setDate(returnDatePre.getDate() + 1);
 
-                    if (new Date(returndate.value) <= new Date(pickupdate.min)) {
-                        returndate.value = formatDate(pickupdateValue);
-                    }
-                });
-                
-                returndate.addEventListener('change', () => {
-                    const returndateValue = new Date(returndate.value);
-                    returndateValue.setDate(returndateValue.getDate() - 1); // Minimum return date is one day after pick-up date
-                    pickupdate.max = formatDate(returndateValue);
+                    // Lấy giá trị ngày tháng năm
+                    let year = returnDatePre.getFullYear();
+                    let month = (returnDatePre.getMonth() + 1).toString().padStart(2, '0');
+                    let day = returnDatePre.getDate().toString().padStart(2, '0');
 
-                    if (new Date(returndate.value) <= new Date(pickupdate.min)) {
-                        pickupdate.value = formatDate(returndateValue);
-                    }
-                });
+                    // Chuyển đổi giá trị thành định dạng yyyy-MM-dd
+                    let minDate = year + "-" + month + "-" + day;
 
-                // Initialize the values if they are empty
-                if (!pickupdate.value) {
-                    pickupdate.value = formatDate(today);
-                }
+                    // Đặt giá trị min cho trường returntime
+                    returnTimeInput.min = minDate;
+                }   
 
-                if (!returndate.value) {
-                    const defaultReturnDate = new Date(pickupdate.value);
-                    defaultReturnDate.setDate(defaultReturnDate.getDate() + 1);
-                    returndate.value = formatDate(defaultReturnDate);
-                }
                 
                 function checkFields() {
                     var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
@@ -1902,39 +1885,6 @@
                 }
             }
                             
-            function incrementQuantity(motorcycleId) {
-                var checkbox = document.getElementById('daily-checkbox-' + motorcycleId);
-                var quantityInput = document.getElementById('daily-quantity-' + motorcycleId);
-                quantityInput.value = parseInt(quantityInput.value) + 1;
-                if (!checkbox.checked) {
-                    checkbox.checked = true;
-                    checkbox.parentElement.style.borderColor = '#28a745';
-                }
-                toggleBikeNextButton();
-            }
-
-            function decrementQuantity(motorcycleId) {
-                var checkbox = document.getElementById('daily-checkbox-' + motorcycleId);
-                var quantityInput = document.getElementById('daily-quantity-' + motorcycleId);
-                if (quantityInput.value > 0) {
-                    quantityInput.value = parseInt(quantityInput.value) - 1;
-                    if(parseInt(quantityInput.value) === 0){
-                        checkbox.checked = false;
-                        checkbox.parentElement.style.borderColor = '';
-                    }
-                }
-                toggleBikeNextButton();
-
-            }
-            
-            function clearQuantity(motorcycleId) {
-                var checkbox = document.getElementById('daily-checkbox-' + motorcycleId);
-                var quantityInput = document.getElementById('daily-quantity-' + motorcycleId);              
-                checkbox.checked = false;
-                checkbox.parentElement.style.borderColor = '';
-                quantityInput.value = 0;   
-                toggleBikeNextButton();
-            }
             
            
 
@@ -1956,7 +1906,7 @@
            // Kiểm tra nếu có dữ liệu nào được gửi từ servlet
         function handlePaymentStatus(data) {
             if (data.status === 'success') {
-                yourFunctionName(data);
+                ExtendBookingHandler(data);
             }
         }
         
@@ -1968,130 +1918,33 @@
             }
         });
 
-        
-        function collectAccessoryData() {
-            const accessories = [];
-            const savedItemsContainer = document.getElementById('savedItemsContainer');
-            // Lặp qua tất cả các phần tử có class "form-box"
-            savedItemsContainer.querySelectorAll('.form-box').forEach(box => {
-                const select = box.querySelector('.form-check-select');
-                const quantity = parseInt(select.value);
-                const id = select.id.split('-').pop();  // Lấy accessoryId từ id của select box
-                const priceLabel = box.querySelector('.form-check .checkbox-container label');
-                const priceText = priceLabel ? priceLabel.textContent.replace('₫', '').replace('.000', '').trim() : '0';
-                const price = priceText.includes('Free') ? 0 : parseInt(priceText, 10);
-                // Nếu số lượng lớn hơn 0, thêm vào danh sách
-                if (quantity > 0) {
-                    accessories.push({
-                        id: id,
-                        quantity: quantity.toString(),
-                        price: parseInt(price)
-                    });
-                }
-            });
-
-            return accessories;
-        }
-        function yourFunctionName() {
+       
+        function ExtendBookingHandler(dataReturn) {
             var formData = new FormData();
+            
 //            alert("Thanh toán thành công với mã giao dịch: " + data.txnRef);
              // Lấy các giá trị từ các thẻ <p>
-            var pickupDate = document.getElementById("pickupdatetext").textContent.trim();
-            var pickupTime = document.getElementById("pickuptimetext").textContent.trim();
-            var pickupLocation = document.getElementById("pickuploctext").textContent.trim();
-            var returnLocation = document.getElementById("returnloctext").textContent.trim();
+      
             var returnDate = document.getElementById("returndatetext").textContent.trim();
             var returnTime = document.getElementById("returntimetext").textContent.trim();
-            var accountId = document.getElementById("accountId").textContent.trim();
-            var fistname = document.getElementById("firstnametext").textContent.trim();
-            var lastname = document.getElementById("lastnametext").textContent.trim();
-            var phone = document.getElementById("phonetext").textContent.trim();
-            var email = document.getElementById("emailaddresstext").textContent.trim();
-            var address = document.getElementById("addresstext").textContent.trim();
-            var dob = document.getElementById("birthdaytext").textContent.trim();
-            var gender = document.getElementById("gendertext").textContent.trim();
-            var customerId = document.getElementById("customerId").textContent.trim();
-            var identityCard = document.getElementById("identityCard").value;
-            var issuedon = document.getElementById("issuedon").value;
-            var expdate = document.getElementById("expdate").value;
-            var total = document.getElementById("dataInput").textContent.trim();
-            
-            
-            // Chuyển các chuỗi ngày thành đối tượng Date
-            const pickupD = new Date(pickupDate);
-            const returnD = new Date(returnDate);
-
-            // Tính số ngày chênh lệch
-            const differenceInTime = returnD.getTime() - pickupD.getTime();
-            const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-            
-             // Quantity là số ngày chênh lệch giữa ngày trả và ngày pickup
-            const quantityDay = Math.max(1, Math.ceil(differenceInDays));
-            
-            const bikeDetails = [];
-
-            const checkboxMotorContainer = document.getElementById('savedBikeContainer');
-
-            // tất cả các select box trong div
-            const selectBoxes = checkboxMotorContainer.querySelectorAll('.form-check-select');
-
-            // Lặp qua từng select box và lấy thông tin nếu giá trị lớn hơn 0
-            selectBoxes.forEach(selectBox => {
-                const quantity = parseInt(selectBox.value);
-                if (quantity > 0) {
-                    const formMotorBox = selectBox.closest('.form-box');
-                    if (formMotorBox) {
-                        const bikeName = formMotorBox.querySelector('.motor-name').textContent;
-                        const bikePrice = formMotorBox.querySelector('.price-current').textContent;
-                        const price = parseInt(bikePrice.replace('₫', '').replace('.000/Day', '').trim());
-                        const totalPrice = quantityDay * price;
-//                        const price = priceLabel ? priceLabel.textContent.replace('₫', '').replace('.000', '').trim() : 0;
-                        // Lưu từng chiếc xe theo số lượng
-                        for (let i = 0; i < quantity; i++) {                                                                                    
-                            bikeDetails.push({ name: bikeName, price: totalPrice.toString() });
-                        }
-                    }
-                }
-            });
-            const accessoriesData = collectAccessoryData();
-
-            console.log(bikeDetails);
-            console.log(accessoriesData);
-            console.log(fistname);
-            var data = {
-                pickupDate: pickupDate + " " + pickupTime,
-                pickupLocation: pickupLocation,
-                returnLocation: returnLocation,
+            var returnTimePre = document.getElementById("returndatepre").value;
+            var bookingid = document.getElementById("bookingid").value;
+                       
+            var data = {     
+                bookingid: bookingid,
                 returnDate: returnDate + " " + returnTime,
-                accountId: accountId,          
-                fistname : fistname,
-                lastname : lastname, 
-                phone : phone,
-                email : email,
-                address: address,
-                dob: dob,
-                gender: gender,
-                customerId : customerId,
-                identityCard : identityCard,
-                issuedon : issuedon,
-                expdate : expdate,
-                bikeDetails: bikeDetails,
-                accessories: accessoriesData,
-                total : total
+                returnTimePre: returnTimePre,
+                amount: dataReturn.amount,
+                paymenttime: dataReturn.time            
             };
             
              // Convert object to JSON and append to formData
             formData.append("jsonData", JSON.stringify(data));
 
-            // Add file to formData (ensure you have input type="file" with id="fileInput")
-            var fileInput = document.getElementById('image');
-            if (fileInput.files.length > 0) {
-                formData.append("file", fileInput.files[0]);
-            }
             // Gửi dữ liệu tới servlet bằng AJAX
             $.ajax({
                 type: "POST",
-                url: "bookinghandler", // Thay đổi URL tới servlet của bạn
+                url: "extendhandler", // Thay đổi URL tới servlet của bạn
 //                data: JSON.stringify(data),              
 //                contentType: "application/json",
                 data: formData,

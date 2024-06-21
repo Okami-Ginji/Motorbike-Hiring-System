@@ -1737,9 +1737,11 @@
                             // Truyền dữ liệu từ thẻ h2 vào iframe khi thẻ h2 thay đổi
                             const sendDataToIframe = () => {
                                 // Lấy giá trị của thẻ h2
-                                const data = dataH2.textContent.replace(/[₫,.]/g, '').trim(); // Lấy dữ liệu và xóa dấu chấm và dấu chấm câu
-                                console.log(data);
-
+                                const dataTotal = dataH2.textContent.replace(/[₫,.]/g, '').trim(); // Lấy dữ liệu và xóa dấu chấm và dấu chấm câu
+                                console.log(dataTotal);
+                                const data = {
+                                    dataTotal: dataTotal
+                                };
                                 // Truyền giá trị vào iframe
                                 iframe.contentWindow.postMessage(data, '*');
                             };
@@ -2466,7 +2468,7 @@
            // Kiểm tra nếu có dữ liệu nào được gửi từ servlet
         function handlePaymentStatus(data) {
             if (data.status === 'success') {
-                yourFunctionName(data);
+                BookingHandler(data);
             }
         }
         
@@ -2502,8 +2504,9 @@
 
             return accessories;
         }
-        function yourFunctionName() {
+        function BookingHandler(dataReturn) {
             var formData = new FormData();
+            
 //            alert("Thanh toán thành công với mã giao dịch: " + data.txnRef);
              // Lấy các giá trị từ các thẻ <p>
             var pickupDate = document.getElementById("pickupdatetext").textContent.trim();
@@ -2587,7 +2590,9 @@
                 expdate : expdate,
                 bikeDetails: bikeDetails,
                 accessories: accessoriesData,
-                total : total
+                total : total,
+                amount: dataReturn.amount,
+                paymenttime: dataReturn.time              
             };
             
              // Convert object to JSON and append to formData

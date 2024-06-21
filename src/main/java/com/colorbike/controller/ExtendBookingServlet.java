@@ -9,11 +9,13 @@ import com.colorbike.dao.AccessoryDetailDAO;
 import com.colorbike.dao.BookingDAO;
 import com.colorbike.dao.BookingDetailDAO;
 import com.colorbike.dao.MotorcycleDAO;
+import com.colorbike.dao.PaymentDAO;
 import com.colorbike.dao.PriceListDAO;
 import com.colorbike.dto.Accessory;
 import com.colorbike.dto.Booking;
 import com.colorbike.dto.BookingDetail;
 import com.colorbike.dto.Motorcycle;
+import com.colorbike.dto.Payment;
 import com.colorbike.dto.PriceList;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,7 +50,7 @@ public class ExtendBookingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         BookingDAO daoB = BookingDAO.getInstance();
-        Booking booking = daoB.getBookingById("BOOK758713");
+        Booking booking = daoB.getBookingById("BOOK908040");
         request.setAttribute("booking", booking);
         
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -83,6 +85,10 @@ public class ExtendBookingServlet extends HttpServlet {
         PriceListDAO daoP = PriceListDAO.getInstance();
         List<PriceList> listP = daoP.getAllPriceList();
         request.setAttribute("listP", listP);
+        
+        PaymentDAO daoPM = PaymentDAO.getInstance();
+        List<Payment> listPM = daoPM.getListByBookingId(booking.getBookingID());
+        request.setAttribute("listPM", listPM);
         
         request.getRequestDispatcher("extendBooking.jsp").forward(request, response);
     }

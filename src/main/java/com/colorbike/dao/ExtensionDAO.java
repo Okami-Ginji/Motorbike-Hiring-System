@@ -47,7 +47,7 @@ public class ExtensionDAO implements Serializable{
                 + "           ,[BookingID]\n"
                 + "           ,[StaffID])\n"
                 + "     VALUES\n"
-                + "           (GETĐATE(), ?, ?, ?, ?, null)";
+                + "           (GETDATE(), ?, ?, ?, ?, null)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, previousEndDate);

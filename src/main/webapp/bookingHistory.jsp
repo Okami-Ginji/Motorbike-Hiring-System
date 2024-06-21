@@ -16,7 +16,6 @@
 
         <title>bs4 account tickets - Bootdey.com</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <style type="text/css">
@@ -347,7 +346,7 @@
                 <div class="col-lg-4 pb-5">
                     <div class="author-card pb-3">
                         <div class="author-card-cover"
-                             style="background-image: url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);"><a
+                             style="background-image: url('https:/bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg')"><a
                                 class="btn btn-style-1 btn-white btn-sm" href="#" data-toggle="tooltip" title
                                 data-original-title="You currently have 290 Reward points to spend"><i
                                     class="fa fa-award text-md"></i>&nbsp;290 points</a></div>
@@ -404,23 +403,28 @@
                             <option value="notDelivered" <c:if test="${'notDelivered' eq deliveryStatus}">selected</c:if>>Chưa giao</option>
                             <option value="delivered" <c:if test="${'delivered' eq deliveryStatus}">selected</c:if>>Đã giao</option>
                             <option value="returned" <c:if test="${'returned' eq deliveryStatus}">selected</c:if>>Đã trả</option>
-                        </select>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="caption-top table table-hover table-borderless table-striped" id="booking-table">
-                            <caption>History Booking</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Mã đơn</th>
-                                    <th scope="col">Ngày bắt đầu</th>
-                                    <th scope="col">Ngày trả xe</th>
-                                    <th scope="col">Số lượng xe</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Giá</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                            </select>
+                        </div>
+                        <div style="position: relative;" class="table-responsive">
+                            <table class="caption-top table table-hover table-borderless table-striped" id="booking-table">
+                                <caption>History Booking</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Mã đơn</th>
+                                        <th scope="col">Ngày bắt đầu</th>
+                                        <th scope="col">Ngày trả xe</th>
+                                        <th scope="col">Số lượng xe</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <c:if test="${empty listB}">
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; font-style: italic; padding: 18px; font-size: 17px;">Bạn chưa có lịch sử Booking</td>
+                                    </tr>
+                                </c:if>
                                 <c:forEach items="${listB}" var="o">
                                     <tr class="${status}">
                                         <td>${o.bookingID}</td>
@@ -448,7 +452,30 @@
                                             </c:forEach>
                                             <fmt:formatNumber value="${total*1000}" type="currency" currencySymbol="VNĐ" />
                                         </td>
-                                        <td class="text-center"><a href="bookingHistoryDetail?bookingId=${o.bookingID}" class="btn btn-info" title="" data-toggle="tooltip" onclick="showBookingDetail(this)" data-original-title="View"><i class="fa fa-eye"></i></a></td>
+                                        <td class="text-center">
+                                            <a href="bookingHistoryDetail?bookingId=${o.bookingID}" class="btn btn-info" title="View" data-toggle="tooltip" onclick="showBookingDetail(this)" data-original-title="View">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr style="height: auto; text-align: right;">
+                                        <td colspan="7" style="padding: 0px 11px; text-align: right;">
+                                            <input type="hidden" name="bookingId" value="${o.bookingID}" />
+
+                                            <c:set var="feedback" value="${feedbackMap[o.bookingID]}"/>
+                                            <c:choose>
+                                                <c:when test="${not empty feedback}">
+                                                    <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus == 'Đã trả'))}">
+                                                        <a style="color: green" id="view-review-button" class="text-decoration-none fst-italic" href="feedback?bookingId=${o.bookingID}">Xem đánh giá</a>
+                                                    </c:if>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus == 'Đã trả'))}">
+                                                        <a style="color: red" id="write-review-button" class="text-decoration-none fst-italic" href="feedback?bookingId=${o.bookingID}">Viết đánh giá</a>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -521,7 +548,5 @@
 
                                             }
         </script>
-
-
     </body>
 </html>

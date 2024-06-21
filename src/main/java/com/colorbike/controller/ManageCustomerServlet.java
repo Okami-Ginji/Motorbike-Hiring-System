@@ -5,33 +5,26 @@
 package com.colorbike.controller;
 
 import com.colorbike.dao.AccountDAO;
-import com.colorbike.dao.BookingDAO;
-import com.colorbike.dao.BrandDAO;
-import com.colorbike.dao.FeedbackDAO;
-import com.colorbike.dao.MotorcycleDAO;
-import com.colorbike.dao.PriceListDAO;
+import com.colorbike.dao.CustomerDAO;
 import com.colorbike.dto.Account;
-import com.colorbike.dto.Booking;
-import com.colorbike.dto.Brand;
-import com.colorbike.dto.Feedback;
-import com.colorbike.dto.Motorcycle;
-import com.colorbike.dto.PriceList;
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.colorbike.dto.Customer;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
- * @author DiepTCNN
+ * @author MINH TUAN
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "ManageCustomerServlet", urlPatterns = {"/manageCustomer"})
+public class ManageCustomerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,36 +38,18 @@ public class HomeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        FeedbackDAO fd = FeedbackDAO.getInstance(); //view feedback
-
-        MotorcycleDAO md = MotorcycleDAO.getInstance();//view featured motorbikes
-        BrandDAO bd = BrandDAO.getInstance();
-        PriceListDAO pd = PriceListDAO.getInstance();
-        List<Feedback> listF = fd.getAllFeedbacks();
-        List<Motorcycle> listM = md.getTop5MotorcycleTheMostRental();
-        List<Brand> listB = bd.getAllBrand();
-        List<PriceList> listP = pd.getAllPriceList();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-
-        if (account != null) {
-            Booking book = BookingDAO.getInstance().getLastestBooking(account.getAccountId());
-            if (book != null) {
-                request.setAttribute("book", book);
-                request.setAttribute("statusBooking", book.getStatusBooking());
-            } else {
-                request.removeAttribute("book");
-                request.removeAttribute("statusBooking");
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ManageCustomerServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ManageCustomerServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        session.setAttribute("account", account);
-        request.setAttribute("listF", listF);
-        request.setAttribute("listM", listM);
-        request.setAttribute("listB", listB);
-        request.setAttribute("listP", listP);
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,9 +62,17 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        List<Account> accounts = AccountDAO.getInstance().getAllCustomerAccount();
+        Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
+        Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
+
+        session.setAttribute("accounts", accounts);
+        session.setAttribute("customerMap", customerMap);
+        session.setAttribute("bookingCount", bookingCount);
+        request.getRequestDispatcher("manageCustomer.jsp").forward(request, response);
     }
 
     /**
@@ -103,7 +86,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**

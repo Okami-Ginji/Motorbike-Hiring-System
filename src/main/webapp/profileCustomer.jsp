@@ -246,6 +246,9 @@
                 height: calc(100% - 10px);
                 top: 5px;
             }
+            .form-control[readonly] {
+                background-color: #e9ecef;
+            }
         </style>
     </head>
 

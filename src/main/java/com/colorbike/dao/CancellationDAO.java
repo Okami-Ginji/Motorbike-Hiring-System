@@ -29,7 +29,7 @@ public class CancellationDAO {
         return instance;
     }
 
-    public boolean insertCancellation(String note, String bookingId) {
+    public boolean insertCancellation(String note, String bookingId) {  //sẽ update thêm staff từ từ đã, hiện tại staff đang null
         String sql = "INSERT INTO Cancellation (CancellationDate, Note, BookingID) VALUES (CURRENT_TIMESTAMP, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

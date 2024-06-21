@@ -36,18 +36,7 @@ public class RegisterServlet extends HttpServlet {
                 String image = request.getParameter("image");
                 String dob = request.getParameter("dob");
                 String username = request.getParameter("username");
-                if (firstname == null || firstname.isEmpty()
-                        || lastname == null || lastname.isEmpty()
-                        || gender == null || gender.isEmpty()
-                        || address == null || address.isEmpty()
-                        || phone == null || phone.isEmpty()
-                        || image == null || image.isEmpty()
-                        || dob == null || dob.isEmpty()
-                        || username == null || username.isEmpty()) {
-
-                    request.setAttribute("info", "Please enter full information!!!"); 
-                    request.getRequestDispatcher("register.jsp").forward(request, response);
-                }
+                
                 HttpSession session = request.getSession();
                 session.setAttribute("firstname", firstname);
                 session.setAttribute("lastname", lastname);
@@ -59,7 +48,6 @@ public class RegisterServlet extends HttpServlet {
                 session.setAttribute("username", username);
                 session.setAttribute("password", password);
                 session.setAttribute("email", email);
-
                 // Generate verification code
                 String verificationCode = SendEmail.generateRandomFourDigits();
                 // Save verification code in session

@@ -310,26 +310,31 @@
                         </div>
                     </div>
 
-                     <div class="filter-search filter-group">
+                    <div class="filter-search filter-group">
                         <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
                             <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
                             <button style="font-weight:bold; color: #28a745;background-image: linear-gradient(to right, #75fed9, #00ff55);border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
                         </form>
                     </div>
                 </div>
-                    <div>
-                        <button class="filter-button" onclick="showResults()">Xem kết quả</button>
-                    </div>
-                    <div class="selected-filters" id="selectedFilters">
-                        <!-- Selected filters will be displayed here -->
-                    </div>
+                <div>
+                    <button class="filter-button" onclick="showResults()">Xem kết quả</button>
                 </div>
+                <div class="selected-filters" id="selectedFilters">
+                    <!-- Selected filters will be displayed here -->
+                </div>
+            </div>
         </section>
 
         <!-- end search -->
         <section class="ftco-section bg-light">
             <div class="container">
                 <div class="row">
+                    <c:if test="${not empty noResults}">
+                        <div class="text-center no-results-message">
+                            Không có mẫu xe nào phù hợp với tìm kiếm của bạn.
+                        </div>
+                    </c:if>
                     <c:forEach var="motorbike" items="${motorcycles}">
                         <div class="col-lg-4">
                             <div class="car-wrap rounded ftco-animate">

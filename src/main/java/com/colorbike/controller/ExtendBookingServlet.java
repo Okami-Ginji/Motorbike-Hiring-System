@@ -5,14 +5,17 @@
 package com.colorbike.controller;
 
 import com.colorbike.dao.AccessoryDAO;
-import com.colorbike.dao.AccountDAO;
-import com.colorbike.dao.CustomerDAO;
+import com.colorbike.dao.AccessoryDetailDAO;
+import com.colorbike.dao.BookingDAO;
+import com.colorbike.dao.BookingDetailDAO;
 import com.colorbike.dao.MotorcycleDAO;
+import com.colorbike.dao.PaymentDAO;
 import com.colorbike.dao.PriceListDAO;
 import com.colorbike.dto.Accessory;
-import com.colorbike.dto.Account;
-import com.colorbike.dto.Customer;
+import com.colorbike.dto.Booking;
+import com.colorbike.dto.BookingDetail;
 import com.colorbike.dto.Motorcycle;
+import com.colorbike.dto.Payment;
 import com.colorbike.dto.PriceList;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,9 +24,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,8 +33,8 @@ import java.util.List;
  *
  * @author Administrator
  */
-@WebServlet(name = "BookingServlet", urlPatterns = {"/booking"})
-public class BookingServlet extends HttpServlet {
+@WebServlet(name = "ExtendBookingServlet", urlPatterns = {"/extend"})
+public class ExtendBookingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,49 +49,49 @@ public class BookingServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String pickuploc = request.getParameter("pickuploc");
-        String returnloc = request.getParameter("returnloc");
-        String pickUpDateStr = request.getParameter("pickupdate");
-        String returnDateStr = request.getParameter("returndate");
-        String pickUpTime = request.getParameter("pickuptime");
-        String returnTime = request.getParameter("returntime");
-        request.setAttribute("pickuploc", pickuploc);
-        request.setAttribute("returnloc", returnloc);
-        request.setAttribute("pickupdate", pickUpDateStr);
-        request.setAttribute("returndate", returnDateStr);
-        request.setAttribute("pickuptime", pickUpTime);
-        request.setAttribute("returntime", returnTime);
-       
+        String bookingid = request.getParameter("bookingid");
+        BookingDAO daoB = BookingDAO.getInstance();
+        Booking booking = daoB.getBookingById(bookingid);
+        request.setAttribute("booking", booking);
+        
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+        try {
+            Date dateStart = dateTimeFormat.parse(booking.getStartDate());
+            Date dateEnd = dateTimeFormat.parse(booking.getEndDate());
+            String dateStartPart = dateFormat.format(dateStart);
+            String timeStartPart = timeFormat.format(dateStart);
+            String dateEndPart = dateFormat.format(dateEnd);
+            String timeEndPart = timeFormat.format(dateEnd);
+            
+            request.setAttribute("startDate", dateStartPart);
+            request.setAttribute("startTime", timeStartPart);
+            request.setAttribute("endDate", dateEndPart);
+            request.setAttribute("endTime", timeEndPart);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         MotorcycleDAO daoM = MotorcycleDAO.getInstance();
-        //Tu mototcycle vao
-        String motorcycleid = request.getParameter("motorcycleid");
-        Motorcycle motorcycle =daoM.getMotorcycleByid(motorcycleid);
-        request.setAttribute("chosenmotor", motorcycleid);
+        LinkedHashMap<Motorcycle, Integer> listM = daoM.getListMotorcycleByBookingId(booking.getBookingID());
+        request.setAttribute("listM", listM );
         
         
-        List<Motorcycle> listM = daoM.getAll();
-        LinkedHashMap<String, String> map = daoM.getAllAvailableMotorCycle();
-        request.setAttribute("listM", listM);
-        request.setAttribute("listMA", map);
+        AccessoryDAO daoA = AccessoryDAO.getInstance();
+        LinkedHashMap<Accessory, Integer>  listA = daoA.getListByBookingId(booking.getBookingID());
+        request.setAttribute("listA", listA);
         
         PriceListDAO daoP = PriceListDAO.getInstance();
         List<PriceList> listP = daoP.getAllPriceList();
         request.setAttribute("listP", listP);
-                
-        AccessoryDAO daoA = AccessoryDAO.getInstance();
-        List<Accessory> listA = daoA.getAll();
-        request.setAttribute("listA", listA);
         
-        CustomerDAO daoC = CustomerDAO.getInstance();
-        List<Customer> listC = daoC.getAll();
-        request.setAttribute("listC", listC);
+        PaymentDAO daoPM = PaymentDAO.getInstance();
+        List<Payment> listPM = daoPM.getListByBookingId(booking.getBookingID());
+        request.setAttribute("listPM", listPM);
         
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        session.setAttribute("account", AccountDAO.getInstance().checkLogin("thinhtvde170182@fpt.edu.vn", "Lb4_aa"));
-//        session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
-//        session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
-        request.getRequestDispatcher("booking.jsp").forward(request, response);
+        request.getRequestDispatcher("extendBooking.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

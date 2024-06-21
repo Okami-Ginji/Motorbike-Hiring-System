@@ -4,7 +4,6 @@
  */
 package com.colorbike.controller;
 
-
 import com.colorbike.dao.BrandDAO;
 import com.colorbike.dao.CategoryDAO;
 import com.colorbike.dao.DemandDAO;
@@ -28,7 +27,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 @WebServlet(name = "SearchCriteriaServlet", urlPatterns = {"/searchCriteria"})
 public class SearchCriteriaServlet extends HttpServlet {
@@ -54,7 +52,7 @@ public class SearchCriteriaServlet extends HttpServlet {
         if (count % 9 != 0) {
             endPage++;
         }
-        
+
         String[] priceRanges = request.getParameterValues("priceRanges");
         String[] brands = request.getParameterValues("brands");
         String[] categories = request.getParameterValues("categories");
@@ -116,7 +114,6 @@ public class SearchCriteriaServlet extends HttpServlet {
             priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
         }
 
-
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);
@@ -126,6 +123,9 @@ public class SearchCriteriaServlet extends HttpServlet {
         request.setAttribute("categoryMap", categoryMap);
         request.setAttribute("priceMap", priceMap);
         request.setAttribute("motorcycles", motorcycles);
+        if (motorcycles.isEmpty()) {
+            request.setAttribute("noResults", true);
+        }
         request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
     }
 
@@ -133,6 +133,5 @@ public class SearchCriteriaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
 
 }

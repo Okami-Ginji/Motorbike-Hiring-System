@@ -96,6 +96,7 @@
                          <script>
                             window.localStorage.setItem('payment_status', JSON.stringify({
                                 status: 'success',
+                                time: '<%=request.getParameter("vnp_PayDate")%>',
                                 txnRef: '<%= request.getParameter("vnp_TxnRef") %>',
                                 amount: '<%= request.getParameter("vnp_Amount") %>',
                                 orderInfo: '<%= request.getParameter("vnp_OrderInfo") %>'

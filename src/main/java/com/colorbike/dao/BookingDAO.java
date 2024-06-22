@@ -40,32 +40,32 @@ public class BookingDAO {
         return instance;
     }
     
-    public void addBooking(String bookingID, String bookingDate, String startDate, String endDate, String deliveryLocation, String returnedLocation, Integer voucherID, int customerID) {
-        String sql = " INSERT INTO [dbo].[Booking] (\n"
-                + "    [BookingID], \n"
-                + "    [BookingDate], \n"
-                + "    [StartDate], \n"
-                + "    [EndDate], \n"
-                + "    [StatusBooking], \n"
-                + "    [DeliveryLocation], \n"
-                + "    [ReturnedLocation], \n"
-                + "    [DeliveryStatus], \n"
-                + "    [VoucherID], \n"
-                + "    [CustomerID]\n"
-                + ") VALUES"
-                + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String sqlNoVoucher = " INSERT INTO [dbo].[Booking] (\n"
-                + "    [BookingID], \n"
-                + "    [BookingDate], \n"
-                + "    [StartDate], \n"
-                + "    [EndDate], \n"
-                + "    [StatusBooking], \n"
-                + "    [DeliveryLocation], \n"
-                + "    [ReturnedLocation], \n"
-                + "    [DeliveryStatus], \n"
-                + "    [CustomerID]\n"
-                + ") VALUES"
-                + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void addBooing(String bookingID,String bookingDate,String startDate,String endDate, String deliveryLocation,String returnedLocation, Integer voucherID, int customerID){
+        String sql = " INSERT INTO [dbo].[Booking] (\n" +
+                    "    [BookingID], \n" +
+                    "    [BookingDate], \n" +
+                    "    [StartDate], \n" +
+                    "    [EndDate], \n" +
+                    "    [StatusBooking], \n" +
+                    "    [DeliveryLocation], \n" +
+                    "    [ReturnedLocation], \n" +
+                    "    [DeliveryStatus], \n" +
+                    "    [VoucherID], \n" +
+                    "    [CustomerID]\n" +
+                    ") VALUES"
+                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlNoVoucher = " INSERT INTO [dbo].[Booking] (\n" +
+                    "    [BookingID], \n" +
+                    "    [BookingDate], \n" +
+                    "    [StartDate], \n" +
+                    "    [EndDate], \n" +
+                    "    [StatusBooking], \n" +
+                    "    [DeliveryLocation], \n" +
+                    "    [ReturnedLocation], \n" +
+                    "    [DeliveryStatus], \n" +
+                    "    [CustomerID]\n" +
+                    ") VALUES"
+                    + " (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             if (voucherID == 0) {
                 PreparedStatement ps = conn.prepareStatement(sqlNoVoucher);

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -44,6 +45,36 @@ public class AccessoryDAO implements Serializable, DAO<Accessory> {
             while (rs.next()) {
                 list.add(new Accessory(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getInt(6)));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public LinkedHashMap<Accessory, Integer> getListByBookingId(String id) {
+        LinkedHashMap<Accessory, Integer> list = new LinkedHashMap<>();
+        String sql = "SELECT\n" +
+                "    a.AccessoryID,\n" +
+                "    a.AccessoryName,\n" +
+                "    a.AccessoryImage,\n" +
+                "    a.AccessoryImageIcon,\n" +
+                "    a.AccessoryDescription,\n" +
+                "    ad.Quantity,\n" +
+                "    ad.TotalPrice\n" +
+                "FROM\n" +
+                "    [dbo].[AccessoryDetail] ad\n" +
+                "JOIN\n" +
+                "    [dbo].[Accessory] a ON ad.AccessoryID = a.AccessoryID\n" +
+                "WHERE\n" +
+                "    ad.BookingID = ?;";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.put(new Accessory(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getInt(7)),rs.getInt(6));
             }
         } catch (SQLException e) {
             System.out.println(e);

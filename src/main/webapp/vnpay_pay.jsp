@@ -285,7 +285,7 @@
                 <div class="fw-bolder mb-4">
                     <span class="ps-1 font-a" id="totalprice">₫1,000,000 VND</span>
                 </div>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column" >
                     <div class="d-flex align-items-center justify-content-between text">
                         <span class="">Tiền cọc:</span>
                         <span class="ps-1 font-a">50%</span></span>
@@ -294,22 +294,9 @@
                         <span>Trả trước:</span>
                         <span class="ps-1 font-a" id="halftotal">₫500,000 VND</span></span>
                     </div>
-<!--                    <div class="border-bottom mb-4"></div>
-                    <div class="d-flex flex-column mb-4">
-                        <span class="far fa-file-alt text"><span class="ps-2">Invoice ID:</span></span>
-                        <span class="ps-3">SN8478042099</span>
+                    <div id="container-price">
+                        
                     </div>
-                    <div class="d-flex flex-column mb-5">
-                        <span class="far fa-calendar-alt text"><span class="ps-2">Next payment:</span></span>
-                        <span class="ps-3">22 July, 2023</span>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between text mt-5">
-                        <div class="d-flex flex-column text">
-                            <span>Customer Support:</span>
-                            <span>online chat 24/7</span>
-                        </div>
-                        <div class="btn btn-primary rounded-circle"><span class="fas fa-comment-alt"></span></div>
-                    </div>-->
                 </div>
             </div>
             <div class="card box2 shadow-sm">
@@ -478,12 +465,72 @@
             window.addEventListener('message', (event) => {
                 // Gán dữ liệu nhận được vào thẻ input
                 const receivedDataInput = document.getElementById('amount');
-                const data = parseFloat(event.data);
+                const data = parseFloat(event.data.dataTotal);
                 document.getElementById("totalprice").textContent = "₫" + data.toLocaleString() + " VND";
+                
+                let total;
                 if (!isNaN(data)) {
                     const halfAmount = Math.round(data / 2);
                     receivedDataInput.value = halfAmount;
+                    total = halfAmount;
                     document.getElementById("halftotal").textContent = "₫" + halfAmount.toLocaleString() + " VND";
+                }
+                
+                const formatCurrency = (number) => {
+                    return '₫' + number.toLocaleString() + ' VND';
+                };
+                const container = document.getElementById('container-price');
+                container.innerHTML = '';
+                const listPayment = event.data.dataPayment;
+                
+                if(listPayment){
+                    // Tạo thẻ div mới
+                    const newDiv = document.createElement('div');
+                    newDiv.className = 'd-flex align-items-center justify-content-between text';
+
+
+                    const spanLabel = document.createElement('span');
+                    spanLabel.textContent = 'Đã cọc:';
+                    newDiv.appendChild(spanLabel);
+
+                    listPayment.forEach(amount =>{
+                          // Tạo thẻ span đầu tiên
+                   
+                    // Tạo thẻ span thứ hai
+                        const spanContent = document.createElement('span');
+                        spanContent.className = 'ps-1 font-a';
+                        const num = parseFloat(amount)/10;
+                        total -= num;
+                        spanContent.textContent = "- " + formatCurrency(num);
+                        
+                        // Thêm các thẻ span vào thẻ div mới
+
+                        newDiv.appendChild(spanContent);
+                        
+                    });
+                  
+
+                    // Thêm thẻ div mới vào container
+                    container.appendChild(newDiv);
+                    
+                    const newDivTotal = document.createElement('div');
+                    newDivTotal.className = 'd-flex align-items-center justify-content-between text mb-4';
+                    newDivTotal.style.borderTop = 'solid';
+                    newDivTotal.style.marginTop = '5px';
+                    newDivTotal.style.paddingTop = '5px';
+                    
+                    const spanLabelTotal = document.createElement('span');
+                    spanLabelTotal.textContent = 'Phí cọc mới:';
+                    newDivTotal.appendChild(spanLabelTotal);
+                    
+                    const spanContentTotal = document.createElement('span');
+                    spanContentTotal.className = 'ps-1 font-a';
+                    spanContentTotal.textContent = formatCurrency(total);
+                    
+                    newDivTotal.appendChild(spanContentTotal);
+                    
+                    container.appendChild(newDivTotal);
+                    receivedDataInput.value = total;
                 }
                 
             });

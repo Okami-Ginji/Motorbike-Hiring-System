@@ -62,9 +62,9 @@ public class LoginServlet extends HttpServlet {
         Cookie rememberMeCookie = new Cookie("rem", rememberMe);
 
         if (rememberMe != null) {// có chọn
-            usernameCookie.setMaxAge(10); // 30 days
-            passwordCookie.setMaxAge(10); // 30 days
-            rememberMeCookie.setMaxAge(10); // 30 days
+            usernameCookie.setMaxAge(60*60*24); // 30 days
+            passwordCookie.setMaxAge(60*60*24); // 30 days
+            rememberMeCookie.setMaxAge(60*60*24); // 30 days
         } else { // không chọn
             usernameCookie.setMaxAge(0); // Delete cookie
             passwordCookie.setMaxAge(0); // Delete cookie

@@ -112,14 +112,14 @@ public class ExtendBookingHandlerServlet extends HttpServlet {
         }
         // Convert JSON data to HashMap
         Gson gson = new Gson();
-         try {
+        try {
              Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
              dataMap.putAll(gson.fromJson((String) dataMap.get("jsonData"), type));
-         } catch (Exception e) {
+        } catch (Exception e) {
              e.printStackTrace();
              response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JSON format");
              return;
-         }
+        }
        
         // Process other data from dataMap
         String bookingid = (String) dataMap.get("bookingid");

@@ -1958,6 +1958,8 @@
                 }
             });
 //            window.location.href = 'index.jsp';
+
+        
         }
 
         // Nếu dữ liệu đã có sẵn trong LocalStorage khi trang được tải lại

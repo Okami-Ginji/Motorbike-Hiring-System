@@ -23,8 +23,7 @@ public class LoginGoogleServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String code = request.getParameter("code");
         String accessToken = GoogleLogin.getToken(code);
-        String jsonAcc = GoogleLogin.getUserInfo(accessToken);
-        response.getWriter().println(jsonAcc);
+        //String jsonAcc = GoogleLogin.getUserInfo(accessToken);
         String email = GoogleLogin.getEmail(accessToken);
         Account acc = AccountDAO.getInstance().getAccountByEmail(email);
         if (acc == null) { //chưa có account

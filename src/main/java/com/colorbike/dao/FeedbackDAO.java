@@ -77,11 +77,12 @@ public class FeedbackDAO implements Serializable {
                 int productRate = rs.getInt(3);
                 int serviceRate = rs.getInt(4);
                 int deliveryRate = rs.getInt(5);
-                int customerId = rs.getInt(6);
-                String bookingId = rs.getString(7);
-                String cusName = rs.getString(8);
-                String cusImg = rs.getString(9);
-                Feedback fb = new Feedback(fbId, content, productRate, serviceRate, deliveryRate, cusName, cusImg, customerId, bookingId);
+                String feedbackTime = rs.getString(6);
+                int customerId = rs.getInt(7);
+                String bookingId = rs.getString(8);
+                String cusName = rs.getString(9);
+                String cusImg = rs.getString(10);
+                Feedback fb = new Feedback(fbId, content, productRate, serviceRate, deliveryRate, feedbackTime, cusName, cusImg, customerId, bookingId);
                 list.add(fb);
             }
         } catch (Exception ex) {

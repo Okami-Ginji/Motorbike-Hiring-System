@@ -66,7 +66,6 @@ public class GetOtpServlet extends HttpServlet {
             String dob = (String) session.getAttribute("dob");
             String username = (String) session.getAttribute("username");
             String password = (String) session.getAttribute("password");
-            //response.getWriter().println(firstname + " | " + lastname + " | " + gender + " | " + dob + " | " + address + " | " + phone + " | " + image + " | " + email + " | " + username + " | " + password);
             dao.createANewAccount(firstname, lastname, gender, dob, address, phone, image, email, username, password);
             request.setAttribute("msg", "Create a new account successfully!");
             request.getRequestDispatcher("login.jsp").forward(request, response);

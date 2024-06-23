@@ -27,6 +27,7 @@ public class Feedback implements Serializable {
     private int productRate;
     private int serviceRate;
     private int deliveryRate;
+    private String feedbackTime;
     private String customerName;
     private String customerImage;
     private int CustomerId;

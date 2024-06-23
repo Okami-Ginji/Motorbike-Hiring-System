@@ -259,7 +259,7 @@ public class AccountDAO implements Serializable {
         return null;
     }
 
-    public List<Account> getAllCustomerAccount() {
+    public List<Account> getListAccountByRole(int role) {
         List<Account> listA = new ArrayList<>();
         String sql = "SELECT \n"
                 + "    AccountID,\n"
@@ -273,11 +273,12 @@ public class AccountDAO implements Serializable {
                 + "    Email,\n"
                 + "    Username,\n"
                 + "    Password,\n"
-                + "    RoleID FROM Account WHERE [RoleID] = 1";
+                + "    RoleID FROM Account WHERE [RoleID] = ?";
         PreparedStatement st;
         ResultSet rs;
         try {
             st = conn.prepareStatement(sql);
+            st.setInt(1, role);
             rs = st.executeQuery();
             while (rs.next()) {
                 listA.add(new Account(
@@ -331,7 +332,9 @@ public class AccountDAO implements Serializable {
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
 //        System.out.println(dao.getAllCustomerAccount());
         System.out.println(dao.getBookingCountbyAccount());
-
+        for(Account x: dao.getListAccountByRole(1)){
+            System.out.println(x);
+        }
     }
 
 }

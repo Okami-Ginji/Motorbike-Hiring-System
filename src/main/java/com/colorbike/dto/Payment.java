@@ -21,6 +21,6 @@ public class Payment implements Serializable{
     private String bookingId;
     private String paymentMethod;
     private String paymentDate;
-    private String paymentAmount;
+    private double paymentAmount;
     private String paymentStatus;
 }

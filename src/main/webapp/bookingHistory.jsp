@@ -422,7 +422,7 @@
                                 <tbody>
                                 <c:if test="${empty listB}">
                                     <tr>
-                                        <td colspan="7" style="text-align: center; font-style: italic; padding: 18px; font-size: 17px;">Bạn chưa có lịch sử Booking</td>
+                                        <td colspan="7" style="text-align: center; font-style: italic; padding: 18px; font-size: 17px;">Không có thông tin Booking nào ở đây</td>
                                     </tr>
                                 </c:if>
                                 <c:forEach items="${listB}" var="o">

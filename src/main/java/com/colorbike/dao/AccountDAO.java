@@ -273,6 +273,48 @@ public class AccountDAO implements Serializable {
                 + "    Email,\n"
                 + "    Username,\n"
                 + "    Password,\n"
+                + "    RoleID FROM Account WHERE [RoleID] = 1 or [RoleID] = 4";
+        PreparedStatement st;
+        ResultSet rs;
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                listA.add(new Account(
+                        rs.getInt("AccountID"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("Gender"),
+                        rs.getString("DayOfBirth"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Image"),
+                        rs.getString("Email"),
+                        rs.getString("UserName"),
+                        rs.getString("Password"),
+                        rs.getInt("RoleID")
+                ));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listA;
+    }
+
+    public List<Account> getAvailableCustomerAccount() {
+        List<Account> listA = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    AccountID,\n"
+                + "    FirstName,\n"
+                + "    LastName,\n"
+                + "    Gender,\n"
+                + "    FORMAT(DayOfBirth, 'dd-MM-yyyy') AS DayOfBirth,\n"
+                + "    Address,\n"
+                + "    PhoneNumber,\n"
+                + "    Image,\n"
+                + "    Email,\n"
+                + "    Username,\n"
+                + "    Password,\n"
                 + "    RoleID FROM Account WHERE [RoleID] = 1";
         PreparedStatement st;
         ResultSet rs;
@@ -324,14 +366,173 @@ public class AccountDAO implements Serializable {
         return counts;
     }
 
+    public Map<Integer, Integer> updateRoleAndGetStatuses(int accountId, boolean isActive) {
+        String sql = "UPDATE Account SET RoleID = ? WHERE AccountID = ?";
+        int newRoleId = isActive ? 1 : 4;  // 1 for active, 4 for disable
+        PreparedStatement st;
+        ResultSet rs;
+
+        try {
+            st = conn.prepareStatement(sql);
+            st.setInt(1, newRoleId);
+            st.setInt(2, accountId);
+            st.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        Map<Integer, Integer> roleStatuses = new HashMap<>();
+        String query = "SELECT AccountID, RoleID FROM Account";
+        try {
+            st = conn.prepareStatement(query);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                int accId = rs.getInt("AccountID");
+                int roleId = rs.getInt("RoleID");
+                roleStatuses.put(accId, roleId);
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return roleStatuses;
+    }
+
+    public List<Account> searchAccountsbyUserNameandName(String username, String name) {
+        List<Account> list = new ArrayList<>();
+        PreparedStatement st;
+        ResultSet rs;
+
+        try {
+            StringBuilder sql = new StringBuilder("SELECT * FROM Account WHERE 1=1");
+            if (!username.isEmpty() && !name.isEmpty()) {
+                // Nếu cả hai điều kiện không rỗng, sử dụng OR
+                sql.append(" AND (UserName LIKE ? OR CONCAT(FirstName, ' ', LastName) LIKE ?)");
+            } else if (!username.isEmpty() || !name.isEmpty()) {
+                // Nếu một trong hai điều kiện không rỗng, sử dụng AND
+                if (!username.isEmpty()) {
+                    sql.append(" AND UserName LIKE ?");
+                } else if (!name.isEmpty()) {
+                    sql.append(" AND CONCAT(FirstName, ' ', LastName) LIKE ?");
+                }
+            }
+            sql.append(" AND (RoleID = 1 OR RoleID = 4)");
+
+            st = conn.prepareStatement(sql.toString());
+            int index = 1;
+
+            if (!username.isEmpty() && !name.isEmpty()) {
+                st.setString(index++, "%" + username + "%");
+                st.setString(index++, "%" + name + "%");
+            } else if (!username.isEmpty()) {
+                st.setString(index++, "%" + username + "%");
+            } else if (!name.isEmpty()) {
+                st.setString(index++, "%" + name + "%");
+            }
+
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Account(
+                        rs.getInt("AccountID"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("Gender"),
+                        rs.getString("DayOfBirth"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Image"),
+                        rs.getString("Email"),
+                        rs.getString("UserName"),
+                        rs.getString("Password"),
+                        rs.getInt("RoleID")
+                ));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return list;
+    }
+
+    public Account getAccountbyBookingID(String bookingId) {
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "Select * from Account a\n"
+                + "JOIN Customer c ON a.AccountID = c.AccountID\n"
+                + "JOIN Booking b ON b.CustomerID = c.CustomerID\n"
+                + "where b.BookingID = ?";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setString(1, bookingId);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                Account acc = new Account();
+                acc.setAccountId(rs.getInt(1));
+                acc.setFirstName(rs.getString(2));
+                acc.setLastName(rs.getString(3));
+                acc.setGender(rs.getString(4));
+                acc.setDob(rs.getString(5));
+                acc.setAddress(rs.getString(6));
+                acc.setPhoneNumber(rs.getString(7));
+                acc.setImage(rs.getString(8));
+                acc.setEmail(rs.getString(9));
+                acc.setUserName(rs.getString(10));
+                acc.setPassWord(rs.getString(11));
+                acc.setRoleID(rs.getInt(12));
+                return acc;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+    public List<Account> getAccountbyCustomerID(int customerID) {
+        List<Account> list = new ArrayList<>();
+
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "Select * from Account\n"
+                + "JOIN Customer on Account.AccountID = Customer.AccountID\n"
+                + "Where CustomerID = ?";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setInt(1, customerID);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Account(
+                        rs.getInt("AccountID"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("Gender"),
+                        rs.getString("DayOfBirth"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Image"),
+                        rs.getString("Email"),
+                        rs.getString("UserName"),
+                        rs.getString("Password"),
+                        rs.getInt("RoleID")
+                ));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
 //        System.out.println(dao.changePassword(7, "asdf"));
-        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
+//        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
 //        System.out.println(dao.getAllCustomerAccount());
-        System.out.println(dao.getBookingCountbyAccount());
-
+//        System.out.println(dao.getBookingCountbyAccount());
+//        Map<Integer, Integer> roleStatuses = dao.updateRoleAndGetStatuses(6, false);
+//        System.out.println(roleStatuses);
+//        System.out.println(dao.searchCustomersbyUserNameandName("myphan", "Trần"));
+//        System.out.println(dao.getAccountbyBookingID("BOOK000001"));
+        System.out.println(dao.getAccountbyCustomerID(6));
     }
 
 }

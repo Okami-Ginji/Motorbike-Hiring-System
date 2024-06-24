@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <head>
         <meta charset="UTF-8" />
@@ -25,7 +26,7 @@
                 box-sizing: border-box;
             }
             body {
-                font-family: "Poppins", sans-serif;
+                font-family: system-ui;
             }
             /*            .container {
                             min-height: 100vh;
@@ -218,7 +219,7 @@
             <div class="row">
                 <div class="containerContent col-md-6">
                     <h3>COLORBIKE</h3>
-                    <h1>Welcome Back</h1>
+                    <h1 style="width: 500px;"><strong>Chào mừng trở lại</strong></h1>
                     <form id="loginForm" action="login" method="post">
                         <div class="inputRow">
                             <input name="Username" id="Username"
@@ -232,10 +233,10 @@
                         <div class="forever">
                             <div>
                                 <input type="checkbox" id="remember-me" id="rememberMe" name="rem" ${(cookie.rem != null ? 'checked' : '')} value="ON"/>
-                                <label for="remember-me">Remember Me</label>
+                                <label for="remember-me">Nhớ mật khẩu</label>
                             </div>
                             <div class="inputFP">
-                                <a href="forgotPassword.jsp">Forgot Password?</a>
+                                <a href="forgotPassword.jsp">Quên mật khẩu?</a>
                             </div>
                         </div>
                         <% String error = (String)request.getAttribute("error"); %>
@@ -244,15 +245,15 @@
                             <i class="bi bi-exclamation-circle"></i> <%= error %>
                         </h4>
                         <% } %>
-                        <button type="submit">LOGIN</button>
+                        <button type="submit">Đăng nhập</button>
                     </form>
-                    <h6>Or continue with</h6>
+                    <h6>Hoặc tiếp tục với</h6>
                     <div class="logins">
                         <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:6789/MotorcyleHiringProject/login-google&response_type=code&client_id=158327451054-1sdvun9trsl75ng2i96pfmr9lsgrjnjb.apps.googleusercontent.com&approval_prompt=force"><img src="images/search.png" alt="google" /></a>
                         <!--<a href="#"><img src="images/github.png" alt="github" /></a>-->
                         <a href="#"><img src="images/facebook.png" alt="facebook" /></a>
                     </div>
-                    <p>Don't have an account yet? <a href="register.jsp">Create new account</a></p>
+                    <p>Bạn vẫn chưa có tài khoản? <a style="font-weight: bold;" href="register.jsp">Tạo mới tài khoản</a> </p>
                 </div>
                 <div class="containerImg col-md-6">
                     <img src="images/5.png" alt="header" />

@@ -193,7 +193,7 @@
                         <c:set var="endYear" value="${fn:substring(endDate, 0, 4)}" />
                         <c:set var="endMonth" value="${fn:substring(endDate, 5, 7)}" />
                         <c:set var="endDay" value="${fn:substring(endDate, 8, 10)}" />
-                         <c:set var="endHour" value="${fn:substring(endDate, 11, 13)}" />
+                        <c:set var="endHour" value="${fn:substring(endDate, 11, 13)}" />
                         <c:set var="endMinute" value="${fn:substring(endDate, 14, 16)}" />
                         <c:set var="endSecond" value="${fn:substring(endDate, 17, 19)}" />
                         ${endDay}-${endMonth}-${endYear} ${endHour}:${endMinute}:${endSecond}
@@ -210,7 +210,9 @@
                             <c:set var="total" value="${total + detail.totalPrice}"/>
                         </c:forEach>
                         <fmt:formatNumber value="${total*1000}" type="currency" currencySymbol="VNĐ" />
-                    </span> (Đã thanh toán: <span id="amount-paid">500,000 VND</span>)</span></p>
+                    </span> (Đã thanh toán: <span id="amount-paid">
+                        <fmt:formatNumber value="${payment.paymentAmount * 1000}" type="currency" currencySymbol="VNĐ" />
+                    </span>)</span></p>
                 <!--nếu đổi số > 500.000 sẽ có thanh toán :3 -->
                 <a style="cursor: pointer; text-decoration: underline" onclick="openExtension()"><strong>Xem thông tin gia hạn </strong></a>    
                 <p></p>
@@ -266,7 +268,7 @@
 
                                 <p><strong>Phí gia hạn:</strong>
                                     <span id="extension-fee">
-                                        <fmt:formatNumber value="${extension.extensionFee}" type="currency" currencySymbol="VNĐ" />
+                                        <fmt:formatNumber value="${extension.extensionFee * 1000}" type="currency" currencySymbol="VNĐ" />
                                     </span>
                                 </p>
 

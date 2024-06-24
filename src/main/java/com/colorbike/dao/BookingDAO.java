@@ -4,8 +4,10 @@
  */
 package com.colorbike.dao;
 
+import com.colorbike.dto.Account;
 import com.colorbike.dto.Booking;
 import com.colorbike.dto.BookingDetail;
+import com.colorbike.dto.Customer;
 import com.colorbike.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +41,7 @@ public class BookingDAO {
         }
         return instance;
     }
-    
+
     public void addBooking(String bookingID, String bookingDate, String startDate, String endDate, String deliveryLocation, String returnedLocation, Integer voucherID, int customerID) {
         String sql = " INSERT INTO [dbo].[Booking] (\n"
                 + "    [BookingID], \n"
@@ -261,6 +263,23 @@ public class BookingDAO {
         return false;
     }
 
+    public boolean updateDeliveryStatus(String bookingID, String delistatus) {
+        PreparedStatement stm;
+        String sql = "UPDATE Booking SET DeliveryStatus = ? WHERE BookingID = ?";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, delistatus);
+            stm.setString(2, bookingID);
+            int rowAffect = stm.executeUpdate();
+            if (rowAffect > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public Booking getLastestBooking(int accountId) {
         PreparedStatement stm;
         ResultSet rs;
@@ -281,11 +300,95 @@ public class BookingDAO {
         }
         return null;
     }
-   
+
+    public List<Booking> getAllBookings() {
+        PreparedStatement stm;
+        ResultSet rs;
+        List<Booking> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    BookingID,\n"
+                + "    FORMAT(BookingDate, 'dd-MM-yyyy HH:mm:ss') AS BookingDate,\n"
+                + "    FORMAT(StartDate, 'dd-MM-yyyy HH:mm:ss') AS StartDate,\n"
+                + "    FORMAT(EndDate, 'dd-MM-yyyy HH:mm:ss') AS EndDate,\n"
+                + "    StatusBooking,\n"
+                + "    DeliveryLocation,\n"
+                + "    ReturnedLocation,\n"
+                + "    DeliveryStatus,\n"
+                + "    VoucherID,\n"
+                + "    CustomerID\n"
+                + "    FROM \n"
+                + "    Booking where StatusBooking != N'Đã hủy'";
+        try {
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Booking b = new Booking();
+                List<BookingDetail> listBookingDetails = BookingDetailDAO.getInstance().getListBookingDetails(rs.getString(1));
+                b.setBookingID(rs.getString(1));
+                b.setBookingDate(rs.getString(2));
+                b.setStartDate(rs.getString(3));
+                b.setEndDate(rs.getString(4));
+                b.setStatusBooking(rs.getString(5));
+                b.setDeliveryLocation(rs.getString(6));
+                b.setReturnedLocation(rs.getString(7));
+                b.setDeliveryStatus(rs.getString(8));
+                b.setVoucherID(rs.getInt(9));
+                b.setCustomerID(rs.getInt(10));
+                b.setListBookingDetails(listBookingDetails);
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public Booking getBookingsByUsername(String username) {
+        PreparedStatement stm;
+        ResultSet rs;
+
+        String sql = "SELECT b.*, c.*, a.* "
+                + "FROM Booking b "
+                + "JOIN Customer c ON b.CustomerID = c.CustomerID "
+                + "JOIN Account a ON a.AccountID = b.CustomerID "
+                + "WHERE a.username = ?";
+
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, username);
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+                // Lấy thông tin Booking
+                booking.setBookingID(rs.getString("BookingID"));
+                booking.setBookingDate(rs.getString("BookingDate"));
+                booking.setStartDate(rs.getString("StartDate"));
+                booking.setEndDate(rs.getString("EndDate"));
+                booking.setStatusBooking(rs.getString("StatusBooking"));
+                booking.setDeliveryLocation(rs.getString("DeliveryLocation"));
+                booking.setReturnedLocation(rs.getString("ReturnedLocation"));
+                booking.setDeliveryStatus(rs.getString("DeliveryStatus"));
+                booking.setVoucherID(rs.getInt("VoucherID"));
+                Customer customer = CustomerDAO.getInstance().getCustomerbyAccountID(rs.getInt("CustomerID"));
+                Account account = AccountDAO.getInstance().getAccountbyID(customer.getAccountId());
+                customer.setAccountId(account.getAccountId());
+                booking.setCustomerID(customer.getCustomerId());
+
+                return booking;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         BookingDAO bookingDAO = BookingDAO.getInstance();
 //        System.out.println(bookingDAO.getMotorcycleDetailsByBookingID("BOOK000006"));
 //        System.out.println(bookingDAO.updateBookingStatus("BOOK000006", "Đã hủy"));
-        System.out.println(bookingDAO.getLastestBooking(10));
+//        System.out.println(bookingDAO.getLastestBooking(10));
+        System.out.println(bookingDAO.getAllBookings());
+        System.out.println(bookingDAO.getBookingsByUsername("minhtuns2311"));
     }
 }

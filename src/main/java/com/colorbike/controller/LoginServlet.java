@@ -11,12 +11,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-@WebServlet(name="LoginServlet", urlPatterns={"/login"})
+
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         String username = null;
         String password = null;
@@ -46,11 +47,11 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         request.getRequestDispatcher("login.jsp").forward(request, response);
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
 
         String username = request.getParameter("Username");
@@ -76,7 +77,7 @@ public class LoginServlet extends HttpServlet {
         response.addCookie(rememberMeCookie);
 
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
-            request.setAttribute("error", "Please provide both username and password");
+            request.setAttribute("error", "Vui lòng cung cấp cả tên người dùng và mật khẩu");
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
@@ -84,7 +85,7 @@ public class LoginServlet extends HttpServlet {
         Account account = AccountDAO.getInstance().checkLogin(username, password);
 
         if (account == null) {
-            request.setAttribute("error", "Invalid username or password");
+            request.setAttribute("error", "Tên đăng nhập hoặc Mật khẩu không đúng! <br> Vui lòng nhập lại");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             session.setAttribute("account", account);
@@ -94,6 +95,9 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("home");
             } else if (account.getRoleID() == 2 || account.getRoleID() == 3) {
                 response.sendRedirect("homeStaff.jsp");
+            } else {
+                request.setAttribute("error", "Tài khoản bạn đã bị khóa <br> Vui lòng liên hệ với trang web để lấy lại thông tin");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }
     }

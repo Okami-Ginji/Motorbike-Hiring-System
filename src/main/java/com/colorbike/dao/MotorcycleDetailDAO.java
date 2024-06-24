@@ -77,6 +77,46 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
         return list;
     }
 
+    public List<Integer> getListAvailableMotorcycleDetailIdByMotorcycleName(String motorcycleName) {
+        List<Integer> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "WITH LatestStatus AS (\n"
+                    + "    SELECT\n"
+                    + "        ms.MotorcycleDetailID,\n"
+                    + "        ms.Status,\n"
+                    + "        ROW_NUMBER() OVER (PARTITION BY ms.MotorcycleDetailID ORDER BY ms.MotorcycleStatusID DESC) AS RowNum\n"
+                    + "    FROM\n"
+                    + "        [dbo].[Motorcycle Status] ms\n"
+                    + ")\n"
+                    + "SELECT\n"
+                    + "    md.MotorcycleDetailID\n"
+                    + "   \n"
+                    + "FROM\n"
+                    + "    [dbo].[Motorcycle Detail] md\n"
+                    + "INNER JOIN\n"
+                    + "    LatestStatus ls ON md.MotorcycleDetailID = ls.MotorcycleDetailID AND ls.RowNum = 1\n"
+                    + "INNER JOIN\n"
+                    + "    [dbo].[Motorcycle] m ON md.MotorcycleID = m.MotorcycleID\n"
+                    + "WHERE\n"
+                    + "    ls.Status like N'Có sẵn' and CONCAT(m.Model, ' ', m.Displacement) LIKE ?\n"
+                    + "ORDER BY\n"
+                    + "    md.MotorcycleID;\n"
+                    + "\n"
+                    + "";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, motorcycleName);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public void addMotorDetail(MotorcycleDetail detail) {
         String sql = "INSERT INTO [dbo].[Motorcycle Detail]\n"
                 + "           ([MotorcycleID]\n"
@@ -133,13 +173,9 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
     }
 
     public static void main(String[] args) {
-        MotorcycleDetailDAO mdd = MotorcycleDetailDAO.getInstance();
-        MotorcycleDetail detail = new MotorcycleDetail();
-//        detail.setMotorcycleId("M00021");
-//        detail.setLicensePlate("43-B1-111111");
-//        mdd.addMotorDetail(detail);
-
-        System.out.println(mdd.getDetailByLicensePlate("43-B1 111111"));
-
+        MotorcycleDetailDAO dao = getInstance();
+        for (int x : dao.getListAvailableMotorcycleDetailIdByMotorcycleName("VinFast Klara S 62 kW")) {
+            System.out.println(x);
+        }
     }
 }

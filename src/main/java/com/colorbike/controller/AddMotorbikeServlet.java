@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-
+import org.apache.commons.fileupload.FileUpload;
 
 /**
  *
@@ -75,11 +75,11 @@ public class AddMotorbikeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        
+        Part image = request.getPart("image");
+
         String id = request.getParameter("id");
         String model = request.getParameter("model");
         String displacement = request.getParameter("displacement");
@@ -93,7 +93,7 @@ public class AddMotorbikeServlet extends HttpServlet {
 
 //        String relativePath = getServletContext().getRealPath("/images");
 //        FileUploaded f = new FileUploaded(relativePath);
-        FileUploaded f = new FileUploaded("D:\\FPT_UNI\\SWP391\\Code\\MotorcycleRental\\src\\main\\webapp\\images");
+//        FileUploaded f = new FileUploaded("D:\\FPT_UNI\\SWP391\\Code\\MotorcycleRental\\src\\main\\webapp\\images");
 
         // Đường dẫn thư mục lưu trữ ảnh
 //        String uploadPath = getServletContext().getRealPath("/images");
@@ -108,32 +108,33 @@ public class AddMotorbikeServlet extends HttpServlet {
 //        
 //        // Lưu tệp vào thư mục
 //        image.write(filePath);
+        String fileName = getFileName(image);
         try {
-            String fileName = "image" + id + ".jpg";
-            Part image = request.getPart("image");
-            f.handleFileUpload(image, fileName);
-            
             Motorcycle motor = new Motorcycle(id, model, fileName, displacement, description, minAge, brandID, categoryID, priceListID);
             md.addMotorcycle(motor);
         } catch (Exception e) {
             System.out.println(e);
         }
+        FileUploaded f = new FileUploaded("D:\\MotorcycleRental\\src\\main\\webapp\\images");
+
+        String line = f.handleFileUpload(image, fileName);
+        System.out.println(line);
 
         response.sendRedirect("motorManage");
 
     }
 
-//    private String getFileName(Part part) {
-//        String contentDisposition = part.getHeader("content-disposition");
-//        if (contentDisposition != null) {
-//            for (String cd : contentDisposition.split(";")) {
-//                if (cd.trim().startsWith("filename")) {
-//                    return cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-//                }
-//            }
-//        }
-//        return null;
-//    }
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        if (contentDisposition != null) {
+            for (String cd : contentDisposition.split(";")) {
+                if (cd.trim().startsWith("filename")) {
+                    return cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                }
+            }
+        }
+        return null;
+    }
 
     /**
      * Returns a short description of the servlet.
@@ -141,7 +142,7 @@ public class AddMotorbikeServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

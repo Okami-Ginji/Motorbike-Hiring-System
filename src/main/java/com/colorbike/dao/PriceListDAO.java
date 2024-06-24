@@ -59,7 +59,7 @@ public class PriceListDAO implements Serializable {
 
         }
         return list;
-    }
+    } 
 
     public PriceList getPricingByid(String id) {
         PreparedStatement stm;

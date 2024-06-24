@@ -13,7 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,8 +52,8 @@ public class AccountDAO implements Serializable {
             stm.setString(2, passWord);
             rs = stm.executeQuery();
             if (rs.next()) {
-                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
                         rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
@@ -74,7 +76,7 @@ public class AccountDAO implements Serializable {
         }
     }
 
-    public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String email, String userName, String password) {
+    public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
                 + "           ,[LastName]\n"
@@ -82,12 +84,13 @@ public class AccountDAO implements Serializable {
                 + "           ,[DayOfBirth]\n"
                 + "           ,[Address]\n"
                 + "           ,[PhoneNumber]\n"
+                + "           ,[Image]\n"
                 + "           ,[Email]\n"
                 + "           ,[Username]\n"
                 + "           ,[Password]\n"
                 + "           ,[RoleID])\n"
                 + "     VALUES\n"
-                + "           (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+                + "           (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, firstName);
@@ -96,9 +99,10 @@ public class AccountDAO implements Serializable {
             ps.setString(4, dob);
             ps.setString(5, address);
             ps.setString(6, phone);
-            ps.setString(7, email);
-            ps.setString(8, userName);
-            ps.setString(9, password);
+            ps.setString(7, image);
+            ps.setString(8, email);
+            ps.setString(9, userName);
+            ps.setString(10, password);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -115,7 +119,7 @@ public class AccountDAO implements Serializable {
             rs = stm.executeQuery();
             if (rs.next()) {
                 return new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
                         rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID"));
             }
         } catch (Exception ex) {
@@ -274,11 +278,82 @@ public class AccountDAO implements Serializable {
         return list;
     }
 
+    public List<Account> getListAccountByRole(int role) {
+        List<Account> listA = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    AccountID,\n"
+                + "    FirstName,\n"
+                + "    LastName,\n"
+                + "    Gender,\n"
+                + "    FORMAT(DayOfBirth, 'dd-MM-yyyy') AS DayOfBirth,\n"
+                + "    Address,\n"
+                + "    PhoneNumber,\n"
+                + "    Image,\n"
+                + "    Email,\n"
+                + "    Username,\n"
+                + "    Password,\n"
+                + "    RoleID FROM Account WHERE [RoleID] = ?";
+        PreparedStatement st;
+        ResultSet rs;
+        try {
+            st = conn.prepareStatement(sql);
+            st.setInt(1, role);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                listA.add(new Account(
+                        rs.getInt("AccountID"),
+                        rs.getString("FirstName"),
+                        rs.getString("LastName"),
+                        rs.getString("Gender"),
+                        rs.getString("DayOfBirth"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Image"),
+                        rs.getString("Email"),
+                        rs.getString("UserName"),
+                        rs.getString("Password"),
+                        rs.getInt("RoleID")
+                ));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return listA;
+    }
+
+    public Map<Integer, Integer> getBookingCountbyAccount() {
+        Map<Integer, Integer> counts = new HashMap<>();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT a.AccountID, COUNT(b.BookingID) AS Quality\n"
+                + "FROM Account a\n"
+                + "LEFT JOIN Customer c ON c.AccountID = a.AccountID\n"
+                + "LEFT JOIN Booking b ON b.CustomerID = c.CustomerID\n"
+                + "GROUP BY a.AccountID;";
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                int AccountID = rs.getInt("AccountID");
+                int Quality = rs.getInt("Quality");
+                counts.put(AccountID, Quality);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return counts;
+    }
+
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
 //        System.out.println(dao.changePassword(7, "asdf"));
         System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
+//        System.out.println(dao.getAllCustomerAccount());
+        System.out.println(dao.getBookingCountbyAccount());
+        for(Account x: dao.getListAccountByRole(1)){
+            System.out.println(x);
+        }
     }
 
 }

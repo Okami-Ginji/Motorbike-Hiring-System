@@ -310,13 +310,18 @@
                         </div>
                     </div>
 
-
-                    <div>
-                        <button class="filter-button" onclick="showResults()">Xem kết quả</button>
+                    <div class="filter-search filter-group">
+                        <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
+                            <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
+                            <button style="font-weight:bold; color: #28a745;background-image: linear-gradient(to right, #75fed9, #00ff55);border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
+                        </form>
                     </div>
-                    <div class="selected-filters" id="selectedFilters">
-                        <!-- Selected filters will be displayed here -->
-                    </div>
+                </div>
+                <div>
+                    <button class="filter-button" onclick="showResults()">Xem kết quả</button>
+                </div>
+                <div class="selected-filters" id="selectedFilters">
+                    <!-- Selected filters will be displayed here -->
                 </div>
             </div>
         </section>
@@ -325,6 +330,11 @@
         <section class="ftco-section bg-light">
             <div class="container">
                 <div class="row">
+                    <c:if test="${not empty noResults}">
+                        <div class="text-center no-results-message">
+                            Không có mẫu xe nào phù hợp với tìm kiếm của bạn.
+                        </div>
+                    </c:if>
                     <c:forEach var="motorbike" items="${motorcycles}">
                         <div class="col-lg-4">
                             <div class="car-wrap rounded ftco-animate">
@@ -343,7 +353,7 @@
                                         <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
                                     </div>
                                     <p class="d-flex mb-0 d-block">
-                                        <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                                        <a href="booking?motorcycleid=${motorbike.motorcycleId}" class="btn btn-primary py-2 mr-1">Book now</a>
                                         <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Details</a>
                                     </p>
                                 </div>

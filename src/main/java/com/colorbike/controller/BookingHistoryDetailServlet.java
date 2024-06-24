@@ -6,8 +6,10 @@ package com.colorbike.controller;
 
 import com.colorbike.dao.BookingDAO;
 import com.colorbike.dao.ExtensionDAO;
+import com.colorbike.dao.PaymentDAO;
 import com.colorbike.dto.Booking;
 import com.colorbike.dto.Extension;
+import com.colorbike.dto.Payment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -30,6 +32,8 @@ public class BookingHistoryDetailServlet extends HttpServlet {
         Booking booking = bookingDAO.getBookingById(bookingId);
         Map<String, Integer> motorcycleDetails = bookingDAO.getMotorcycleDetailsByBookingID(bookingId);
         Extension extension = extensionDAO.getExtensionByBookingID(bookingId);
+        Payment payment = PaymentDAO.getInstance().getPayMentbyBookingId(bookingId);
+        request.setAttribute("payment", payment);
         request.setAttribute("extension", extension);
         request.setAttribute("booking", booking);
         request.setAttribute("motorcycleDetails", motorcycleDetails);

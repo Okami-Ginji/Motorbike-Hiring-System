@@ -354,31 +354,31 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-phone">Phone Number</label>
+                                    <label for="account-phone">Số điện thoại</label>
                                     <input style="border: 1px solid #000;" class="form-control" name="phonenumber" type="text" id="account-phone" value="${account.phoneNumber}" readonly>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-dob">Day of Birth</label>
+                                    <label for="account-dob">Ngày sinh</label>
                                     <input style="border: 1px solid #000;" class="form-control" name="dob" type="date" id="account-dob" value="${account.dob}" readonly>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-username">Username</label>
+                                    <label for="account-username">Tên đăng nhập</label>
                                     <input style="border: 1px solid #000;" class="form-control" name="username" type="text" id="account-username" value="${account.userName}" readonly>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="account-password">Password</label>
+                                    <label for="account-password">Mật khẩu</label>
                                     <div class="input-with-button">
                                         <input style="border: 1px solid #000;" class="form-control" name="pass" type="password" id="account-password" value="${account.passWord}" readonly>
-                                        <button class="btn btn-style-1 btn-primary" type="button" data-toast data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfully." style="background-color: grey;" onclick="window.location.href = 'changepassword.jsp'">Change Password</button>
+                                        <button class="btn btn-style-1 btn-primary" type="button" data-toast data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfully." style="background-color: grey;" onclick="window.location.href = 'changepassword.jsp'">Đổi mật khẩu</button>
                                     </div>
                                 </div>
                             </div>
@@ -386,7 +386,7 @@
                             <div class="col-12">
                                 <hr class="mt-2 mb-3">
                                 <button onclick="changeType(this)" id="update" class="btn btn-style-1 btn-primary" 
-                                        type="button">Update Profile</button>
+                                        type="button">Cập nhật</button>
                                 <c:if test="${not empty requestScope.mess}">
                                     <h6 style="color: green; padding-top: 12px;">${mess}</h6>
                                 </c:if>
@@ -410,7 +410,7 @@
 
                                         if (button.id === "update") {
                                             button.id = "save";
-                                            button.textContent = "Save";
+                                            button.textContent = "Lưu";
                                             inputElements.forEach(x => {
                                                 if (x.name !== "pass" && x.id !== "account-fullname") {
                                                     x.readOnly = false;
@@ -423,7 +423,7 @@
                                         } else {
                                             document.getElementById("form-update").submit();
                                             button.id = "update";
-                                            button.textContent = "Update Profile";
+                                            button.textContent = "Cập nhật";
 
                                             inputElements.forEach(x => {
                                                 if (x.name !== "pass") {

@@ -161,7 +161,7 @@
             <div class="cardStyle" id="changePasswordForm">
                 <form action="changepassword" method="post" name="signupForm" id="signupForm">
                     <img src="" id="signupLogo"/>
-                    <h1 class="formTitle" style="font-weight: bold;">Change Password</h1>
+                    <h1 class="formTitle" style="font-weight: bold;">Thay đổi</h1>
                     <c:if test="${not empty requestScope.errorPass}">
                         <div class="inputDiv" style="text-align: justify;">
                             <p style="color: red;font-size: 14px;margin: 0;font-weight: 600;">${errorPass}</p>
@@ -173,7 +173,7 @@
                         </div>
                     </c:if>
                     <div class="inputDiv">
-                        <label class="inputLabel" for="password">Old Password</label>
+                        <label class="inputLabel" for="password">Mật khẩu cũ</label>
                         <div class="input-wrapper">
                             <input type="password" id="password" name="password" required>
                             <span id="password-eye-2" onclick="showPassword('password')">
@@ -184,7 +184,7 @@
                     </div>
 
                     <div class="inputDiv">
-                        <label class="inputLabel" for="newPassword">New Password</label>
+                        <label class="inputLabel" for="newPassword">Mật khẩu mới</label>
                         <div class="input-wrapper">
                             <input type="password" id="newPassword" name="newPassword" required>
                             <span id="password-eye-2" onclick="showPassword('newPassword')">
@@ -193,7 +193,7 @@
                         </div>
                     </div>
                     <div class="inputDiv">
-                        <label class="inputLabel" for="confirmPassword">Confirm Password</label>
+                        <label class="inputLabel" for="confirmPassword">Xác nhận mật khẩu mới</label>
                         <div class="input-wrapper">
                             <input type="password" id="confirmPassword" name="confirmPassword" required>
                             <span id="password-eye-2" onclick="showPassword('confirmPassword')">

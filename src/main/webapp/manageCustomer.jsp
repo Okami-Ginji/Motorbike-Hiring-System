@@ -11,7 +11,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>bs4 crud users - Bootdey.com</title>
+        <title>Manage Customer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -20,16 +20,21 @@
                 margin-top: 20px;
                 background: #f8f8f8
             }
+
             .info label {
                 font-style: italic;
                 width: 20%;
                 font-weight: 500;
             }
+
             .close:hover {
                 opacity: 0.8;
                 background: lightgray;
             }
 
+            .fa-toggle-on:before {
+                color: blue;
+            }
         </style>
     </head>
 
@@ -42,15 +47,12 @@
                     <div class="card p-3">
                         <div class="e-navlist e-navlist--active-bg">
                             <ul class="nav">
-                                <li class="nav-item"><a class="nav-link px-2 active" href="homeStaff.jsp"><i
-                                            class="fa fa-fw fa-bar-chart mr-1"></i><span>Trang chủ</span></a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link px-2 active" href="homeStaff.jsp"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Trang chủ</span></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                   
                     <div class="row flex-lg-nowrap">
                         <div class="col mb-3">
                             <div class="e-panel card">
@@ -63,35 +65,43 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center">
-                                                            <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
-                                                                <input type="checkbox" class="custom-control-input" id="all-items">
-                                                            </div>
-                                                            </div>
-                                                        </th>
                                                         <th>ID</th>
                                                         <th class="max-width">Họ và tên</th>
                                                         <th class="max-width">Tên đăng nhập</th>
                                                         <th class="sortable">Ngày sinh</th>
                                                         <th class="max-width">Điện thoại</th>
                                                         <th> </th>
+                                                        <th style="width: 74px;">Trạng thái</th>
                                                         <th>Thao tác</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <c:forEach var="account" items="${sessionScope.accounts}">
-                                                        <tr class="m-3">    
-                                                            <td style="padding: 24px" class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-${account.accountId}">
-                                                                </div>
+                                                <tbody id="customer-table-body">
+                                                    <c:if test="${empty sessionScope.accounts}">
+                                                        <tr>
+                                                            <td colspan="8" style="text-align: center; font-style: italic; padding: 18px; font-size: 17px;">
+                                                                Không có thông tin nào ở đây
                                                             </td>
-                                                            <td name="accountId" class="align-middle">${account.accountId}</td>
-                                                            <td name="fullname" class="text-nowrap align-middle">${account.firstName} ${account.lastName}</td>
+                                                        </tr>
+                                                    </c:if>
+                                                    <c:forEach var="account" items="${sessionScope.accounts}">
+                                                        <tr id="account-${account.accountId}" data-account-id="${account.accountId}"
+                                                            class="m-3 <c:out value='${account.roleID == 1 ? "active" : "disabled"}' />">
+                                                            <td style="padding: 24px;" name="accountId" class="align-middle">${account.accountId}</td>                                                            <td name="fullname" class="text-nowrap align-middle">${account.firstName} ${account.lastName}</td>
                                                             <td name="username" class="text-nowrap align-middle">${account.userName}</td>
                                                             <td name="dob" class="text-nowrap align-middle">${account.dob}</td>
                                                             <td name="phoneNumber" class="text-nowrap align-middle">${account.phoneNumber}</td>
-                                                            <td class="text-center align-middle"><i class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"></i></td>
+                                                            <td class="text-center align-middle">
+                                                                <i id="toggle-icon-${account.accountId}" class="fa fa-fw text-secondary cursor-pointer 
+                                                                   ${account.roleID == 1 ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
+                                                            </td>
+                                                            <td class="text-center align-middle" >
+                                                                <form id="form-${account.accountId}" action="manageCustomer" method="post">
+                                                                    <input type="hidden" name="action" value="updateRoleAndGetStatuses">
+                                                                    <input type="hidden" name="accountId" value="${account.accountId}">
+                                                                    <input type="hidden" name="isActive" value="${account.roleID != 1}">
+                                                                    <button style="width: 74px;" type="button" class="btn btn-sm btn-outline-secondary" onclick="showConfirmModal(${account.accountId}, ${account.roleID == 1})">Cập nhật</button>
+                                                                </form>
+                                                            </td>
                                                             <td class="text-center align-middle">
                                                                 <div class="btn-group align-top">
                                                                     <button class="btn btn-sm btn-outline-secondary edit-btn" type="button"
@@ -111,18 +121,14 @@
                                                                             data-idCardType="${customerMap[account.accountId].typeCard}"
                                                                             data-bookingCount="${bookingCount[account.accountId]}"
                                                                             onclick="openUserModal(this)">
-                                                                        Edit
+                                                                        Xem
                                                                     </button>
-
-                                                                    <button class="btn btn-sm btn-outline-secondary" type="button"><i class="fa fa-trash"></i></button>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
-
                                                 </tbody>
                                             </table>
-
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <ul class="pagination mt-3 mb-0">
@@ -143,69 +149,93 @@
                         <div class="col-12 col-lg-3 mb-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="text-center px-xl-3">
-                                        <button class="btn btn-success btn-block" type="button" data-toggle="modal"
-                                                data-target="#user-form-modal">New User</button>
-                                    </div>
                                     <hr class="my-3">
                                     <div class="e-navlist e-navlist--active-bold">
-                                        <ul class="nav">
-                                            <li class="nav-item active"><a href
-                                                                           class="nav-link"><span>All</span>&nbsp;<small>/&nbsp;32</small></a></li>
-                                            <li class="nav-item"><a href
-                                                                    class="nav-link"><span>Active</span>&nbsp;<small>/&nbsp;16</small></a>
+                                        <ul class="nav" id="navList">
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-status="all">
+                                                    <span>Tất cả</span>&nbsp;<small>/&nbsp;<span id="allCount">${allCount}</span></small>
+                                                </a>
                                             </li>
-                                            <li class="nav-item"><a href
-                                                                    class="nav-link"><span>Selected</span>&nbsp;<small>/&nbsp;0</small></a>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-status="active">
+                                                    <span>Hoạt động</span>&nbsp;<small>/&nbsp;<span id="activeCount">${activeCount}</span></small>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-status="disabled">
+                                                    <span>Vô hiệu hóa</span>&nbsp;<small>/&nbsp;<span id="disabledCount">${disabledCount}</span></small>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
                                     <hr class="my-3">
                                     <div>
-                                        <div class="form-group">
-                                            <label>Date from - to:</label>
-                                            <div>
-                                                <input id="dates-range" class="form-control flatpickr-input"
-                                                       placeholder="01 Dec 17 - 27 Jan 18" type="text" readonly="readonly">
+                                        <label>Trạng thái: </label>
+                                        <div class="px-2">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-any" value="all" checked>
+                                                <label class="custom-control-label" for="users-status-any">Tất cả</label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Search by Name:</label>
-                                            <div><input class="form-control w-100" type="text" placeholder="Name" value>
+                                        <div class="px-2">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-active" value="active">
+                                                <label class="custom-control-label" for="users-status-active">Hoạt động</label>
                                             </div>
+                                        </div>
+                                        <div class="px-2">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-disabled" value="disabled">
+                                                <label class="custom-control-label" for="users-status-disabled">Vô hiệu hóa</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-3">
+                            <form action="searchCustomer" method="post">
+                                <div>
+                                    <div class="form-group fst-italic">
+                                        <label>Tìm kiếm qua Tên đăng nhập: </label>
+                                        <div><input name="username" class="form-control w-100" type="text" placeholder="Username" value>
                                         </div>
                                     </div>
-                                    <hr class="my-3">
-                                    <div class>
-                                        <label>Status:</label>
-                                        <div class="px-2">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="user-status"
-                                                       id="users-status-disabled">
-                                                <label class="custom-control-label"
-                                                       for="users-status-disabled">Disabled</label>
-                                            </div>
-                                        </div>
-                                        <div class="px-2">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="user-status"
-                                                       id="users-status-active">
-                                                <label class="custom-control-label" for="users-status-active">Active</label>
-                                            </div>
-                                        </div>
-                                        <div class="px-2">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="user-status"
-                                                       id="users-status-any" checked>
-                                                <label class="custom-control-label" for="users-status-any">Any</label>
-                                            </div>
+                                    <div class="form-group fst-italic">
+                                        <label>Tìm kiếm qua Tên:</label>
+                                        <div><input name="name" class="form-control w-100" type="text" placeholder="Name" value>
                                         </div>
                                     </div>
+                                    <div class="mt-2">
+                                        <button class="btn btn-secondary w-100" type="submit" value="Search">Tìm kiếm</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="mt-2 d-flex flex-column align-items-center"></div>
+                        </div>         
+                    </div>
+
+                    <!-- modal để hiển thị thông báo confirm chuyển trạng thái -->
+                    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmModalLabel">Xác nhận</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="confirmModalMessage">
+                                    <!-- Message will be set by JavaScript -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                                    <button type="button" id="confirmModalYesButton" class="btn btn-primary">Có</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- modal để hiển thị thông tin chi tiết -->
                     <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -257,7 +287,6 @@
                                                     <p id="modal-username"></p>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <!-- ID Card and Related Information - Bottom Right -->
                                         <div class="row">
@@ -285,15 +314,14 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                       
                 </div>
             </div>
-
         </div>
+
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
@@ -322,7 +350,55 @@
                                             $('#user-form-modal').modal('hide');
                                         }
 
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            const navLinks = document.querySelectorAll("#navList .nav-link");
+                                            navLinks.forEach(link => {
+                                                link.addEventListener("click", function (e) {
+                                                    e.preventDefault();
+                                                    filterTableByStatus(link.getAttribute("data-status"));
+                                                });
+                                            });
+
+                                            const radioButtons = document.querySelectorAll('input[name="user-status"]');
+                                            radioButtons.forEach(button => {
+                                                button.addEventListener("change", function () {
+                                                    filterTableByStatus(this.value);
+                                                });
+                                            });
+                                        });
+
+                                        function filterTableByStatus(status) {
+                                            const rows = document.querySelectorAll("#customer-table-body tr");
+                                            rows.forEach(row => {
+                                                if (status === "all") {
+                                                    row.style.display = "";
+                                                } else if (status === "active" && row.classList.contains("active")) {
+                                                    row.style.display = "";
+                                                } else if (status === "disabled" && row.classList.contains("disabled")) {
+                                                    row.style.display = "";
+                                                } else {
+                                                    row.style.display = "none";
+                                                }
+                                            });
+                                        }
+                                        let formToSubmit;
+
+                                        function showConfirmModal(accountId, isActive) {
+                                            formToSubmit = document.getElementById('form-' + accountId);
+                                            document.getElementById('confirmModalMessage').innerText = isActive ?
+                                                    "Bạn có chắc chắn muốn vô hiệu hóa tài khoản này không?" :
+                                                    "Bạn có chắc chắn muốn mở tài khoản này không?";
+                                            $('#confirmModal').modal('show');
+                                        }
+
+                                        document.getElementById('confirmModalYesButton').addEventListener('click', function () {
+                                            if (formToSubmit) {
+                                                formToSubmit.submit();
+                                            } else {
+                                                console.error("Form to submit is null"); // Log lỗi nếu formToSubmit không có giá trị
+                                            }
+                                        });
         </script>
     </body>
-    <!-- Đoạn mã JavaScript -->
+
 </html>

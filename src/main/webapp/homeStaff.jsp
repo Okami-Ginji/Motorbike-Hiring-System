@@ -50,7 +50,7 @@
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">Startmin</a>
+                    <a class="navbar-brand" href="homeStaff.jsp">Staff</a>
                 </div>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -61,7 +61,7 @@
                 </button>
 
                 <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a href="index.jsp"><i class="fa fa-home fa-fw"></i> Website</a></li>
+                    <li><a href="index.jsp"><i class="fa fa-home fa-fw"></i> Trang chủ</a></li>
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
@@ -125,14 +125,14 @@
                         </a>
                         <ul class="dropdown-menu dropdown-user">
                             <li>
-                                <a href="profileStaff.jsp"><i class="fa fa-user fa-fw"></i>Profile</a>
+                                <a href="profileStaff.jsp"><i class="fa fa-user fa-fw"></i>Thông tin cá nhân</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                <a href="#"><i class="fa fa-gear fa-fw"></i> Cài đặt</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                <a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
                             </li>
                         </ul>
                     </li>
@@ -145,7 +145,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="button">
                                         <i class="fa fa-search"></i>
@@ -155,19 +155,19 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="manageCustomer.jsp" class="active"><i class="fa fa-dashboard fa-fw"></i>Customer Profile</a>
+                            <a href="manageCustomer" class="active"><i class="fa fa-user-circle-o fa-fw"></i> Quản lý khách hàng </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Motorbikes <span class="fa arrow"></span></a>
+                            <a href="manageBooking" class="active"><i class="fa fa-shopping-cart fa-fw"></i> Quản lý Booking </a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-motorcycle fa-fw"></i> Xe máy <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Motorbikes Information</a>
+                                    <a href="#">Quản lý xe máy</a>
                                 </li>
                                 <li>
-                                    <a href="#">Booking Management</a>
-                                </li>
-                                <li>
-                                    <a href="transaction.jsp">History Transaction</a>
+                                    <a href="transaction.jsp">Lịch sử giao dịch</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -176,16 +176,16 @@
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i>Services</a>
                         </li> -->
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Services <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Dịch vụ <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">Customer Support</a>
+                                    <a href="panels-wells.html">Hỗ trợ khách hàng</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">View Feedback</a>
+                                    <a href="buttons.html">Xem đánh giá của khách hàng</a>
                                 </li>
                                 <li>
-                                    <a href="faqsManagement.jsp">FAQs Management</a>
+                                    <a href="faqsManagement.jsp">Quản lý FAQs</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -303,13 +303,13 @@
                                         </div>
                                         <div class="col-xs-9 text-right">
                                             <div class="huge">124</div>
-                                            <div>New Orders!</div>
+                                            <div>Đơn hàng mới</div>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#">
+                                <a href="manageBooking.jsp">
                                     <div class="panel-footer">
-                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-left">Xem chi tiết</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 
                                         <div class="clearfix"></div>

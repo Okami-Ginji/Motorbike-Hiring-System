@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 /**
  *
  * @author MINH TUAN
@@ -80,16 +81,20 @@ public class ChangePasswordServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         if (ac != null && ac.getPassWord().equals(password)) {
-            if (newPassword.equals(confirmPassword)) {
-                AccountDAO.getInstance().changePassword(ac.getAccountId(), newPassword);
-                ac.setPassWord(newPassword);
-                session.setAttribute("account", ac);
-                request.setAttribute("successChange", "Password changed successfully.");
+            if (!password.equals(newPassword)) {
+                if (newPassword.equals(confirmPassword)) {
+                    AccountDAO.getInstance().changePassword(ac.getAccountId(), newPassword);
+                    ac.setPassWord(newPassword);
+                    session.setAttribute("account", ac);
+                    request.setAttribute("successChange", "Thay đổi mật khẩu thành công.");
+                } else {
+                    request.setAttribute("errorPass", "Mật khẩu mới và mật khẩu xác nhận không khớp.");
+                }
             } else {
-                request.setAttribute("errorPass", "New password and confirm password do not match.");
+                request.setAttribute("errorPass", "Mật khẩu hiện tại và mật khẩu cũ không được giống nhau.");
             }
         } else {
-            request.setAttribute("errorPass", "The current password is incorrect.");
+            request.setAttribute("errorPass", "Mật khẩu hiện tại không đúng.");
         }
         request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }

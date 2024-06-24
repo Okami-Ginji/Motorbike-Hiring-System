@@ -525,6 +525,6 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 //        Motorcycle motor = new Motorcycle("M0002", "Diep", "alo.png", "150cc", "Diep xink dep", 18, 1, 1, 2);
 //        dao.addMotorcycle(motor);
 
-        dao.deleteMotorbikeById("M00023");
+        System.out.println(dao.getAll());
     }
 }

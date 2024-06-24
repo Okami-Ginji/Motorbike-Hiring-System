@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * @author huypd
  */
 public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> {
-
+    
     private static MotorcycleDetailDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
@@ -30,15 +30,15 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
     //Chỉ new DAO qua hàm static getInstance() để quản lí được số object/instance đã new - SINGLETON DESIGN PATTERN
     private MotorcycleDetailDAO() {
     }
-
+    
     public static MotorcycleDetailDAO getInstance() {
-
+        
         if (instance == null) {
             instance = new MotorcycleDetailDAO();
         }
         return instance;
     }
-
+    
     public List<MotorcycleDetail> getAllMotorcycleDetail() {
         List<MotorcycleDetail> list = new ArrayList<>();
         PreparedStatement stm;
@@ -55,16 +55,13 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
         }
         return list;
     }
-
+    
     public List<MotorcycleDetail> getMotorcycleDetail(String motorcycleId) {
         List<MotorcycleDetail> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
-            String sql = "SELECT m.Model, md.LicensePlate \n"
-                    + "FROM Motorcycle m \n"
-                    + "JOIN [Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID \n"
-                    + "WHERE m.MotorcycleID = ?";
+            String sql = "select * from [Motorcycle Detail] where MotorcycleID = ?";
             stm = conn.prepareStatement(sql);
             stm.setString(1, motorcycleId);
             rs = stm.executeQuery();
@@ -76,7 +73,7 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
         }
         return list;
     }
-
+    
     public List<Integer> getListAvailableMotorcycleDetailIdByMotorcycleName(String motorcycleName) {
         List<Integer> list = new ArrayList<>();
         PreparedStatement stm;
@@ -116,7 +113,7 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
         }
         return list;
     }
-
+    
     public void addMotorDetail(MotorcycleDetail detail) {
         String sql = "INSERT INTO [dbo].[Motorcycle Detail]\n"
                 + "           ([MotorcycleID]\n"
@@ -132,7 +129,7 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
             System.out.println(e);
         }
     }
-
+    
     public MotorcycleDetail getDetailByLicensePlate(String licensePlate) {
         PreparedStatement stm;
         ResultSet rs;
@@ -151,31 +148,32 @@ public class MotorcycleDetailDAO implements Serializable, DAO<MotorcycleDetail> 
         }
         return null;
     }
-
+    
     @Override
     public List<MotorcycleDetail> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public void insert(MotorcycleDetail t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public void update(MotorcycleDetail t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public void delete(MotorcycleDetail t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     public static void main(String[] args) {
         MotorcycleDetailDAO dao = getInstance();
-        for (int x : dao.getListAvailableMotorcycleDetailIdByMotorcycleName("VinFast Klara S 62 kW")) {
-            System.out.println(x);
-        }
+//        for (int x : dao.getListAvailableMotorcycleDetailIdByMotorcycleName("VinFast Klara S 62 kW")) {
+//            System.out.println(x);
+//        }
+        System.out.println(dao.getMotorcycleDetail("M00001"));
     }
 }

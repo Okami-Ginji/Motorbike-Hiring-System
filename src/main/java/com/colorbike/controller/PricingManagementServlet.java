@@ -5,13 +5,7 @@
 
 package com.colorbike.controller;
 
-import com.colorbike.dao.BrandDAO;
-import com.colorbike.dao.CategoryDAO;
-import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
-import com.colorbike.dto.Brand;
-import com.colorbike.dto.Category;
-import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,8 +20,8 @@ import java.util.List;
  *
  * @author DiepTCNN
  */
-@WebServlet(name="MotorbikeManagementServlet", urlPatterns={"/motorManage"})
-public class MotorbikeManagementServlet extends HttpServlet {
+@WebServlet(name="PricingManagementServlet", urlPatterns={"/pricingManage"})
+public class PricingManagementServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,23 +34,12 @@ public class MotorbikeManagementServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        MotorcycleDAO md = MotorcycleDAO.getInstance();
+        
         PriceListDAO pd = PriceListDAO.getInstance();
-        BrandDAO bd = BrandDAO.getInstance();
-        CategoryDAO cd = CategoryDAO.getInstance();
-        
-                
-        List<Motorcycle> listM = md.getAll();
         List<PriceList> listP = pd.getAllPriceList();
-        List<Brand> listB = bd.getAllBrand();
-        List<Category> listC = cd.getAllCategory();
-          
-        request.setAttribute("listM", listM);
-        request.setAttribute("listP", listP);
-        request.setAttribute("listB", listB);
-        request.setAttribute("listC", listC);
         
-        request.getRequestDispatcher("motorbikeManagement.jsp").forward(request, response);
+        request.setAttribute("listP", listP);
+        request.getRequestDispatcher("pricingManagement.jsp").forward(request, response);
         
     } 
 

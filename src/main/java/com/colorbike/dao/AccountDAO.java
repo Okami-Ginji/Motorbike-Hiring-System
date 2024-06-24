@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,7 +74,7 @@ public class AccountDAO implements Serializable {
         }
     }
 
-    public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String image, String email, String userName, String password) {
+    public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
                 + "           ,[LastName]\n"
@@ -80,13 +82,12 @@ public class AccountDAO implements Serializable {
                 + "           ,[DayOfBirth]\n"
                 + "           ,[Address]\n"
                 + "           ,[PhoneNumber]\n"
-                + "           ,[Image]\n"
                 + "           ,[Email]\n"
                 + "           ,[Username]\n"
                 + "           ,[Password]\n"
                 + "           ,[RoleID])\n"
                 + "     VALUES\n"
-                + "           (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+                + "           (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, firstName);
@@ -95,10 +96,9 @@ public class AccountDAO implements Serializable {
             ps.setString(4, dob);
             ps.setString(5, address);
             ps.setString(6, phone);
-            ps.setString(7, image);
-            ps.setString(8, email);
-            ps.setString(9, userName);
-            ps.setString(10, password);
+            ps.setString(7, email);
+            ps.setString(8, userName);
+            ps.setString(9, password);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -253,6 +253,25 @@ public class AccountDAO implements Serializable {
             System.out.println(ex);
         }
         return null;
+    }
+    public List<Account> getAllAccount() {
+        List<Account> list = new ArrayList<>();
+
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "select * from Account";
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {  
+                list.add(new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID")));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
     public static void main(String[] args) {

@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.colorbike.dao;
+
+import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,10 +21,6 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-
-
-
-
 public class PriceListDAO implements Serializable {
 
     private static PriceListDAO instance;
@@ -40,15 +39,12 @@ public class PriceListDAO implements Serializable {
         return instance;
     }
 
-
     public List<PriceList> getAllPriceList() {
-
 
         List<PriceList> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
         try {
-
 
             String sql = "SELECT * FROM PriceList";
             stm = conn.prepareStatement(sql);
@@ -65,8 +61,7 @@ public class PriceListDAO implements Serializable {
         return list;
     }
 
-
-     public PriceList getPricingByid(String id) {
+    public PriceList getPricingByid(String id) {
         PreparedStatement stm;
         ResultSet rs;
         try {
@@ -87,36 +82,69 @@ public class PriceListDAO implements Serializable {
         return null;
     }
 
-   
+    public void addPricing(PriceList price) {
+        String sql = "INSERT INTO [dbo].[PriceList]\n"
+                + "           ([DailyPriceForDay]\n"
+                + "           ,[DailyPriceForWeek]\n"
+                + "           ,[DailyPriceForMonth])\n"
+                + "     VALUES\n"
+                + "           (?, ?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setDouble(1, price.getDailyPriceForDay());
+            ps.setDouble(2, price.getDailyPriceForWeek());
+            ps.setDouble(3, price.getDailyPriceForMonth());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updatePricing(double priceForDay, double priceForWeek, double priceForMonth, int ID) {
+        String sql = "UPDATE [dbo].[PriceList]\n"
+                + "   SET [DailyPriceForDay] = ?\n"
+                + "      ,[DailyPriceForWeek] = ?\n"
+                + "      ,[DailyPriceForMonth] = ?\n"
+                + " WHERE PriceListID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setDouble(1, priceForDay);
+            ps.setDouble(2, priceForWeek);
+            ps.setDouble(3, priceForMonth);
+            ps.setDouble(4, ID);           
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public List<PriceList> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
     public void insert(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
- 
-
     public void update(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-
 
     public void delete(PriceList t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         PriceListDAO dao = getInstance();
-        List<PriceList> list = dao.getAllPriceList();
-        for(PriceList x: list){
-            System.out.println(x);
-        }
+//        List<PriceList> list = dao.getAllPriceList();
+//        for (PriceList x : list) {
+//            System.out.println(x);
+//        }
+        PriceList p = new PriceList();
+        p.setDailyPriceForDay(230.00);
+        p.setDailyPriceForWeek(230.00);
+        p.setDailyPriceForMonth(230.00);
+        dao.addPricing(p);
     }
 
 }

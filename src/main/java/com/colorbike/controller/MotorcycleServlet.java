@@ -73,8 +73,8 @@ public class MotorcycleServlet extends HttpServlet {
         }
 
         Map<Integer, Double> priceMap = new HashMap<>();
-        for (PriceList priceList : priceLists) {
-            priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
+        for (PriceList p : priceLists) {
+            priceMap.put(p.getPriceListId(), p.getDailyPriceForDay());
         }
 
 
@@ -87,7 +87,7 @@ public class MotorcycleServlet extends HttpServlet {
         request.setAttribute("priceLists", priceLists);
         request.setAttribute("categoryMap", categoryMap);
         request.setAttribute("priceMap", priceMap);
-        request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
 
+        request.getRequestDispatcher("motorbikes.jsp").forward(request, response);
     }
 }

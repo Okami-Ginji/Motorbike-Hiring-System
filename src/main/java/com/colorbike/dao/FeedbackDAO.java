@@ -51,7 +51,7 @@ public class FeedbackDAO implements Serializable {
                     + "                     JOIN  Account a ON C.AccountID = a.AccountID;";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
-            while (rs.next()) {  
+            while (rs.next()) {
                 list.add(new Feedback(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
             }
         } catch (Exception ex) {
@@ -60,9 +60,28 @@ public class FeedbackDAO implements Serializable {
         return list;
     }
 
+    public int getQuantityFeedback() {
+
+        PreparedStatement stm;
+        ResultSet rs;
+        int count = 0;
+        try {
+            String sql = "select count (*) from Feedback";
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
 
     public static void main(String[] args) {
         FeedbackDAO fd = FeedbackDAO.getInstance();
-        System.out.println(fd.getAllFeedback());
+    //    System.out.println(fd.getAllFeedback());
+        int count = fd.getQuantityFeedback();
+        System.out.println(count);
     }
 }

@@ -187,6 +187,7 @@
     </head>
 
     <body>
+
         <!-- breadcrumb -->
         <div>
             <ul class="breadcrumb">
@@ -627,7 +628,10 @@
             });
 
         </script>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+        <!-- MDB JS -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
     </body>
 
 </html>

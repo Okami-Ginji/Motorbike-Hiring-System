@@ -258,8 +258,27 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
+    public List<Account> getAllAccount() {
+        List<Account> list = new ArrayList<>();
 
-    public List<Account> getAllCustomerAccount() {
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "select * from Account";
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {  
+                list.add(new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID")));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Account> getListAccountByRole(int role) {
         List<Account> listA = new ArrayList<>();
         String sql = "SELECT \n"
                 + "    AccountID,\n"
@@ -301,7 +320,7 @@ public class AccountDAO implements Serializable {
         return listA;
     }
 
-    public List<Account> getAvailableCustomerAccount() {
+    public List<Account> getAllCustomerAccount() {
         List<Account> listA = new ArrayList<>();
         String sql = "SELECT \n"
                 + "    AccountID,\n"
@@ -315,7 +334,7 @@ public class AccountDAO implements Serializable {
                 + "    Email,\n"
                 + "    Username,\n"
                 + "    Password,\n"
-                + "    RoleID FROM Account WHERE [RoleID] = 1";
+                + "    RoleID FROM Account WHERE [RoleID] = 1 or [RoleID] = 4";
         PreparedStatement st;
         ResultSet rs;
         try {
@@ -526,13 +545,16 @@ public class AccountDAO implements Serializable {
 //        System.out.println(dao.changePassword(7, "asdf"));
 //        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
-//        System.out.println(dao.getAllCustomerAccount());
+        System.out.println(dao.getAllCustomerAccount());
 //        System.out.println(dao.getBookingCountbyAccount());
 //        Map<Integer, Integer> roleStatuses = dao.updateRoleAndGetStatuses(6, false);
 //        System.out.println(roleStatuses);
 //        System.out.println(dao.searchCustomersbyUserNameandName("myphan", "Trần"));
 //        System.out.println(dao.getAccountbyBookingID("BOOK000001"));
-        System.out.println(dao.getAccountbyCustomerID(6));
+//        System.out.println(dao.getAccountbyCustomerID(6));
+//        System.out.println(dao.getBookingCountbyAccount());
+//        for(Account x: dao.getListAccountByRole(1)){
+//            System.out.println(x);
+//        }
     }
-
 }

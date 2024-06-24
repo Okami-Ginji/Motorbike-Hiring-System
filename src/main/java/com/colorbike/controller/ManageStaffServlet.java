@@ -4,14 +4,10 @@
  */
 package com.colorbike.controller;
 
-import com.colorbike.dao.BrandDAO;
-import com.colorbike.dao.CategoryDAO;
-import com.colorbike.dao.MotorcycleDAO;
-import com.colorbike.dao.PriceListDAO;
-import com.colorbike.dto.Brand;
-import com.colorbike.dto.Category;
-import com.colorbike.dto.Motorcycle;
-import com.colorbike.dto.PriceList;
+import com.colorbike.dao.AccountDAO;
+import com.colorbike.dao.CustomerDAO;
+import com.colorbike.dto.Account;
+import com.colorbike.dto.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,14 +15,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
- * @author DiepTCNN
+ * @author Administrator
  */
-@WebServlet(name = "MotorbikeManagementServlet", urlPatterns = {"/motorManage"})
-public class MotorbikeManagementServlet extends HttpServlet {
+@WebServlet(name = "ManageStaffServlet", urlPatterns = {"/manageStaff"})
+public class ManageStaffServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,23 +38,18 @@ public class MotorbikeManagementServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        MotorcycleDAO md = MotorcycleDAO.getInstance();
-        PriceListDAO pd = PriceListDAO.getInstance();
-        BrandDAO bd = BrandDAO.getInstance();
-        CategoryDAO cd = CategoryDAO.getInstance();
-        List<Motorcycle> listM = md.getAll();
-        List<PriceList> listP = pd.getAllPriceList();
-        List<Brand> listB = bd.getAllBrand();
-        List<Category> listC = cd.getAllCategory();
-
-        request.setAttribute("listM", listM);
-        request.setAttribute("listP", listP);
-        request.setAttribute("listB", listB);
-        request.setAttribute("listC", listC);
-
-        request.getRequestDispatcher("motorbikeManagement.jsp").forward(request, response);
-
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ManageStaffServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ManageStaffServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,7 +64,11 @@ public class MotorbikeManagementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        
+        List<Account> accounts = AccountDAO.getInstance().getListAccountByRole(2);
+        session.setAttribute("accountStaff", accounts);   
+        request.getRequestDispatcher("manageStaff.jsp").forward(request, response);
     }
 
     /**

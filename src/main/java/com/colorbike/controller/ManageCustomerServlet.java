@@ -108,7 +108,6 @@ public class ManageCustomerServlet extends HttpServlet {
 
             Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
             List<Account> accounts = AccountDAO.getInstance().getAllCustomerAccount();
-            List<Account> avaiaccount = AccountDAO.getInstance().getAvailableCustomerAccount();
             Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
             Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
 
@@ -125,7 +124,6 @@ public class ManageCustomerServlet extends HttpServlet {
             session.setAttribute("isActive", isActive);
             session.setAttribute("updatedStatuses", updatedStatuses);
             session.setAttribute("accounts", accounts);
-            session.setAttribute("avaiaccount", avaiaccount);
             session.setAttribute("activeCount", activeCount);
             session.setAttribute("disabledCount", disabledCount);
             session.setAttribute("allCount", accounts.size());

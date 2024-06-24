@@ -77,7 +77,6 @@ public class SearchCustomerServlet extends HttpServlet {
         String id = request.getParameter("id");
         List<Account> accounts = AccountDAO.getInstance().getAccountbyCustomerID(Integer.parseInt(id));
         Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
-        List<Account> avaiaccount = AccountDAO.getInstance().getAvailableCustomerAccount();
         Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
         Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
 
@@ -94,7 +93,6 @@ public class SearchCustomerServlet extends HttpServlet {
         session.setAttribute("isActive", isActive);
         session.setAttribute("updatedStatuses", updatedStatuses);
         session.setAttribute("accounts", accounts);
-        session.setAttribute("avaiaccount", avaiaccount);
         session.setAttribute("activeCount", activeCount);
         session.setAttribute("disabledCount", disabledCount);
         session.setAttribute("allCount", accounts.size());
@@ -126,7 +124,6 @@ public class SearchCustomerServlet extends HttpServlet {
         String username = request.getParameter("username");
         List<Account> accounts = AccountDAO.getInstance().searchAccountsbyUserNameandName(username, name);
         Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
-        List<Account> avaiaccount = AccountDAO.getInstance().getAvailableCustomerAccount();
         Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
         Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
 
@@ -143,7 +140,6 @@ public class SearchCustomerServlet extends HttpServlet {
         session.setAttribute("isActive", isActive);
         session.setAttribute("updatedStatuses", updatedStatuses);
         session.setAttribute("accounts", accounts);
-        session.setAttribute("avaiaccount", avaiaccount);
         session.setAttribute("activeCount", activeCount);
         session.setAttribute("disabledCount", disabledCount);
         session.setAttribute("allCount", accounts.size());

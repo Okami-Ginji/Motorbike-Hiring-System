@@ -296,7 +296,7 @@
                     <button id="pay-btn">Thanh toán</button>
                 </c:if>
                 <c:if test="${statusBooking != 'Đã hủy' && booking.deliveryStatus != 'Đã trả'}">
-                    <button id="extension">Gia Hạn</button>
+                    <button onclick="openExtensionForm()" id="extension">Gia Hạn</button>
                 </c:if>
                 <c:if test="${statusBooking == 'Đã hủy' || booking.deliveryStatus == 'Đã trả'}">
                     <button id="rebook-btn">Đặt lại</button>
@@ -344,7 +344,22 @@
                 }
             }
 
+            function openExtensionForm(){
+                var url = "extend?bookingid=" + document.getElementById("bookingId").value; // Đường dẫn đến trang bạn muốn mở
+//                var popUpWidth = 1000;
+//                var popUpHeight = 600;
+//                var popUpLeft = (screen.width - popUpWidth) / 2;
+//                var popUpTop = (screen.height - popUpHeight) / 2;
+//                var features =  ',height=' + popUpHeight + ',top=' + popUpTop + ',left=' + popUpLeft;
 
+                var newWindow = window.open(url, '_blank');
+
+                if (newWindow) {
+                    newWindow.focus();
+                } else {
+                    alert('Trình duyệt của bạn đã chặn pop-up. Vui lòng tắt trình chặn pop-up và thử lại.');
+                }
+            }
             function openExtension() {
                 document.getElementById('extension-info').style.display = 'block';
             }

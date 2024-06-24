@@ -258,6 +258,25 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
+    public List<Account> getAllAccount() {
+        List<Account> list = new ArrayList<>();
+
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "select * from Account";
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {  
+                list.add(new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID")));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     public List<Account> getListAccountByRole(int role) {
         List<Account> listA = new ArrayList<>();

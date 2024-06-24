@@ -228,6 +228,35 @@
             }
             /*phone validation*/
 
+            .tooltip {
+                position: absolute;
+                top: 53%;
+/*                left: 0;
+                transform: translateY(10px);*/
+                background-color: #f44336;
+                color: #fff;
+                padding: 0px 10px;
+                border-radius: 4px;
+                font-size: 0.9rem;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+                margin: 20px;
+                
+            }
+            .tooltip::after {
+                content: "";
+                position: absolute;
+                top: -5px;
+                left: 10px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent transparent #f44336 transparent;
+            }
+            .inputRow.input-error .tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
         </style>
 
     </head>
@@ -254,9 +283,10 @@
                     </select>
                     <div class="inputRow">
                         <input type="text" name="phone" id="phone"
-                               placeholder="Enter your Phone Number" />                       
+                               placeholder="Enter your Phone Number" />          
+                        <div class="tooltip" id="phone-error">Phone number must be exactly 10 digits.</div>
                     </div>
-                    <div id="phone-error" style="color: red; margin-bottom: 1rem;"></div>
+<!--                    <div id="phone-error" style="color: red; margin-bottom: 1rem;"></div>-->
 
                     <div class="inputRow">
                         <input type="date" name="dob" placeholder="Enter your Data of birth" />

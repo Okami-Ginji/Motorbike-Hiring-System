@@ -39,27 +39,23 @@ public class FeedbackDAO implements Serializable {
         return instance;
     }
 
-    public List<Feedback> getAllFeedback() {
-        List<Feedback> list = new ArrayList<>();
+    public int getQuantityFeedback() {
 
         PreparedStatement stm;
         ResultSet rs;
+        int count = 0;
         try {
-            String sql = "SELECT f.feedbackID, f.content, f.rate, a.FirstName + ' ' + a.LastName AS CustomerName, f.CustomerID\n"
-                    + "                     FROM Feedback f \n"
-                    + "                     JOIN Customer c ON f.customerID = c.customerID\n"
-                    + "                     JOIN  Account a ON C.AccountID = a.AccountID;";
+            String sql = "select count (*) from Feedback";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
-            while (rs.next()) {
-                //           list.add(new Feedback(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5)));
-            }
+            if (rs.next()) {
+                count = rs.getInt(1);
+                }
         } catch (Exception ex) {
             Logger.getLogger(FeedbackDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
+        return count;
     }
-
     public List<Feedback> getAllFeedbacks() {
         List<Feedback> list = new ArrayList<>();
         PreparedStatement stm;

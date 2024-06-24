@@ -4,13 +4,7 @@
  */
 package com.colorbike.controller;
 
-import com.colorbike.dao.BrandDAO;
-import com.colorbike.dao.CategoryDAO;
-import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
-import com.colorbike.dto.Brand;
-import com.colorbike.dto.Category;
-import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,14 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author DiepTCNN
  */
-@WebServlet(name = "MotorbikeManagementServlet", urlPatterns = {"/motorManage"})
-public class MotorbikeManagementServlet extends HttpServlet {
+@WebServlet(name = "AddPricingServlet", urlPatterns = {"/addpricing"})
+public class AddPricingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,23 +33,18 @@ public class MotorbikeManagementServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        MotorcycleDAO md = MotorcycleDAO.getInstance();
-        PriceListDAO pd = PriceListDAO.getInstance();
-        BrandDAO bd = BrandDAO.getInstance();
-        CategoryDAO cd = CategoryDAO.getInstance();
-        List<Motorcycle> listM = md.getAll();
-        List<PriceList> listP = pd.getAllPriceList();
-        List<Brand> listB = bd.getAllBrand();
-        List<Category> listC = cd.getAllCategory();
-
-        request.setAttribute("listM", listM);
-        request.setAttribute("listP", listP);
-        request.setAttribute("listB", listB);
-        request.setAttribute("listC", listC);
-
-        request.getRequestDispatcher("motorbikeManagement.jsp").forward(request, response);
-
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddPricingServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddPricingServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,7 +73,25 @@ public class MotorbikeManagementServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        double priceForDay = Double.parseDouble(request.getParameter("priceForDay"));
+        double priceForWeek = Double.parseDouble(request.getParameter("priceForWeek"));
+        double priceForMonth = Double.parseDouble(request.getParameter("priceForMonth"));
+
+        PriceListDAO pd = PriceListDAO.getInstance();
+
+        try {
+            PriceList p = new PriceList();
+            
+            p.setDailyPriceForDay(priceForDay);
+            p.setDailyPriceForWeek(priceForWeek);
+            p.setDailyPriceForMonth(priceForMonth);
+            pd.addPricing(p);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        response.sendRedirect("pricingManage");
     }
 
     /**

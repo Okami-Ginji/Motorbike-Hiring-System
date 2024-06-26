@@ -4,8 +4,15 @@
  */
 package com.colorbike.dao;
 
+import com.colorbike.dto.Staff;
 import com.colorbike.util.DBUtil;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,4 +34,26 @@ public class StaffDAO {
         }
         return instance;
     }
+    
+    public List<Staff> getAllStaff() {
+        List<Staff> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "select * from Staff";
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Staff(rs.getString("staffID"), rs.getString("managerID"), rs.getInt("accountID")));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    public static void main(String[] args) {
+            StaffDAO dao = new StaffDAO();
+        System.out.println(dao.getAllStaff());
+    }
+
 }

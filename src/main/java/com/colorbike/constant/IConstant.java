@@ -13,7 +13,7 @@ public interface IConstant {
 
     String GOOGLE_CLIENT_SECRET = "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";
 
-    String GOOGLE_REDIRECT_URI = "http://localhost:6789/MotorcyleHiringProject/login-google";
+    String GOOGLE_REDIRECT_URI = "http://localhost:8080/MotorcyleHiringProject/login-google";
 
     String GOOGLE_GRANT_TYPE = "authorization_code";
 

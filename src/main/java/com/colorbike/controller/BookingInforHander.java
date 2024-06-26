@@ -12,6 +12,7 @@ import com.colorbike.dao.BookingDetailDAO;
 import com.colorbike.dao.CustomerDAO;
 import com.colorbike.dao.MotorcycleDetailDAO;
 import com.colorbike.dao.MotorcycleStatusDAO;
+import com.colorbike.dao.PaymentDAO;
 import com.colorbike.dto.AccessoryDetail;
 import com.colorbike.dto.Customer;
 import com.google.gson.Gson;
@@ -99,180 +100,6 @@ public class BookingInforHander extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final long serialVersionUID = 1L; 
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        StringBuilder sb = new StringBuilder();
-//        BufferedReader reader = request.getReader();
-//        String line;
-//        while ((line = reader.readLine()) != null) {
-//            sb.append(line);
-//        }
-//        String jsonData = sb.toString();
-//
-//        // Chuyển đổi JSON thành HashMap
-//        Gson gson = new Gson();
-//        HashMap<String, Object> dataMap;
-//        try {
-//            Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
-//            dataMap = gson.fromJson(jsonData, type);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid JSON format");
-//            return;
-//        }
-//
-//        // Lấy các giá trị từ HashMap
-//        String pickupDate = (String) dataMap.get("pickupDate");
-//        String pickupLocation = (String) dataMap.get("pickupLocation");
-//        String returnLocation = (String) dataMap.get("returnLocation");
-//        String returnDate = (String) dataMap.get("returnDate");
-////        int customerId = Integer.parseInt((String) dataMap.get("customerId"));
-//        String fistname = (String) dataMap.get("fistname");
-//        String lastname = (String) dataMap.get("lastname");
-//        String phone = (String) dataMap.get("phone");
-//        String email = (String) dataMap.get("email");
-//        String total = (String) dataMap.get("total");
-//        
-//        // Lấy ngày giờ hiện tại
-//        LocalDateTime currentDateTime = LocalDateTime.now();
-//
-//        // Định dạng ngày giờ thành chuỗi nếu cần
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        String formattedDateTime = currentDateTime.format(formatter);
-//        
-//        // Thực hiện các thao tác khác như lưu vào cơ sở dữ liệu, v.v.
-//        int va = 0;
-//        String bookingid = generateBookingCode();
-//        BookingDAO dao = BookingDAO.getInstance();
-//        dao.addBooing(bookingid, formattedDateTime, pickupDate, returnDate, pickupLocation, returnLocation, va, customerId);
-//        
-//        Type bikeListType = new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType();
-//        ArrayList<HashMap<String, String>> bikeDetails = gson.fromJson(gson.toJson(dataMap.get("bikeDetails")), bikeListType);
-//        
-//        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        String formattedDateString = currentDateTime.format(formatterDate);
-//        
-//        MotorcycleDetailDAO daoMD = MotorcycleDetailDAO.getInstance();
-//        MotorcycleStatusDAO daoMS = MotorcycleStatusDAO.getInstance();
-//        BookingDetailDAO daoBD = BookingDetailDAO.getInstance();
-//         // Tạo một đối tượng Random
-//        Random random = new Random();
-//        
-//        // Lặp qua danh sách chi tiết xe và thực hiện xử lý
-//        for (HashMap<String, String> bikeDetail : bikeDetails) {
-//            String bikeName = bikeDetail.get("name");
-//            int bikePrice = Integer.parseInt(bikeDetail.get("price"));         
-//            List<Integer> list = daoMD.getListAvailableMotorcycleDetailIdByMotorcycleName(bikeName);
-//            // Chọn một phần tử ngẫu nhiên từ danh sách
-//            int randomElement = list.get(random.nextInt(list.size()));
-//            daoMS.insertMotorcycleStatus(randomElement, "STAFF00001", "Chờ xử lý", formattedDateString, "Chờ nhân viên xác nhận");
-//            daoBD.addBookingDetail(randomElement, bookingid, bikePrice);
-//        }
-//        
-//         // Lấy danh sách phụ kiện từ JSON
-//        Type accessoryListType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
-//        ArrayList<HashMap<String, Object>> accessoryDetails = gson.fromJson(gson.toJson(dataMap.get("accessories")), accessoryListType);
-//        
-//        AccessoryDetailDAO daoAD = AccessoryDetailDAO.getInstance();
-//        
-//        // Lặp qua danh sách phụ kiện và lưu vào cơ sở dữ liệu
-//        for (HashMap<String, Object> accessoryDetail : accessoryDetails) {
-//            int accessoryId = Integer.parseInt((String) accessoryDetail.get("id"));
-//            
-//            int quantity = Integer.parseInt((String) accessoryDetail.get("quantity")) ;
-//            double price = (double) accessoryDetail.get("price");
-//            daoAD.insert(new AccessoryDetail(bookingid, accessoryId, quantity, price));
-//        }
-//        
-//        
-//        String link = "<!DOCTYPE html>\n" +
-//                    "<html lang=\"vi\">\n" +
-//                    "<head>\n" +
-//                    "    <meta charset=\"UTF-8\">\n" +
-//                    "    <title>Thông tin đặt xe</title>\n" +
-//                    "    <style>\n" +
-//                    "        body {\n" +
-//                    "            font-family: Arial, sans-serif;\n" +
-//                    "        }\n" +
-//                    "        .container {\n" +
-//                    "            max-width: 600px;\n" +
-//                    "            margin: 0 auto;\n" +
-//                    "            padding: 20px;\n" +
-//                    "            border: 1px solid #ddd;\n" +
-//                    "            border-radius: 10px;\n" +
-//                    "        }\n" +
-//                    "        .header {\n" +
-//                    "            font-size: 18px;\n" +
-//                    "            font-weight: bold;\n" +
-//                    "            margin-bottom: 20px;\n" +
-//                    "        }\n" +
-//                    "        .info, .vehicle-info, .note {\n" +
-//                    "            margin-bottom: 20px;\n" +
-//                    "        }\n" +
-//                    "        .info div, .vehicle-info div {\n" +
-//                    "            margin-bottom: 10px;\n" +
-//                    "        }\n" +
-//                    "        .info div span, .vehicle-info div span {\n" +
-//                    "            font-weight: bold;\n" +
-//                    "        }\n" +
-//                    "        .note ul {\n" +
-//                    "            list-style: none;\n" +
-//                    "            padding: 0;\n" +
-//                    "        }\n" +
-//                    "        .note li {\n" +
-//                    "            margin-bottom: 10px;\n" +
-//                    "        }\n" +
-//                    "        .note a {\n" +
-//                    "            color: blue;\n" +
-//                    "            text-decoration: underline;\n" +
-//                    "        }\n" +
-//                    "    </style>\n" +
-//                    "</head>\n" +
-//                    "<body>\n" +
-//                    "    <div class=\"container\">\n" +
-//                    "        <div class=\"header\">Xin chào "+ lastname +",</div>\n" +
-//                    "        <div class=\"info\">\n" +
-//                    "            <div>COLORBIKE đã nhận được yêu cầu thuê xe máy của bạn. Bạn vui lòng kiểm tra lại các thông tin đặt xe dưới đây.</div>\n" +
-//                    "            <div><span>Mã đặt xe:</span> "+ bookingid + "</div>\n" +
-//                    "            <div><span>Họ và tên:</span> " + fistname + " " + lastname+"</div>\n" +
-//                    "            <div><span>Điện thoại:</span> " + phone + "</div>\n" +
-//                    "            <div><span>Email:</span> " + email+"</div>\n" +
-//                    "        </div>\n" +
-//                    "        <div class=\"vehicle-info\">\n" +
-//                    "            <div><span>Loại xe thuê:</span> Honda Air Blade 125cc</div>\n" +
-//                    "            <div><span>Ngày nhận xe:</span> "+ pickupDate+" tại: " + pickupLocation +"</div>\n" +
-//                    "            <div><span>Ngày trả xe:</span> "+ returnDate+" tại: " + returnLocation +"</div>\n" +
-//                    "            <div><span>Phí thuê xe dự tính:</span> "+ total +"</div>\n" +
-//                    "        </div>\n" +
-//                    "        <div class=\"note\">\n" +
-//                    "            <div><span>Lưu ý:</span></div>\n" +
-//                    "            <ul>\n" +
-//                    "               \n" +
-//                    "                <li>Trong trường hợp bạn muốn hủy lịch thuê xe vì lý do đột xuất, bạn vui lòng báo trước thời gian nhận xe 24 tiếng để hoàn lại 100% tiền cọc. Nếu báo sau thời gian này, MOTOGO xin phép hoàn lại 80% phí cọc ban đầu.</li>\n" +
-//                    "            </ul>\n" +
-//                    "            <div>Ngoài ra, nếu bạn có thêm bất kỳ thắc mắc nào về dịch vụ cho thuê xe máy của COLORBIKE, vui lòng liên hệ với chúng tôi.</div>\n" +
-//                    "        </div>\n" +
-//                    "    </div>\n" +
-//                    "</body>\n" +
-//                    "</html>\n" +
-//                    "";
-//        SendEmail.sendVerificationEmail(email, link);
-//    }
-//    
-//    private String generateBookingCode() {
-//        // Khởi tạo một đối tượng Random
-//        Random random = new Random();
-//
-//        // Sinh ra 6 số ngẫu nhiên từ 0 đến 999999
-//        int randomNumber = random.nextInt(1000000);
-//
-//        // Format số ngẫu nhiên thành chuỗi, thêm vào "BOOK"
-//        String bookingCode = "BOOK" + String.format("%06d", randomNumber);
-//
-//        return bookingCode;
-//    }
- 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -360,6 +187,8 @@ public class BookingInforHander extends HttpServlet {
         String dob = (String) dataMap.get("dob");
         String gender = (String) dataMap.get("gender");
         String total = (String) dataMap.get("total");
+        String paymentDate = (String) dataMap.get("paymenttime");
+        int amount = Integer.parseInt((String) dataMap.get("amount"));
 
         // Get current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -417,7 +246,22 @@ public class BookingInforHander extends HttpServlet {
             double price = (double) accessoryDetail.get("price");
             daoAD.insert(new AccessoryDetail(bookingid, accessoryId, quantity, price));
         }
-
+        
+        //Payment
+        // Định dạng chuỗi đầu vào
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        
+        // Chuyển đổi chuỗi thành LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.parse(paymentDate, inputFormatter);
+        
+        // Định dạng chuỗi đầu ra
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        
+        // Chuyển đổi LocalDateTime thành chuỗi định dạng mới
+        String paymentDateText = dateTime.format(outputFormatter);
+        PaymentDAO daoP = PaymentDAO.getInstance();
+        daoP.addPayment(bookingid, "Ngân hàng", paymentDateText, amount/100, "Thành công");
+        
         // Send confirmation email
        StringBuilder emailContent = new StringBuilder();
         emailContent.append("<!DOCTYPE html>\n");

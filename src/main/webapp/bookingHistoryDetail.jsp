@@ -193,7 +193,7 @@
                         <c:set var="endYear" value="${fn:substring(endDate, 0, 4)}" />
                         <c:set var="endMonth" value="${fn:substring(endDate, 5, 7)}" />
                         <c:set var="endDay" value="${fn:substring(endDate, 8, 10)}" />
-                         <c:set var="endHour" value="${fn:substring(endDate, 11, 13)}" />
+                        <c:set var="endHour" value="${fn:substring(endDate, 11, 13)}" />
                         <c:set var="endMinute" value="${fn:substring(endDate, 14, 16)}" />
                         <c:set var="endSecond" value="${fn:substring(endDate, 17, 19)}" />
                         ${endDay}-${endMonth}-${endYear} ${endHour}:${endMinute}:${endSecond}
@@ -210,7 +210,9 @@
                             <c:set var="total" value="${total + detail.totalPrice}"/>
                         </c:forEach>
                         <fmt:formatNumber value="${total*1000}" type="currency" currencySymbol="VNĐ" />
-                    </span> (Đã thanh toán: <span id="amount-paid">500,000 VND</span>)</span></p>
+                    </span> (Đã thanh toán: <span id="amount-paid">
+                        <fmt:formatNumber value="${payment.paymentAmount * 1000}" type="currency" currencySymbol="VNĐ" />
+                    </span>)</span></p>
                 <!--nếu đổi số > 500.000 sẽ có thanh toán :3 -->
                 <a style="cursor: pointer; text-decoration: underline" onclick="openExtension()"><strong>Xem thông tin gia hạn </strong></a>    
                 <p></p>
@@ -266,7 +268,7 @@
 
                                 <p><strong>Phí gia hạn:</strong>
                                     <span id="extension-fee">
-                                        <fmt:formatNumber value="${extension.extensionFee}" type="currency" currencySymbol="VNĐ" />
+                                        <fmt:formatNumber value="${extension.extensionFee * 1000}" type="currency" currencySymbol="VNĐ" />
                                     </span>
                                 </p>
 
@@ -294,7 +296,7 @@
                     <button id="pay-btn">Thanh toán</button>
                 </c:if>
                 <c:if test="${statusBooking != 'Đã hủy' && booking.deliveryStatus != 'Đã trả'}">
-                    <button id="extension">Gia Hạn</button>
+                    <button onclick="openExtensionForm()" id="extension">Gia Hạn</button>
                 </c:if>
                 <c:if test="${statusBooking == 'Đã hủy' || booking.deliveryStatus == 'Đã trả'}">
                     <button id="rebook-btn">Đặt lại</button>
@@ -342,7 +344,22 @@
                 }
             }
 
+            function openExtensionForm(){
+                var url = "extend?bookingid=" + document.getElementById("bookingId").value; // Đường dẫn đến trang bạn muốn mở
+//                var popUpWidth = 1000;
+//                var popUpHeight = 600;
+//                var popUpLeft = (screen.width - popUpWidth) / 2;
+//                var popUpTop = (screen.height - popUpHeight) / 2;
+//                var features =  ',height=' + popUpHeight + ',top=' + popUpTop + ',left=' + popUpLeft;
 
+                var newWindow = window.open(url, '_blank');
+
+                if (newWindow) {
+                    newWindow.focus();
+                } else {
+                    alert('Trình duyệt của bạn đã chặn pop-up. Vui lòng tắt trình chặn pop-up và thử lại.');
+                }
+            }
             function openExtension() {
                 document.getElementById('extension-info').style.display = 'block';
             }

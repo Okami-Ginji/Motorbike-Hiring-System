@@ -438,11 +438,10 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="filter-search filter-group">
                             <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
                                 <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
-                                <button style="font-weight:bold; color: #28a745;background:#01D28E;border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
+                                <button style="font-weight:bold; color: #28a745;background-image: linear-gradient(to right, #75fed9, #00ff55);border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
                             </form>
                         </div>
                     </div>
@@ -454,9 +453,17 @@
                     </div>
                 </div>
             </section>
-            <section>
+            <!-- end search -->
+
+            <section class="ftco-section bg-light">
                 <div class="container-haha">
                     <div class="wrapper row">
+                        <c:if test="${not empty noResults}">
+                            <div class="text-center no-results-message">
+                                Không có mẫu xe nào phù hợp với tìm kiếm của bạn.
+                            </div>
+                        </c:if>
+
                         <c:forEach var="motorbike" items="${motorcycles}">
                             <div class="box col-md-3">
                                 <div class="banner-image">
@@ -485,182 +492,180 @@
                         </div>
                     </div>
                 </div>
-
             </section> 
 
         </div>
-    </div>
-    <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/footer.jsp" />
 
 
 
-    <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00" />
-        </svg></div>
+        <!-- loader -->
+        <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                    stroke="#F96D00" />
+            </svg></div>
 
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/jquery.timepicker.min.js"></script>
-    <script src="js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-                            function toggleOptions(id) {
-                                var options = document.getElementById(id);
-                                var button = options.previousElementSibling;
-                                if (currentOpenOptions && currentOpenOptions !== options) {
-                                    currentOpenOptions.classList.remove('show-options');
-                                    currentOpenOptions.previousElementSibling.classList.remove('open');
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.easing.1.3.js"></script>
+        <script src="js/jquery.waypoints.min.js"></script>
+        <script src="js/jquery.stellar.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/aos.js"></script>
+        <script src="js/jquery.animateNumber.min.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
+        <script src="js/jquery.timepicker.min.js"></script>
+        <script src="js/scrollax.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+        <script src="js/google-map.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+                                function toggleOptions(id) {
+                                    var options = document.getElementById(id);
+                                    var button = options.previousElementSibling;
+                                    if (currentOpenOptions && currentOpenOptions !== options) {
+                                        currentOpenOptions.classList.remove('show-options');
+                                        currentOpenOptions.previousElementSibling.classList.remove('open');
+                                    }
+
+                                    options.classList.toggle('show-options');
+                                    button.classList.toggle('open');
+                                    currentOpenOptions = options.classList.contains('show-options') ? options : null;
                                 }
 
-                                options.classList.toggle('show-options');
-                                button.classList.toggle('open');
-                                currentOpenOptions = options.classList.contains('show-options') ? options : null;
-                            }
-
-                            function closeOptions(id) {
-                                var options = document.getElementById(id);
-                                options.classList.remove('show-options');
-                            }
-
-                            function toggleSelection(button) {
-                                button.classList.toggle('selected');
-                                updateSelectedFilters();
-                            }
-
-                            function updateSelectedFilters() {
-                                var selectedButtons = document.querySelectorAll('.filter-options button.selected');
-                                var selectedFilters = Array.from(selectedButtons).map(function (button) {
-                                    return {
-                                        text: button.textContent,
-                                        group: button.closest('.filter-group').querySelector('.filter-button').textContent.trim()
-                                    };
-                                });
-                                var selectedFiltersContainer = document.getElementById('selectedFilters');
-                                selectedFiltersContainer.innerHTML = '';
-                                if (selectedFilters.length > 0) {
-                                    var header = document.createElement('h2');
-                                    header.textContent = 'Đang lọc theo';
-                                    selectedFiltersContainer.appendChild(header);
-                                    var clearAllButton = document.createElement('div');
-                                    clearAllButton.className = 'selected-filter';
-                                    clearAllButton.innerHTML = '<span>× Bỏ chọn tất cả</span>';
-                                    clearAllButton.onclick = clearAllSelections;
-                                    selectedFiltersContainer.appendChild(clearAllButton);
+                                function closeOptions(id) {
+                                    var options = document.getElementById(id);
+                                    options.classList.remove('show-options');
                                 }
-                                selectedFilters.forEach(function (filter) {
-                                    var filterDiv = document.createElement('div');
-                                    filterDiv.className = 'selected-filter';
-                                    filterDiv.innerHTML = '<span>' + filter.group + ': ' + filter.text + '</span><span class="remove-filter" onclick="removeSelectedFilter(this.parentElement, \'' + filter.text + '\')">&#10006;</span>';
-                                    selectedFiltersContainer.appendChild(filterDiv);
-                                });
-                            }
 
-                            function removeSelectedFilter(filterDiv, text) {
-                                var filterOptionButtons = document.querySelectorAll('.filter-options button');
-                                filterOptionButtons.forEach(function (button) {
-                                    if (button.textContent === text) {
+                                function toggleSelection(button) {
+                                    button.classList.toggle('selected');
+                                    updateSelectedFilters();
+                                }
+
+                                function updateSelectedFilters() {
+                                    var selectedButtons = document.querySelectorAll('.filter-options button.selected');
+                                    var selectedFilters = Array.from(selectedButtons).map(function (button) {
+                                        return {
+                                            text: button.textContent,
+                                            group: button.closest('.filter-group').querySelector('.filter-button').textContent.trim()
+                                        };
+                                    });
+                                    var selectedFiltersContainer = document.getElementById('selectedFilters');
+                                    selectedFiltersContainer.innerHTML = '';
+                                    if (selectedFilters.length > 0) {
+                                        var header = document.createElement('h2');
+                                        header.textContent = 'Đang lọc theo';
+                                        selectedFiltersContainer.appendChild(header);
+                                        var clearAllButton = document.createElement('div');
+                                        clearAllButton.className = 'selected-filter';
+                                        clearAllButton.innerHTML = '<span>× Bỏ chọn tất cả</span>';
+                                        clearAllButton.onclick = clearAllSelections;
+                                        selectedFiltersContainer.appendChild(clearAllButton);
+                                    }
+                                    selectedFilters.forEach(function (filter) {
+                                        var filterDiv = document.createElement('div');
+                                        filterDiv.className = 'selected-filter';
+                                        filterDiv.innerHTML = '<span>' + filter.group + ': ' + filter.text + '</span><span class="remove-filter" onclick="removeSelectedFilter(this.parentElement, \'' + filter.text + '\')">&#10006;</span>';
+                                        selectedFiltersContainer.appendChild(filterDiv);
+                                    });
+                                }
+
+                                function removeSelectedFilter(filterDiv, text) {
+                                    var filterOptionButtons = document.querySelectorAll('.filter-options button');
+                                    filterOptionButtons.forEach(function (button) {
+                                        if (button.textContent === text) {
+                                            button.classList.remove('selected');
+                                        }
+                                    });
+                                    filterDiv.remove();
+                                    updateSelectedFilters();
+                                }
+
+                                function clearAllSelections() {
+                                    var selectedButtons = document.querySelectorAll('.filter-options button.selected');
+                                    selectedButtons.forEach(function (button) {
                                         button.classList.remove('selected');
-                                    }
-                                });
-                                filterDiv.remove();
-                                updateSelectedFilters();
-                            }
-
-                            function clearAllSelections() {
-                                var selectedButtons = document.querySelectorAll('.filter-options button.selected');
-                                selectedButtons.forEach(function (button) {
-                                    button.classList.remove('selected');
-                                });
-                                updateSelectedFilters();
-                            }
-                            var currentOpenOptions = null;
-
-
-                            function showResults() {
-                                var selectedBrands = [];
-                                var selectedCategories = [];
-                                var selectedDisplacements = [];
-                                var selectedDemands = [];
-                                var selectedPriceRanges = [];
-
-                                var selectedPriceButton = document.querySelectorAll('#priceOptions .button-item-option.selected');
-                                selectedPriceButton.forEach(function (button) {
-                                    var priceRange = button.getAttribute('data-id');
-                                    if (priceRange) {
-                                        selectedPriceRanges.push(priceRange);
-                                    }
-                                });
-
-                                var selectedBrandButtons = document.querySelectorAll('#brandOptions .button-item-option.selected');
-                                selectedBrandButtons.forEach(function (button) {
-                                    var brandID = button.getAttribute('data-id');
-                                    if (brandID) {
-                                        selectedBrands.push(brandID);
-                                    }
-                                });
-
-                                var selectedCategoryButtons = document.querySelectorAll('#categoryOptions .button-item-option.selected');
-                                selectedCategoryButtons.forEach(function (button) {
-                                    var categoryID = button.getAttribute('data-id');
-                                    if (categoryID) {
-                                        selectedCategories.push(categoryID);
-                                    }
-                                });
-
-                                var selectedDisplacementButtons = document.querySelectorAll('#massOptions .button-item-option.selected');
-                                selectedDisplacementButtons.forEach(function (button) {
-                                    var displacement = button.getAttribute('data-id');
-                                    if (displacement) {
-                                        selectedDisplacements.push(displacement);
-                                    }
-                                });
-
-                                var selectedDemandButtons = document.querySelectorAll('#needOptions .button-item-option.selected');
-                                selectedDemandButtons.forEach(function (button) {
-                                    var demandID = button.getAttribute('data-id');
-                                    if (demandID) {
-                                        selectedDemands.push(demandID);
-                                    }
-                                });
-
-                                var url = 'searchCriteria?';
-                                if (selectedBrands.length > 0) {
-                                    url += 'brands=' + selectedBrands.join('&brands=') + '&';
+                                    });
+                                    updateSelectedFilters();
                                 }
-                                if (selectedCategories.length > 0) {
-                                    url += 'categories=' + selectedCategories.join('&categories=') + '&';
-                                }
-                                if (selectedDisplacements.length > 0) {
-                                    url += 'displacements=' + selectedDisplacements.join('&displacements=') + '&';
-                                }
-                                if (selectedDemands.length > 0) {
-                                    url += 'demands=' + selectedDemands.join('&demands=') + '&';
-                                }
-                                if (selectedPriceRanges.length > 0) {
-                                    url += 'priceRanges=' + selectedPriceRanges.join('&priceRanges=') + '&';
-                                }
+                                var currentOpenOptions = null;
 
-                                // Remove the trailing '&'
-                                url = url.slice(0, -1);
 
-                                window.location.href = url;
-                            }
-    </script>
-</body>
+                                function showResults() {
+                                    var selectedBrands = [];
+                                    var selectedCategories = [];
+                                    var selectedDisplacements = [];
+                                    var selectedDemands = [];
+                                    var selectedPriceRanges = [];
+
+                                    var selectedPriceButton = document.querySelectorAll('#priceOptions .button-item-option.selected');
+                                    selectedPriceButton.forEach(function (button) {
+                                        var priceRange = button.getAttribute('data-id');
+                                        if (priceRange) {
+                                            selectedPriceRanges.push(priceRange);
+                                        }
+                                    });
+
+                                    var selectedBrandButtons = document.querySelectorAll('#brandOptions .button-item-option.selected');
+                                    selectedBrandButtons.forEach(function (button) {
+                                        var brandID = button.getAttribute('data-id');
+                                        if (brandID) {
+                                            selectedBrands.push(brandID);
+                                        }
+                                    });
+
+                                    var selectedCategoryButtons = document.querySelectorAll('#categoryOptions .button-item-option.selected');
+                                    selectedCategoryButtons.forEach(function (button) {
+                                        var categoryID = button.getAttribute('data-id');
+                                        if (categoryID) {
+                                            selectedCategories.push(categoryID);
+                                        }
+                                    });
+
+                                    var selectedDisplacementButtons = document.querySelectorAll('#massOptions .button-item-option.selected');
+                                    selectedDisplacementButtons.forEach(function (button) {
+                                        var displacement = button.getAttribute('data-id');
+                                        if (displacement) {
+                                            selectedDisplacements.push(displacement);
+                                        }
+                                    });
+
+                                    var selectedDemandButtons = document.querySelectorAll('#needOptions .button-item-option.selected');
+                                    selectedDemandButtons.forEach(function (button) {
+                                        var demandID = button.getAttribute('data-id');
+                                        if (demandID) {
+                                            selectedDemands.push(demandID);
+                                        }
+                                    });
+
+                                    var url = 'searchCriteria?';
+                                    if (selectedBrands.length > 0) {
+                                        url += 'brands=' + selectedBrands.join('&brands=') + '&';
+                                    }
+                                    if (selectedCategories.length > 0) {
+                                        url += 'categories=' + selectedCategories.join('&categories=') + '&';
+                                    }
+                                    if (selectedDisplacements.length > 0) {
+                                        url += 'displacements=' + selectedDisplacements.join('&displacements=') + '&';
+                                    }
+                                    if (selectedDemands.length > 0) {
+                                        url += 'demands=' + selectedDemands.join('&demands=') + '&';
+                                    }
+                                    if (selectedPriceRanges.length > 0) {
+                                        url += 'priceRanges=' + selectedPriceRanges.join('&priceRanges=') + '&';
+                                    }
+
+                                    // Remove the trailing '&'
+                                    url = url.slice(0, -1);
+
+                                    window.location.href = url;
+                                }
+        </script>
+    </body>
 </html>

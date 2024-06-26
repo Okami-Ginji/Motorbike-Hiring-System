@@ -9,7 +9,6 @@
 <html lang="en">
 
     <head>
-        <link rel="website icon" type="png" href="images\logo.png">
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
@@ -229,6 +228,35 @@
             }
             /*phone validation*/
 
+            .tooltip {
+                position: absolute;
+                top: 53%;
+/*                left: 0;
+                transform: translateY(10px);*/
+                background-color: #f44336;
+                color: #fff;
+                padding: 0px 10px;
+                border-radius: 4px;
+                font-size: 0.9rem;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+                margin: 20px;
+                
+            }
+            .tooltip::after {
+                content: "";
+                position: absolute;
+                top: -5px;
+                left: 10px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent transparent #f44336 transparent;
+            }
+            .inputRow.input-error .tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
         </style>
 
     </head>
@@ -239,51 +267,52 @@
                 <img src="images/register.png" alt="header" />
             </div>
             <div class="containerContent col-md-6">
-                <h3>Chào Mừng Bạn Đến Với COLORBIKE</h3>
-                <h1>Tạo Tài Khoản</h1>
+                <h3>Welcome to COLORBIKE</h3>
+                <h1>Register</h1>
                 <form action="register" method="post">
                     <div class="inputRow">
-                        <input type="text" name="firstname" placeholder="Nhập Tên" />
+                        <input type="text" name="firstname" placeholder="Enter your FirstName" />
                     </div>
                     <div class="inputRow">
-                        <input type="text" name="lastname" placeholder="Nhập Họ" />
+                        <input type="text" name="lastname" placeholder="Enter your LastName" />
                     </div>
                     <select id="gender" name="gender" class="inputRow">
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                        <option value="unknown">Không Xác Định</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="unknown">Unknown</option>
                     </select>
                     <div class="inputRow">
                         <input type="text" name="phone" id="phone"
-                               placeholder="Nhập Số Điện Thoại" />                       
+                               placeholder="Enter your Phone Number" />          
+                        <div class="tooltip" id="phone-error">Phone number must be exactly 10 digits.</div>
                     </div>
-                    <div id="phone-error" style="color: red; margin-bottom: 1rem;"></div>
+<!--                    <div id="phone-error" style="color: red; margin-bottom: 1rem;"></div>-->
 
                     <div class="inputRow">
-                        <input type="date" name="dob" placeholder="Nhập Ngày\Tháng\Năm Sinh" />
+                        <input type="date" name="dob" placeholder="Enter your Data of birth" />
                     </div>
                     <div class="inputRow">
-                        <input type="text" name="address" placeholder="Nhập Địa Chỉ" />
+                        <input type="text" name="address" placeholder="Enter your Address" />
                     </div>
                     <div class="inputRow">
-                        <input type="email" name="email" placeholder="Nhập Email" />
+                        <input type="email" name="email" placeholder="Enter your Email" />
                     </div>
                     <div class="inputRow">
-                        <input type="text" name="username" placeholder="Nhập Tên Tài Khoản" />
+                        <input type="text" name="username" placeholder="Enter your Username" />
                     </div>
                     <div class="inputRow">
                         <input type="password" class="eye" name="password" id="password"
-                               value="" placeholder="Nhập Mật Khẩu" required/>
+                               value="" placeholder="Password" required/>
                         <span id="password-eye-1"><i class="ri-eye-off-line"></i></span>
                     </div>
                     <div class="inputRow">
                         <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation"
-                               value="" placeholder="Nhập Lại Mật Khẩu" required/>
+                               value="" placeholder="Confirm Password" required/>
                         <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
                     </div>
 
                     <div style="color: red; margin-left:30px; ">${info}</div><br>
-                    <button type="submit" name="register-submit" id="register-submit">Tạo Tài Khoản</button>
+                    <button type="submit" name="register-submit" id="register-submit">Create new account</button>
                 </form>
                 <h6>Or continue with</h6>
                 <div class="logins">
@@ -292,7 +321,7 @@
                     <a href="#"><img src="images/facebook.png"
                                      alt="facebook" /></a>
                 </div>
-                <p>Nếu bạn đã có tài khoản <a href="login.jsp">Đăng Nhập</a></p>
+                <p>I have an account <a href="#">Log in</a></p>
             </div>
 
         </div>

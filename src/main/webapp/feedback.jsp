@@ -315,7 +315,7 @@
 
                 <div class="additional-feedback">
                     <label for="general-feedback">Nhận xét chung:</label>
-                    <textarea id="general-feedback" name="content" style="margin-top: 12px; width: 665px; height: 128px;" value="${fb.content}" placeholder="Hãy chia sẻ nhận xét cho sản phẩm này bạn nhé!">${fb.content}</textarea>
+                    <textarea id="general-feedback" name="content" style="margin-top: 12px; width: 100%; height: 128px;" value="${fb.content}" placeholder="Hãy chia sẻ nhận xét cho sản phẩm này bạn nhé!">${fb.content}</textarea>
                 </div>
 
                 <div id="submit-feedback" class="submit-section">

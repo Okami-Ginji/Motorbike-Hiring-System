@@ -255,8 +255,6 @@
                 <jsp:include page="/includes/sidebar.jsp" /> 
             </div>
 
-
-
             <div class="col-md-10">
                 <div class="container col-md-8">
                     <div class="row">
@@ -441,9 +439,6 @@
         <!--<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>-->
         <!-- MDB JS -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
-
-
-
     </body>
 
 </html>

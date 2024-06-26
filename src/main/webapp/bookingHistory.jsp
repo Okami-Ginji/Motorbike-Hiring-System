@@ -420,6 +420,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <c:if test="${empty listB}">
+                                    <tr>
+                                        <td colspan="7" style="text-align: center; font-style: italic; padding: 18px; font-size: 17px;">Không có thông tin Booking nào ở đây</td>
+                                    </tr>
+                                </c:if>
                                 <c:forEach items="${listB}" var="o">
                                     <tr class="${status}">
                                         <td>${o.bookingID}</td>
@@ -460,12 +465,12 @@
                                             <c:set var="feedback" value="${feedbackMap[o.bookingID]}"/>
                                             <c:choose>
                                                 <c:when test="${not empty feedback}">
-                                                    <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận') || (status == 'confirmed')}">
+                                                    <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus == 'Đã trả'))}">
                                                         <a style="color: green" id="view-review-button" class="text-decoration-none fst-italic" href="feedback?bookingId=${o.bookingID}">Xem đánh giá</a>
                                                     </c:if>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận') || (status == 'confirmed')}">
+                                                    <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus == 'Đã trả'))}">
                                                         <a style="color: red" id="write-review-button" class="text-decoration-none fst-italic" href="feedback?bookingId=${o.bookingID}">Viết đánh giá</a>
                                                     </c:if>
                                                 </c:otherwise>
@@ -482,66 +487,66 @@
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-                                                document.addEventListener("DOMContentLoaded", () => {
-                                                    initializeFilters();
+                                            document.addEventListener("DOMContentLoaded", () => {
+                                                initializeFilters();
+                                            });
+
+                                            // Initialize filters and add event listeners
+                                            function initializeFilters()
+                                            {
+                                                const confirmedFilters = document.getElementById("confirmed-filters");
+                                                const confirmedStatusSelect = document.getElementById("confirmed-status");
+
+                                                // Add event listeners to filter buttons
+                                                document.querySelectorAll(".filter-btn").forEach(button => {
+                                                    button.addEventListener("click", () => {
+                                                        const filter = button.getAttribute("data-filter");
+                                                        applyFilter(filter);
+                                                        confirmedFilters.style.display = "none";
+                                                        window.location.href = "bookingHistory?status=" + filter;
+
+
+                                                    });
+                                                });
+                                                checkURL();
+
+
+                                                // Add event listener to confirmed status select
+                                                confirmedStatusSelect.addEventListener("change", () => {
+                                                    const filter = confirmedStatusSelect.value;
+                                                    applyConfirmedFilter(filter);
+                                                    window.location.href = "bookingHistory?status=confirmed&deliveryStatus=" + filter;
+                                                });
+                                            }
+
+                                            function checkURL() {
+                                                const currentURL = window.location.href;
+                                                if (currentURL.includes('bookingHistory?status=confirmed')) {
+                                                    document.getElementById("confirmed-filters").style.display = 'block';
+                                                }
+                                            }
+
+                                            // Apply filter for confirmed status
+                                            function applyConfirmedFilter(filter) {
+                                                document.querySelectorAll("#booking-table tbody tr.confirmed").forEach(row => {
+                                                    if (filter === "all" || row.classList.contains(filter)) {
+                                                        row.style.display = "";
+                                                    } else {
+                                                        row.style.display = "none";
+                                                    }
+                                                });
+                                            }
+                                            // Apply filter based on the status (all, pending, confirmed, cancelled)
+                                            function applyFilter(filter) {
+                                                document.querySelectorAll("#booking-table tbody tr").forEach(row => {
+                                                    if (filter === "all" || row.classList.contains(filter)) {
+                                                        row.style.display = "";
+                                                    } else {
+                                                        row.style.display = "none";
+                                                    }
                                                 });
 
-                                                // Initialize filters and add event listeners
-                                                function initializeFilters()
-                                                {
-                                                    const confirmedFilters = document.getElementById("confirmed-filters");
-                                                    const confirmedStatusSelect = document.getElementById("confirmed-status");
-
-                                                    // Add event listeners to filter buttons
-                                                    document.querySelectorAll(".filter-btn").forEach(button => {
-                                                        button.addEventListener("click", () => {
-                                                            const filter = button.getAttribute("data-filter");
-                                                            applyFilter(filter);
-                                                            confirmedFilters.style.display = "none";
-                                                            window.location.href = "bookingHistory?status=" + filter;
-
-
-                                                        });
-                                                    });
-                                                    checkURL();
-
-
-                                                    // Add event listener to confirmed status select
-                                                    confirmedStatusSelect.addEventListener("change", () => {
-                                                        const filter = confirmedStatusSelect.value;
-                                                        applyConfirmedFilter(filter);
-                                                        window.location.href = "bookingHistory?status=confirmed&deliveryStatus=" + filter;
-                                                    });
-                                                }
-
-                                                function checkURL() {
-                                                    const currentURL = window.location.href;
-                                                    if (currentURL.includes('bookingHistory?status=confirmed')) {
-                                                        document.getElementById("confirmed-filters").style.display = 'block';
-                                                    }
-                                                }
-
-                                                // Apply filter for confirmed status
-                                                function applyConfirmedFilter(filter) {
-                                                    document.querySelectorAll("#booking-table tbody tr.confirmed").forEach(row => {
-                                                        if (filter === "all" || row.classList.contains(filter)) {
-                                                            row.style.display = "";
-                                                        } else {
-                                                            row.style.display = "none";
-                                                        }
-                                                    });
-                                                }
-                                                // Apply filter based on the status (all, pending, confirmed, cancelled)
-                                                function applyFilter(filter) {
-                                                    document.querySelectorAll("#booking-table tbody tr").forEach(row => {
-                                                        if (filter === "all" || row.classList.contains(filter)) {
-                                                            row.style.display = "";
-                                                        } else {
-                                                            row.style.display = "none";
-                                                        }
-                                                    });
-
-                                                }
+                                            }
         </script>
     </body>
 </html>

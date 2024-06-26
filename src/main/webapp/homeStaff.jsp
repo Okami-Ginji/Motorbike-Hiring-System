@@ -51,7 +51,7 @@
             <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">Startmin</a>
+                    <a class="navbar-brand" href="homeStaff.jsp">Staff</a>
                 </div>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -62,7 +62,7 @@
                 </button>
 
                 <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a href="index.jsp"><i class="fa fa-home fa-fw"></i> Website</a></li>
+                    <li><a href="index.jsp"><i class="fa fa-home fa-fw"></i> Trang chủ</a></li>
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">
@@ -126,22 +126,20 @@
                         </a>
                         <ul class="dropdown-menu dropdown-user">
                             <li>
-                                <a href="profileStaff.jsp"><i class="fa fa-user fa-fw"></i>Profile</a>
+                                <a href="profileStaff.jsp"><i class="fa fa-user fa-fw"></i>Thông tin cá nhân</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                <a href="#"><i class="fa fa-gear fa-fw"></i> Cài đặt</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                <a href="login.jsp"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <!-- /.navbar-top-links -->
             </nav>
-
-
 
             <div id="page-wrapper">
                 <div class="container-fluid">
@@ -208,13 +206,13 @@
                                         </div>
                                         <div class="col-xs-9 text-right">
                                             <div class="huge">124</div>
-                                            <div>New Orders!</div>
+                                            <div>Đơn hàng mới</div>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="#">
+                                <a href="manageBooking.jsp">
                                     <div class="panel-footer">
-                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-left">Xem chi tiết</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 
                                         <div class="clearfix"></div>

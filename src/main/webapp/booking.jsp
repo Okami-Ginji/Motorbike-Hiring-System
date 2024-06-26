@@ -1406,7 +1406,7 @@
                                                     <div class="form-flex">
                                                         <div class="form-group" style="width: 40%;">
                                                             <label for="drivernumber" class="form-label">CCCD/CMND</label>
-                                                            <input type="text" name="drivernumber" id="identityCard" value="${c.identityCard}" oninput="validateForm()"/>
+                                                            <input type="text" name="drivernumber" id="identityCard" value="${c.identityCard}" onblur="validateForm()"/>
                                                         </div>
                                                         <div style="width: 30%; display: flex; padding-right: 40px">
                                                             <div class="form-group" style="width: 50%">
@@ -1442,7 +1442,7 @@
                                                 <div class="form-flex">
                                                     <div class="form-group" style="width: 40%;">
                                                         <label for="drivernumber" class="form-label">CCCD/CMND</label>
-                                                        <input type="text" name="drivernumber" id="identityCard" oninput="validateForm()"/>
+                                                        <input type="text" name="drivernumber" id="identityCard" oninput = "validateForm()"/>
                                                     </div>
                                                     <div style="width: 30%; display: flex; padding-right: 40px">
                                                         <div class="form-group" style="width: 50%">
@@ -1737,10 +1737,11 @@
                             // Truyền dữ liệu từ thẻ h2 vào iframe khi thẻ h2 thay đổi
                             const sendDataToIframe = () => {
                                 // Lấy giá trị của thẻ h2
-                                const data = dataH2.textContent.replace(/[₫,.]/g, '').trim(); // Lấy dữ liệu và xóa dấu chấm và dấu chấm câu
-
-                                console.log(data);
-
+                                const dataTotal = dataH2.textContent.replace(/[₫,.]/g, '').trim(); // Lấy dữ liệu và xóa dấu chấm và dấu chấm câu
+                                console.log(dataTotal);
+                                const data = {
+                                    dataTotal: dataTotal
+                                };
                                 // Truyền giá trị vào iframe
                                 iframe.contentWindow.postMessage(data, '*');
                             };
@@ -1805,7 +1806,10 @@
 //                            nextButton.style.background = '#4966b1';
                         }
                         
-                        if (currentIndex === 2) {                         
+                        if (currentIndex === 2) {
+                            nextButton.style.pointerEvents = 'auto';
+                            nextButton.style.color = 'white';
+                            nextButton.style.background = '#4966b1';
                             let sum = 0;
                             const checkboxMotorContainer = document.getElementById('motorcyclelist');
                             const selectBoxes = checkboxMotorContainer.querySelectorAll('.form-check-select');
@@ -1873,10 +1877,6 @@
                         }
                         
                         if (currentIndex === 4) { // Bước thứ tư (index bắt đầu từ 0)
-                            var accountId = document.getElementById("accountId").textContent.trim();
-                            console.log(accountId + "accountId123");
-                            var customerId = document.getElementById("customerId").textContent.trim();
-                            console.log(customerId + "customerId123343");
                             const checkbox = document.getElementById('daily-checkbox-term');
                             nextButton.style.pointerEvents = 'none';
                             nextButton.style.background = '#e8e8e8';
@@ -2319,6 +2319,11 @@
                 
             });
             
+            function validateIdentityCard() {
+                const identityCard = document.getElementById('identityCard');
+                return identityCard.value.length === 12;
+            }
+            
             function validateForm() {
                 const requiredFields = [
                     document.getElementById('first_name'),
@@ -2332,11 +2337,14 @@
                     document.getElementById('issuedon'),
                     document.getElementById('expdate')
                 ];
-
+                
+                
+                
                 const allFieldsFilled = requiredFields.every(field => field && field.value.trim() !== '');
-
+                const identityCardValid = validateIdentityCard();
+                
                 var nextButton = document.querySelector('.wizard .actions a[href="#next"]');
-                if (allFieldsFilled) {
+                if (allFieldsFilled && identityCardValid) {
                     nextButton.disabled = false;
                     nextButton.style.pointerEvents = 'auto';
                     nextButton.style.color = 'white';
@@ -2346,6 +2354,17 @@
                     nextButton.style.pointerEvents = 'none';
                     nextButton.style.background = '#e8e8e8';
                     nextButton.style.color = '#999';
+                    
+                    const currentStepIndex = 3;
+                    const steps = document.querySelectorAll('.wizard ul[role="tablist"] li');
+
+                    steps.forEach((step, index) => {
+
+                        if (index > currentStepIndex) {
+                            step.classList.remove('done');
+                            step.classList.add('disabled');
+                        }
+                    });
                 }
             }
 
@@ -2449,7 +2468,7 @@
            // Kiểm tra nếu có dữ liệu nào được gửi từ servlet
         function handlePaymentStatus(data) {
             if (data.status === 'success') {
-                yourFunctionName(data);
+                BookingHandler(data);
             }
         }
         
@@ -2485,8 +2504,9 @@
 
             return accessories;
         }
-        function yourFunctionName() {
+        function BookingHandler(dataReturn) {
             var formData = new FormData();
+            
 //            alert("Thanh toán thành công với mã giao dịch: " + data.txnRef);
              // Lấy các giá trị từ các thẻ <p>
             var pickupDate = document.getElementById("pickupdatetext").textContent.trim();
@@ -2570,7 +2590,9 @@
                 expdate : expdate,
                 bikeDetails: bikeDetails,
                 accessories: accessoriesData,
-                total : total
+                total : total,
+                amount: dataReturn.amount,
+                paymenttime: dataReturn.time              
             };
             
              // Convert object to JSON and append to formData

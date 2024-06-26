@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-public class ExtensionDAO implements Serializable{
+public class ExtensionDAO implements Serializable {
 
     private static ExtensionDAO instance;
     private Connection conn = DBUtil.makeConnection();
@@ -47,7 +48,7 @@ public class ExtensionDAO implements Serializable{
                 + "           ,[BookingID]\n"
                 + "           ,[StaffID])\n"
                 + "     VALUES\n"
-                + "           (GETĐATE(), ?, ?, ?, ?, null)";
+                + "           (GETDATE(), ?, ?, ?, ?, null)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, previousEndDate);
@@ -89,9 +90,42 @@ public class ExtensionDAO implements Serializable{
         }
         return null;
     }
-    
+
+    public List<Extension> getAllExtension() {
+        List<Extension> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        String sql = "SELECT ExtensionID, \n"
+                + "       FORMAT(ExtensionDate, 'dd-MM-yyyy HH:mm:ss') AS ExtensionDateFormatted,\n"
+                + "       FORMAT(PreviousEndDate, 'dd-MM-yyyy HH:mm:ss') AS PreviousEndDateFormatted,\n"
+                + "       FORMAT(NewEndDate, 'dd-MM-yyyy HH:mm:ss') AS NewEndDateFormatted,\n"
+                + "       ExtenstionFee, \n"
+                + "       BookingID, \n"
+                + "       StaffID\n"
+                + "FROM Extension;";
+        try {
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Extension e = new Extension();
+                e.setExtensionID(rs.getInt(1));
+                e.setExtensionDate(rs.getString(2));
+                e.setPreviousEndDate(rs.getString(3));
+                e.setNewEndDate(rs.getString(4));
+                e.setExtensionFee(rs.getDouble(5));
+                e.setBookingID(rs.getString(6));
+                e.setStaffID(rs.getString(7));
+                list.add(e);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
-        System.out.println(ExtensionDAO.getInstance().getExtensionByBookingID("BOOK000006"));
+//        System.out.println(ExtensionDAO.getInstance().getExtensionByBookingID("BOOK000006"));
+        System.out.println(getInstance().getAllExtension());
     }
 
 }

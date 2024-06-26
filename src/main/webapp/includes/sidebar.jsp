@@ -131,7 +131,7 @@
 <aside class="sidebar">
     <!-- Sidebar Header -->
     <div class="sidebar-header" style="background-color: white; color: #fff;">
-        <img src="images\logo.png" alt="Company Logo" style="max-width: 150px; height: auto;margin-bottom: 8%;">
+        <img src="images\anh4.png" alt="Company Logo" style="max-width: 150px; height: auto;margin-bottom: 8%;">
         <!--<h3 style="margin-bottom: 0; font-size: 24px;">ColorBike Company</h3>-->
     </div>
 

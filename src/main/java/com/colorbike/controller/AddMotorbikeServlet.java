@@ -75,12 +75,11 @@ public class AddMotorbikeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         Part image = request.getPart("image");
-       
+
         String id = request.getParameter("id");
         String model = request.getParameter("model");
         String displacement = request.getParameter("displacement");
@@ -92,7 +91,23 @@ public class AddMotorbikeServlet extends HttpServlet {
 
         MotorcycleDAO md = MotorcycleDAO.getInstance();
 
-        
+//        String relativePath = getServletContext().getRealPath("/images");
+//        FileUploaded f = new FileUploaded(relativePath);
+//        FileUploaded f = new FileUploaded("D:\\FPT_UNI\\SWP391\\Code\\MotorcycleRental\\src\\main\\webapp\\images");
+
+        // Đường dẫn thư mục lưu trữ ảnh
+//        String uploadPath = getServletContext().getRealPath("/images");
+//        File uploadDir = new File(uploadPath);
+//        if (!uploadDir.exists()) {
+//            uploadDir.mkdir();
+//        }
+//
+//        // Lấy tên tệp
+//        String fileName = getFileName(image);
+//        String filePath = uploadPath + File.separator + fileName;
+//        
+//        // Lưu tệp vào thư mục
+//        image.write(filePath);
         String fileName = getFileName(image);
         try {
             Motorcycle motor = new Motorcycle(id, model, fileName, displacement, description, minAge, brandID, categoryID, priceListID);
@@ -101,14 +116,14 @@ public class AddMotorbikeServlet extends HttpServlet {
             System.out.println(e);
         }
         FileUploaded f = new FileUploaded("D:\\MotorcycleRental\\src\\main\\webapp\\images");
-        
-        String line = f.handleFileUpload(image, fileName);       
+
+        String line = f.handleFileUpload(image, fileName);
         System.out.println(line);
-        
+
         response.sendRedirect("motorManage");
 
     }
-    
+
     private String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
         if (contentDisposition != null) {
@@ -127,7 +142,7 @@ public class AddMotorbikeServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

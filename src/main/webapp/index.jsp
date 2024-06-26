@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="website icon" type="png" href="images\logo.png">
+
     <head>
         <jsp:include page="/includes/header.jsp" /> 
         <style>
@@ -210,7 +210,6 @@
             .bike {
                 color: rgb(0, 255, 140);
             }
-            
         </style>
         <meta charset="UTF-8"/>
     </head>
@@ -225,17 +224,18 @@
                 <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
                     <div class="col-lg-8 ftco-animate">
                         <div class="text w-100 text-center mb-md-5 pb-md-5">
-                            <h1 class="mb-4">"Bắt đầu hành trình của bạn từ hôm nay!"</h1>
-                            <p style="font-size: 30px;">Tạo cảm giác tin cậy và sẵn sàng phục vụ khách hàng trên mọi chặng đường.</p>
-                            <!--                            <a href="https://vimeo.com/45830194"
-                                                           class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
-                                                            <div class="icon d-flex align-items-center justify-content-center">
-                                                                <span class="ion-ios-play"></span>
-                                                            </div>
-                                                            <div class="heading-title ml-5">
-                                                                <span>Easy steps for renting a car</span>
-                                                            </div>
-                                                        </a>-->
+                            <h1 class="mb-4">Fast &amp; Easy Way To Rent A Motorbike</h1>
+                            <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the
+                                necessary regelialia. It is a paradisematic country, in which roasted parts</p>
+                            <a href="https://vimeo.com/45830194"
+                               class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="ion-ios-play"></span>
+                                </div>
+                                <div class="heading-title ml-5">
+                                    <span>Easy steps for renting a car</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -262,17 +262,17 @@
         <section class="ftco-section ftco-no-pt bg-light">
             <div class="container">
                 <div class="row no-gutters">
-                    <div class="col-md-12 featured-top">
+                    <div class="col-md-12	featured-top">
                         <div class="row no-gutters">
                             <div class="col-md-4 d-flex align-items-center">
                                 <form action="booking" class="request-form ftco-animate bg-primary">
-                                    <h2>Thực hiện chuyến đi</h2>
+                                    <h2>Make your trip</h2>
                                     <div class="form-group">
                                         <label for="" class="label">Địa điểm nhận xe</label>
                                         <select name="pickuploc" id="pickuplocation" class="form-control">
                                             <option value="1">Da Nang Railway Station-202 Hải Phòng Street</option>                    
                                             <option value="2">Da Nang International Airport</option>
-                                            <option value="3">Địa chỉ của bạn</option>
+                                            <option value="3">Your own address</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -280,7 +280,7 @@
                                         <select name="returnloc" id="returnlocation" class="form-control">
                                             <option value="1">Da Nang Railway Station-202 Hải Phòng Street</option>                    
                                             <option value="2">Da Nang International Airport</option>
-                                            <option value="3">Địa chỉ của bạn</option>
+                                            <option value="3">Your own address</option>
                                         </select>
                                     </div>
                                     <div class="d-flex">
@@ -306,20 +306,20 @@
 
                                     <div class="form-group">
                                         <!-- <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4" /> -->
-                                        <button type="submit"  class="btn btn-secondary py-3 px-4">Thuê xe ngay</button>
+                                        <button type="submit"  class="btn btn-secondary py-3 px-4">Rent A Car Now</button>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-md-8 d-flex align-items-center">
                                 <div class="services-wrap rounded-right w-100">
-                                    <h3 class="heading-section mb-4">Cách tốt nhất để thuê những chiếc xe máy hoàn hảo</h3>
+                                    <h3 class="heading-section mb-4">Better Way to Rent Your Perfect Motorbikes</h3>
                                     <div class="row d-flex mb-4">
                                         <div class="col-md-4 d-flex align-self-stretch ftco-animate">
                                             <div class="services w-100 text-center">
                                                 <div class="icon d-flex align-items-center justify-content-center"><span
                                                         class="flaticon-route"></span></div>
                                                 <div class="text w-100">
-                                                    <h3 class="heading mb-2">Chọn địa điểm đến</h3>
+                                                    <h3 class="heading mb-2">Choose Your Pickup Location</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -328,7 +328,7 @@
                                                 <div class="icon d-flex align-items-center justify-content-center"><span
                                                         class="flaticon-handshake"></span></div>
                                                 <div class="text w-100">
-                                                    <h3 class="heading mb-2">Chọn giao dịch tốt nhất</h3>
+                                                    <h3 class="heading mb-2">Select the Best Deal</h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -337,12 +337,12 @@
                                                 <div class="icon d-flex align-items-center justify-content-center"><span
                                                         class="flaticon-rent"></span></div>
                                                 <div class="text w-100">
-                                                    <h3 class="heading mb-2">Đặt trước xe máy cho thuê</h3>
+                                                    <h3 class="heading mb-2">Reserve Your Rental Motorbike</h3>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--<p><a href="#" class="btn btn-primary py-3 px-4">Đặt chiếc xe hoàn hảo</a></p>-->
+                                    <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
                                 </div>
                             </div>
                         </div>
@@ -373,8 +373,8 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-                        <span class="subheading">Gợi ý của chúng tôi</span>
-                        <h2 class="mb-2">Top những xe được thuê nhiều nhất</h2>
+                        <span class="subheading">What we offer</span>
+                        <h2 class="mb-2">Featured Vehicles</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -394,13 +394,14 @@
                                                         <span class="cat">${b.brandName}</span>
                                                         <c:forEach items="${listP}" var="p">
                                                             <c:if test="${motor.priceListID == p.priceListId}">
-                                                                <p class="price ml-auto">${p.dailyPriceForDay} <span>/ngày</span></p>
+                                                                <p class="price ml-auto">${p.dailyPriceForDay} <span>/day</span></p>
                                                             </c:if>
                                                         </c:forEach>
                                                     </div>
                                                 </c:if>
                                             </c:forEach>
-                                            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Thuê ngay</a> <a href="#" class="btn btn-secondary py-2 ml-1">Chi tiết</a></p>
+                                            <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> 
+                                                <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -418,7 +419,7 @@
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-7 text-center heading-section ftco-animate">
                         <!-- <span class="subheading">Services</span> -->
-                        <h2 class="mb-3">Vì sao chọn chúng tôi</h2>
+                        <h2 class="mb-3">Why Choose Us</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -427,8 +428,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span class="fa-solid fa-bars"></span>
                             </div>
                             <div class="text w-100">
-                                <h3 class="heading mb-2">Lựa chọn đa dạng</h3>
-                                <p>Hàng trăm loại xe đa dạng ở nhiều địa điểm tại Đà Nẵng, phù hợp với mọi mục đích của bạn.</p>
+                                <h3 class="heading mb-2">Variety Choices</h3>
+                                <p>Hundreds of diverse types of vehicles in many locations in Da Nang, suitable for all your purposes.</p>
                             </div>
                         </div>
                     </div>
@@ -437,8 +438,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span
                                     class="flaticon-transportation"></span></div>
                             <div class="text w-100">
-                                <h3 class="heading mb-2">Thuận lợi</h3>
-                                <p>Dễ dàng tìm kiếm, so sánh và đặt xe máy bạn muốn chỉ với vài cú nhấp chuột.</p>
+                                <h3 class="heading mb-2">Convenient</h3>
+                                <p>Easily search, compare and book the motorbike you want with just a few clicks</p>
                             </div>
                         </div>
                     </div>
@@ -446,8 +447,8 @@
                         <div class="services services-2 w-100 text-center">
                             <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car"></span></div>
                             <div class="text w-100">
-                                <h3 class="heading mb-2">Giá cả cạnh tranh</h3>
-                                <p>Giá thuê được niêm yết công khai và rẻ hơn tới 10% so với giá truyền thống.</p>
+                                <h3 class="heading mb-2">Competitive price</h3>
+                                <p>Rental prices are publicly listed and are up to 10% cheaper than traditional prices.</p>
                             </div>
                         </div>
                     </div>
@@ -456,8 +457,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span
                                     class="fa-regular fa-circle-check"></span></div>
                             <div class="text w-100">
-                                <h3 class="heading mb-2">Đáng tin cậy</h3>
-                                <p>Tất cả các xe đều có tuổi thọ dưới 3 năm và được bảo dưỡng định kỳ.</p>
+                                <h3 class="heading mb-2">Reliable</h3>
+                                <p>All vehicles have a lifespan of less than 3 years and are regularly maintained.</p>
                             </div>
                         </div>
                     </div>
@@ -466,8 +467,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-headphones"></span>
                             </div>
                             <div class="text w-100">
-                                <h3 class="heading mb-2">Dịch vụ hỗ trợ 24/7</h3>
-                                <p>Có nhân viên hỗ trợ khách hàng trong suốt quá trình thuê xe.</p>
+                                <h3 class="heading mb-2">24/7 Support Services</h3>
+                                <p>There is staff to support customers throughout the car rental process.</p>
                             </div>
                         </div>
                     </div>
@@ -476,8 +477,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span
                                     class="fas fa-calendar-check"></span></div>
                             <div class="text w-100">
-                                <h3 class="heading mb-2">Thời gian thuê linh hoạt</h3>
-                                <p>Bạn có thể đặt xe máy trong bất kỳ khoảng thời gian nào và gia hạn nếu muốn.</p>
+                                <h3 class="heading mb-2">Flexible Rental Duration</h3>
+                                <p>You can book the motorbike for any period of time and extend it if you want.</p>
                             </div>
                         </div>
                     </div>
@@ -502,7 +503,7 @@
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-7 text-center heading-section ftco-animate">
-                        <span class="subheading">Đánh giá</span>
+                        <span class="subheading">Testimonial</span>
                         <h2 class="mb-3">Happy Clients</h2>
                     </div>
                 </div>
@@ -536,7 +537,65 @@
                 </div>
             </div>
         </section>
-        
+        <!-- events -->
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-7 heading-section text-center ftco-animate">
+                        <!-- <span class="subheading">Events</span> -->
+                        <h2>Recent Events</h2>
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry justify-content-end">
+                            <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+                            </a>
+                            <div class="text pt-4">
+                                <div class="meta mb-3">
+                                    <div><a href="#">Oct. 29, 2019</a></div>
+                                    <div><a href="#">Admin</a></div>
+                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                </div>
+                                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                                <p><a href="#" class="btn btn-primary">Read more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry justify-content-end">
+                            <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
+                            </a>
+                            <div class="text pt-4">
+                                <div class="meta mb-3">
+                                    <div><a href="#">Oct. 29, 2019</a></div>
+                                    <div><a href="#">Admin</a></div>
+                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                </div>
+                                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                                <p><a href="#" class="btn btn-primary">Read more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry">
+                            <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
+                            </a>
+                            <div class="text pt-4">
+                                <div class="meta mb-3">
+                                    <div><a href="#">Oct. 29, 2019</a></div>
+                                    <div><a href="#">Admin</a></div>
+                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                </div>
+                                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                                <p><a href="#" class="btn btn-primary">Read more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end events -->
         <section class="ftco-counter ftco-section img bg-light" id="section-counter">
             <div class="overlay"></div>
             <div class="container">
@@ -545,7 +604,7 @@
                         <div class="block-18">
                             <div class="text text-border d-flex align-items-center">
                                 <strong class="number" data-number="60">0</strong>
-                                <span>Năm <br>Kinh Nghiệm</span>
+                                <span>Year <br>Experienced</span>
                             </div>
                         </div>
                     </div>
@@ -553,7 +612,7 @@
                         <div class="block-18">
                             <div class="text text-border d-flex align-items-center">
                                 <strong class="number" data-number="1090">0</strong>
-                                <span>Tổng <br>Xe máy</span>
+                                <span>Total <br>Cars</span>
                             </div>
                         </div>
                     </div>
@@ -561,7 +620,7 @@
                         <div class="block-18">
                             <div class="text text-border d-flex align-items-center">
                                 <strong class="number" data-number="2590">0</strong>
-                                <span>Tổng <br>Khách hành</span>
+                                <span>Happy <br>Customers</span>
                             </div>
                         </div>
                     </div>
@@ -569,7 +628,7 @@
                         <div class="block-18">
                             <div class="text d-flex align-items-center">
                                 <strong class="number" data-number="67">0</strong>
-                                <span>Tổng <br>Chi Nhánh</span>
+                                <span>Total <br>Branches</span>
                             </div>
                         </div>
                     </div>
@@ -631,6 +690,8 @@
                     window.location.href = 'event';
                 } else {
                     window.location.href = 'login.jsp';
+<<<<<<< HEAD
+=======
                 }
             }
 
@@ -720,7 +781,9 @@
                             }
                         });
                     }
+>>>>>>> 4e7aa1bab0d2ae7cc4574dea99cd0390886d84cc
                 }
+            }
 
 
                 requiredFields.forEach(field => {
@@ -732,7 +795,7 @@
                 checkFields();
 
             });
-
+            
             function SidebarAction() {
                 const sidebar = document.getElementById('sidebar');
                 const sidebarToggle = document.getElementById('sidebarAction');

@@ -85,7 +85,7 @@
                 max-width:7%;
             }
             /* OTP Verification CSS */
-.wrapper .otp_input input{
+            .wrapper .otp_input input{
                 width:14%;
                 height:70px;
                 text-align: center;
@@ -113,27 +113,27 @@
                     </div>
                     <form class="rounded bg-white shadow p-5" action="otp" method="post">
                         <div class="otp-card">
-                        <h3 class="text-dark fw-bolder fs-4 mb-2">Verification</h3>
+                            <h3 class="text-dark fw-bolder fs-4 mb-2">Verification</h3>
 
-                        <div class="fw-normal text-muted mb-4">
-                            Enter the verification code we sent to your Email
-                        </div>  
+                            <div class="fw-normal text-muted mb-4">
+                                Enter the verification code we sent to your Email
+                            </div>  
 
 
 
-                        <div class="otp-card-inputs otp_input text-start mb-2">
-                            <label for="digit">Type your 6 digit security code</label>
-                            <div class="d-flex align-items-center justify-content-between mt-2">
-                                <input type="text" class="form-control" maxlength="1" name="input1">
-                                <input type="text" disabled class="form-control" maxlength="1" name="input2">
-                                <input type="text" disabled class="form-control" maxlength="1" name="input3">
-                                <input type="text" disabled class="form-control" maxlength="1" name="input4">
-                                <input type="text" disabled class="form-control" maxlength="1" name="input5">
-                                <input type="text" disabled class="form-control" maxlength="1" name="input6">
-                            </div> 
-                        </div>  
-                        <div style="color: red">${message}</div><br>
-                        <button type="submit" class="btn btn-primary submit_btn my-4 verification">Verify</button> 
+                            <div class="otp-card-inputs otp_input text-start mb-2">
+                                <label for="digit">Type your 6 digit security code</label>
+                                <div class="d-flex align-items-center justify-content-between mt-2">
+                                    <input type="text" class="form-control" maxlength="1" name="input1">
+                                    <input type="text" disabled class="form-control" maxlength="1" name="input2">
+                                    <input type="text" disabled class="form-control" maxlength="1" name="input3">
+                                    <input type="text" disabled class="form-control" maxlength="1" name="input4">
+                                    <input type="text" disabled class="form-control" maxlength="1" name="input5">
+                                    <input type="text" disabled class="form-control" maxlength="1" name="input6">
+                                </div> 
+                            </div>  
+                            <div style="color: red">${message}</div><br>
+                            <button type="submit" class="btn btn-primary submit_btn my-4 verification">Verify</button> 
                         </div>
                     </form>
 
@@ -149,7 +149,7 @@
             <h1>Xin chào</h1>
             <p></p>
             <h2>Bạn đã đăng ký thành công</h2>
-<button class="goSignIn" type="submit" onclick="window.location.href = 'login.jsp'" style="margin-top: 2rem; font-family: Tilt Neon, sans-serif";>
+            <button class="goSignIn" type="submit" onclick="window.location.href = 'login.jsp'" style="margin-top: 2rem; font-family: Tilt Neon, sans-serif";>
                 Đăng nhập
             </button>
         </div>
@@ -158,14 +158,12 @@
             const button = document.querySelector('.otp-card button');
             const verificationButton = document.querySelector('.verification');
             verificationButton.addEventListener('click', handleVerification);
-
             inputs.forEach(input => {
                 let lastInputStatus = 0;
                 input.onkeyup = (e) => {
                     const currentElement = e.target;
                     const nextElement = input.nextElementSibling;
                     const prevElement = input.previousElementSibling;
-
                     if (nextElement && nextElement.hasAttribute("disabled") && currentElement.value !== "") {
                         nextElement.removeAttribute("disabled");
                         nextElement.focus();
@@ -202,13 +200,12 @@
                     }
                 };
             });
-
             function handleVerification() {
                 // Check if the verification process is successful (simulated here)
                 const isVerificationSuccessful = true;
-
                 if (isVerificationSuccessful) {
-// Show the success message container
+                    // Show the success message container
+
                     const successMessageContainer = document.querySelector('.otp-card1');
                     successMessageContainer.style.pointerEvents; // Make it visible
                     successMessageContainer.classList.add('show-success');

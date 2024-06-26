@@ -87,9 +87,9 @@ public class BookingServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+//        session.setAttribute("account", AccountDAO.getInstance().checkLogin("thinhtvde170182@fpt.edu.vn", "Lb4_aa"));
 //        session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
         session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
-
         request.getRequestDispatcher("booking.jsp").forward(request, response);
     }
 

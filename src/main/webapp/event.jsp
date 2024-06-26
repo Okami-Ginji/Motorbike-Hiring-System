@@ -466,12 +466,12 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"/>
-        <jsp:include page="/includes/header.jsp" />
+        <jsp:include page="/includes/header2.jsp" />
     </head>
     <body class="home blog wp-embed-responsive">
-        <jsp:include page="/includes/navbar.jsp" />
+        <jsp:include page="/includes/navbar2.jsp" />
         <section class="hero-wrap hero-wrap-2 js-fullheight" 
-                 style="background-image: url('https://www.motorcyclesofdulles.com/wp-content/uploads/2024/02/Introducing-the-Triumph-Daytona-660-A-New-Era-of-Excellence-at-Motorcycles-of-Dulles--scaled.jpeg');"
+                 
                  data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
             <div class="container">

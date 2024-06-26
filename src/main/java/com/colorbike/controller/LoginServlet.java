@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("home");
             return;
         }
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        request.getRequestDispatcher("login2.jsp").forward(request, response);
     } 
 
     @Override
@@ -77,7 +77,7 @@ public class LoginServlet extends HttpServlet {
 
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             request.setAttribute("error", "Please provide both username and password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("login2.jsp").forward(request, response);
             return;
         }
 
@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
 
         if (account == null) {
             request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("login2.jsp").forward(request, response);
         } else {
             session.setAttribute("account", account);
 

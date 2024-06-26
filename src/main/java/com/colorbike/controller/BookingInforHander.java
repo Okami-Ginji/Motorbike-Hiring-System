@@ -332,7 +332,7 @@ public class BookingInforHander extends HttpServlet {
         
         if(customerId.equalsIgnoreCase("Not")){          
             daoC.createNewCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", 1, accountId);
-            System.out.println("hihihihihihh");
+            System.out.println(customerId);
             filename = "imageIdC" + daoC.getCustomerbyAccountID(accountId).getCustomerId() + ".jpg";
             daoC.updateCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", daoC.getCustomerbyAccountID(accountId).getCustomerId());
         } else {

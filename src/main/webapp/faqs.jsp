@@ -4,28 +4,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="website icon" type="png" href="images\logo.png">
-        <jsp:include page="/includes/header.jsp" />
+        <link rel="icon" type="image/png" href="images/logo.png"> <!-- Fixed the typo in rel attribute -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
         <title>FAQs</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"> <!-- Thư viện animate.css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"/>
+        <!-- Thêm thư viện AOS (Animate on Scroll) để tăng hiệu ứng animation khi cuộn -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <style type="text/css">
-            body {
-                font-family: 'Roboto', sans-serif;
-                color: #333;
-                animation: fadeInEffect 1s ease-in-out forwards;
-            }
-
             .section_heading h3 {
-                color: #fff; /* Đổi màu chữ thành màu trắng */
-                padding: 10px 20px; /* Thêm padding để tạo khoảng cách xung quanh văn bản */
-                border: 2px solid #1089FF; /* Thêm viền 2px và màu viền là #1089FF */
-                background: linear-gradient(to right, rgb(5, 117, 230), rgb(2, 27, 121)); /* Đổi background thành gradient màu */
-                display: inline-block; /* Để có thể hiển thị background và border đầy đủ */
-                border-radius: 10px; /* Làm bo góc viền */
+                color: #fff;
+                padding: 10px 20px;
+                border: 2px solid #1089FF;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
+                display: inline-block;
+                border-radius: 10px;
+                /* Animation cho tiêu đề */
+                animation: fadeInDown 1s ease-in-out;
             }
 
             .faq_area {
@@ -33,20 +31,23 @@
                 padding-bottom: 100px;
                 position: relative;
                 z-index: 1;
-                background: linear-gradient(89.9deg, rgb(208, 246, 255) 0.1%, rgb(255, 237, 237) 47.9%, rgb(255, 255, 231) 100.2%);
+                background: white;
             }
 
             .faq-accordian .card-header {
-                background-color: #ffffff;
+                border-radius: 50px !important;
+                background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0.1%, rgba(233, 226, 226, 0.28) 90.1%);
                 padding: 0;
-                border-bottom: 5px solid #ebebeb; /* Thêm border dưới cho card-header */
+                border-bottom: 5px solid #ebebeb;
                 margin-bottom: 10px;
+                /* Animation cho header card */
+                animation: fadeInLeft 1s ease-in-out;
             }
 
             .faq-accordian .card-header h6 {
                 cursor: pointer;
                 padding: 1.75rem 2rem;
-                color: #3f43fd;
+                color: #005689;
                 display: flex;
                 align-items: center;
             }
@@ -56,7 +57,7 @@
             }
 
             .faq-accordian .card-header h6.collapsed {
-                color: #337AB7;
+                color: #001973;
             }
 
             .faq-accordian .card-header h6.collapsed .fa-caret-up {
@@ -66,6 +67,13 @@
             .faq-accordian .card .card-body {
                 padding: 1.75rem 2rem;
                 color: black;
+                /* Animation cho nội dung card */
+                animation: fadeInRight 1s ease-in-out;
+            }
+
+            .support-button {
+                /* Animation cho nút hỗ trợ */
+                animation: fadeInUp 1.5s ease-in-out;
             }
 
             @media only screen and (max-width: 575px) {
@@ -81,48 +89,57 @@
                     font-size: 13px;
                 }
             }
-
-            @keyframes fadeInEffect {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            .noidung {
+                margin-top: 3%;
             }
-            .topDetail{
-                margin-bottom: 8%;
+            .scrollup1 {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
+                border-radius: 50%;
+                text-align: center;
+                line-height: 40px;
+                color: #fff;
+                font-size: 24px;
+                text-decoration: none;
+                transition: background-color 3s ease;
+            }
+
+            .scrollup1 :hover {
+                color: #000;
+            }
+
+            .scrollup1 .ri-arrow-up-fill {
+                vertical-align: middle;
             }
         </style>
     </head>
     <body>
-        <jsp:include page="/includes/navbar.jsp" /> 
-        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
-            <div class="overlay"></div>
-        </section>
+        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/navbar2.jsp" />
 
         <div class="faq_area section_padding_130" id="faq">
-            <div class="container">
-                <div class="row justify-content-center topDetail">
+            <div class="container noidung" data-aos="fade-up">
+                <div class="row justify-content-center topDetail" data-aos="fade-up">
                     <div class="col-12 col-sm-8 col-lg-6">
-                        <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                        <div class="section_heading text-center">
                             <h3>Các câu hỏi thường gặp</h3>
-                            <p>ColorBike sẽ mang đến trải nghiệm xứng đáng với những gì bạn kì vọng.</p>
+                            <p style="margin-top: 3%; font-size: 20px; color:#001973;">ColorBike sẽ mang đến trải nghiệm xứng đáng với những gì bạn kì vọng.</p>
                             <div class="line"></div>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-12 col-sm-10 col-lg-8">
-                        <!-- FAQ Accordion List -->
+                    <div class="col-12 col-sm-10 col-lg-8" data-aos="fade-up">
                         <div class="accordion faq-accordian" id="faqAccordion">
                             <c:forEach var="faq" items="${FAQ}" varStatus="status">
-                                <div class="card border-0 wow fadeInUp" data-wow-delay="${0.2 + status.index * 0.1}s" style="visibility: visible; animation-delay: ${0.2 + status.index * 0.1}s; animation-name: fadeInUp;">
+                                <div class="card border-0" data-aos="fade-in" data-aos-delay="${status.index * 100}">
                                     <div class="card-header" id="heading${status.index}">
                                         <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapse${status.index}" aria-expanded="false" aria-controls="collapse${status.index}">
-                                            <i class="fas fa-question-circle" style="font-size:40px;color:#337AB7; margin-right: 1%;"></i>
+                                            <i class="fas fa-question-circle" style="font-size:40px; margin-right: 1%;"></i>
                                             ${faq.question}
                                             <i class="fas fa-caret-down ml-auto rotate-icon"></i>
                                         </h6>
@@ -137,28 +154,38 @@
                         </div>
                     </div>
                 </div>
-                <!-- Support Button -->
                 <div class="row justify-content-center">
                     <div class="col-12 col-sm-10 col-lg-8">
-                        <div class="support-button text-center d-flex align-items-center justify-content-center mt-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                        <div class="support-button text-center d-flex align-items-center justify-content-center mt-4" data-aos="zoom-in" data-aos-delay="500">
                             <i class="lni-emoji-sad"></i>
-                            <p class="mb-0 px-2">Can't find your answers?</p>
-                            <a href="contact.jsp"> Contact us</a>
+                            <p class="mb-0 px-2">Bạn không tìm thấy câu trả lời</p>
+                            <a style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 1%; color: #0482C8;" href="contact.jsp">Hãy liên hệ với chúng tôi!</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <jsp:include page="/includes/footer.jsp" />
+
+        <!-- Các tệp JS -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script>
+            AOS.init({
+                duration: 500, // Duration of the animations in milliseconds
+                once: true, // Whether animation should happen only once - while scrolling down
+            });
+
             $(document).ready(function () {
                 $('.accordion .card-header h6').click(function () {
                     $(this).find('.fa-caret-down').toggleClass('fa-caret-up');
                 });
             });
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+        
+        <a href="#" class="scrollup1"><i class="ri-arrow-up-fill" style="display: inline;"></i><span class="screen-reader-text"></span></a>
     </body>
 </html>

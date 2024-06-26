@@ -11,13 +11,14 @@
 
     <head>
         <link rel="website icon" type="png" href="images\logo.png">
-        <jsp:include page="/includes/header.jsp" />
+        <jsp:include page="/includes/header2.jsp" />
         <!-- thanh search -->
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
-
+            @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 
             .filter-module {
                 padding: 20px;
@@ -199,125 +200,252 @@
                 border-color: #dee2e6;
             }
 
+            .container-haha {
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.125);
+                padding: 38px;
+                filter: drop-shadow(0 30px 10px rgba(0,0,0,0.125));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content:center;
+                text-align: center;
+
+            }
+
+            .wrapper {
+                width: 100%;
+                height: 100%;
+
+            }
+
+            .banner-image {
+                background-position: center;
+                background-size: cover;
+                height: 300px;
+                width: 100%;
+                border-radius: 12px;
+                border: 1px solid rgba(255,255,255, 0.255);
+                background-color: #fff;
+            }
+            .banner-image img {
+                object-fit: contain;
+
+            }
+
+            h1{
+                font-family: 'Righteous', sans-serif;
+                color: rgba(255,255,255,0.98);
+                text-transform: uppercase;
+                font-size: 2.4rem;
+            }
+
+            p {
+                color: #fff;
+                font-family: 'Lato', sans-serif;
+                text-align: center;
+                font-size: 0.8rem;
+                line-height: 150%;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+
+            .button-wrapper{
+                margin-top: 18px;
+            }
+
+            .btn {
+                border: none;
+                padding: 12px 24px;
+                border-radius: 24px;
+                font-size: 12px;
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+                cursor: pointer;
+            }
+
+            .btn + .btn {
+                margin-left: 10px;
+            }
+
+            .outline-huhu {
+                background: transparent;
+                color: rgba(0, 212, 255, 0.9);
+                border: 1px solid #fff;
+                transition: all .3s ease;
+            }
+
+            .outline-huhu:hover{
+                transform: scale(1.125);
+                color: #fff;
+                transition: all .3s ease;
+            }
+
+            .outline-huhu a:hover {
+                transform: scale(1.125);
+                border: 1px solid #fff;
+                color: #fff;
+                font-weight: 600;
+            }
+
+            .outline-huhu a {
+                padding: 12px 12px;
+                border-radius: 12%;
+                transform: scale(1.125);
+            }
+
+
+
+            .fill {
+                background: rgba(0, 212, 255, 0.9);
+                color: rgba(255,255,255,0.95);
+                filter: drop-shadow(0);
+                font-weight: bold;
+                transition: all .3s ease;
+            }
+
+            .fill:hover{
+                transform: scale(1.125);
+                filter: drop-shadow(0 10px 5px rgba(0,0,0,0.125));
+                transition: all .3s ease;
+                border: 1px solid #fff;
+                color: #fff;
+            }
+
+
+            .fill a:hover {
+                transform: scale(1.125);
+                border: 1px solid #000;
+                color: #000;
+                font-weight: 600;
+            }
+
+            .fill a {
+                padding: 16px 12px;
+                border-radius: 12%;
+                transform: scale(1.125);
+                background: rgba(0, 212, 255, 0.9);
+                color: #fff;
+            }
+
+            .box {
+                -webkit-backdrop-filter: blur(16px) saturate(180%);
+                background-color: rgba(17, 25, 40, 0.25);
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.125);
+                padding: 38px;
+                filter: drop-shadow(0 30px 10px rgba(0,0,0,0.125));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content:center;
+                text-align: center;
+                margin: 40px 60px;
+            }
+
         </style>
     </head>
 
     <body>
+        <jsp:include page="/includes/navbar2.jsp" />
 
-        <jsp:include page="/includes/navbar.jsp" />
+        <div style="margin-top: 5%;">
+            <!-- thanh search -->
+            <section>
+                <div class="filter-module">
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <button class="filter-button" onclick="toggleOptions('priceOptions')">Giá</button>
+                            <div class="filter-options" id="priceOptions">
+                                <c:forEach items="${listPriceRange}" var="o">
+                                    <input hidden name="priceRanges" value="${o.minPrice},${o.maxPrice}"/>
+                                    <button data-id="${o.minPrice},${o.maxPrice}" class="button-item-option" onclick="toggleSelection(this)">
+                                        <p> <c:if test="${o.minPrice == 0}">
+                                                Dưới <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
+                                            </c:if>
+                                            <c:if test="${o.minPrice != 0 && o.maxPrice != 0}">
+                                                <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/> - <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
+                                            </c:if>
 
-
-        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');"
-                 data-stellar-background-ratio="0.5">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-                    <div class="col-md-9 ftco-animate pb-5">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Trang Chủ<i
-                                        class="ion-ios-arrow-forward"></i></a></span> <span>Xe máy<i
-                                    class="ion-ios-arrow-forward"></i></span></p>
-                        <h1 class="mb-3 bread">Lựa chọn xe máy</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- thanh search -->
-        <section>
-            <div class="filter-module">
-                <div class="filter-container">
-                    <div class="filter-group">
-                        <button class="filter-button" onclick="toggleOptions('priceOptions')">Giá</button>
-                        <div class="filter-options" id="priceOptions">
-                            <c:forEach items="${listPriceRange}" var="o">
-                                <input hidden name="priceRanges" value="${o.minPrice},${o.maxPrice}"/>
-                                <button data-id="${o.minPrice},${o.maxPrice}" class="button-item-option" onclick="toggleSelection(this)">
-                                    <p> <c:if test="${o.minPrice == 0}">
-                                            Dưới <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
-                                        </c:if>
-                                        <c:if test="${o.minPrice != 0 && o.maxPrice != 0}">
-                                            <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/> - <fmt:formatNumber value="${o.maxPrice}" pattern="#,##0.000"/>VNĐ/day
-                                        </c:if>
-
-                                        <c:if test="${o.maxPrice == 0}">
-                                            <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/>VNĐ/day trở lên
-                                        </c:if>
-                                    </p>
-                                </button>
-                            </c:forEach>
-                            <div class="btn-filter-group open">
-                                <button onclick="closeOptions('priceOptions')">Đóng</button>
-                                <button onclick="showResults()">Xem kết quả</button>
+                                            <c:if test="${o.maxPrice == 0}">
+                                                <fmt:formatNumber value="${o.minPrice}" pattern="#,##0.000"/>VNĐ/day trở lên
+                                            </c:if>
+                                        </p>
+                                    </button>
+                                </c:forEach>
+                                <div class="btn-filter-group open">
+                                    <button onclick="closeOptions('priceOptions')">Đóng</button>
+                                    <button onclick="showResults()">Xem kết quả</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="filter-group">
-                        <button class="filter-button" onclick="toggleOptions('brandOptions')">Hãng</button>
-                        <div class="filter-options" id="brandOptions">
-                            <c:forEach items="${listBrand}" var="o">
-                                <input hidden name="brands" value="${o.brandID}" id="searchBrand">
-                                <button class="button-item-option" data-id="${o.brandID}" 
-                                        onclick="toggleSelection(this)">${o.brandName}</button>
-                            </c:forEach>
-                            <div class="btn-filter-group open">
-                                <button onclick="closeOptions('brandOptions')">Đóng</button>
-                                <button onclick="showResults()">Xem kết quả</button>
+                        <div class="filter-group">
+                            <button class="filter-button" onclick="toggleOptions('brandOptions')">Hãng</button>
+                            <div class="filter-options" id="brandOptions">
+                                <c:forEach items="${listBrand}" var="o">
+                                    <input hidden name="brands" value="${o.brandID}" id="searchBrand">
+                                    <button class="button-item-option" data-id="${o.brandID}" 
+                                            onclick="toggleSelection(this)">${o.brandName}</button>
+                                </c:forEach>
+                                <div class="btn-filter-group open">
+                                    <button onclick="closeOptions('brandOptions')">Đóng</button>
+                                    <button onclick="showResults()">Xem kết quả</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="filter-group">
-                        <button class="filter-button" onclick="toggleOptions('categoryOptions')">Loại</button>
-                        <div class="filter-options" id="categoryOptions">
-                            <c:forEach items="${categories}" var="o">
-                                <input hidden name="categories" value="${o.categoryID}" id="searchCategory">
-                                <button class="button-item-option"  data-id="${o.categoryID}" 
-                                        onclick="toggleSelection(this)">${o.categoryName}</button>
-                            </c:forEach>
-                            <div class="btn-filter-group open">
-                                <button onclick="closeOptions('categoryOptions')">Đóng</button>
-                                <button onclick="showResults()">Xem kết quả</button>
+                        <div class="filter-group">
+                            <button class="filter-button" onclick="toggleOptions('categoryOptions')">Loại</button>
+                            <div class="filter-options" id="categoryOptions">
+                                <c:forEach items="${categories}" var="o">
+                                    <input hidden name="categories" value="${o.categoryID}" id="searchCategory">
+                                    <button class="button-item-option"  data-id="${o.categoryID}" 
+                                            onclick="toggleSelection(this)">${o.categoryName}</button>
+                                </c:forEach>
+                                <div class="btn-filter-group open">
+                                    <button onclick="closeOptions('categoryOptions')">Đóng</button>
+                                    <button onclick="showResults()">Xem kết quả</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="filter-group">
-                        <button class="filter-button" onclick="toggleOptions('massOptions')">Phân khối</button>
-                        <div class="filter-options" id="massOptions">
-                            <c:forEach items="${listDisplacement}" var="o">
-                                <input hidden name="displacements" value="${o}" id="searchDisplacement">
-                                <button class="button-item-option" data-id="${o}" 
-                                        onclick="toggleSelection(this)">${o}</button>
-                            </c:forEach>
-                            <div class="btn-filter-group open">
-                                <button onclick="closeOptions('massOptions')">Đóng</button>
-                                <button onclick="showResults()">Xem kết quả</button>
+                        <div class="filter-group">
+                            <button class="filter-button" onclick="toggleOptions('massOptions')">Phân khối</button>
+                            <div class="filter-options" id="massOptions">
+                                <c:forEach items="${listDisplacement}" var="o">
+                                    <input hidden name="displacements" value="${o}" id="searchDisplacement">
+                                    <button class="button-item-option" data-id="${o}" 
+                                            onclick="toggleSelection(this)">${o}</button>
+                                </c:forEach>
+                                <div class="btn-filter-group open">
+                                    <button onclick="closeOptions('massOptions')">Đóng</button>
+                                    <button onclick="showResults()">Xem kết quả</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="filter-group">
-                        <button class="filter-button" onclick="toggleOptions('needOptions')">Nhu cầu</button>
-                        <div class="filter-options" id="needOptions">
-                            <c:forEach items="${listDemand}" var="o">
-                                <input hidden name="demands" value="${o.demandId}" id="searchDemand">
-                                <button class="button-item-option" data-id="${o.demandId}" onclick="toggleSelection(this)">${o.demand}</button>
-                            </c:forEach>
-                            <div class="btn-filter-group open">
-                                <button onclick="closeOptions('needOptions')">Đóng</button>
-                                <button onclick="showResults()">Xem kết quả</button>
+                        <div class="filter-group">
+                            <button class="filter-button" onclick="toggleOptions('needOptions')">Nhu cầu</button>
+                            <div class="filter-options" id="needOptions">
+                                <c:forEach items="${listDemand}" var="o">
+                                    <input hidden name="demands" value="${o.demandId}" id="searchDemand">
+                                    <button class="button-item-option" data-id="${o.demandId}" onclick="toggleSelection(this)">${o.demand}</button>
+                                </c:forEach>
+                                <div class="btn-filter-group open">
+                                    <button onclick="closeOptions('needOptions')">Đóng</button>
+                                    <button onclick="showResults()">Xem kết quả</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                     <div class="filter-search filter-group">
-                        <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
-                            <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
-                            <button style="font-weight:bold; color: #28a745;background:#01D28E;border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
-                        </form>
+                        <div class="filter-search filter-group">
+                            <form action="searchMotorcycle" method="post" class="d-flex" style="width: 100%;">
+                                <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
+                                <button style="font-weight:bold; color: #28a745;background:#01D28E;border: 1px solid #00ff6f;" class="btn" type="submit">Search</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
                     <div>
                         <button class="filter-button" onclick="showResults()">Xem kết quả</button>
                     </div>
@@ -325,87 +453,73 @@
                         <!-- Selected filters will be displayed here -->
                     </div>
                 </div>
-        </section>
-
-        <!-- end search -->
-        <section class="ftco-section bg-light">
-            <div class="container">
-                <div class="row">
-                    <c:forEach var="motorbike" items="${motorcycles}">
-                        <div class="col-lg-4">
-                            <div class="car-wrap rounded ftco-animate">
-                                <div class="img rounded d-flex align-items-end"
-                                     style="background-image: url('images/${motorbike.image}');">
+            </section>
+            <section>
+                <div class="container-haha">
+                    <div class="wrapper row">
+                        <c:forEach var="motorbike" items="${motorcycles}">
+                            <div class="box col-md-3">
+                                <div class="banner-image">
+                                    <img src="images/${motorbike.image}" width="100%" height="100%" alt="alt"/>
                                 </div>
-                                <div class="text">
-                                    <h2 class="mb-0">
-                                        <a href="motorcycleDetail?id=${motorbike.motorcycleId}">${motorbike.model}</a>
-                                    </h2>
-                                    <div class="d-flex mb-3">
-                                        <!-- Category Name -->
-                                        <span class="cat">${categoryMap[motorbike.categoryID]}</span>
-
-                                        <!-- Price -->
-                                        <span class="price ml-auto">${priceMap[motorbike.priceListID]}/ngày</span>
-                                    </div>
-                                    <p class="d-flex mb-0 d-block">
-                                        <a href="booking?motorcycleid=${motorbike.motorcycleId}" class="btn btn-primary py-2 mr-1">Thuê Ngay</a>
-                                        <a href="motorcycleDetail?id=${motorbike.motorcycleId}" class="btn btn-secondary py-2 ml-1">Chi tiết</a>
-                                    </p>
+                                <h2 style="margin: 16px;" href="motorcycleDetail?id=${motorbike.motorcycleId}"><strong>${motorbike.model}</strong></h2>
+                                <p>${categoryMap[motorbike.categoryID]}<br/>${priceMap[motorbike.priceListID]}/ngày</p>
+                                <div class="button-wrapper">
+                                    <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">DETAILS</a></button>
+                                    <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">BUY NOW</a></button>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul class="pagination">
-                                <c:forEach begin="1" end="${endP}" var="i">
-                                    <li class="page-item ${currentIndex == i ? 'active' : ''}">
-                                        <a class="page-link" href="motorcycle?index=${i}">${i}</a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
+                        </c:forEach>
+                        <div class="row mt-5">
+                            <div class="col text-center">
+                                <div class="block-27">
+                                    <ul class="pagination">
+                                        <c:forEach begin="1" end="${endP}" var="i">
+                                            <li class="page-item ${currentIndex == i ? 'active' : ''}">
+                                                <a class="page-link" href="motorcycle?index=${i}">${i}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
+            </section> 
 
-        </section>
-        <jsp:include page="/includes/footer.jsp" />
-
-
-
-        <!-- loader -->
-        <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                    stroke="#F96D00" />
-            </svg></div>
+        </div>
+    </div>
+    <jsp:include page="/includes/footer.jsp" />
 
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.easing.1.3.js"></script>
-        <script src="js/jquery.waypoints.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/aos.js"></script>
-        <script src="js/jquery.animateNumber.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
-        <script src="js/jquery.timepicker.min.js"></script>
-        <script src="js/scrollax.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-        <script src="js/google-map.js"></script>
-        <script src="js/main.js"></script>
-        <script>
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00" />
+        </svg></div>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+    <script>
                             function toggleOptions(id) {
                                 var options = document.getElementById(id);
                                 var button = options.previousElementSibling;
@@ -547,6 +661,6 @@
 
                                 window.location.href = url;
                             }
-        </script>
-    </body>
+    </script>
+</body>
 </html>

@@ -96,7 +96,7 @@
             }
 
             .tableview {
-                width: 80%;
+                width: 95%;
                 margin: 0 auto;
             }
 
@@ -163,6 +163,17 @@
                 margin-top: 10px;
                 display: none;
             }
+            #content {
+                resize: vertical; /* Chỉ cho phép kéo dọc */
+                overflow-y: auto; /* Bật thanh cuộn dọc nếu cần */
+                overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+            }
+            #editEventImagePreview img {
+                max-width: 25%; /* Đặt kích thước tối đa cho hình ảnh là 50% */
+                height: auto; /* Chiều cao tự điều chỉnh để giữ nguyên tỷ lệ */
+                display: block; /* Đảm bảo hình ảnh hiển thị theo chiều ngang */
+                margin-top: 10px; /* Khoảng cách phía trên hình ảnh */
+            }
         </style>
     </head>
 
@@ -174,10 +185,13 @@
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
-                    <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Display All Event</a>
+                    <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Sự Kiện</a>
                 </li>
                 <li role="presentation">
-                    <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Add New Event</a>
+                    <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Thêm Sự Kiện</a>
+                </li>
+                <li role="presentation">
+                    <a href="#Section3" aria-controls="profile" role="tab" data-toggle="tab">Chỉnh Sửa Sự Kiện</a>
                 </li>
             </ul>
             <!-- Nội dung tab -->
@@ -215,14 +229,14 @@
                                                     <img src="images/${eventLists.eventImage}"
                                                          class="img-fluid img-thumbnail" alt="Sheep">
                                                 </td>
-                                                <td>${eventLists.discount}</td>
+                                                <td>${eventLists.discount}<a style="color: black;">%</a></td>
                                                 <td>${eventLists.staffID}</td>
                                                 <td class="action-buttons">
                                                     <div class="buttons">
-                                                        <button class="btn btn-primary btn-sm" onclick="editRow(this)">
+                                                        <button class="btn btn-primary btn-sm" onclick="editEventForm('${eventLists.eventID}', '${eventLists.eventTitle}', '${eventLists.createdDate}', '${eventLists.startDate}', '${eventLists.endDate}', '${eventLists.content}', '${eventLists.eventImage}', '${eventLists.discount}', '${eventLists.staffID}')">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
-                                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">
+                                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete('${eventLists.eventID}')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -240,175 +254,316 @@
                         <div class="container-fluid">
                             <div class="row tableview">
                                 <div class="col-12">
-                                    <h3 class="mb-4">Add New Event</h3>
-                                    <form class="addnew-event-form" onsubmit="addEvent(event)">
+                                    <h3 class="mb-4">Thêm Sự Kiện</h3>
+                                    <form class="addnew-event-form" id="addLocationForm" action="AddNewEventStaff" method="post" enctype="multipart/form-data">
                                         <!-- Event Title -->
                                         <div class="form-group row">
                                             <label for="eventTitle" class="col-sm-2 col-form-label">Event Title</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="eventTitle" placeholder="Enter event title" required>
+                                                <input type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Enter event title" required>
                                             </div>
                                         </div>
                                         <!-- Created Date -->
-                                        <div class="form-group row">
+<!--                                        <div class="form-group row">
                                             <label for="createdDate" class="col-sm-2 col-form-label">Created Date</label>
                                             <div class="col-sm-10">
-                                                <input type="date" class="form-control" id="createdDate" required>
+                                                <input type="date" class="form-control" id="createdDate" name="createdDate" required>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <!-- Start Date -->
                                         <div class="form-group row">
                                             <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
                                             <div class="col-sm-10">
-                                                <input type="date" class="form-control" id="startDate" required>
+                                                <input type="date" class="form-control" id="startDate" name="startDate" required>
                                             </div>
                                         </div>
                                         <!-- End Date -->
                                         <div class="form-group row">
                                             <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
                                             <div class="col-sm-10">
-                                                <input type="date" class="form-control" id="endDate" required>
+                                                <input type="date" class="form-control" id="endDate" name="endDate" required>
                                             </div>
                                         </div>
                                         <!-- Content -->
                                         <div class="form-group row">
                                             <label for="content" class="col-sm-2 col-form-label">Content</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" id="content" rows="3" placeholder="Enter content" required></textarea>
+                                                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Enter content" required></textarea>
                                             </div>
                                         </div>
                                         <!-- Event Image -->
                                         <div class="form-group row">
                                             <label for="eventImage" class="col-sm-2 col-form-label">Event Image</label>
                                             <div class="col-sm-10">
-                                                <input type="file" class="form-control-file" id="eventImage" accept="image/*" required>
+                                                <input type="file" class="form-control-file" id="eventImage" name="eventImage" accept="image/*" required>
                                             </div>
                                         </div>
                                         <!-- Discount -->
                                         <div class="form-group row">
                                             <label for="discount" class="col-sm-2 col-form-label">Discount</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control" id="discount" placeholder="Enter discount percentage" required>
+                                                <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter discount percentage" step="0.01" oninput="validateDiscount(this)" required>
                                             </div>
                                         </div>
                                         <!-- Staff ID -->
-                                        <div class="form-group row">
-                                            <label for="staffID" class="col-sm-2 col-form-label">Staff ID</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="staffID" placeholder="Enter staff ID" required>
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="staffID">Select Staff:</label>
+                                            <select class="form-control" id="staffID" name="staffID" required>
+                                                <!--<option value="">Select Staff</option>-->
+                                                <c:forEach var="staff" items="${staffList}" varStatus="loop">
+                                                    <option value="${staff.staffID}">${staff.staffID}</option>
+                                                </c:forEach>
+                                            </select>
                                         </div>
-                                        <!-- Submit Button -->
-                                        <div class="form-group row">
-                                            <div class="col-sm-10 offset-sm-2">
-                                                <button type="submit" class="btn btn-dark">Add Event</button>
-                                            </div>
-                                        </div>
-                                        <!-- Feedback Messages -->
-                                        <div class="form-group row">
-                                            <div class="col-sm-10 offset-sm-2">
-                                                <div id="success-message" class="alert alert-success d-none">
-                                                    Event added successfully!
-                                                </div>
-                                                <div id="error-message" class="alert alert-danger d-none">
-                                                    File Format Not Supported
-                                                </div>
-                                            </div>
+                                        <div class="buttons">
+                                            <button type="submit" class="btn btn-dark">Add Event</button>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
                     </section>
                 </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="Section3">
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row tableview">
+                                <div class="col-12">
+                                    <h3 class="mb-4">Chỉnh Sửa Sự Kiện</h3>
+                                    <form class="edit-event-form" id="editEventForm" action="UpdateEventStaff" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="editEventID">Event ID:</label>
+                                            <input type="text" class="form-control" id="editEventID" name="editEventID" readonly>
+                                            <!-- 'readonly' attribute is added assuming this field is not editable during update -->
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="editEventTitle">Event Title:</label>
+                                            <input type="text" class="form-control" id="editEventTitle" name="editEventTitle" placeholder="Enter event title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editCreatedDate">Created Date:</label>
+                                            <input type="date" class="form-control" id="editCreatedDate" name="editCreatedDate" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editStartDate">Start Date:</label>
+                                            <input type="date" class="form-control" id="editStartDate" name="editStartDate">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editEndDate">End Date:</label>
+                                            <input type="date" class="form-control" id="editEndDate" name="editEndDate">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editContent">Content:</label>
+                                            <textarea class="form-control" id="editContent" name="editContent" rows="3" placeholder="Enter event content"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editEventImage">Event Image:</label>
+                                            <div id="editEventImagePreview"></div>
+                                            <input type="file" class="form-control-file" id="editEventImage" name="editEventImage" accept="image/*">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editDiscount">Discount (%):</label>
+                                            <input type="number" class="form-control" id="editDiscount" name="editDiscount" placeholder="Enter discount percentage" step="0.01" oninput="validateDiscount(this)">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editStaffID">Select Staff:</label>
+                                            <select class="form-control" id="editStaffID" name="editStaffID">
+                                                <!-- Options will be dynamically populated using JSTL -->
+                                                <c:forEach var="staff" items="${staffList}" varStatus="loop">
+                                                    <option value="${staff.staffID}">${staff.staffID}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Update Event</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+
             </div>
         </div>
 
         <script>
-            function editRow(button) {
-                var row = button.closest('tr');
-                var id = row.cells[0].textContent.trim();
-                var imageSrc = row.cells[1].querySelector('img').src;
-                var name = row.cells[2].textContent.trim();
-                var description = row.cells[3].textContent.trim();
-                var urlArticle = row.cells[4].textContent.trim();
-                var staffId = row.cells[5].textContent.trim();
-
-                // Switch cells to editable inputs
-                row.cells[1].innerHTML = `<input type="file" class="form-control-file" accept="image/*">`;
-                row.cells[2].innerHTML = `<input type="text" value="${name}" class="form-control">`;
-                row.cells[3].innerHTML = `<textarea class="form-control">${description}</textarea>`;
-                row.cells[4].innerHTML = `<input type="text" value="${urlArticle}" class="form-control">`;
-                row.cells[5].innerHTML = `<input type="text" value="${staffId}" class="form-control">`;
-
-                // Update action buttons
-                button.outerHTML = `<button class="btn btn-success" onclick="saveRow(this)">Save</button>`;
-            }
-
-            function saveRow(button) {
-                var row = button.closest('tr');
-                var imageFile = row.cells[1].querySelector('input').files[0];
-                var name = row.cells[2].querySelector('input').value;
-                var description = row.cells[3].querySelector('textarea').value;
-                var urlArticle = row.cells[4].querySelector('input').value;
-                var staffId = row.cells[5].querySelector('input').value;
-
-                // Convert image file to base64 (this is for display purposes only, adjust as needed for actual saving)
-                var reader = new FileReader();
-                reader.onloadend = function () {
-                    row.cells[1].innerHTML = `<img src="${reader.result}" alt="Location Image" style="width: 100px;">`;
+           
+           function convertToInputDateFormat(dateString) {
+                // Tách chuỗi thành các phần ngày, tháng, năm
+                const [day, month, year] = dateString.split('-');
+                // Sắp xếp lại theo định dạng yyyy-MM-dd
+                return {
+                    day, month,year
                 };
-                if (imageFile) {
-                    reader.readAsDataURL(imageFile);
+            }
+
+            function editEventForm(eventID, eventTitle, createdDate, startDate, endDate, content, eventImage, discount, staffID) {
+                const formattedCreatedDate = convertToInputDateFormat(createdDate);
+                const formattedStartDate = convertToInputDateFormat(startDate);
+                const formattedEndDate = convertToInputDateFormat(endDate);
+                document.getElementById('editEventID').value = eventID;
+                document.getElementById('editEventTitle').value = eventTitle;
+                document.getElementById('editCreatedDate').value = formattedCreatedDate.year + "-" + formattedCreatedDate.month + "-" + formattedCreatedDate.day;
+                document.getElementById('editStartDate').value = formattedStartDate.year + "-" + formattedStartDate.month + "-" + formattedStartDate.day;
+                document.getElementById('editEndDate').value = formattedEndDate.year + "-" + formattedEndDate.month + "-" + formattedEndDate.day;
+                document.getElementById('editContent').value = content;
+                document.getElementById('editDiscount').value = discount;
+                document.getElementById('editStaffID').value = staffID;
+   
+                var imgContainer = document.getElementById('editEventImagePreview');
+                imgContainer.innerHTML = ''; // Xóa hình ảnh cũ (nếu có)
+                console.log("thinh");
+                // Hiển thị hình ảnh đối tượng
+                if (eventImage) {
+                    console.log("hihihi");
+                    var img = document.createElement('img');
+                    img.src = 'images/' + eventImage;
+                    img.alt = 'Location Image';
+                    img.className = 'img-fluid img-thumbnail';
+                    imgContainer.appendChild(img);
                 } else {
-                    row.cells[1].innerHTML = `<img src="${row.cells[1].querySelector('img').src}" alt="Location Image" style="width: 100px;">`;
+                    imgContainer.innerHTML = 'No image available';
                 }
-                row.cells[2].textContent = name;
-                row.cells[3].textContent = description;
-                row.cells[4].textContent = urlArticle;
-                row.cells[5].textContent = staffId;
 
-                // Update action buttons
-                button.outerHTML = `<button class="btn btn-primary" onclick="editRow(this)">Edit</button>`;
+                // Chuyển sang tab Section 3 (nếu cần thiết)
+                $('a[href="#Section3"]').tab('show');
             }
 
-            function deleteRow(button) {
-                var row = button.closest('tr');
-                row.remove();
-            }
-
-            function addLocation(event) {
-                event.preventDefault();
-
-                var tableBody = document.getElementById('table-body');
-                var newRow = document.createElement('tr');
-                var imageInput = document.getElementById('locationImage');
-                var image = URL.createObjectURL(imageInput.files[0]);
-
-                var cells = [
-                    tableBody.rows.length + 1,
-                    `<img src="${image}" alt="Location Image" style="width: 100px;">`,
-                    event.target[1].value,
-                    event.target[2].value,
-                    event.target[3].value,
-                    event.target[4].value,
-                    `<div class="action-buttons">
-                        <button class="btn btn-primary" onclick="editRow(this)">Edit</button>
-                        <button class="btn btn-danger" onclick="deleteRow(this)">Delete</button>
-                    </div>`
-                ];
-
-                cells.forEach(cell => {
-                    var td = document.createElement('td');
-                    td.innerHTML = cell;
-                    newRow.appendChild(td);
-                });
-
-                tableBody.appendChild(newRow);
-                document.querySelector('.addnew-location-form').reset();
-            }
         </script>
 
+
+        <!--        <script>
+                    $(document).ready(function () {
+                        $('#editEventForm').submit(function (event) {
+                            event.preventDefault(); // Ngăn chặn hành động mặc định của form
+        
+                            var formData = new FormData(this); // Lấy dữ liệu từ form
+        
+                            $.ajax({
+                                type: 'POST',
+                                url: $(this).attr('action'),
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function (response) {
+                                    // Xử lý kết quả thành công
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Event updated successfully!',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(function () {
+                                        // Cập nhật hoặc chuyển hướng sau khi cập nhật thành công
+                                        window.location.reload(); // Ví dụ: tải lại trang để cập nhật dữ liệu mới
+                                    });
+                                },
+                                error: function (xhr, status, error) {
+                                    // Xử lý lỗi khi cập nhật sự kiện
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error updating event!',
+                                        text: 'Please try again later.',
+                                        confirmButtonText: 'OK'
+                                    });
+                                    console.error(xhr.responseText);
+                                }
+                            });
+                        });
+                    });
+                </script>-->
+
+
+        <script>
+            function validateDiscount(input) {
+                if (input.value < 0) {
+                    input.value = 0;
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            function confirmDelete(eventID) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1089FF',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Vâng, xóa nó!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'DeleteEvent?eventID=' + eventID;
+                    }
+                })
+            }
+        </script>
+        <script>
+            document.getElementById('addLocationForm').addEventListener('submit', function (event) {
+                var fileInput = document.getElementById('eventImage');
+                var errorMessage = document.getElementById('error-message');
+                var successMessage = document.getElementById('success-message');
+
+                // Validate file type if needed
+                var fileName = fileInput.value;
+                var idxDot = fileName.lastIndexOf(".") + 1;
+                var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                if (extFile != "jpg" && extFile != "jpeg" && extFile != "png" && extFile != "gif") {
+                    event.preventDefault();
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                    successMessage.style.display = 'block';
+                }
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#addLocationForm').submit(function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+                    var formData = new FormData(this); // Lấy dữ liệu từ form
+
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            // Hiển thị thông báo thành công bằng SweetAlert
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Event added successfully!',
+                                timer: 2000, // Tự động đóng sau 2 giây
+                                showConfirmButton: false
+                            }).then(function () {
+                                // Chuyển hướng về trang TourismLocationServletStaff sau khi thêm thành công
+                                window.location.href = 'eventStaffServlet';
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Hiển thị thông báo lỗi bằng SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Error adding event. Please try again.',
+                                confirmButtonText: 'OK'
+                            });
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>

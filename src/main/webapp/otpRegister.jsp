@@ -107,11 +107,12 @@
     <body> 
         <section class="wrapper">
             <div class="container">
-                <div class="col-sm-8 offset-sm-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 text-center otp-card" data-aos="fade-down">
+                <div class="col-sm-8 offset-sm-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 text-center" data-aos="fade-down">
                     <div class="logo">
                         <img decoding="async" src="images/anh4.png" class="img-fluid" alt="logo">
                     </div>
                     <form class="rounded bg-white shadow p-5" action="otp" method="post">
+                        <div class="otp-card">
                         <h3 class="text-dark fw-bolder fs-4 mb-2">Verification</h3>
 
                         <div class="fw-normal text-muted mb-4">
@@ -133,6 +134,7 @@
                         </div>  
                         <div style="color: red">${message}</div><br>
                         <button type="submit" class="btn btn-primary submit_btn my-4 verification">Verify</button> 
+                        </div>
                     </form>
 
                     <div class="fw-normal text-muted mb-2">
@@ -142,12 +144,20 @@
                 </div>
             </div>
         </section>
-       
+        <div class="otp-card1">
+            <img class="icon" src="" alt="" />
+            <h1>Xin chào</h1>
+            <p></p>
+            <h2>Bạn đã đăng ký thành công</h2>
+<button class="goSignIn" type="submit" onclick="window.location.href = 'login.jsp'" style="margin-top: 2rem; font-family: Tilt Neon, sans-serif";>
+                Đăng nhập
+            </button>
+        </div>
         <script>
             const inputs = document.querySelectorAll('.otp-card-inputs input');
             const button = document.querySelector('.otp-card button');
             const verificationButton = document.querySelector('.verification');
-verificationButton.addEventListener('click', handleVerification);
+            verificationButton.addEventListener('click', handleVerification);
 
             inputs.forEach(input => {
                 let lastInputStatus = 0;
@@ -192,12 +202,13 @@ verificationButton.addEventListener('click', handleVerification);
                     }
                 };
             });
+
             function handleVerification() {
                 // Check if the verification process is successful (simulated here)
                 const isVerificationSuccessful = true;
 
                 if (isVerificationSuccessful) {
-                    // Show the success message container
+// Show the success message container
                     const successMessageContainer = document.querySelector('.otp-card1');
                     successMessageContainer.style.pointerEvents; // Make it visible
                     successMessageContainer.classList.add('show-success');
@@ -210,7 +221,6 @@ verificationButton.addEventListener('click', handleVerification);
                     // Handle unsuccessful verification (display error message, etc.)
                 }
             }
-            
         </script>
     </body>
 </html>

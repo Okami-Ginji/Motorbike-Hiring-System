@@ -252,13 +252,13 @@
                                                 <th scope="row">${f.feedbackID}</th>                                                                                           
                                                 <td>${f.content}</td>
                                                 <td>
-                                                    <c:forEach begin="1" end="${f.rate}" var="star">
+                                                    <c:forEach begin="1" end="${f.serviceRate}" var="star">
                                                         <span style="color: #F7D000;" class="fa fa-star"></span>
                                                     </c:forEach>
-                                                    <c:forEach begin="${f.rate + 1}" end="5" var="emptyStar">
+                                                    <c:forEach begin="${f.serviceRate + 1}" end="5" var="emptyStar">
                                                         <span class="fa fa-star-o"></span>
                                                     </c:forEach>
-                                                    <span class="hidden-rate" style="display: none;">${f.rate}</span>
+                                                    <span class="hidden-rate" style="display: none;">${f.serviceRate}</span>
                                                 </td>   
 
                                                 <td>${f.customerName}</td>

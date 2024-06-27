@@ -13,7 +13,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ColorBike Tourism Location</title>
         <link rel="website icon" type="png" href="images\logo.png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     </head>
     <body>
         <jsp:include page="/includes/navbar2.jsp" /> 
@@ -26,12 +27,12 @@
                 style="position: relative;">
                 <div class="container MuiBox-root css-0">
 
-                                    <div class="event-container">
+                                    <div class="event-container animate__animated animate__bounceIn">
                                         <h2>"Khám phá không giới hạn, trải nghiệm từng khoảnh khắc!"</h2>
                                         <p>Bạn có thể tham khảo những địa điểm du lịch này cùng chúng tôi nhé!!!</p>
                                     </div>
                     <div
-                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 features-container css-1ajnodb row">
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 features-container css-1ajnodb row animate__animated animate__zoomIn">
                         <c:forEach var="touristLocations" items="${touristLocation}">
                             <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-md-4 css-1ay72je event">
                                 <div class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column css-1o5yux1 image-container">

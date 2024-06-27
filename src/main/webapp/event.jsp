@@ -109,7 +109,7 @@
                 right: 20px;
                 width: 40px;
                 height: 40px;
-                background-color: #00ff26;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 border-radius: 50%;
                 text-align: center;
                 line-height: 40px;
@@ -150,7 +150,7 @@
             .discountt {
                 font-size: 50px;
                 text-align: center;
-                padding-top: 16px;
+                padding-top: 20px;
                 font-weight: bold;
                 background: linear-gradient(to right,
                     var(--gradient-color-0) 0%,
@@ -191,34 +191,20 @@
     </head>
     <body class="home blog wp-embed-responsive">
         <jsp:include page="/includes/navbar2.jsp" />
-        <section class="hero-wrap hero-wrap-2 js-fullheight" 
-                 
-                 data-stellar-background-ratio="0.5">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-                    <div class="col-md-9 ftco-animate pb-5">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
-                                        class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i
-                                    class="ion-ios-arrow-forward"></i></span></p>
-                        <h1 class="mb-3 bread">Choose Your Car</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <main id="maincontent" role="main">
+        
+        <main id="maincontent" role="main" style="margin-top: 5%;">
             <div class="middle-align container">
                 <div class="row m-0">
                     <div id="our-services" class="services col-lg-8 col-md-8">
                         <c:forEach items="${sessionScope.listEvent}" var="event">
                             <article id="post-19"
                                      class="inner-service post-19 post type-post status-publish format-standard hentry category-uncategorized tag-boat tag-lake">
-                                <div style="box-shadow: rgb(78, 255, 0) 0px 0px 20px 0px;visibility: visible;animation-duration: 2s;animation-name: zoomInDown;margin-bottom: 60px;"class="post-main-box wow zoomInDown delay-1000" data-wow-duration="2s"
+                                <div style="box-shadow: #0396C0 0px 0px 10px 0px;visibility: visible;animation-duration: 2s;animation-name: zoomInDown;margin-bottom: 60px;"class="post-main-box wow zoomInDown delay-1000" data-wow-duration="2s"
                                      style="visibility: visible; animation-duration: 2s; animation-name: zoomInDown;">
                                     <div class="row">
                                         <div class="new-text col-lg-12 col-md-12">
                                             <h2><a style="font-family: 'Times New Roman',
-                                                   Times, serif; font-weight: bold; font-style: oblique;font-size:32px;" href="">${event.eventTitle}</a></h2>
+                                                   Times, serif; font-weight: bold; font-style: oblique;font-size:32px; color: #0396C0;" href="">${event.eventTitle}</a></h2>
                                             <div>
                                                 <i class="ri-calendar-2-line"></i><span class="date">${event.createdDate}</span>   |
                                                 <i class="ri-time-line"></i><span class="entry-time">${event.startDate}</span>   |
@@ -236,7 +222,7 @@
                                                     <p class="discountt text-center">SALE ${Math.round(event.discount * 100)}%</p>
                                                 </div>
                                                 <div class="content-bttn">
-                                                    <a style="background-image: linear-gradient(to right, #75fed9, #00ff9d);" class="view-more" href="#" onclick="showFullContent(event, this)">Xem thêm <i class="fas fa-angle-right"></i><span class="screen-reader-text">Xem thêm</span></a>
+                                                    <a style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);" class="view-more" href="#" onclick="showFullContent(event, this)">Xem thêm <i class="fas fa-angle-right"></i><span class="screen-reader-text">Xem thêm</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,27 +236,27 @@
                     </div>
                     <div class="col-lg-4 col-md-4 sidebar">
                         <div class="sidebar">
-                            <aside style="box-shadow: 0px 15px 10px -15px #00ff62;" id="search" class="widget" role="complementary" aria-label="firstsidebar">
-                                <h3 style="color: rgb(1,210,142);">Search</h3>
+                            <aside style="box-shadow: 0px 15px 10px -15px #0396C0;" id="search" class="widget" role="complementary" aria-label="firstsidebar">
+                                <h3 style="color: #0396C0;">Search</h3>
 
                                 <form action="searchevent" method="get" class="search-form" >
                                     <label>
                                         <span class="screen-reader-text">Search for:</span>
                                         <input type="search" class="search-field" placeholder="Search" value="${textSearch}" name="textSearch">
                                     </label>
-                                    <input style="background-image: linear-gradient(to right, #75fed9, #00ff9d);" type="submit" class="search-submit" value="Search">
+                                    <input style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);" type="submit" class="search-submit" value="Search">
                                 </form>
                             </aside>
-                            <aside style="box-shadow: 0px 15px 10px -15px #00ff62;" id="archives" role="complementary" class="widget" aria-label="firstsidebar">
-                                <h3 style="color: rgb(1,210,142);">Archives</h3>
+                            <aside style="box-shadow: 0px 15px 10px -15px #0396C0;" id="archives" role="complementary" class="widget" aria-label="firstsidebar">
+                                <h3 style="color: #0396C0;">Archives</h3>
                                 <ul>
                                     <li><a href="">October 2008</a></li>
                                     <li><a href="">September 2008</a></li>
                                     <li><a href="">June 2008</a></li>
                                 </ul>
                             </aside>
-                            <aside style="box-shadow: 0px 15px 10px -15px #00ff62;" id="categories" class="widget" role="complementary" aria-label="forthsidebar">
-                                <h3 style="color: rgb(1,210,142);">Categories</h3>
+                            <aside style="box-shadow: 0px 15px 10px -15px #0396C0;" id="categories" class="widget" role="complementary" aria-label="forthsidebar">
+                                <h3 style="color: #0396C0;">Categories</h3>
                                 <ul>
                                     <li class="cat-item "><a href="">Black Friday</a></li>
                                     <li class="cat-item "><a href="">Summer Sale</a> </li>

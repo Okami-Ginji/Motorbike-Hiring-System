@@ -33,6 +33,26 @@
         <link rel="stylesheet" href="css/flaticon.css">
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
+        <style>
+            .banner-image img {
+                object-fit: contain;
+            }
+            .timeline1{
+                background: radial-gradient(circle at 10% 20%, rgb(0, 93, 133) 0%, rgb(0, 181, 149) 90%);
+            }
+            .timeline2{
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
+            }
+            .timeline3{
+                background: linear-gradient(91.9deg, rgb(94, 124, 121) 4.4%, rgb(64, 224, 208) 89%);
+            }
+            .rentalNow:hover{
+                background: linear-gradient(178.6deg, rgb(232, 245, 253) 3.3%, rgb(252, 253, 255) 109.6%) !important;
+            }
+            .tablePrice{
+                background-color: black !important;
+            }
+        </style>
     </head>
     <body>
 
@@ -50,23 +70,26 @@
                                     <tr class="text-center">
                                         <th>&nbsp;</th>
                                         <th>&nbsp;</th>
-                                        <th class="bg-primary heading">Thuê theo ngày</th>
-                                        <th class="bg-dark heading">Thuê theo tuần</th>
-                                        <th class="bg-black heading">Thuê theo tháng</th>
+                                        <th class="timeline1">Thuê theo ngày</th>
+                                        <th class="timeline2">Thuê theo tuần</th>
+                                        <th class="timeline3">Thuê theo tháng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach items="${listM}" var="m">
-                                        <tr class="">
+                                        <tr class="tablePrice">
                                             <c:forEach items="${listP}" var="p">
                                                 <c:if test="${p.priceListId == m.priceListID}">
-                                                    <td class="car-image"><div class="img" style="background-image:url(images/${m.image});"></div></td>
+                                                    <td class="car-image">
+                                                        <div class="img banner-image">
+                                                            <img src="images/${m.image}" width="100%" height="100%" alt="alt"/>
+                                                        </div></td>
                                                     <td class="product-name">
                                                         <h3>${m.model}</h3>
                                                     </td>
 
-                                                    <td class="price">
-                                                        <p class="btn-custom"><a href="#">Thuê xe máy</a></p>
+                                                    <td class="price rentalNow">
+                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><small class="currency">$</small> ${p.dailyPriceForDay}</span>
@@ -76,8 +99,8 @@
                                                         </div>
                                                     </td>
 
-                                                    <td class="price">
-                                                        <p class="btn-custom"><a href="#">Thuê xe máy</a></p>
+                                                    <td class="price rentalNow">
+                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><small class="currency">$</small> ${p.dailyPriceForWeek}</span>
@@ -87,8 +110,8 @@
                                                         </div>
                                                     </td>
 
-                                                    <td class="price">
-                                                        <p class="btn-custom"><a href="#">Thuê xe máy</a></p>
+                                                    <td class="price rentalNow">
+                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><small class="currency">$</small> ${p.dailyPriceForMonth}</span>

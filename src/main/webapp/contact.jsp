@@ -110,9 +110,7 @@
         <div style="margin-top: 8%;">
             <div class="container about-header animate__animated animate__fadeInDown">
                 <h3>Chào Mừng Đến Với ColorBike!</h3>
-                <h2 style="font-size: small;">ColorBike không chỉ là một dịch vụ cho thuê xe máy, mà còn là người bạn đồng hành đáng tin cậy của bạn trong mỗi chuyến phiêu lưu khám phá thành phố Đà Nẵng xinh đẹp. 
-                    Chúng tôi tự hào là đơn vị cho thuê xe máy chính chủ với dịch vụ chất lượng cao, giúp bạn dễ dàng và thuận tiện trong việc di chuyển, 
-                    khám phá mọi ngóc ngách của thành phố mà không phải lo lắng về vấn đề giao thông.</h2>
+                <h2 style="font-size: small;">Nếu bạn có câu hỏi gì hãy liên hệ với chúng tôi nhé!</h2>
             </div>
 
             <section class="ftco-section contact-section animate__animated animate__fadeInUp">

@@ -9,102 +9,82 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <jsp:include page="/includes/header2.jsp" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ColorBike Events</title>
-        <style>
-            /* breadcrumb */
-
-            /* Style the list */
-            ul.breadcrumb {
-                padding: 10px 16px;
-                list-style: none;
-                background-color: #eee;
-            }
-
-            /* Display list items side by side */
-            ul.breadcrumb li {
-                display: inline;
-                font-size: 18px;
-            }
-
-            /* Add a slash symbol (/) before/behind each list item */
-            ul.breadcrumb li+li:before {
-                padding: 8px;
-                color: black;
-                content: "/\00a0";
-            }
-
-            /* Add a color to all links inside the list */
-            ul.breadcrumb li a {
-                color: #0275d8;
-                text-decoration: none;
-            }
-
-            /* Add a color on mouse-over */
-            ul.breadcrumb li a:hover {
-                color: #01447e;
-                text-decoration: underline;
-            }
-        </style>
+        <title>ColorBike Tourism Location</title>
+        <link rel="website icon" type="png" href="images\logo.png">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     </head>
     <body>
-        <!-- breadcrumb -->
-        <div>
-            <ul class="breadcrumb">
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="#">Events</a></li>
-            </ul>
-        </div>
-        <!-- end breadcrumbs -->
-        <section
-            class="feature-grid2-5331c43e-593a-4933-bcf2-96beb7ea5e25 sw-background-color-f4f2f1 sw-padding-top-l sw-padding-bottom-2xl sw-border-top-style-none sw-border-top-width-xs sw-border-top-color-000000 sw-border-bottom-style-none sw-border-bottom-width-xs sw-border-bottom-color-000000 sw-background-repeat-no-repeat sw-background-size-cover sw-background-position-center sw-background-attachment-scroll MuiBox-root css-0"
-            data-block-version="3.1.0"
-            data-block-id="5331c43e-593a-4933-bcf2-96beb7ea5e25"
-            data-block-updated
-            style="position: relative;">
-            <div class="container MuiBox-root css-0">
+        <jsp:include page="/includes/navbar2.jsp" /> 
+        <div class="noidung">
+            <section
+                class="feature-grid2-5331c43e-593a-4933-bcf2-96beb7ea5e25 sw-background-color-f4f2f1 sw-padding-top-l sw-padding-bottom-2xl sw-border-top-style-none sw-border-top-width-xs sw-border-top-color-000000 sw-border-bottom-style-none sw-border-bottom-width-xs sw-border-bottom-color-000000 sw-background-repeat-no-repeat sw-background-size-cover sw-background-position-center sw-background-attachment-scroll MuiBox-root css-0"
+                data-block-version="3.1.0"
+                data-block-id="5331c43e-593a-4933-bcf2-96beb7ea5e25"
+                data-block-updated
+                style="position: relative;">
+                <div class="container MuiBox-root css-0">
 
-                <div class="event-container">
-                    <h2>ColorBike Events</h2>
-                    <p>Plan Your Perfect Event with Our User-Friendly App</p>
-                </div>
-                <div
-                    class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 features-container css-1ajnodb row">
-                    <c:forEach var="touristLocations" items="${touristLocation}">
-                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-md-4 css-1ay72je event">
-                            <div class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column css-1o5yux1 image-container">
-                                <img style="width: 90%;" class="sw-width-xs sw-height-xs sw-margin-bottom-2xs MuiBox-root css-0" src="images/${touristLocations.locationImage}" alt="Shedule">
-                                <h3 class="colorWord sw-font-size-xl sw-text-color-default sw-font-family-arvo sw-font-weight-medium sw-letter-spacing-normal sw-margin-top-6xs sw-margin-bottom-6xs">
-                                    ${touristLocations.locationName}
-                                </h3>
-                                <p class="sw-font-size-m sw-text-color-default sw-font-family-default sw-font-weight-default sw-line-height-normal sw-letter-spacing-normal">
-                                    ${touristLocations.description}
-                                </p>
-                                <a href="${touristLocations.urlArticle}" target="_blank" class="sw-font-size-m sw-text-color-f2501b sw-font-family-default sw-font-weight-normal sw-margin-top-6xs sw-margin-bottom-none sw-letter-spacing-normal sw-text-decoration-no-underline hover:sw-text-decoration-no-underline sw-display-inline-block event-link no-border">
+                                    <div class="event-container animate__animated animate__bounceIn">
+                                        <h2>"Khám phá không giới hạn, trải nghiệm từng khoảnh khắc!"</h2>
+                                        <p>Bạn có thể tham khảo những địa điểm du lịch này cùng chúng tôi nhé!!!</p>
+                                    </div>
+                    <div
+                        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 features-container css-1ajnodb row animate__animated animate__zoomIn">
+                        <c:forEach var="touristLocations" items="${touristLocation}">
+                            <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-md-4 css-1ay72je event">
+                                <div class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column css-1o5yux1 image-container">
+                                    <img style="width: 90%;" class="sw-width-xs sw-height-xs sw-margin-bottom-2xs MuiBox-root css-0" src="images/${touristLocations.locationImage}" alt="Shedule">
+                                    <h3 class="colorWord sw-font-size-xl sw-text-color-default sw-font-family-arvo sw-font-weight-medium sw-letter-spacing-normal sw-margin-top-6xs sw-margin-bottom-6xs">
+                                        ${touristLocations.locationName}
+                                    </h3>
+                                    <p class="sw-font-size-m sw-text-color-default sw-font-family-default sw-font-weight-default sw-line-height-normal sw-letter-spacing-normal">
+                                        ${touristLocations.description}
+                                    </p>
+                                    <a href="${touristLocations.urlArticle}" target="_blank" class="sw-font-size-m sw-text-color-f2501b sw-font-family-default sw-font-weight-normal sw-margin-top-6xs sw-margin-bottom-none sw-letter-spacing-normal sw-text-decoration-no-underline hover:sw-text-decoration-no-underline sw-display-inline-block event-link no-border">
 
-                                    <span>Go to article</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
-                                    <rect width="256" height="256" fill="none"></rect>
-                                    <line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
-                                    <polyline points="144 56 216 128 144 200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
-                                    </svg>
-                                </a>
+                                        <span>Go to article</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                                        <rect width="256" height="256" fill="none"></rect>
+                                        <line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+                                        <polyline points="144 56 216 128 144 200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </div>
                 </div>
-            </div>
-        </section>
-
+            </section>
+        </div>
+        <jsp:include page="/includes/footer.jsp" />
+        <!-- Các tệp JS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.easing.1.3.js"></script>
+        <script src="js/jquery.waypoints.min.js"></script>
+        <script src="js/jquery.stellar.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/aos.js"></script>
+        <script src="js/jquery.animateNumber.min.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
+        <script src="js/jquery.timepicker.min.js"></script>
+        <script src="js/scrollax.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=false"></script>
+        <script src="js/google-map.js"></script>
+        <script src="js/main.js"></script>
     </body>
 
     <style>
-        /* CSS for full-page fade-in effect */
-        body {
-            opacity: 0; /* Khởi đầu với độ trong suốt 0 */
-            animation: fadeInEffect 1s ease-in-out forwards; /* Sử dụng animation để fade-in */
-        }
 
+        .noidung{
+            margin-top: 5%;
+        }
         @keyframes fadeInEffect {
             from {
                 opacity: 0; /* Bắt đầu với độ trong suốt 0 */
@@ -117,19 +97,14 @@
         }
 
         .event-container {
-            max-width: 100%;
-            margin: auto;
             margin-bottom: 15px;
             padding: 20px;
-            background: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
         .event-container h2 {
-            font-size: 2.5rem;
+            /*font-size: 2.5rem;*/
             font-weight: bold;
-            color: #333;
+            color: #001973;
             margin-bottom: 20px;
         }
         .event-container p {
@@ -142,7 +117,7 @@
             text-align: justify;
             position: relative;
             background: white;
-            border-radius: 8px;
+            border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 30%;
@@ -255,5 +230,11 @@
             });
         });
     </script>
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var noidung = document.querySelector('.noidung');
+                noidung.classList.add('animate__animated', 'animate__fadeIn');
+            });
+        </script>
 </html>
 

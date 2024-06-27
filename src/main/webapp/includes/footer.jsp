@@ -3,73 +3,72 @@
     Created on : May 25, 2024, 5:28:24?PM
     Author     : DiepTCNN
 --%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/includes/header2.jsp" />
+<footer id="footer" class="footer">
 
-<jsp:include page="/includes/header.jsp" />
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2"><a href="#" class="logo">Color<span>Bike</span></a></h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the
-                        blind texts.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
+    <div class="container footer-top">
+        <div class="row gy-4">
+            <div class="col-lg-5 col-md-12 footer-about">
+                <a href="index.html" class="logo d-flex align-items-center">
+                    <span class="sitename">COLORBIKE</span>
+                </a>
+                <p>"Tự do trên từng chuyến hành trình"</p>
+                <p>Chọn chúng tôi để khởi đầu hành trình của bạn với sự tiện lợi và
+                    chất lượng dịch vụ tuyệt vời nhất.</p>
+                <div class="social-links d-flex mt-4">
+                    <a href><i class="bi bi-facebook"></i></a>
+                    <a href><i class="bi bi-instagram"></i></a>
+                    <a href><i class="bi bi-linkedin"></i></a>
                 </div>
             </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Information</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="about.jsp" class="py-2 d-block">About</a></li>
-                        <li><a href="#" class="py-2 d-block">Services</a></li>
-                        <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-                        <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                        <li><a href="policies.html" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Customer Support</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="FAQ" class="py-2 d-block">FAQ</a></li>
-                        <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                        <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-                        <li><a href="#" class="py-2 d-block">How it works</a></li>
-                        <li><a href="contact.jsp" class="py-2 d-block">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Have a Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San
-                                    Francisco, California, USA</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span
-                                        class="text">info@yourdomain.com</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
 
-                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with
-                    <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="index.html"
-                                                                                     target="_blank">ColorBike</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
+            <div class="col-lg-2 col-6 footer-links">
+                <h4>Thông Tin</h4>
+                <ul>
+                    <li><a href="home.jsp">Trang Chủ</a></li>
+                    <li><a href="about.jsp">Về Chúng Tôi</a></li>
+                    <li><a href="home.jsp">Dịch Vụ</a></li>
+                    <li><a href="policies.jsp">Chính Sách & Điều Khoản</a></li>
+                </ul>
             </div>
+
+            <div class="col-lg-2 col-6 footer-links">
+                <h4>Dịch Vụ</h4>
+                <ul>
+                    <li><a href="FAQ">FAQs</a></li>
+                    <li><a href="event">Sự Kiện</a></li>
+                    <li><a href="touristLocation ">Địa Điểm Du Lịch</a></li>
+                    <li><a href="event">Quảng Cáo</a></li>
+                </ul>
+            </div>
+
+            <div
+                class="col-lg-3 col-md-12 footer-contact text-center text-md-start col-lg-2 col-6 footer-links">
+                <h4>Hỗ Trợ Khách Hàng</h4>
+                <p class><a href="contact.jsp" class="gradient-button">Liên hệ
+                        chúng tôi</a></p>
+                <p>A108 Adam Street</p>
+                <p>New York, NY 535022</p>
+                <p>United States</p>
+                <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488
+                        55</span></p>
+                <p><strong>Email:</strong>
+                    <span>the.color.bike.company@gmail.com</span></p>
+            </div>
+
         </div>
     </div>
+
+    <div class="container copyright text-center mt-4">
+        <p><span>Công Ty</span> <strong class="px-1 sitename">COLORBIKE</strong>
+            <span>Chúc Bạn Vạn Niềm Vui</span></p>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you've purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        </div>
+    </div>
+
 </footer>

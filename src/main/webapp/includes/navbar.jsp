@@ -17,17 +17,16 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a style="font-size: larger;" href="about.jsp" class="nav-link">About</a></li>
-                <li class="nav-item"><a style="font-size: larger;" href="policies.jsp" class="nav-link">Policies&Terms</a>
-                </li>
-                <li class="nav-item"><a style="font-size: larger;" href="pricing" class="nav-link">Pricing</a></li>
+                <li class="nav-item"><a style="font-size: large;" href="about.jsp" class="nav-link">Chúng Tôi</a></li>
 
-                <li class="nav-item"><a style="font-size: larger;" href="motorcycle" class="nav-link">Motorbikes</a></li>
-                <li class="nav-item"><a style="font-size: larger;" href="touristLocation" class="nav-link">Location</a></li>
+                <li class="nav-item"><a style="font-size: large;" href="pricing" class="nav-link">Giá</a></li>
 
-                <li class="nav-item"><a style="font-size: larger;" href="contact.jsp" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a style="font-size: large;" href="motorcycle" class="nav-link">Xe Máy</a></li>
+                <li class="nav-item"><a style="font-size: large;" href="touristLocation" class="nav-link">Du Lịch</a></li>
+
+                <li class="nav-item"><a style="font-size: large;" href="contact.jsp" class="nav-link">Liên hệ</a></li>
                     <c:if test="${sessionScope.account == null}">
-                    <li class="nav-item"><a style="font-size: larger;" href="login.jsp" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a style="font-size: large;" href="login.jsp" class="nav-link">Đăng nhập</a></li>
                     </c:if>
                     <c:if test="${sessionScope.account != null}">
                     <div class="dropdown">

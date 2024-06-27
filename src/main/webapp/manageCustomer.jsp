@@ -39,6 +39,7 @@
     </head>
 
     <body>
+        <jsp:include page="/includes/sidebar.jsp" /> 
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9c87e70b87.js" crossorigin="anonymous"></script>
         <div class="container">

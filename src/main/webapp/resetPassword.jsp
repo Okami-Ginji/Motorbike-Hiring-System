@@ -44,8 +44,8 @@
                 <!-- For Demo Purpose -->
 
                 <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
-
-                    <img src="images/anh4.png" alt="" class="img-fluid mb-3 d-none d-md-block" style="width: 100%">
+                    <a href="login.jsp">
+                        <img  src="images/anh4.png" alt="" class="img-fluid mb-3 d-none d-md-block" style="width: 100%"></a>
                     <h2 style="text-align: center; color: black;">Quên mật khẩu</h2>
 
                 </div>
@@ -53,8 +53,8 @@
                 <!-- Registeration Form -->
                 <div class="col-md-7 col-lg-6 ml-auto">
                     <form action="updatepassword" method="get">
-<!--
-                        <input type="hidden" name="email" value="${requestScope.email}">-->
+                        <!--
+                                                <input type="hidden" name="email" value="${requestScope.email}">-->
                         <div class="row">                          
                             <!-- Email Address -->
                             <div class="input-group col-lg-12 mb-4">
@@ -75,11 +75,11 @@
 
                                 <input id="confirmpass" type="password" name="confirmpass" placeholder="Xác nhận mật khẩu" class="form-control bg-white border-left-0 border-md">
                             </div>
-                            
+
                             <div style="width: 100%; text-align: center; color: red">                              
                                 <p style="margin-bottom: 5px;">${requestScope.messageError}</p>
                             </div>
-                           <div style="width: 100%; text-align: center; color: green">                              
+                            <div style="width: 100%; text-align: center; color: green">                              
                                 <p style="margin-bottom: 5px;">${requestScope.messageOke}</p>
                             </div>
                             <!-- Submit Button -->

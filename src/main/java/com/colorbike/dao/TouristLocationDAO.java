@@ -19,7 +19,8 @@ import java.util.logging.Logger;
  *
  * @author huypd
  */
-public class TouristLocationDAO implements Serializable, DAO<FAQDAO>{
+public class TouristLocationDAO implements Serializable, DAO<FAQDAO> {
+
     private static TouristLocationDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
@@ -35,7 +36,7 @@ public class TouristLocationDAO implements Serializable, DAO<FAQDAO>{
         }
         return instance;
     }
-    
+
     public List<TouristLocation> getAllTouristLocation() {
         List<TouristLocation> list = new ArrayList<>();
         PreparedStatement stm;
@@ -45,12 +46,111 @@ public class TouristLocationDAO implements Serializable, DAO<FAQDAO>{
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
-                list.add(new TouristLocation(rs.getInt("locationId"),rs.getString("locationName"),rs.getString("locationImage"),rs.getString("description"),rs.getString("urlArticle"),rs.getString("staffID")));
+                list.add(new TouristLocation(rs.getInt("locationId"), rs.getString("locationName"), rs.getString("locationImage"), rs.getString("description"), rs.getString("urlArticle"), rs.getString("staffID")));
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+
+    public TouristLocation getTouristLocationbyID(int id) {
+        String sql = "SELECT * FROM TouristLocation WHERE LocationID = ?";
+
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                TouristLocation touristLocation = new TouristLocation();
+                touristLocation.setLocationId(rs.getInt(1));
+                touristLocation.setLocationName(rs.getString(2));
+                touristLocation.setLocationImage(rs.getString(3));
+                touristLocation.setDescription(rs.getString(4));
+                touristLocation.setUrlArticle(rs.getString(5));
+                touristLocation.setStaffID(rs.getString(6));
+
+                return touristLocation;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+    public void addNewTouristLocation(TouristLocation touristLocation) {
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "INSERT INTO [dbo].[TouristLocation] ([LocationName], [LocationImage], [Description], [UrlArticle], [StaffID]) VALUES (?, ?, ?, ?, ?)";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, touristLocation.getLocationName());
+            stm.setString(2, touristLocation.getLocationImage());
+            stm.setString(3, touristLocation.getDescription());
+            stm.setString(4, touristLocation.getUrlArticle());
+            stm.setString(5, touristLocation.getStaffID());
+            rs = stm.executeQuery();
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+//    public void addNewTouristLocation(String locationName, String locationImage, String description, String urlArticle, String staffID) {
+//        PreparedStatement stm;
+//        ResultSet rs;
+//        try {
+//            String sql = "INSERT INTO [dbo].[TouristLocation] ([LocationName], [LocationImage], [Description], [UrlArticle], [StaffID]) VALUES (?, ?, ?, ?, ?)";
+//            stm = conn.prepareStatement(sql);
+//            stm.setString(1, locationName);
+//            stm.setString(2, locationImage);
+//            stm.setString(3, description);
+//            stm.setString(4, urlArticle);
+//            stm.setString(5, staffID);
+//            rs = stm.executeQuery();
+//        } catch (Exception ex) {
+//            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+
+    public void deleteTouristLocation(String id) {
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "Delete from [dbo].[TouristLocation] where LocationID= ?;";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, id);
+            stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateTouristLocation(TouristLocation touristLocation) {
+        PreparedStatement stm;
+        try {
+            String sql = "UPDATE [dbo].[TouristLocation]\n"
+                    + "   SET [LocationName] = ?\n"
+                    + "      ,[LocationImage] = ?\n"
+                    + "      ,[Description] = ?\n"
+                    + "      ,[UrlArticle] = ?\n"
+                    + "      ,[StaffID] = ?\n"
+                    + " WHERE LocationID = ?";
+            stm = conn.prepareStatement(sql);
+            stm.setInt(6, touristLocation.getLocationId());
+            stm.setString(1, touristLocation.getLocationName());
+            stm.setString(2, touristLocation.getLocationImage());
+            stm.setString(3, touristLocation.getDescription());
+            stm.setString(4, touristLocation.getUrlArticle());
+            stm.setString(5, touristLocation.getStaffID());
+            int rowsUpdated = stm.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("TouristLocation updated successfully.");
+            } else {
+                System.out.println("No TouristLocation updated.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating TouristLocation: " + e.getMessage());
+        }
     }
 
     @Override
@@ -72,4 +172,6 @@ public class TouristLocationDAO implements Serializable, DAO<FAQDAO>{
     public void delete(FAQDAO t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+   
 }

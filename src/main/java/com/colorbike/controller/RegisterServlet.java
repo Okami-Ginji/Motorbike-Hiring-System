@@ -1,4 +1,3 @@
-
 package com.colorbike.controller;
 
 import com.colorbike.constant.SendEmail;
@@ -13,11 +12,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name="RegisterServlet", urlPatterns={"/register"})
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
-   
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
     } 
@@ -45,10 +44,8 @@ public class RegisterServlet extends HttpServlet {
                 String gender = request.getParameter("gender");
                 String address = request.getParameter("address");
                 String phone = request.getParameter("phone");
-                String image = request.getParameter("image");
                 String dob = request.getParameter("dob");
                 String username = request.getParameter("username");
-                
                 if (firstname == null || firstname.isEmpty()
                         || lastname == null || lastname.isEmpty()
                         || gender == null || gender.isEmpty()
@@ -60,7 +57,6 @@ public class RegisterServlet extends HttpServlet {
                     request.setAttribute("info", "Please enter full information!!!"); 
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                 }
-                
                 HttpSession session = request.getSession();
                 session.setAttribute("firstname", firstname);
                 session.setAttribute("lastname", lastname);
@@ -71,26 +67,26 @@ public class RegisterServlet extends HttpServlet {
                 session.setAttribute("username", username);
                 session.setAttribute("password", password);
                 session.setAttribute("email", email);
+
                 // Generate verification code
                 String verificationCode = SendEmail.generateRandomFourDigits();
                 // Save verification code in session
                 session.setAttribute("verificationCode", verificationCode);
                 String emailContent = "<h3>Hello,</h3>"
-                   + "<p>To complete the registration process, please use the following OTP code:</p>"
-                   + "<p>OTP code: <b>" + verificationCode + ".</b></p>"
-                   + "<p>If you do not require this code, please ignore the email or contact us at the.color.bike.company@gmail.com</p>";
+                        + "<p>To complete the registration process, please use the following OTP code:</p>"
+                        + "<p>OTP code: <b>" + verificationCode + ".</b></p>"
+                        + "<p>If you do not require this code, please ignore the email or contact us at the.color.bike.company@gmail.com</p>";
                 // Send verification email
                 SendEmail.sendVerificationEmail(email, emailContent);
                 // Redirect to the confirmation page
 
                 response.sendRedirect("otpRegister.jsp");
             } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Password and cf-password is not equal.");             
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Password and cf-password is not equal.");
             }
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Email is invalid or existed."); // email đã tồn tại
         }
     }
-
 
 }

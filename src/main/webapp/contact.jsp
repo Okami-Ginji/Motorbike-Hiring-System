@@ -108,11 +108,13 @@
 
 
         <div style="margin-top: 8%;">
-            <div class="container about-header animate__animated animate__fadeInDown">
-                <h3>Chào Mừng Đến Với ColorBike!</h3>
-                <h2 style="font-size: small;">Nếu bạn có câu hỏi gì hãy liên hệ với chúng tôi nhé!</h2>
-            </div>
-
+            
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <span>Welcome to ColorBike!<br></span>
+                <h2>Chào Mừng Đến Với ColorBike!</h2>
+                <p>Nếu bạn có câu hỏi gì hãy liên hệ với chúng tôi nhé!</p>
+            </div><!-- End Section Title -->
             <section class="ftco-section contact-section animate__animated animate__fadeInUp">
                 <div class="container">
                     <div class="row d-flex mb-5 contact-info">

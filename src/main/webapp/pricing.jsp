@@ -52,15 +52,44 @@
             .tablePrice{
                 background-color: black !important;
             }
+            .rentalButton a{
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%) !important;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+                font-weight: 700;
+                text-transform: uppercase;
+                margin-bottom: 20px;
+                padding-bottom: 0;
+                position: relative;
+                z-index: 2;
+            }
+            .section-title span {
+                position: absolute;
+                top: 4px;
+                color:color-mix(in srgb, var(--heading-color), transparent 95%);
+                left: 0;
+                right: 0;
+                z-index: 1;
+                font-weight: 700;
+                font-size: 52px;
+                text-transform: uppercase;
+                line-height: 1;
+            }
         </style>
     </head>
     <body>
 
         <jsp:include page="/includes/navbar2.jsp" />
 
-        
 
         <section class="ftco-section ftco-cart">
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <span>Bảng giá xe máy<br></span>
+                <h2>Bảng giá xe máy</h2>
+            </div><!-- End Section Title -->
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 ftco-animate">

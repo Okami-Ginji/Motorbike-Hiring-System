@@ -60,14 +60,14 @@ public class GetOtpServlet extends HttpServlet {
             String lastname = (String) session.getAttribute("lastname");
             String gender = (String) session.getAttribute("gender");
             String email = (String) session.getAttribute("email");
-            String address = (String) session.getAttribute("address");
+            //        String address = (String) session.getAttribute("address");
             String phone = (String) session.getAttribute("phone");
-            String dob = (String) session.getAttribute("dob");
+            //        String dob = (String) session.getAttribute("dob");
             String username = (String) session.getAttribute("username");
             String password = (String) session.getAttribute("password");
-            dao.createANewAccount(firstname, lastname, gender, dob, address, phone, email, username, password);
+            dao.createANewAccount(firstname, lastname, gender, phone, email, username, password);
             request.setAttribute("msg", "Create a new account successfully!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("login2.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "The code number is incorrect! Please try again");
             request.getRequestDispatcher("otpRegister.jsp").forward(request, response);

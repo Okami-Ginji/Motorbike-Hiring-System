@@ -282,7 +282,6 @@
                                                             data-license="<c:forEach items="${m.listMotorcycleDetails}" var="listmd">
                                                                 ${listmd.licensePlate},
                                                             </c:forEach>"                                        
-
                                                             <span class="bold">Detail</span>
                                                     </button>
 

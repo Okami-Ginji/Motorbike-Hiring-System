@@ -42,28 +42,28 @@ public class RegisterServlet extends HttpServlet {
                 String firstname = request.getParameter("firstname");
                 String lastname = request.getParameter("lastname");
                 String gender = request.getParameter("gender");
-                String address = request.getParameter("address");
+             //   String address = request.getParameter("address");
                 String phone = request.getParameter("phone");
-                String dob = request.getParameter("dob");
+            //    String dob = request.getParameter("dob");
                 String username = request.getParameter("username");
                 if (firstname == null || firstname.isEmpty()
                         || lastname == null || lastname.isEmpty()
                         || gender == null || gender.isEmpty()
-                        || address == null || address.isEmpty()
+                 //       || address == null || address.isEmpty()
                         || phone == null || phone.isEmpty()                     
-                        || dob == null || dob.isEmpty()
+                //        || dob == null || dob.isEmpty()
                         || username == null || username.isEmpty()) {
 
                     request.setAttribute("info", "Please enter full information!!!"); 
-                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                    request.getRequestDispatcher("register2.jsp").forward(request, response);
                 }
                 HttpSession session = request.getSession();
                 session.setAttribute("firstname", firstname);
                 session.setAttribute("lastname", lastname);
                 session.setAttribute("gender", gender);
-                session.setAttribute("address", address);
+          //      session.setAttribute("address", address);
                 session.setAttribute("phone", phone);
-                session.setAttribute("dob", dob);
+          //      session.setAttribute("dob", dob);
                 session.setAttribute("username", username);
                 session.setAttribute("password", password);
                 session.setAttribute("email", email);

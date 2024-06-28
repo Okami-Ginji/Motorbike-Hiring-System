@@ -9,6 +9,7 @@
 <html lang="en">
 
     <head>
+        <link rel="website icon" type="png" href="images\logo.png">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,7 +45,7 @@
     </head>
 
     <body>
-
+        <jsp:include page="/includes/sidebar.jsp" /> 
         <div id="wrapper">
 
             <!-- Navigation -->
@@ -139,104 +140,6 @@
                 </ul>
                 <!-- /.navbar-top-links -->
             </nav>
-
-            <aside class="sidebar navbar-default" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Tìm kiếm...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="manageCustomer" class="active"><i class="fa fa-user-circle-o fa-fw"></i> Quản lý khách hàng </a>
-                        </li>
-                        <li>
-                            <a href="manageBooking" class="active"><i class="fa fa-shopping-cart fa-fw"></i> Quản lý Booking </a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-motorcycle fa-fw"></i> Xe máy <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Quản lý xe máy</a>
-                                </li>
-                                <li>
-                                    <a href="transaction.jsp">Lịch sử giao dịch</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <!-- <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i>Services</a>
-                        </li> -->
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Dịch vụ <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">Hỗ trợ khách hàng</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Xem đánh giá của khách hàng</a>
-                                </li>
-                                <li>
-                                    <a href="faqsManagement.jsp">Quản lý FAQs</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span
-                                    class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-            <!-- /.sidebar -->
 
             <div id="page-wrapper">
                 <div class="container-fluid">

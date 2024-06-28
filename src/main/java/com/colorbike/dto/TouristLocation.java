@@ -4,6 +4,7 @@
  */
 package com.colorbike.dto;
 
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class TouristLocation {
+public class TouristLocation implements Serializable{
     private int locationId;
     private String locationName;
     private String locationImage;

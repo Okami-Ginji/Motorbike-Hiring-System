@@ -14,6 +14,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
@@ -114,23 +116,19 @@
                 opacity: 0.7;
                 cursor: pointer;
             }
+
+            .img img{
+                object-fit: contain;
+            }
+            .banner-image img {
+                object-fit: contain;
+            }
         </style>
     </head>
     <body>
 
-        <jsp:include page="/includes/navbar.jsp" />
+        <jsp:include page="/includes/navbar2.jsp" />
 
-        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/banner.jpg');" data-stellar-background-ratio="0.5">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-                    <div class="col-md-9 ftco-animate pb-5">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Car details <i class="ion-ios-arrow-forward"></i></span></p>
-                        <h1 class="mb-3 bread">Motorbike Details</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
 
 
         <section class="ftco-section ftco-car-details">
@@ -138,10 +136,12 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12 detail">
                         <div class="car-details">
-                            <div class="img-wrapper">
-                                <div class="img" style="background-image: url('images/${motorcycleDetail.image}');"></div>
+                            <div class="img-wrapper animate__animated animate__zoomIn">
+                                <div class="img banner-image">
+                                    <img src="images/${motorcycleDetail.image}" width="100%" height="100%" alt="alt"/>
+                                </div>
                             </div>
-                            <div class="text text-center">
+                            <div class="text text-center animate__animated animate__bounceIn">
                                 <c:forEach var="brands" items="${brand}">
                                     <c:if test="${brands.brandID == motorcycleDetail.brandID}">
                                         <span class="subheading">${brands.brandName}</span>
@@ -425,6 +425,6 @@
                                     modal.style.display = "none";
                                 }
                             }
-                        
+
     </script>
 </html>

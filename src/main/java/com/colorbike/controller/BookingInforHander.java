@@ -113,7 +113,7 @@ public class BookingInforHander extends HttpServlet {
 
          //Initialize FileUploaded with upload directory
 //        String uploadPath = getServletContext().getRealPath("/upload");
-        FileUploaded fileUploaded = new FileUploaded("D:\\MotorcycleRental\\src\\main\\webapp\\upload");
+        FileUploaded fileUploaded = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\upload");
         // Initialize FileUploaded with a relative directory path
 //        String uploadPath = getServletContext().getInitParameter("UPLOAD_DIRECTORY");
 //        String absoluteUploadPath = getServletContext().getRealPath(File.separator + uploadPath);
@@ -159,6 +159,7 @@ public class BookingInforHander extends HttpServlet {
         
         if(customerId.equalsIgnoreCase("Not")){          
             daoC.createNewCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", 1, accountId);
+            System.out.println(customerId);
             filename = "imageIdC" + daoC.getCustomerbyAccountID(accountId).getCustomerId() + ".jpg";
             daoC.updateCustomer(identityCard, filename, issuedon, expdate, "CMND/CCCD", daoC.getCustomerbyAccountID(accountId).getCustomerId());
         } else {
@@ -198,7 +199,7 @@ public class BookingInforHander extends HttpServlet {
         AccountDAO daoA = AccountDAO.getInstance();      
         daoA.update(firstname, lastname, gender, dob, address, phone, email, daoA.getAccountbyID(accountId).getUserName(), accountId);
         
-        
+        System.out.println(accountId);
         
         // Generate booking ID
         String bookingid = generateBookingCode();

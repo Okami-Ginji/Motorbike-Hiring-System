@@ -39,76 +39,26 @@
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
         <style>
-            /* breadcrumb */
-
-            /* Style the list */
-            ul.breadcrumb {
-                padding: 10px 16px;
-                list-style: none;
-                background-color: #fff;
-            }
-
-            /* Display list items side by side */
-            ul.breadcrumb li {
-                display: inline;
-                font-size: 18px;
-            }
-
-            /* Add a slash symbol (/) before/behind each list item */
-            ul.breadcrumb li+li:before {
-                padding: 8px;
-                color: black;
-                content: ">>\00a0";
-            }
-
-            /* Add a color to all links inside the list */
-            ul.breadcrumb li a {
-                background: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%);
+            .logo{
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 background-clip: text;
-                color: transparent;
-                text-decoration: none;
-                font-weight: 500;
+                color: transparent !important;
             }
-            ul.breadcrumb li a span {
-                color: #999999;
-                font-weight: 300;
-            }
-
-            /* Add a color on mouse-over */
-            ul.breadcrumb li a:hover {
-                color: #01447e;
-                text-decoration: underline;
+            .p{
+                color: #001973 !important;
             }
         </style>
     </head>
 
     <body>
-        <jsp:include page="/includes/navbar.jsp" />
-        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/banner4.jpg');"
-                 data-stellar-background-ratio="0.5">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-                    <div class="col-md-9 ftco-animate pb-5">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
-                                        class="ion-ios-arrow-forward"></i></a></span> <span>Services <i
-                                    class="ion-ios-arrow-forward"></i></span></p>
-                        <h1 class="mb-3 bread">Our Services</h1>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <div class="wrapper d-flex align-items-stretch">
+        <jsp:include page="/includes/navbar2.jsp" />
+
+        <div class="wrapper d-flex align-items-stretch" style="margin-top: 5%;">
             <nav id="sidebar">
-                <div class="custom-menu">
-                    <!-- <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                            <i class="fa fa-bars"></i>
-                            <span class="sr-only">Toggle Menu</span>
-                    </button> -->
-                </div>
+
                 <div class="p-4">
                     <!-- <div style="background-color:#01D28E;"> -->
-                    <h1><a href="index.html" class="logo">COLOR BIKE <span>Your Adventure - Our Colors</span></a></h1>
+                    <h1><a href="home.jsp" class="logo">COLOR BIKE <span>Your Adventure - Our Colors</span></a></h1>
                     <ul class="list-unstyled components mb-5">
                         <li class="active">
                             <a href="#"><span class="fa fa-home mr-3"></span> General Principles </a>
@@ -123,37 +73,13 @@
                             <a href="#"><span class="fa fa-sticky-note mr-3"></span>Complaint Settlement</a>
                         </li>
                     </ul>
-                    <!-- </div> -->
-                    <div class="mb-5">
-                        <h3 class="h6 mb-3">Subscribe for newsletter</h3>
-                        <form action="#" class="subscribe-form">
-                            <div class="form-group d-flex">
-                                <div class="icon"><span class="icon-paper-plane"></span></div>
-                                <input type="text" class="form-control" placeholder="Enter Email Address">
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="footer">
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved <i class=""
-                                                                                                              aria-hidden="true"></i> by <a href="index.html" target="_blank">ColorBike</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                    </div>
 
                 </div>
             </nav>
 
             <!-- Page Content  -->
             <div id="content" class="p-4 p-md-5 pt-5">
-                <div>
-                    <ul class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#"><span>General Principles</span></a></li>
-                    </ul>
-                </div>
+
                 <h2 class="mb-4">General Principles</h2>
                 <h6>Responsibility and honesty</h6>
                 <p>
@@ -198,7 +124,7 @@
                 </p>
             </div>
         </div>
-
+        <jsp:include page="/includes/footer.jsp" />
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.min.js"></script>

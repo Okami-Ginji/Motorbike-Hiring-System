@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -278,12 +279,12 @@
                                                             data-toggle="modal" data-target="#user-form-modal" onclick="OneClick(this)"
                                                             data-motorcycleId="${m.motorcycleId}" 
                                                             data-motorcycleName="${m.model}"
-                                                            data-license="
-                                                            <c:forEach items="${listB.listMotorcycleDetails}" var="listmd">
-                                                                ${listmd.licensePlate}\n
-                                                            </c:forEach>"
+                                                            data-license="<c:forEach items="${m.listMotorcycleDetails}" var="listmd">
+                                                                ${listmd.licensePlate},
+                                                            </c:forEach>"                                        
                                                             <span class="bold">Detail</span>
                                                     </button>
+
                                                 </td>
                                                 <td class="action-buttons">
                                                     <div class="buttons">
@@ -296,8 +297,6 @@
                                                         </button>
                                                     </div>
                                                 </td>
-
-
                                             </tr>
                                         </tbody>
                                     </c:forEach>
@@ -317,7 +316,6 @@
                                             <div class="addnew">
                                                 <form class="addnew-motorbike-form" method="post" action="addMotorbike" enctype="multipart/form-data">
                                                     <h3>Add New Model</h3>
-                                                    <h3>Add New Motorbike</h3>
                                                     <div class="form-group">
                                                         <input type="file" class="form-control-file" id="motorbikeImage" name="image">
                                                     </div>
@@ -507,9 +505,9 @@
                                                     <label>Model: </label>
                                                     <p style="display: inline;" id="modal-motorcycleName"></p>
                                                 </div>
-                                                <div class="col-md-12 mb-4">
+                                                <div class="col-md-12 mb-4" style="display: flex;">
                                                     <label>License Plate: </label>
-                                                    <p style="display: inline;" id="modal-license"></p>
+                                                    <div style="display: inline;" id="modal-license"></div>
                                                 </div>
 
                                             </div>
@@ -560,6 +558,7 @@
                         // Nếu thành công, hiển thị thông báo thành công
                         document.getElementById('msg').style.color = 'green';
                         document.getElementById('msg').textContent = "Đã nhập dữ liệu thành công!";
+                        window.location.href = 'motorManage';
                     },
                     error: function (xhr, status, error) {
                         document.getElementById('msg').style.color = 'red';
@@ -573,6 +572,37 @@
                 modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
                 modal.find('#modal-license').text(button.getAttribute('data-license'));
 
+
+                const licenseData = button.getAttribute('data-license');
+
+                // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
+                //licenseData = licenseData.trim() || '';
+                var newData = licenseData.toString().trim();
+                //alert(newData);
+                // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
+                const licenseArray = newData.split(',');
+                // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
+                //button.setAttribute('data-license', licenseArray.join(','));
+
+                // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
+                console.log(licenseArray); // Hiển thị mảng trong console
+
+                // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
+                const licenseDisplayElement = document.getElementById('modal-license');
+                if (licenseDisplayElement) {
+                    // Xóa nội dung cũ của phần tử
+                    licenseDisplayElement.innerHTML = '';
+
+                    // Duyệt qua mảng và hiển thị từng phần tử
+                    for (let i = 0; i < licenseArray.length; i++) {
+                        const item = licenseArray[i].trim();
+                        const p = document.createElement('p'); // Tạo một phần tử <p>
+                        p.innerHTML = item; // Gán nội dung của phần tử
+                        p.style.marginLeft = '5px';
+                        p.style.textAlign = 'left';
+                        licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
+                    }
+                }
             }
         </script>
 

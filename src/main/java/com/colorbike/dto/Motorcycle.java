@@ -1,7 +1,9 @@
 
+
 package com.colorbike.dto;
 
 import java.io.Serializable;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,18 @@ public class Motorcycle implements Serializable{
     private int brandID;
     private int categoryID;
     private int priceListID;
+    private List<MotorcycleDetail> listMotorcycleDetails;
+
+    public Motorcycle(String motorcycleId, String model, String image, String displacement, String description, int minAge, int brandID, int categoryID, int priceListID) {
+        this.motorcycleId = motorcycleId;
+        this.model = model;
+        this.image = image;
+        this.displacement = displacement;
+        this.description = description;
+        this.minAge = minAge;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
+        this.priceListID = priceListID;
+    }
+    
 }

@@ -558,7 +558,7 @@ pre code {
 }
 @media (min-width: 992px) {
     .container {
-        max-width: 960px;
+        max-width: 1200px;
     }
 }
 @media (min-width: 1200px) {
@@ -10965,7 +10965,7 @@ h1, h2, h3, h4, h5,
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 2px;
-    color: rgba(0, 0, 0, 0.4);
+    color: #001973;
     display: block;
 }
 
@@ -11660,7 +11660,7 @@ textarea.form-control {
     font-size: 18px;
     display: block;
     margin-bottom: 5px;
-    color: #1089ff;
+    color: #001973;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 2px;
@@ -11678,7 +11678,7 @@ textarea.form-control {
 }
 
 .heading-section.heading-section-white .subheading {
-    color: rgba(255, 255, 255, 0.9);
+    color: #001973;
 }
 
 .heading-section.heading-section-white h2 {

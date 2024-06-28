@@ -65,10 +65,22 @@ public class ManageCustomerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        List<Account> accounts = AccountDAO.getInstance().getListAccountByRole(1);
+        List<Account> accounts = AccountDAO.getInstance().getAllCustomerAccount();
         Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
         Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
+        int activeCount = 0;
+        int disabledCount = 0;
 
+        for (Account account : accounts) {
+            if (account.getRoleID() == 1) {
+                activeCount++;
+            } else if (account.getRoleID() == 4) {
+                disabledCount++;
+            }
+        }
+        session.setAttribute("activeCount", activeCount);
+        session.setAttribute("disabledCount", disabledCount);
+        session.setAttribute("allCount", accounts.size());
         session.setAttribute("accounts", accounts);
         session.setAttribute("customerMap", customerMap);
         session.setAttribute("bookingCount", bookingCount);
@@ -86,6 +98,39 @@ public class ManageCustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        String action = request.getParameter("action");
+
+        if ("updateRoleAndGetStatuses".equals(action)) {
+            int accountId = Integer.parseInt(request.getParameter("accountId"));
+            boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
+
+            Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
+            List<Account> accounts = AccountDAO.getInstance().getAllCustomerAccount();
+            Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
+            Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
+
+            int activeCount = 0;
+            int disabledCount = 0;
+
+            for (Account account : accounts) {
+                if (account.getRoleID() == 1) {
+                    activeCount++;
+                } else if (account.getRoleID() == 4) {
+                    disabledCount++;
+                }
+            }
+            session.setAttribute("isActive", isActive);
+            session.setAttribute("updatedStatuses", updatedStatuses);
+            session.setAttribute("accounts", accounts);
+            session.setAttribute("activeCount", activeCount);
+            session.setAttribute("disabledCount", disabledCount);
+            session.setAttribute("allCount", accounts.size());
+            session.setAttribute("customerMap", customerMap);
+            session.setAttribute("bookingCount", bookingCount);
+            request.getRequestDispatcher("manageCustomer.jsp").forward(request, response);
+        }
 
     }
 

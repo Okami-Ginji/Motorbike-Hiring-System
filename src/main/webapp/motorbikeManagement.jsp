@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -194,6 +195,7 @@
             .editmotor {
                 margin-left: 15%;
             }
+
             .alert {
                 margin-top: 10px; /* Khoảng cách từng thông báo */
                 display: none; /* Ẩn thông báo mặc định */
@@ -214,7 +216,13 @@
                                                           data-toggle="tab">Display All Motorbikes</a></li>
                 <li role="presentation"><a href="#Section2"
                                            aria-controls="profile" role="tab"
-                                           data-toggle="tab">Add New Motorbike</a></li>
+                                           data-toggle="tab">Add New Model</a></li>
+                <li role="presentation">
+                    <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Add New Motorbike</a>
+                </li>
+                <li role="presentation">
+                    <a href="#Section4" aria-controls="update" role="tab" data-toggle="tab">Update </a>
+                </li>
             </ul>
             <!-- Nội dung tab -->
             <div class="tab-content">
@@ -235,6 +243,7 @@
                                             <th scope="col">Brand</th>
                                             <th scope="col">Category</th>
                                             <th scope="col">Price</th>
+                                            <th scope="col">Detail</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -265,18 +274,30 @@
                                                         <td>${p.dailyPriceForDay}</td>
                                                     </c:if>
                                                 </c:forEach>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" id="launchModalBtn"
+                                                            data-toggle="modal" data-target="#user-form-modal" onclick="OneClick(this)"
+                                                            data-motorcycleId="${m.motorcycleId}" 
+                                                            data-motorcycleName="${m.model}"
+                                                            data-license="<c:forEach items="${m.listMotorcycleDetails}" var="listmd">
+                                                                ${listmd.licensePlate},
+                                                            </c:forEach>"                                        
+                                                            <span class="bold">Detail</span>
+                                                    </button>
+
+                                                </td>
                                                 <td class="action-buttons">
                                                     <div class="buttons">
-                                                        <button class="btn btn-primary btn-sm" onclick="editRow(this)">
+                                                        <button class="btn btn-primary btn-sm" onclick="">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
-                                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">
-                                                            <i class="fas fa-trash"></i>
+                                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete('${m.motorcycleId}')">
+
+                                                            <a style="color: white" href="deleteMotor?id=${m.motorcycleId}"><i class="fas fa-trash"></i></a>
                                                         </button>
                                                     </div>
                                                 </td>
                                             </tr>
-
                                         </tbody>
                                     </c:forEach>
                                 </table>
@@ -294,7 +315,7 @@
                                         <div class="col-md-12">
                                             <div class="addnew">
                                                 <form class="addnew-motorbike-form" method="post" action="addMotorbike" enctype="multipart/form-data">
-                                                    <h3>Add New Motorbike</h3>
+                                                    <h3>Add New Model</h3>
                                                     <div class="form-group">
                                                         <input type="file" class="form-control-file" id="motorbikeImage" name="image">
                                                     </div>
@@ -355,192 +376,239 @@
                         </div>
                     </section>
                 </div>
-            </div>
-        </div>
+                <!-- Nội dung của Section 3 -->
+                <div role="tabpanel" class="tab-pane fade" id="Section3">
+                    <!-- Nội dung phần tab Add New Motorbike -->
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row ">
+                                <div class="col-lg-10 col-md-8 ml-auto">
+                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
+                                        <div class="col-md-12">
+                                            <div class="addnew">
+                                                <!-- <form class="addnew-motorbike-form" method="post" action="addMotorDetail">-->
+                                                <h3>Add New Motorbike</h3>
+                                                <div class="form-group">
+                                                    <select class="form-control" id="model" name="model">
+                                                        <c:forEach items="${listM}" var="m" varStatus="loop">
+                                                            <option value="${m.motorcycleId}">${m.model}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="License Plate" name="licensePlate" id="licensePlate">
+                                                </div>
+                                                <div style="color: red;" id="msg"></div> <br>
+                                                <button type="submit" class="btn btn-dark" onclick="addMotorbikeDetail()">Thêm xe máy</button>
+                                                <div class="feedback mt-3">
+                                                    <div id="success-message" class="alert alert-success" style="display: none;">
+                                                        Motorbike added successfully!
+                                                    </div>
+                                                    <div id="error-message" class="alert alert-danger" style="display: none;">
+                                                        File Format Not Supported
+                                                    </div>
 
-
-
-        <script>
-                                                            function editRow(button) {
-// Lấy hàng chứa nút 'edit' được nhấn
-                                                            var row = button.closest('tr');
-                                                                    // Lấy dữ liệu từ hàng được chọn
-                                                                    var id = row.cells[0].textContent.trim();
-                                                                    var imageSrc = row.cells[1].querySelector('img').src;
-                                                                    var model = row.cells[2].textContent.trim();
-                                                                    var displacement = row.cells[3].textContent.trim();
-                                                                    var description = row.cells[4].textContent.trim();
-                                                                    var minAge = row.cells[5].textContent.trim();
-                                                                    var brand = row.cells[6].textContent.trim();
-                                                                    var category = row.cells[7].textContent.trim();
-                                                                    var price = row.cells[8].textContent.trim();
-                                                                    // Tạo tab "Update Motorbike" nếu chưa tồn tại
-                                                                    if (!document.querySelector('#update-tab')) {
-                                                            var updateTab = document.createElement('li');
-                                                                    updateTab.setAttribute('role', 'presentation');
-                                                                    updateTab.id = 'update-tab';
-                                                                    updateTab.innerHTML = '<a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Update Motorbike</a>';
-                                                                    // Thêm tab "Update Motorbike" vào danh sách tab
-                                                                    var tabsList = document.querySelector('.nav-tabs');
-                                                                    tabsList.appendChild(updateTab);
-                                                                    // Thêm nội dung cho tab "Update Motorbike"
-                                                                    var tabContent = document.querySelector('.tab-content');
-                                                                    var updateContent = document.createElement('div');
-                                                                    updateContent.id = 'Section3';
-                                                                    updateContent.classList.add('tab-pane', 'fade');
-                                                                    updateContent.setAttribute('role', 'tabpanel');
-                                                                    updateContent.innerHTML = `
-            <section class="update-motorbike-section">
-                                                        <div class="container-fluid">
-                                                <div class="row">
-                                                <div class="col-lg-10 col-md-8 ml-auto">
-                                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
-                                                        <div class="col-md-12">
-                                                    <div class="editmotor">
-                                                <form class="update-motorbike-form">
-                                                <h3>Update Motorbike</h3>
-                                                    <div class="form-group">
-                                                        <label for="productname">Model:</label>
-                                                    <input type="text" class="form-control" id="productname" placeholder="Enter model">
                                                 </div>
-                                                    <div class="form-group">
-                                                        <label for="productid">ID:</label>
-                                                            <input type="text" class="form-control" id="productid" placeholder="Enter ID" readonly>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="productprice">Price:</label>
-                                                        <input type="number" class="form-control" id="productprice" placeholder="Enter price">
+                                                <!--                                                </form>-->
                                             </div>
-                                        <div class="form-group">
-                                    <label for="productimage">Current Image:</label>
-                            <img id="productimage" src="${imageSrc}" alt="Motorbike Image" class="img-fluid img-thumbnail">
-                </div>
-                <div class="form-group">
-                <label for="productimageupload">Upload New Image:</label>
-                <input type="file" class="form-control-file" id="productimageupload" accept="image/*">
-                                                </div>
-                                                <!-- Các trường khác nếu có -->
-                                                    <div class="form-group">
-                                                    <label for="displacement">Displacement:</label>
-                                                    <input type="number" class="form-control" id="displacement" placeholder="Enter displacement">
-                                                </div>
-                                                    <div class="form-group">
-                                                        <label for="description">Description:</label>
-                                                        <textarea class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="minage">Min Age:</label>
-                                                        <input type="number" class="form-control" id="minage" placeholder="Enter min age">
-                                                </div>
-                                            <div class="form-group">
-                                    <label for="brand">Brand:</label>
-                                <input type="text" class="form-control" id="brand" placeholder="Enter brand">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="category">Category:</label>
-                                                <input type="text" class="form-control" id="category" placeholder="Enter category">
-                                            </div>
-                                            <button type="submit" class="btn btn-dark">Update Motorbike</button>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </section>
+                </div>
+
+                <!-- Nội dung của Section 4 -->
+                <div role="tabpanel" class="tab-pane fade" id="Section4">
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-10 col-md-8 ml-auto">
+                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
+                                        <div class="col-md-12">
+                                            <div class="addnew">
+                                                <form class="edit-location-form" id="editLocationForm" action="UpdateTourismLoctionServletStaff" method="post" enctype="multipart/form-data">
+                                                    <h3>Update Tourist Location</h3>
+                                                    <div class="form-group">
+                                                        <input type="file" class="form-control-file" id="motorbikeImage" name="image">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Enter Motorbike ID" name="id">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Enter model" name="model">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Enter displacement" name="displacement">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="3"
+                                                                  placeholder="Enter description" name="description"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="number" class="form-control" placeholder="Enter min age" name="minAge">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="bid" name="brandID">
+                                                            <c:forEach items="${listB}" var="b" varStatus="loop">
+                                                                <option value="${b.brandID}">${b.brandName}</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="cid" name="categoryID">
+                                                            <c:forEach items="${listC}" var="c" varStatus="loop">
+                                                                <option value="${c.categoryID}">${c.categoryName}</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="pid" name="priceListID">
+                                                            <c:forEach items="${listP}" var="p" varStatus="loop">
+                                                                <option value="${p.priceListId}">Day: ${p.dailyPriceForDay} - Week: ${p.dailyPriceForWeek} - Month: ${p.dailyPriceForMonth}</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-dark">Cập nhật xe máy</button>
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div style="padding: 10px 16px;" class="modal-header">
+                                <h5 class="modal-title">Thông tin chi tiết</h5>
+                                <button style="border: 1px solid #000" onclick="closeDetail()" type="button" class="btn close" data-dismiss="modal">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div style="padding-top: 0px" class="info modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">                                       
+                                        <div class="col-md-8">
+                                            <div class="row" style="padding-left: 20px;">
+                                                <div class="col-md-12 mb-4">
+                                                    <label>ID: </label>
+                                                    <p style="display: inline;" id="modal-motorcycleID"></p>
+                                                </div>
+                                                <div class="col-md-12 mb-4">
+                                                    <label>Model: </label>
+                                                    <p style="display: inline;" id="modal-motorcycleName"></p>
+                                                </div>
+                                                <div class="col-md-12 mb-4" style="display: flex;">
+                                                    <label>License Plate: </label>
+                                                    <div style="display: inline;" id="modal-license"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
-        `;
-        tabContent.appendChild(updateContent);
-    }
+            </div>
+        </div>
 
-    // Chuyển sang tab "Update Motorbike"
-    document.querySelector('#update-tab a').click();
+        <script type="text/javascript">
+            function confirmDelete(motorcycleId) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1089FF',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Vâng, xóa nó!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'motorManage?motorcycleId=' + motorcycleId;
+                    }
+                });
+            }
 
-    // Điền thông tin vào form "Update Motorbike"
-    document.querySelector('#productname').value = model;
-    document.querySelector('#productid').value = id;
-    document.querySelector('#productprice').value = price;
-
-    // Điền các trường bổ sung nếu có
-    document.querySelector('#displacement').value = displacement;
-    document.querySelector('#description').value = description;
-    document.querySelector('#minage').value = minAge;
-    document.querySelector('#brand').value = brand;
-    document.querySelector('#category').value = category;
-
-    // Đặt hình ảnh
-    document.querySelector('#productimage').src = imageSrc;
-
-    // Xử lý sự kiện upload ảnh
-    document.querySelector('#productimageupload').addEventListener('change', function (event) {
-        var file = event.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                document.querySelector('#productimage').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-}
-
-// Hàm xóa tab "Update Motorbike" khi không cần thiết
-function removeUpdateTab() {
-    var updateTab = document.querySelector('#update-tab');
-    if (updateTab) {
-        updateTab.remove();
-    }
-}
-
-// Lắng nghe sự kiện khi DOM đã tải xong
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Lấy tất cả các tab trừ tab "Update Motorbike"
-    var tabs = document.querySelectorAll('.nav-tabs li:not(#update-tab) a');
-
-    // Thêm sự kiện cho các tab
-    tabs.forEach(tab => {
-        tab.addEventListener('click', (e) => {
-            removeUpdateTab();
-        });
-    });
-});
-
-// Hàm xử lý khi click vào nút 'Thêm xe máy'
-function addMotorbike(event) {
-    event.preventDefault(); // Ngăn chặn việc gửi form mặc định
-    var form = document.querySelector('form'); // Chọn form thêm xe máy
-    var formData = new FormData(form); // Tạo FormData từ form
-    var productImage = document.querySelector('#productimageupload').files[0]; // Lấy tệp ảnh từ input
-
-    // Kiểm tra định dạng ảnh (chỉ cho phép ảnh)
-    if (!productImage.type.startsWith('image/')) {
-        document.querySelector('#error-message').style.display = 'block'; // Hiển thị thông báo lỗi
-        return; // Dừng lại nếu định dạng không phải là ảnh
-    }
-
-    // Ẩn thông báo lỗi nếu có
-    document.querySelector('#error-message').style.display = 'none';
-
-    // Gửi yêu cầu thêm xe máy
-    fetch('add_motorbike_url', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (response.ok) {
-            document.querySelector('#success-message').style.display = 'block'; // Hiển thị thông báo thành công
-            form.reset(); // Xóa nội dung form sau khi thêm thành công
-        } else {
-            throw new Error('Failed to add motorbike'); // Ném lỗi nếu không thêm thành công
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error); // Log lỗi ra console nếu có lỗi xảy ra
-    });
-}
+            function addMotorbikeDetail() {
+                const motorcycleId = document.getElementById('model').value;
+                const licensePlate = document.getElementById('licensePlate').value;
+                var data = {
+                    motorcycleId: motorcycleId,
+                    licensePlate: licensePlate
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "addMotorDetail", // Thay đổi URL tới servlet của bạn
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function (response) {
+                        // Nếu thành công, hiển thị thông báo thành công
+                        document.getElementById('msg').style.color = 'green';
+                        document.getElementById('msg').textContent = "Đã nhập dữ liệu thành công!";
+                        window.location.href = 'motorManage';
+                    },
+                    error: function (xhr, status, error) {
+                        document.getElementById('msg').style.color = 'red';
+                        document.getElementById('msg').textContent = xhr.responseText || "Biển số xe đã có! Vui lòng nhập lại!";
+                    }
+                });
+            }
+            function OneClick(button) {
+                var modal = $('#user-form-modal');
+                modal.find('#modal-motorcycleID').text(button.getAttribute('data-motorcycleId'));
+                modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
+                modal.find('#modal-license').text(button.getAttribute('data-license'));
 
 
+                const licenseData = button.getAttribute('data-license');
+
+                // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
+                //licenseData = licenseData.trim() || '';
+                var newData = licenseData.toString().trim();
+                //alert(newData);
+                // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
+                const licenseArray = newData.split(',');
+                // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
+                //button.setAttribute('data-license', licenseArray.join(','));
+
+                // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
+                console.log(licenseArray); // Hiển thị mảng trong console
+
+                // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
+                const licenseDisplayElement = document.getElementById('modal-license');
+                if (licenseDisplayElement) {
+                    // Xóa nội dung cũ của phần tử
+                    licenseDisplayElement.innerHTML = '';
+
+                    // Duyệt qua mảng và hiển thị từng phần tử
+                    for (let i = 0; i < licenseArray.length; i++) {
+                        const item = licenseArray[i].trim();
+                        const p = document.createElement('p'); // Tạo một phần tử <p>
+                        p.innerHTML = item; // Gán nội dung của phần tử
+                        p.style.marginLeft = '5px';
+                        p.style.textAlign = 'left';
+                        licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
+                    }
+                }
+            }
         </script>
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script
@@ -560,6 +628,5 @@ function addMotorbike(event) {
         <!-- Theme js -->
         <script type="text/javascript" src="js/main.js"></script>
     </body>
-
 </html>
 

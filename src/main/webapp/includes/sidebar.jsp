@@ -17,9 +17,11 @@
     /* Sidebar Styles */
     .sidebar {
         background-color: #fff;
-        color: #337ab7; /* Updated text color */
+        color: #337AB7; /* Updated text color */
+
         height: 100%;
         position: fixed;
+        left: 0;
         width: 250px;
         overflow-y: auto;
         padding-top: 20px;
@@ -117,7 +119,7 @@
 
     /* Thanh cuộn trên Chrome, Safari */
     .sidebar::-webkit-scrollbar {
-        width: 8px; /* Độ rộng của thanh cuộn */
+        width: 5px; /* Độ rộng của thanh cuộn */
     }
 
     .sidebar::-webkit-scrollbar-thumb {
@@ -129,7 +131,7 @@
 <aside class="sidebar">
     <!-- Sidebar Header -->
     <div class="sidebar-header" style="background-color: white; color: #fff;">
-        <img src="images\logo.png" alt="Company Logo" style="max-width: 150px; height: auto;margin-bottom: 8%;">
+        <img src="images\anh4.png" alt="Company Logo" style="max-width: 150px; height: auto;margin-bottom: 8%;">
         <!--<h3 style="margin-bottom: 0; font-size: 24px;">ColorBike Company</h3>-->
     </div>
 
@@ -138,28 +140,29 @@
     <!-- Sidebar Menu -->
     <ul>
         <li>
-            <a href="homeStaff.jsp" class="active"><i class="fa fa-home fa-fw"></i>Home Page</a>
+            <a href="homeStaff.jsp" class="active"><i class="fa fa-home fa-fw"></i>Trang Chủ</a>
         </li>
         <li>
-            <a href="manageCustomer.jsp"><i class="fa fa-dashboard fa-fw"></i>Customer Profile</a>
+            <a href="manageCustomer.jsp"><i class="fa fa-dashboard fa-fw"></i>Thông Tin Khách Hàng</a>
         </li>
         <li>
-            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Motorbikes <i class="fa arrow"></i></a>
+            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Xe Máy <i class="fa arrow"></i></a>
             <ul>
-                <li><a href="motorManage.jsp">Motorbikes Information</a></li>
-                <li><a href="#">Booking Management</a></li>
-                <li><a href="transaction.jsp">History Transaction</a></li>
+                <li><a href="motorManage.jsp">Thông Tin Xe Máy</a></li>
+                <li><a href="#">Quản Lý Thuê Xe</a></li>
+                <li><a href="transaction.jsp">Lịch Sử Giao Dịch</a></li>
             </ul>
         </li>
         <li>
-            <a href="#"><i class="fa fa-wrench fa-fw"></i> Services <i class="fa arrow"></i></a>
+            <a href="#"><i class="fa fa-wrench fa-fw"></i> Dịch Vụ <i class="fa arrow"></i></a>
             <ul>
-                <li><a href="panels-wells.html">Customer Support</a></li>
-                <li><a href="buttons.html">View Feedback</a></li>
-                <li><a href="faqs">FAQs Management</a></li>
-                <li><a href="#">Event Management</a></li>
-                <li><a href="#">Tourism Location Management</a></li>
-                <li><a href="#">Accessories Management</a></li>
+                <li><a href="contactStaff.jsp">Hỗ Trợ Khách Hàng</a></li>
+                <li><a href="buttons.html">Xem Đánh Giá</a></li>
+                <li><a href="faqs">Quản Lý FAQs</a></li>
+                <li><a href="eventStaffServlet">Quản Lý Sự Kiện</a></li>
+                <li><a href="TourismLocationServletStaff">Quản Lí Địa Điểm Du Lịch</a></li>
+                <li><a href="accessoriesStaffServlet">Quản Lí Phụ Kiện Đi Kèm</a></li>
+
             </ul>
         </li>
         <li>
@@ -187,10 +190,6 @@
         </li>
     </ul>
 
-    <!-- Sidebar Footer -->
-    <div class="sidebar-footer">
-        <p>&copy; 2024 My Company</p>
-    </div>
 </aside>
 <!-- /.sidebar -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

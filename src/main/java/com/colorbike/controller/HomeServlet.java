@@ -17,7 +17,6 @@ import com.colorbike.dto.Feedback;
 import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -74,7 +73,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("listB", listB);
         request.setAttribute("listP", listP);
 
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

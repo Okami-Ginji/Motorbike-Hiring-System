@@ -214,8 +214,20 @@
         <meta charset="UTF-8"/>
     </head>
     <body>
-
+     
         <jsp:include page="/includes/navbar.jsp" />
+     <script>
+window.embeddedChatbotConfig = {
+chatbotId: "qUNf-UR7ycIWmYS6ZiWCL",
+domain: "www.chatbase.co"
+};
+</script>
+<script
+src="https://www.chatbase.co/embed.min.js"
+chatbotId="qUNf-UR7ycIWmYS6ZiWCL"
+domain="www.chatbase.co"
+defer>
+</script>
 
         <div class="hero-wrap ftco-degree-bg" style="background-image: url('images/banner5.jpg');"
              data-stellar-background-ratio="0.5">

@@ -279,8 +279,8 @@
                                                             data-motorcycleId="${m.motorcycleId}" 
                                                             data-motorcycleName="${m.model}"
                                                             data-license="
-                                                            <c:forEach items="${m.listMotorcycleDetails}" var="listmd">
-                                                                ${listmd.licensePlate}
+                                                            <c:forEach items="${listB.listMotorcycleDetails}" var="listmd">
+                                                                ${listmd.licensePlate}\n
                                                             </c:forEach>"
                                                             <span class="bold">Detail</span>
                                                     </button>

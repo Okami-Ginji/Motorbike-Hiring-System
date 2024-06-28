@@ -27,7 +27,7 @@
             }
 
             .faq_area {
-                padding-top: 100px;
+/*                padding-top: 100px;*/
                 padding-bottom: 100px;
                 position: relative;
                 z-index: 1;
@@ -116,26 +116,33 @@
                 vertical-align: middle;
             }
         </style>
+        <jsp:include page="/includes/header2.jsp" />
     </head>
     <body>
-        <jsp:include page="/includes/header2.jsp" />
+
         <jsp:include page="/includes/navbar2.jsp" />
 
         <div class="faq_area section_padding_130" id="faq">
             <div class="container noidung" data-aos="fade-up">
                 <div class="row justify-content-center topDetail" data-aos="fade-up">
                     <div class="col-12 col-sm-8 col-lg-6">
-                        <div class="section_heading text-center">
-                            <h3>Các câu hỏi thường gặp</h3>
-                            <p style="margin-top: 3%; font-size: 20px; color:#001973;">ColorBike sẽ mang đến trải nghiệm xứng đáng với những gì bạn kì vọng.</p>
-                            <div class="line"></div>
+                        <!--                        <div class="section_heading text-center">
+                                                    <h3>Các câu hỏi thường gặp</h3>
+                                                    <p style="margin-top: 3%; font-size: 20px; color:#001973;">ColorBike sẽ mang đến trải nghiệm xứng đáng với những gì bạn kì vọng.</p>
+                                                    <div class="line"></div>
+                                                </div>-->
+                        <div class="container section-title" data-aos="fade-up">
+                            <span>FAQs Questions</span>
+                            <h2>Các Câu Hỏi Thường Gặp</h2>
+                            <p>Điều gì khiến ColorBike là lựa chọn tốt nhất cho
+                                "hành trình mới, xe cũng mới"?</p>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-12 col-sm-10 col-lg-8" data-aos="fade-up">
                         <div class="accordion faq-accordian" id="faqAccordion">
-                            <c:forEach var="faq" items="${FAQ}" varStatus="status">
+                            <c:forEach var="faq" items="${sessionScope.FAQ}" varStatus="status">
                                 <div class="card border-0" data-aos="fade-in" data-aos-delay="${status.index * 100}">
                                     <div class="card-header" id="heading${status.index}">
                                         <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapse${status.index}" aria-expanded="false" aria-controls="collapse${status.index}">
@@ -185,7 +192,6 @@
                 });
             });
         </script>
-        
-        <a href="#" class="scrollup1"><i class="ri-arrow-up-fill" style="display: inline;"></i><span class="screen-reader-text"></span></a>
+
     </body>
 </html>

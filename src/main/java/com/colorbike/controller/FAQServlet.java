@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +33,9 @@ public class FAQServlet extends HttpServlet {
         // Lấy danh sách các FAQs từ DAO
         List<FAQ> FAQList = faqDAO.getAllFAQ();
         // Đặt danh sách vào request attribute để chuyển tiếp tới JSP
-        request.setAttribute("FAQ", FAQList);
+        HttpSession session = request.getSession();
+        
+        session.setAttribute("FAQ", FAQList);
         // Chuyển tiếp yêu cầu tới trang JSP để hiển thị
         request.getRequestDispatcher("faqs.jsp").forward(request, response);
     }

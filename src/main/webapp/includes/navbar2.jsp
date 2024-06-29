@@ -38,7 +38,7 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
         <c:if test="${sessionScope.account == null}">
-            <a class="btn login" href="login2.jsp" style="color: white;">Đăng Nhập</a>
+            <a class="btn login" href="login.jsp" style="color: white;">Đăng Nhập</a>
         </c:if>
         <c:if test="${sessionScope.account != null}">
 

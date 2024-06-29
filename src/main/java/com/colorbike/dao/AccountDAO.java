@@ -76,7 +76,6 @@ public class AccountDAO implements Serializable {
         }
     }
 
-
     public void createANewAccount(String firstName, String lastName, String gender, String phone, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
@@ -93,7 +92,7 @@ public class AccountDAO implements Serializable {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, firstName);
             ps.setString(2, lastName);
-            ps.setString(3, gender);         
+            ps.setString(3, gender);
             ps.setString(4, phone);
             ps.setString(5, email);
             ps.setString(6, userName);
@@ -253,6 +252,7 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
+
     public List<Account> getAllAccount() {
         List<Account> list = new ArrayList<>();
 
@@ -262,9 +262,9 @@ public class AccountDAO implements Serializable {
             String sql = "select * from Account";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
-            while (rs.next()) {  
+            while (rs.next()) {
                 list.add(new Account(rs.getInt("AccountID"), rs.getString("FirstName"), rs.getString("LastName"),
-                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"), 
+                        rs.getString("Gender"), rs.getString("DayOfBirth"), rs.getString("Address"), rs.getString("PhoneNumber"),
                         rs.getString("Image"), rs.getString("Email"), rs.getString("Username"), rs.getString("Password"), rs.getInt("RoleID")));
             }
         } catch (Exception ex) {
@@ -533,6 +533,22 @@ public class AccountDAO implements Serializable {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+
+    public boolean updateProfileImage(int userId, String filePath) {
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "UPDATE Account SET Image = ? WHERE AccountID = ?";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setString(1, filePath);
+            st.setInt(2, userId);
+            int rowsUpdated = st.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static void main(String[] args) {

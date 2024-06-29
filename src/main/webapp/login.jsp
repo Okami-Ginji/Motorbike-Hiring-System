@@ -1,18 +1,31 @@
+<%-- 
+    Document   : login2
+    Created on : Jun 24, 2024, 2:40:27 PM
+    Author     : ADMIN
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html lang="en">
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <head>
+        <link rel="website icon" type="png" href="images\logo.png">
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+            rel="stylesheet" />
         <title>Login Page</title>
-        <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <link rel="stylesheet"
+              href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
             :root {
-                --primary-color: #2015ea;
+                --primary-color: linear-gradient(243.4deg, rgb(2, 184, 139) 13%, #0a92f3 98%);
+
                 --primary-color-light: #6861f1;
                 --secondary-color: #c0dbea;
                 --text-dark: #020617;
@@ -20,31 +33,29 @@
                 --white: #ffffff;
                 --max-width: 1200px;
             }
-            * {
-                padding: 0;
-                margin: 0;
-                box-sizing: border-box;
+            .gradient-background {
+                background: var(--primary-color);
             }
+            .gradient-background:hover {
+                background: linear-gradient(243.4deg, #0a92f3 13%, rgb(2, 184, 139) 98%);
+            }
+
             body {
-                font-family: system-ui;
+                font-family: "Poppins", sans-serif;
+
             }
-            /*            .container {
-                            min-height: 100vh;
-                            padding-inline: 1rem;
-                            display: grid;
-                            overflow: hidden;
-                        }*/
+
             .containerContent {
                 width: 100%;
                 padding-block: 2rem;
                 max-width: 400px;
                 margin-inline: auto;
-                margin-left: 250px;
+                margin-left: 18%;
             }
             .containerContent h3 {
                 font-size: 1.2rem;
                 font-weight: 600;
-                color: var(--text-dark);
+
             }
             .containerContent h1 {
                 margin-bottom: 1rem;
@@ -52,10 +63,7 @@
                 font-weight: 600;
                 color: var(--text-dark);
             }
-            .containerContent form {
-                display: grid;
-                gap: 5px;
-            }
+
             .containerContent label {
                 font-size: 0.9rem;
                 color: var(--text-dark);
@@ -67,8 +75,9 @@
                 display: flex;
                 align-items: center;
                 gap: 1rem;
-                background-color: #CADDFE;
-                border-radius: 5px;
+                /* background-color: #B4E2F0; */
+                border-radius: 20px;
+                box-shadow: #0d82a2 0 0 10px;
             }
             .containerContent input {
                 outline: none;
@@ -99,7 +108,9 @@
             }
             .containerContent button {
                 max-width: 80%;
-                margin-left: 10%;
+                display: flex;
+                justify-content: center;
+                margin-left: 30%;
                 margin-block: 1rem 2rem;
                 padding: 0.75rem 2rem;
                 outline: none;
@@ -107,7 +118,8 @@
                 font-size: 1rem;
                 color: var(--white);
                 background-color: var(--primary-color);
-                border-radius: 5rem;
+                border-radius: 20px;
+                box-shadow: #0d82a2 0 0 10px;
             }
             .containerContent button:hover {
                 background-color: var(--primary-color-light);
@@ -153,24 +165,15 @@
                 position: relative;
                 isolation: isolate;
                 display: grid;
+                margin-bottom: 8%;
+
             }
-            .containerImg::before {
-                position: absolute;
-                content: "";
-                top: 0;
-                left: 10rem;
-                height: 113.5%;
-                width: 78%;
-                background-color: #CADDFE;
-                border-top-left-radius: 2rem;
-                border-bottom-left-radius: 2rem;
-                z-index: -1;
-            }
+
             .containerImg img {
                 width: 70%;
-                max-width: 600px;
+                max-width: 100%;
                 align-self: flex-end;
-                margin-bottom: 60px;
+                /* margin-bottom: 20%; */
             }
             @media (width : 768px) {
                 .container {
@@ -194,6 +197,7 @@
                 display:flex;
                 justify-content: space-between;
             }
+
             .container-fluid{
                 margin-top: 30px;
             }
@@ -210,63 +214,78 @@
             .animate-page {
                 animation: fadeInUp 3s ease-out;
             }
+
+            .username input{
+                width: 100%;
+            }
+            .colorbike {
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
+                background-clip: text; /* Cho phép áp dụng background cho văn bản */
+                color: transparent; /* Văn bản trong suốt */
+            }
+
+
         </style>
 
     </head>
 
     <body>
         <div class="container-fluid animate__animated animate__fadeInUp">
-            <div class="row">
+            <div class="row fullform">
                 <div class="containerContent col-md-6">
-                    <h3>COLORBIKE</h3>
-                    <h1 style="width: 500px;"><strong>Chào mừng trở lại</strong></h1>
-                    <% String error = (String)request.getAttribute("error"); %>
-                    <% if (error != null && !error.isEmpty()) { %>
+                    <h3 class="colorbike">COLORBIKE</h3>
+                    <h1 class="begin">Chào Mừng Bạn Trở Lại</h1>
                     <h4 class="h4 animate__animated animate__fadeInUp" style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
-                        <i class="bi bi-exclamation-circle"></i> <%= error %>
-                    </h4>
-                    <% } %>
+                            <i class="bi bi-exclamation-circle"></i> ${error}
+                        </h4>
                     <form id="loginForm" action="login" method="post">
-                        <div class="inputRow">
-                            <input name="Username" id="Username"
-                                   placeholder="Username" value="${cookie.Username.value}" required/>
+                        <div class="inputRow username animate__animated animate__pulse">
+                            <input type="text" name="Username" id="Username"
+                                   placeholder="Username" required />
                         </div>
-                        <div class="inputRow">
-                            <input type="password" class="eye" name="Password" id="Password"
-                                   value="${cookie.Password.value}" placeholder="Password" required/>
-                            <span id="password-eye"><i class="ri-eye-off-line"></i></span>
+                        <div class="inputRow animate__animated animate__pulse">
+                            <input type="password" class="eye" name="Password"
+                                   id="Password"
+                                   placeholder="Password" required />
+                            <span id="password-eye"><i
+                                    class="ri-eye-off-line"></i></span>
                         </div>
                         <div class="forever">
                             <div>
-                                <input type="checkbox" id="remember-me" id="rememberMe" name="rem" ${(cookie.rem != null ? 'checked' : '')} value="ON"/>
-                                <label for="remember-me">Nhớ mật khẩu</label>
+                                <input type="checkbox" id="remember-me"
+                                       id="rememberMe" name="rem" value="ON" />
+                                <label for="remember-me">Nhớ Mật Khẩu</label>
                             </div>
                             <div class="inputFP">
-                                <a href="forgotPassword.jsp">Quên mật khẩu?</a>
+                                <a href="forgotPassword.jsp">Quên Mật Khẩu?</a>
                             </div>
                         </div>
-                        <% String error = (String)request.getAttribute("error"); %>
-                        <% if (error != null && !error.isEmpty()) { %>
-                        <h4 class="h4 animate__animated animate__fadeInUp" style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
-                            <i class="bi bi-exclamation-circle"></i> <%= error %>
+
+                        <h4 class="h4 animate__animated animate__fadeInUp"
+                            style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
+                            <i class="bi bi-exclamation-circle"></i>
                         </h4>
-                        <% } %>
-                        <button type="submit">Đăng nhập</button>
+                        <button class="gradient-background animate__animated animate__pulse" type="submit">Đăng Nhập</button>
+
                     </form>
-                    <h6>Hoặc tiếp tục với</h6>
+                    <h6>Hoặc Đăng Nhập Với</h6>
                     <div class="logins">
-                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:6789/MotorcyleHiringProject/login-google&response_type=code&client_id=158327451054-1sdvun9trsl75ng2i96pfmr9lsgrjnjb.apps.googleusercontent.com&approval_prompt=force"><img src="images/search.png" alt="google" /></a>
+                        <a
+                            href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/MotorcyleHiringProject/login-google&response_type=code&client_id=158327451054-1sdvun9trsl75ng2i96pfmr9lsgrjnjb.apps.googleusercontent.com&approval_prompt=force"><img
+                                src="images/search.png" alt="google" /></a>
                         <!--<a href="#"><img src="images/github.png" alt="github" /></a>-->
-                        <a href="#"><img src="images/facebook.png" alt="facebook" /></a>
+                        <a href="#"><img src="images/facebook.png"
+                                         alt="facebook" /></a>
                     </div>
-                    <p>Bạn vẫn chưa có tài khoản? <a style="font-weight: bold;" href="register.jsp">Tạo mới tài khoản</a> </p>
+                    <p>Nếu bạn không có tài khoản <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:small;">Tạo tài
+                            khoản</a></p>
+                    <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background-color: #99D3FF; padding: 3px; border-radius: 5px; ">Về Trang Chủ</a></p>
                 </div>
-                <div class="containerImg col-md-6">
-                    <img src="images/5.png" alt="header" />
+                <div class="containerImg col-md-6 animate__animated animate__zoomIn">
+                    <img src="assets/img/login.png" alt="header" />
                 </div>
             </div>
         </div>
-
 
         <script>
             const passwordBtn = document.getElementById("password-eye");
@@ -279,8 +298,5 @@
             });
         </script>
     </body>
-
-
-
 
 </html>

@@ -175,10 +175,13 @@
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
-                    <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Display All Accessory</a>
+                    <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Danh Sách Phụ Kiện</a>
                 </li>
                 <li role="presentation">
-                    <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Add New Accessory</a>
+                    <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Thêm Mới Phụ Kiện</a>
+                </li>
+                <li role="presentation">
+                    <a href="#Section3" aria-controls="profile" role="tab" data-toggle="tab">Chỉnh Sửa Phụ Kiện</a>
                 </li>
             </ul>
             <!-- Nội dung tab -->
@@ -216,9 +219,11 @@
                                                 <td>${accessoryLists.accessoryDescription}
                                                 </td>
                                                 <td>${accessoryLists.price}</td>
+
+
                                                 <td class="action-buttons">
                                                     <div class="buttons">
-                                                        <button class="btn btn-primary btn-sm" onclick="editRow(this)">
+                                                        <button class="btn btn-primary btn-sm" onclick="editTouristLocation('${accessoryLists.accessoryId}', '${accessoryLists.accessoryName}', '${accessoryLists.accessoryImage}', '${accessoryLists.accessoryImageicon}', '${accessoryLists.accessoryDescription}', '${accessoryLists.price}')">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                         <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">
@@ -234,138 +239,198 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div role="tabpanel" class="tab-pane fade" id="Section2">
                     <section>
                         <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-10 col-md-8 ml-auto">
-                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
-                                        <div class="col-md-12">
-                                            <div class="addnew">
-                                                <form class="addnew-location-form" onsubmit="addLocation(event)">
-                                                    <h3>Add New Tourist Location</h3>
-                                                    <div class="form-group">
-                                                        <input type="file" class="form-control-file" id="locationImage" accept="image/*">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Enter location name" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" rows="3" placeholder="Enter description" required></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Enter URL article" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Enter staff ID" required>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-dark">Add Location</button>
-                                                    <div class="feedback mt-3">
-                                                        <div id="success-message" class="alert alert-success">
-                                                            Location added successfully!
-                                                        </div>
-                                                        <div id="error-message" class="alert alert-danger">
-                                                            File Format Not Supported
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <form id="addLocationForm" action="/AddAccessoryStaff" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="accessoryName">Accessory Name:</label>
+                                    <input type="text" class="form-control" id="accessoryName" name="accessoryName" required>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label for="accessoryImage">Accessory Image:</label>
+                                    <input type="file" class="form-control" id="accessoryImage" name="accessoryImage" accept="image/*" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accessoryImageIcon">Accessory Image Icon:</label>
+                                    <input type="file" class="form-control" id="accessoryImageIcon" name="accessoryImageIcon" accept="image/*" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accessoryDescription">Accessory Description:</label>
+                                    <textarea class="form-control" id="accessoryDescription" name="accessoryDescription" rows="3" required style="resize: vertical;"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price:</label>
+                                    <input type="number" class="form-control" id="price" name="price" required min="0">
+                                </div>
+
+                                <div class="buttons">
+                                    <button type="submit" class="btn btn-success">Thêm Mới Phụ Kiện</button>
+                                </div>
+                            </form>
                         </div>
                     </section>
                 </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="Section3">
+                    <section>
+                        <div class="container-fluid">
+                            <form action="UpdateAccessoryStaff" id="editLocationForm" method="POST" enctype="multipart/form-data">
+                                Chỉnh Sửa Thông Tin Sự Kiện
+                                <input type="hidden" id="editAccessoryId" name="accessoryId" >
+
+                                <div class="form-group">
+                                    <label for="editAccessoryName">Accessory Name:</label>
+                                    <input type="text" class="form-control" id="editAccessoryName" name="accessoryName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editAccessoryImage">Accessory Image:</label>
+                                    <div id="editAccessoryImagePreview"></div>
+                                    <input type="file" class="form-control" id="editAccessoryImage" name="accessoryImage" accept="image/*">
+                                </div>
+                                <div class="form-group">  
+                                    <label for="editAccessoryImageIcon">Accessory Image Icon:</label>
+                                    <div id="editAccessoryImageIconPreview"></div>
+                                    <input type="file" class="form-control" id="editAccessoryImageIcon" name="accessoryImageIcon" accept="image/*">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editAccessoryDescription">Accessory Description:</label>
+                                    <textarea class="form-control" id="editAccessoryDescription" name="accessoryDescription" rows="3" required style="resize: vertical;"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editPrice">Price:</label>
+                                    <input type="number" class="form-control" id="editPrice" name="price" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cập Nhập Chỉnh Sửa</button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+
+
 
             </div>
         </div>
 
         <script>
-            function editRow(button) {
-                var row = button.closest('tr');
-                var id = row.cells[0].textContent.trim();
-                var imageSrc = row.cells[1].querySelector('img').src;
-                var name = row.cells[2].textContent.trim();
-                var description = row.cells[3].textContent.trim();
-                var urlArticle = row.cells[4].textContent.trim();
-                var staffId = row.cells[5].textContent.trim();
+            function editTouristLocation(accessoryId, accessoryName, accessoryImage, accessoryImageicon, accessoryDescription, price) {
+                document.getElementById('editAccessoryName').value = accessoryName;
+                document.getElementById('editAccessoryDescription').value = accessoryDescription;
+                document.getElementById('editPrice').value = price;
+                document.getElementById('editAccessoryId').value = accessoryId;
+                var imgContainer = document.getElementById('editAccessoryImagePreview');
+                var imgContainer2 = document.getElementById('editAccessoryImageIconPreview');
 
-                // Switch cells to editable inputs
-                row.cells[1].innerHTML = `<input type="file" class="form-control-file" accept="image/*">`;
-                row.cells[2].innerHTML = `<input type="text" value="${name}" class="form-control">`;
-                row.cells[3].innerHTML = `<textarea class="form-control">${description}</textarea>`;
-                row.cells[4].innerHTML = `<input type="text" value="${urlArticle}" class="form-control">`;
-                row.cells[5].innerHTML = `<input type="text" value="${staffId}" class="form-control">`;
+                // Clear previous images
+                imgContainer.innerHTML = '';
+                imgContainer2.innerHTML = '';
 
-                // Update action buttons
-                button.outerHTML = `<button class="btn btn-success" onclick="saveRow(this)">Save</button>`;
-            }
-
-            function saveRow(button) {
-                var row = button.closest('tr');
-                var imageFile = row.cells[1].querySelector('input').files[0];
-                var name = row.cells[2].querySelector('input').value;
-                var description = row.cells[3].querySelector('textarea').value;
-                var urlArticle = row.cells[4].querySelector('input').value;
-                var staffId = row.cells[5].querySelector('input').value;
-
-                // Convert image file to base64 (this is for display purposes only, adjust as needed for actual saving)
-                var reader = new FileReader();
-                reader.onloadend = function () {
-                    row.cells[1].innerHTML = `<img src="${reader.result}" alt="Location Image" style="width: 100px;">`;
-                };
-                if (imageFile) {
-                    reader.readAsDataURL(imageFile);
+                // Display images if available
+                if (accessoryImage) {
+                    var img1 = document.createElement('img');
+                    img1.src = 'images/' + accessoryImage;
+                    img1.alt = 'Accessory Image';
+                    img1.className = 'img-fluid img-thumbnail';
+                    imgContainer.appendChild(img1);
                 } else {
-                    row.cells[1].innerHTML = `<img src="${row.cells[1].querySelector('img').src}" alt="Location Image" style="width: 100px;">`;
+                    imgContainer.innerHTML = 'No image available';
                 }
-                row.cells[2].textContent = name;
-                row.cells[3].textContent = description;
-                row.cells[4].textContent = urlArticle;
-                row.cells[5].textContent = staffId;
 
-                // Update action buttons
-                button.outerHTML = `<button class="btn btn-primary" onclick="editRow(this)">Edit</button>`;
-            }
+                if (accessoryImageicon) {
+                    var img2 = document.createElement('img');
+                    img2.src = 'images/' + accessoryImageicon;
+                    img2.alt = 'Accessory Image Icon';
+                    img2.className = 'img-fluid img-thumbnail';
+                    imgContainer2.appendChild(img2);
+                } else {
+                    imgContainer2.innerHTML = 'No image icon available';
+                }
 
-            function deleteRow(button) {
-                var row = button.closest('tr');
-                row.remove();
-            }
-
-            function addLocation(event) {
-                event.preventDefault();
-
-                var tableBody = document.getElementById('table-body');
-                var newRow = document.createElement('tr');
-                var imageInput = document.getElementById('locationImage');
-                var image = URL.createObjectURL(imageInput.files[0]);
-
-                var cells = [
-                    tableBody.rows.length + 1,
-                    `<img src="${image}" alt="Location Image" style="width: 100px;">`,
-                    event.target[1].value,
-                    event.target[2].value,
-                    event.target[3].value,
-                    event.target[4].value,
-                    `<div class="action-buttons">
-                        <button class="btn btn-primary" onclick="editRow(this)">Edit</button>
-                        <button class="btn btn-danger" onclick="deleteRow(this)">Delete</button>
-                    </div>`
-                ];
-
-                cells.forEach(cell => {
-                    var td = document.createElement('td');
-                    td.innerHTML = cell;
-                    newRow.appendChild(td);
-                });
-
-                tableBody.appendChild(newRow);
-                document.querySelector('.addnew-location-form').reset();
+                // Switch to Section 3 tab (if needed)
+                $('a[href="#Section3"]').tab('show');
             }
         </script>
 
+
+        <script>
+            document.getElementById('addLocationForm').addEventListener('submit', function (event) {
+                var fileInputImage = document.getElementById('accessoryImage');
+                var fileInputIcon = document.getElementById('accessoryImageIcon');
+                var errorMessage = document.getElementById('error-message');
+                var successMessage = document.getElementById('success-message');
+                var isValid = true;
+
+                // Validate Accessory Image
+                var fileNameImage = fileInputImage.value;
+                var idxDotImage = fileNameImage.lastIndexOf(".") + 1;
+                var extFileImage = fileNameImage.substr(idxDotImage, fileNameImage.length).toLowerCase();
+                if (extFileImage != "jpg" && extFileImage != "jpeg" && extFileImage != "png" && extFileImage != "gif") {
+                    isValid = false;
+                }
+
+                // Validate Accessory Image Icon
+                var fileNameIcon = fileInputIcon.value;
+                var idxDotIcon = fileNameIcon.lastIndexOf(".") + 1;
+                var extFileIcon = fileNameIcon.substr(idxDotIcon, fileNameIcon.length).toLowerCase();
+                if (extFileIcon != "jpg" && extFileIcon != "jpeg" && extFileIcon != "png" && extFileIcon != "gif") {
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    event.preventDefault();
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                } else {
+                    errorMessage.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                }
+            });
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#addLocationForm').submit(function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+                    var formData = new FormData(this); // Lấy dữ liệu từ form
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'AddAccessoryStaff',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            // Hiển thị thông báo thành công bằng SweetAlert
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Event added successfully!',
+                                timer: 2000, // Tự động đóng sau 2 giây
+                                showConfirmButton: false
+                            }).then(function () {
+                                // Chuyển hướng về trang TourismLocationServletStaff sau khi thêm thành công
+                                window.location.href = 'accessoriesStaffServlet';
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Hiển thị thông báo lỗi bằng SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Error adding event. Please try again.',
+                                confirmButtonText: 'OK'
+                            });
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>

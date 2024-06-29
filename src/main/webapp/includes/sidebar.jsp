@@ -148,7 +148,8 @@
         <li>
             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Xe Máy <i class="fa arrow"></i></a>
             <ul>
-                <li><a href="motorManage.jsp">Thông Tin Xe Máy</a></li>
+                <li><a href="motorManage">Thông Tin Xe Máy</a></li>
+                <li><a href="pricingManage">Giá Thuê Xe</a></li>
                 <li><a href="#">Quản Lý Thuê Xe</a></li>
                 <li><a href="transaction.jsp">Lịch Sử Giao Dịch</a></li>
             </ul>

@@ -501,8 +501,9 @@
                                         <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ" />/ngày
                                     </p>
                                     <div class="button-wrapper">
-                                        <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">DETAILS</a></button>
-                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">BOOK NOW</a></button>
+                                        <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">CHI TIẾT</a></button>
+                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">THUÊ NGAY</a></button>
+
                                     </div>
                                 </div>
                             </c:forEach>

@@ -501,7 +501,7 @@
                         window.location.href = 'DeleteEvent?eventID=' + eventID;
                     }
                 })
-            }
+            }   
         </script>
         <script>
             document.getElementById('addLocationForm').addEventListener('submit', function (event) {

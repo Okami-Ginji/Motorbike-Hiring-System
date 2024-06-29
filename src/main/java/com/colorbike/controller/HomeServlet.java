@@ -69,9 +69,9 @@ public class HomeServlet extends HttpServlet {
         }
         session.setAttribute("account", account);
         request.setAttribute("listF", listF);
-        request.setAttribute("listM", listM);
-        request.setAttribute("listB", listB);
-        request.setAttribute("listP", listP);
+        session.setAttribute("listM", listM);
+        session.setAttribute("listB", listB);
+        session.setAttribute("listP", listP);
 
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }

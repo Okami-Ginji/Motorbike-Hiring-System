@@ -99,6 +99,11 @@
             .animate__animated.animate__fadeInUp {
                 visibility: visible;
             }
+            
+            .info span{
+                font-weight: 750;
+            }
+           
         </style>
     </head>
 
@@ -125,7 +130,7 @@
                                         <div class="icon mr-3">
                                             <i class="fas fa-map-marker-alt"></i> <!-- Font Awesome class -->
                                         </div>
-                                        <p><span>Địa Chỉ</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+                                        <p class="info"><span>Địa Chỉ:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -133,7 +138,7 @@
                                         <div class="icon mr-3">
                                             <i class="fas fa-mobile-alt"></i> <!-- Font Awesome class -->
                                         </div>
-                                        <p><span>Số Điện Thoại</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                                        <p class="info"><span>Số Điện Thoại:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -141,7 +146,7 @@
                                         <div class="icon mr-3">
                                             <i class="fas fa-envelope"></i> <!-- Font Awesome class -->
                                         </div>
-                                        <p><span>Email:</span> <a href="mailto:info@yoursite.com">the.color.bike.company@gmail.com</a></p>
+                                        <p class="info"><span>Email:</span> <a href="mailto:info@yoursite.com">the.color.bike.company@gmail.com</a></p>
                                     </div>
                                 </div>
                             </div>

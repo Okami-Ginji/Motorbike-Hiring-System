@@ -77,31 +77,27 @@ public class AccountDAO implements Serializable {
     }
 
 
-    public void createANewAccount(String firstName, String lastName, String gender, String dob, String address, String phone, String email, String userName, String password) {
+    public void createANewAccount(String firstName, String lastName, String gender, String phone, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
                 + "           ,[LastName]\n"
                 + "           ,[Gender]\n"
-                + "           ,[DayOfBirth]\n"
-                + "           ,[Address]\n"
                 + "           ,[PhoneNumber]\n"
                 + "           ,[Email]\n"
                 + "           ,[Username]\n"
                 + "           ,[Password]\n"
                 + "           ,[RoleID])\n"
                 + "     VALUES\n"
-                + "           (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+                + "           (?, ?, ?, ?, ?, ?, ?, 1)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, firstName);
             ps.setString(2, lastName);
-            ps.setString(3, gender);
-            ps.setString(4, dob);
-            ps.setString(5, address);
-            ps.setString(6, phone);
-            ps.setString(7, email);
-            ps.setString(8, userName);
-            ps.setString(9, password);
+            ps.setString(3, gender);         
+            ps.setString(4, phone);
+            ps.setString(5, email);
+            ps.setString(6, userName);
+            ps.setString(7, password);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -542,7 +538,7 @@ public class AccountDAO implements Serializable {
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
 //        System.out.println(dao.changePassword(7, "asdf"));
-//        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
+        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
         System.out.println(dao.getAllCustomerAccount());
 //        System.out.println(dao.getBookingCountbyAccount());

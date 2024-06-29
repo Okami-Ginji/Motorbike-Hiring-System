@@ -12,7 +12,7 @@
     <div
         class="container-fluid container-xl position-relative d-flex align-items-center">
 
-        <a href="home.jsp" class="logo d-flex align-items-center me-auto">
+        <a href="home" class="logo d-flex align-items-center me-auto">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1 class="sitename">COLORBIKE</h1>
@@ -20,7 +20,7 @@
 
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a href="home.jsp">Trang Chủ<br></a></li>
+                <li><a href="home">Trang Chủ<br></a></li>
                 <li><a href="about.jsp">Về Chúng Tôi</a></li>
                 <li><a href="motorcycle">Xe Máy</a></li>
                 <li><a href="pricing">Bảng Giá</a></li>

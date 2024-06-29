@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <head>
         <meta charset="UTF-8" />
@@ -220,6 +220,12 @@
                 <div class="containerContent col-md-6">
                     <h3>COLORBIKE</h3>
                     <h1 style="width: 500px;"><strong>Chào mừng trở lại</strong></h1>
+                    <% String error = (String)request.getAttribute("error"); %>
+                    <% if (error != null && !error.isEmpty()) { %>
+                    <h4 class="h4 animate__animated animate__fadeInUp" style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
+                        <i class="bi bi-exclamation-circle"></i> <%= error %>
+                    </h4>
+                    <% } %>
                     <form id="loginForm" action="login" method="post">
                         <div class="inputRow">
                             <input name="Username" id="Username"

@@ -3,7 +3,9 @@
     Created on : Jun 24, 2024, 11:37:22?AM
     Author     : ADMIN
 --%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Centered Tailwind Carousel with Autoplay</title>
@@ -30,12 +32,12 @@
                         background: #0d82a2;
                     }
                     .swiper-pagination-bullet-active {
-                        
+
                         background: #0d82a2 !important;
                     }
                     .data-swiper-slide-index{
                         width: 265px;
-                        
+
                     }
                     .swiper-slide{
                         border-radius: 40px !important;
@@ -46,7 +48,7 @@
 
                     .swiper-slide img {
                         height: 300px;
-                        object-fit: cover; /* ??m b?o hình ?nh phù h?p v?i vùng tròn */
+                        object-fit: cover; /* ??m b?o hÃ¬nh ?nh phÃ¹ h?p v?i vÃ¹ng trÃ²n */
                     }
                     .rentalNow{
                         background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
@@ -59,299 +61,93 @@
                     <!-- Centered Carousel Container -->
                     <div class="w-full px-4 py-8" style="width: 90%;">
                         <div class="swiper centered-slide-carousel">
+
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div
-                                        class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                        <a href="#">
-                                            <img class="p-8 rounded-t-lg"
-                                                 src="images\imageM1.jpg"
-                                                 alt="product image" />
-                                        </a>
-                                        <div class="px-5 pb-5">
+                                <c:forEach items="${sessionScope.listM}" var="m">
+                                    <div class="swiper-slide">
+
+                                        <div
+                                            class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                             <a href="#">
-                                                <h5
-                                                    class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Apple
-                                                    Watch Series 7 GPS, Aluminium Case,
-                                                    Starlight Sport</h5>
+                                                <img class="p-8 rounded-t-lg"
+                                                     src="images/${m.image}"
+                                                     alt="product image" />
                                             </a>
-                                            <div class="flex items-center mt-2.5 mb-5">
-                                                <div
-                                                    class="flex items-center space-x-1 rtl:space-x-reverse">
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
+                                            <div class="px-5 pb-5">
+                                                <a href="#">
+                                                    <h5
+                                                        class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                                        ${m.model}</h5>
+                                                </a>
+                                                <div class="flex items-center mt-2.5 mb-5">
+                                                    <div
+                                                        class="flex items-center space-x-1 rtl:space-x-reverse">
+                                                        <svg class="w-4 h-4 text-yellow-300"
+                                                             aria-hidden="true"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             fill="currentColor"
+                                                             viewBox="0 0 22 20">
+                                                            <path
+                                                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                                        </svg>
+                                                        <svg class="w-4 h-4 text-yellow-300"
+                                                             aria-hidden="true"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             fill="currentColor"
+                                                             viewBox="0 0 22 20">
+                                                            <path
+                                                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                                        </svg>
+                                                        <svg class="w-4 h-4 text-yellow-300"
+                                                             aria-hidden="true"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             fill="currentColor"
+                                                             viewBox="0 0 22 20">
+                                                            <path
+                                                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                                        </svg>
+                                                        <svg class="w-4 h-4 text-yellow-300"
+                                                             aria-hidden="true"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             fill="currentColor"
+                                                             viewBox="0 0 22 20">
+                                                            <path
+                                                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                                        </svg>
+                                                        <svg class="w-4 h-4 text-yellow-300"
+                                                             aria-hidden="true"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                             fill="currentColor"
+                                                             viewBox="0 0 22 20">
+                                                            <path
+                                                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <span
+                                                        class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
                                                 </div>
-                                                <span
-                                                    class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span
-                                                    class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
-                                                <a href="#"
-                                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center rentalNow">Thuê Xe Ngay 1</a>
+                                                <c:forEach items="${sessionScope.listP}" var="p">
+                                                    <c:if test="${m.priceListID == p.priceListId}">
+                                                        <div class="flex items-center justify-between">
+                                                            <span
+                                                                class="text-3xl font-bold text-gray-900 dark:text-white"><fmt:formatNumber value="${p.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNÄ" /></span>
+                                                            <a href="booking"
+                                                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center rentalNow" onclick="redirectToBooking(event)">ThuÃª Xe Ngay</a>
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
                                             </div>
                                         </div>
+
                                     </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div
-                                        class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                        <a href="#">
-                                            <img class="p-8 rounded-t-lg"
-                                                 src="images\imageM7.jpg"
-                                                 alt="product image" />
-                                        </a>
-                                        <div class="px-5 pb-5">
-                                            <a href="#">
-                                                <h5
-                                                    class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Apple
-                                                    Watch Series 7 GPS, Aluminium Case,
-                                                    Starlight Sport</h5>
-                                            </a>
-                                            <div class="flex items-center mt-2.5 mb-5">
-                                                <div
-                                                    class="flex items-center space-x-1 rtl:space-x-reverse">
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                </div>
-                                                <span
-                                                    class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span
-                                                    class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
-                                                <a href="#"
-                                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center rentalNow">Thuê Xe Ngay 2</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div
-                                        class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                        <a href="#">
-                                            <img class="p-8 rounded-t-lg"
-                                                 src="images\imageM3.jpg"
-                                                 alt="product image" />
-                                        </a>
-                                        <div class="px-5 pb-5">
-                                            <a href="#">
-                                                <h5
-                                                    class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Apple
-                                                    Watch Series 7 GPS, Aluminium Case,
-                                                    Starlight Sport</h5>
-                                            </a>
-                                            <div class="flex items-center mt-2.5 mb-5">
-                                                <div
-                                                    class="flex items-center space-x-1 rtl:space-x-reverse">
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                </div>
-                                                <span
-                                                    class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span
-                                                    class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
-                                                <a href="#"
-                                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center rentalNow">Thuê Xe Ngay 3</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="swiper-slide">
-                                    <div
-                                        class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                        <a href="#">
-                                            <img class="p-8 rounded-t-lg"
-                                                 src="images\imageM6.jpg"
-                                                 alt="product image" />
-                                        </a>
-                                        <div class="px-5 pb-5">
-                                            <a href="#">
-                                                <h5
-                                                    class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Apple
-                                                    Watch Series 7 GPS, Aluminium Case,
-                                                    Starlight Sport</h5>
-                                            </a>
-                                            <div class="flex items-center mt-2.5 mb-5">
-                                                <div
-                                                    class="flex items-center space-x-1 rtl:space-x-reverse">
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg class="w-4 h-4 text-yellow-300"
-                                                         aria-hidden="true"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         fill="currentColor"
-                                                         viewBox="0 0 22 20">
-                                                        <path
-                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                </div>
-                                                <span
-                                                    class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span
-                                                    class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
-                                                <a href="#"
-                                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center rentalNow">Thuê Xe Ngay 4</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                                <!-- Pagination -->
-                                <div class="swiper-pagination"></div>
+                                </c:forEach>
+
                             </div>
+                            <!-- Pagination -->
+                            <div class="swiper-pagination"></div>
+
                         </div>
                     </div>
                 </div>
@@ -391,6 +187,10 @@
                             }
                         }
                     });
+                    function redirectToBooking(event) {
+                        event.preventDefault(); // Prevent the default anchor behavior
+                         window.top.location.href = 'booking';// Redirect to the booking page
+                    }
                 </script>
 
 

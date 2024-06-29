@@ -9,7 +9,7 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Change Password</title>
+        <title>Thay đổi mật khẩu</title>
         <link rel="stylesheet" href="./fonts/themify-icons-font/themify-icons/themify-icons.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
         <style type="text/css">
@@ -96,8 +96,8 @@
             .buttonWrapper {
                 margin-top: 40px;
             }
-            .buttonWrapper:hover{
-                opacity: 0.7;
+            .submitButton:hover{
+                background: linear-gradient(243.4deg, rgb(0, 132, 255) 13%, rgb(8, 126, 120) 98%) !important;
             }
             .submitButton {
                 width: 70%;
@@ -105,8 +105,8 @@
                 margin: auto;
                 display: block;
                 color: #fff;
-                background-color: #065492;
-                border-color: #065492;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
+                border: none;
                 text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
                 box-shadow: 0 2px 0 rgba(0, 0, 0, 0.035);
                 border-radius: 4px;
@@ -161,7 +161,7 @@
             <div class="cardStyle" id="changePasswordForm">
                 <form action="changepassword" method="post" name="signupForm" id="signupForm">
                     <img src="" id="signupLogo"/>
-                    <h1 class="formTitle" style="font-weight: bold;">Thay đổi</h1>
+                    <h1 class="formTitle" style="font-weight: bold;">Thay đổi mật khẩu</h1>
                     <c:if test="${not empty requestScope.errorPass}">
                         <div class="inputDiv" style="text-align: justify;">
                             <p style="color: red;font-size: 14px;margin: 0;font-weight: 600;">${errorPass}</p>
@@ -210,7 +210,7 @@
             </div>
         </div>
         <div>
-            <a href="profileCustomer.jsp" style="position: absolute; top: 20px; left: 20px; text-decoration: none; color: #000">
+            <a href="profileCustomer_1.jsp" style="position: absolute; top: 20px; left: 20px; text-decoration: none; color: #000">
                 <i style="font-size: 60px;" class="ri-arrow-left-line"></i>
             </a>
         </div>

@@ -31,7 +31,7 @@ public class AccessoryDetailStaff extends HttpServlet {
         BookingDAO bookingDAO = BookingDAO.getInstance();
 
         String accessoryID = request.getParameter("id");
-        Accessory accessory = accessoryDAO.getAccessoryByid(accessoryID);
+//        Accessory accessory = accessoryDAO.getAccessoryByid(accessoryID);
         
     }
 

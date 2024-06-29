@@ -176,7 +176,7 @@
             .button-item-option {
                 margin-bottom: 12px;
                 margin-right: 12px;
-                width: 40%;
+                width: 45%;
             }
             /* Reset some basic styles for the pagination list */
             .pagination {
@@ -497,10 +497,13 @@
                                         <img src="images/${motorbike.image}" width="100%" height="100%" alt="alt"/>
                                     </div>
                                     <h2 style="margin: 16px;" href="motorcycleDetail?id=${motorbike.motorcycleId}"><strong>${motorbike.model}</strong></h2>
-                                    <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>${priceMap[motorbike.priceListID]}/ngày</p>
+                                    <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>
+                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ" />/ngày
+                                    </p>
                                     <div class="button-wrapper">
                                         <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">CHI TIẾT</a></button>
                                         <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">THUÊ NGAY</a></button>
+
                                     </div>
                                 </div>
                             </c:forEach>
@@ -578,7 +581,7 @@
                                         var selectedButtons = document.querySelectorAll('.filter-options button.selected');
                                         var selectedFilters = Array.from(selectedButtons).map(function (button) {
                                             return {
-                                                text: button.textContent,
+                                                text: button.textContent.trim(),
                                                 group: button.closest('.filter-group').querySelector('.filter-button').textContent.trim()
                                             };
                                         });
@@ -606,7 +609,7 @@
                                     function removeSelectedFilter(filterDiv, text) {
                                         var filterOptionButtons = document.querySelectorAll('.filter-options button');
                                         filterOptionButtons.forEach(function (button) {
-                                            if (button.textContent === text) {
+                                            if (button.textContent.trim() === text) {
                                                 button.classList.remove('selected');
                                             }
                                         });

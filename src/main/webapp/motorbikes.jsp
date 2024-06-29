@@ -176,7 +176,7 @@
             .button-item-option {
                 margin-bottom: 12px;
                 margin-right: 12px;
-                width: 40%;
+                width: 45%;
             }
             /* Reset some basic styles for the pagination list */
             .pagination {
@@ -497,10 +497,12 @@
                                         <img src="images/${motorbike.image}" width="100%" height="100%" alt="alt"/>
                                     </div>
                                     <h2 style="margin: 16px;" href="motorcycleDetail?id=${motorbike.motorcycleId}"><strong>${motorbike.model}</strong></h2>
-                                    <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>${priceMap[motorbike.priceListID]}/ngày</p>
+                                    <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>
+                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ" />/ngày
+                                    </p>
                                     <div class="button-wrapper">
                                         <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">DETAILS</a></button>
-                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">BUY NOW</a></button>
+                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">BOOK NOW</a></button>
                                     </div>
                                 </div>
                             </c:forEach>

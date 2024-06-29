@@ -235,6 +235,9 @@
                 <div class="containerContent col-md-6">
                     <h3 class="colorbike">COLORBIKE</h3>
                     <h1 class="begin">Chào Mừng Bạn Trở Lại</h1>
+                    <h4 class="h4 animate__animated animate__fadeInUp" style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
+                            <i class="bi bi-exclamation-circle"></i> ${error}
+                        </h4>
                     <form id="loginForm" action="login" method="post">
                         <div class="inputRow username animate__animated animate__pulse">
                             <input type="text" name="Username" id="Username"

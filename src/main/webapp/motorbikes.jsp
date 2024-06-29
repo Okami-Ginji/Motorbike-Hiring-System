@@ -580,7 +580,7 @@
                                         var selectedButtons = document.querySelectorAll('.filter-options button.selected');
                                         var selectedFilters = Array.from(selectedButtons).map(function (button) {
                                             return {
-                                                text: button.textContent,
+                                                text: button.textContent.trim(),
                                                 group: button.closest('.filter-group').querySelector('.filter-button').textContent.trim()
                                             };
                                         });
@@ -608,7 +608,7 @@
                                     function removeSelectedFilter(filterDiv, text) {
                                         var filterOptionButtons = document.querySelectorAll('.filter-options button');
                                         filterOptionButtons.forEach(function (button) {
-                                            if (button.textContent === text) {
+                                            if (button.textContent.trim() === text) {
                                                 button.classList.remove('selected');
                                             }
                                         });

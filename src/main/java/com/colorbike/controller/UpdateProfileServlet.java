@@ -80,7 +80,7 @@ public class UpdateProfileServlet extends HttpServlet {
         } catch (NumberFormatException ex) {
             System.out.println(ex);
         }
-        request.getRequestDispatcher("profileCustomer.jsp").forward(request, response);
+        request.getRequestDispatcher("profileCustomer_1.jsp").forward(request, response);
     }
 
     private boolean isEmptyOrNull(String str) {

@@ -27,13 +27,17 @@
         <link href="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/css/nucleo-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/soft-ui-dashboard-tailwind/css/soft-ui-dashboard-tailwind.css">
     </head>
+    <style>
+        .security-item:hover {
+            background-color: lightgrey;
+        }
+    </style>
     <jsp:include page="/includes/navbar2.jsp" />
     <body class="  font-body " data-framework="tailwind">
         <div class="builder-container builder-container-preview  font-body ">
             <aside class="max-w-62.5 ease-nav-brand z-990 absolute inset-y-0 my-4 ml-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent text-slate-500"
                    id="sidenav-main">
                 <hr class="h-px mt-0 bg-transparent bg-gradient-horizontal-dark">
-
                 <div style="margin-top: 6rem" class="items-center block w-auto max-h-screen overflow-auto grow basis-full">
                     <ul class="flex flex-col pl-0 mb-0">
                         <li class="w-full mt-4">
@@ -126,9 +130,8 @@
                             <h6 class="pl-6 ml-2 font-bold leading-tight uppercase text-xs opacity-60">Quản lý tài khoản</h6>
                         </li>
                         <li class="mt-0.5 w-full"> 
-                            <a  style="background: #fff;" class="py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="javascript:;">
-                                <div  style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);"
-                                     class="bg-gradient-to-tl from-purple-700 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                            <a  class="py-2.7  text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors" href="profileCustomer_1.jsp">
+                                <div class="bg-gradient-to-tl shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                                     <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <title>customer-support</title>
@@ -153,13 +156,13 @@
                                     </svg>
                                 </div> <span
                                     class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Thông tin cá nhân</span>
-                            </a> </li>
+                            </a> 
+                        </li>
                         <li class="mt-0.5 w-full"> 
-                            <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                               href="manageProfile.jsp">
-                                <div
-                                    class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                                    <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1"
+                            <a  style="background: #fff;" class="py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="javascript:;">
+                                <div style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);"
+                                     class="bg-gradient-to-tl from-purple-700 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                                    <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <title>spaceship</title>
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -184,7 +187,7 @@
                                     </g>
                                     </g>
                                     </svg>
-                                </div> <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Mật khẩu và bảo mật</span>
+                                </div> <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Mật khẩu & bảo mật</span>
                             </a> 
                         </li>
                     </ul>
@@ -202,7 +205,7 @@
                                             <div class="flex items-center w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-none">
                                                 <h4 style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                                                     background-clip: text;
-                                                    color: transparent !important;" class="mb-0"><strong>Thông tin cá nhân &nbsp</strong>
+                                                    color: transparent !important;" class="mb-0"><strong>Quản lý mật khẩu và Kiểm soát tài khoản &nbsp</strong>
                                                     <c:if test="${not empty requestScope.mess}">
                                                         <h6 style="color: green;font-style: italic; margin-bottom: 0">(${mess})</h6>
                                                     </c:if>
@@ -211,119 +214,51 @@
                                                     </c:if>
                                                 </h4>
                                             </div>
-                                            <div class="w-full max-w-full px-3 text-right shrink-0 md:w-4/12 md:flex-none">
-                                                <a href="javascript:;" id="editProfileBtn" data-target="tooltip_trigger" data-placement="top">
-                                                    <i class="leading-normal fas fa-user-edit text-sm text-slate-400" aria-hidden="true"></i>
-                                                </a>
-                                                <div data-target="tooltip" class="px-2 py-1 text-center text-white bg-black rounded-lg text-sm hidden" role="tooltip">
-                                                    Edit Profile
-                                                    <div class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']" data-popper-arrow="">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="m-5" role="presentation">
+                                        <div class="mb-2 flex security-item" onclick="changePass()" style="border: 1px solid; padding: 12px; justify-content: space-between">
+                                            <div class="flex flex-col">
+                                                <div class="flex items-center">
+                                                    <div>
+                                                        <span style="width: 100%" class="line-clamp-1">Đổi mật khẩu</span>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <div class="flex items-center">
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em" aria-hidden="true" class="w-6 h-6">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.247 4.341a1 1 0 0 1 1.412-.094l8 7a1 1 0 0 1 0 1.506l-8 7a1 1 0 0 1-1.318-1.506L14.482 12l-7.14-6.247a1 1 0 0 1-.094-1.412z"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div  class="flex security-item" onclick="" style="border: 1px solid; padding: 12px; justify-content: space-between">
+                                            <div class="flex flex-col">
+                                                <div class="flex items-center">
+                                                    <div>
+                                                        <span style="width: 100%" class="line-clamp-1">Vô hiệu hóa tài khoản</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <div class="flex items-center">
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em" aria-hidden="true" class="w-6 h-6">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.247 4.341a1 1 0 0 1 1.412-.094l8 7a1 1 0 0 1 0 1.506l-8 7a1 1 0 0 1-1.318-1.506L14.482 12l-7.14-6.247a1 1 0 0 1-.094-1.412z"></path>
+                                                    </svg>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex-auto pl-8">
-                                        <hr class="bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent">
-                                        <div style="justify-content: space-between" class="flex">
-                                            <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                                                <li class="relative block px-4 py-3 pt-0 pl-0 leading-normal bg-white border-0 rounded-t-lg text-sm text-inherit">
-                                                    <strong class="text-slate-700">Họ và tên:</strong> &nbsp; ${account.firstName} ${account.lastName} &nbsp (${account.userName})
-                                                </li>
-                                                <li class="relative block px-4 py-3 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                                    <strong class="text-slate-700">Giới tính: </strong> &nbsp; ${account.gender}
-                                                </li>
-                                                <li class="relative block px-4 py-3 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                                    <strong class="text-slate-700">Số điện thoại:</strong> &nbsp; ${account.phoneNumber}
-                                                </li>
-                                                <li class="relative block px-4 py-3 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                                    <strong class="text-slate-700">Email:</strong> &nbsp; ${account.email}
-                                                </li>
-                                                <li class="relative block px-4 py-3 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                                    <strong class="text-slate-700">Ngày sinh: </strong> &nbsp; ${account.dob}
-                                                </li>
-                                                <li class="relative block px-4 py-3 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                                    <strong class="text-slate-700">Địa chỉ: </strong> &nbsp; ${account.address}
-                                                </li>
-                                                <li class="relative block px-4 py-3 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                                    <strong class="text-slate-700">Social: </strong> &nbsp;
-                                                    &nbsp; <a class="inline-block py-0 pl-1 pr-2 mb-0 font-bold text-center text-blue-800 align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-none" href="javascript:;"> <i class="fab fa-facebook fa-lg" aria-hidden="true"></i> </a>
-                                                    <a class="inline-block py-0 pl-1 pr-2 mb-0 font-bold text-center align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-none text-sky-600" href="javascript:;"> <i class="fab fa-twitter fa-lg" aria-hidden="true"></i> </a>
-                                                    <a class="inline-block py-0 pl-1 pr-2 mb-0 font-bold text-center align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-none text-sky-900" href="javascript:;"> <i class="fab fa-instagram fa-lg" aria-hidden="true"></i> </a>
-                                                </li>
-                                            </ul>
-                                            <div style="margin-right: 12%;" class="pr-3 items-center w-1/4 h-auto">
-                                                <img style="width: 135%" src="images/avarta.jpg" alt="Profile Image" class="h-auto rounded-lg shadow-soft-xl">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- Modal -->
-                                    <div id="editProfileModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-                                        <div style="width: 56%; margin-top: 5rem" class="bg-white p-8 rounded-lg shadow-lg">
-                                            <h2 class="text-2xl mb-4">Chỉnh sửa thông tin</h2>
-                                            <form action="updateprofile" method="post" id="form-update" class="space-y-4">
-                                                <input hidden name="accountID" value="${account.accountId}">
-                                                <div class="flex flex-wrap mb-3">
-                                                    <div class="w-full md:w-1/2 pr-2 mb-3 md:mb-0">
-                                                        <label for="account-firstname">Họ</label>
-                                                        <input value="${account.firstName}" type="text" id="account-firstname" name="firstname" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
-                                                    </div>
-                                                    <div class="w-full md:w-1/2 pl-2">
-                                                        <label for="account-lastname">Tên</label>
-                                                        <input value="${account.lastName}" type="text" id="account-lastname" name="lastname" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-wrap mb-3">
-                                                    <div class="w-full md:w-1/2 pr-2 mb-3 md:mb-0">
-                                                        <label for="account-email">Email <span class="text-red-500">*</span></label>
-                                                        <input require value="${account.email}" type="email" id="account-email" name="email" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
-                                                    </div>
-                                                    <div class="w-full md:w-1/2 pl-2">
-                                                        <label for="account-address">Địa chỉ</label>
-                                                        <input value="${account.address}" type="text" id="account-address" name="address" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
-                                                    </div>
-                                                </div>
-
-                                                <div class="flex flex-wrap mb-3">
-                                                    <div class="w-full md:w-1/2 pr-2 mb-3 md:mb-0">
-                                                        <label for="account-gender">Giới tính</label>
-                                                        <select style="border: 1px solid #000;" class="form-control w-full mt-1 p-2 border border-gray-300 rounded-md" name="gender" id="account-gender">
-                                                            <option value='Nam' ${account.gender == "Nam" ? 'selected' : ''}>Nam</option>
-                                                            <option value='Nữ' ${account.gender == "Nữ" ? 'selected' : ''}>Nữ</option>
-                                                            <option value='Không muốn tiết lộ' ${account.gender == "Không muốn tiết lộ" ? 'selected' : ''}>Không muốn tiết lộ</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="w-full md:w-1/2 pl-2">
-                                                        <label for="account-phone">Số điện thoại</label>
-                                                        <input require value="${account.phoneNumber}" type="text" id="account-phone" name="phonenumber" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-wrap mb-3">
-                                                    <div class="w-full md:w-1/2 pr-2 mb-3 md:mb-0">
-                                                        <label for="account-dob">Ngày sinh</label>
-                                                        <input value="${account.dob}" type="date" id="account-dob" name="dob" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
-                                                    </div>
-                                                    <div class="w-full md:w-1/2 pl-2">
-                                                        <label for="account-username">Tên đăng nhập <span class="text-red-500">*</span></label>
-                                                        <input require value="${account.userName}" type="text" id="account-username" name="username" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
-                                                    </div>
-                                                </div>
-                                                <div class="flex justify-end">
-                                                    <button type="button" id="closeModalBtn" class="mr-4 px-4 py-2 bg-gray-300 rounded-md">Quay về</button>
-                                                    <button type="submit" class="px-4 py-2 bg-blue-600 rounded-md">Lưu thay đổi</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <!--End Modal-->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div> <!-- Footer -->
             </div>
-
         </div>
         <script src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/js/plugins/chartjs.min.js"></script>
         <script src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/js/plugins/perfect-scrollbar.min.js"
@@ -334,26 +269,30 @@
         async=""></script>
     </body>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const editProfileBtn = document.getElementById('editProfileBtn');
-            const editProfileModal = document.getElementById('editProfileModal');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const toast = document.getElementById('toast');
+                                            document.addEventListener('DOMContentLoaded', () => {
+                                                const editProfileBtn = document.getElementById('editProfileBtn');
+                                                const editProfileModal = document.getElementById('editProfileModal');
+                                                const closeModalBtn = document.getElementById('closeModalBtn');
+                                                const toast = document.getElementById('toast');
 
-            editProfileBtn.addEventListener('click', () => {
-                editProfileModal.classList.remove('hidden');
-            });
+                                                editProfileBtn.addEventListener('click', () => {
+                                                    editProfileModal.classList.remove('hidden');
+                                                });
 
-            closeModalBtn.addEventListener('click', () => {
-                editProfileModal.classList.add('hidden');
-            });
+                                                closeModalBtn.addEventListener('click', () => {
+                                                    editProfileModal.classList.add('hidden');
+                                                });
 
-            window.addEventListener('click', (event) => {
-                if (event.target == editProfileModal) {
-                    editProfileModal.classList.add('hidden');
-                }
-            });
-        });
+                                                window.addEventListener('click', (event) => {
+                                                    if (event.target == editProfileModal) {
+                                                        editProfileModal.classList.add('hidden');
+                                                    }
+                                                });
+                                            });
+
+                                            function changePass() {
+                                                window.location.href = "changepassword";
+                                            }
 
     </script>
 </html>

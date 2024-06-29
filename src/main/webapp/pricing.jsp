@@ -4,6 +4,7 @@
     Author     : DiepTCNN
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -121,7 +122,7 @@
                                                         <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><small class="currency">$</small> ${p.dailyPriceForDay}</span>
+                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" /></span>
                                                                 <span class="per">/ngày</span>
                                                             </h3>
                                                             <span class="subheading">Có thiết bị đi kèm</span>
@@ -132,7 +133,7 @@
                                                         <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><small class="currency">$</small> ${p.dailyPriceForWeek}</span>
+                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForWeek * 1000}" type="currency" currencySymbol="VNĐ" /></span>
                                                                 <span class="per">/tuần</span>
                                                             </h3>
                                                             <span class="subheading">Có thiết bị đi kèm</span>
@@ -143,7 +144,7 @@
                                                         <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><small class="currency">$</small> ${p.dailyPriceForMonth}</span>
+                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" /></span>
                                                                 <span class="per">/tháng</span>
                                                             </h3>
                                                             <span class="subheading">Có thiết bị đi kèm</span>

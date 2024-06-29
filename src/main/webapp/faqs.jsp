@@ -27,7 +27,7 @@
             }
 
             .faq_area {
-/*                padding-top: 100px;*/
+                padding-top: 100px;
                 padding-bottom: 100px;
                 position: relative;
                 z-index: 1;
@@ -192,6 +192,10 @@
                 });
             });
         </script>
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> 228c8365bda1ddd15e0b09a9cbbf8694dbe9ff7e
     </body>
 </html>

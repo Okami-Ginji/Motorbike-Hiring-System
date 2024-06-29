@@ -41,7 +41,7 @@ public class FileUploaded {
         return null;
     }
 
-    private String getFileName(Part part) {
+    public String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
         if (contentDisposition != null) {
             for (String cd : contentDisposition.split(";")) {
@@ -53,7 +53,7 @@ public class FileUploaded {
         return null;
     }
 
-    private String generateNewFileName(String originalFileName) {
+    public String generateNewFileName(String originalFileName) {
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String fileExtension = "";
         int dotIndex = originalFileName.lastIndexOf('.');

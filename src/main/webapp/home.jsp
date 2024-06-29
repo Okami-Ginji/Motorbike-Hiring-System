@@ -31,7 +31,7 @@
                 margin-left: 5%;
             }
 
-          
+
             .sitename {
                 background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 background-clip: text;
@@ -60,7 +60,7 @@
 
     <body class="index-page">
 
-       <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/navbar2.jsp" />
 
         <main class="main">
 
@@ -225,8 +225,8 @@
                 </div>
 
             </section><!-- /Featured Services Section -->
-            
-            
+
+
             <div class="container section-title" data-aos="fade-up">
                 <span>TOP Sản Phẩm<br></span>
                 <h2>TOP Sản Phẩm</h2>
@@ -585,6 +585,21 @@
 
         <!-- Preloader -->
         <div id="preloader"></div>
+
+
+        <script>
+            window.embeddedChatbotConfig = {
+                chatbotId: "qUNf-UR7ycIWmYS6ZiWCL",
+                domain: "www.chatbase.co"
+            }
+        </script>
+        <script
+            src="https://www.chatbase.co/embed.min.js"
+            chatbotId="qUNf-UR7ycIWmYS6ZiWCL"
+            domain="www.chatbase.co"
+            defer>
+        </script>
+
 
         <!-- Vendor JS Files -->
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

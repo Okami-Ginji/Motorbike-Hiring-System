@@ -62,7 +62,7 @@
                 </button>
 
                 <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a href="index.jsp"><i class="fa fa-home fa-fw"></i> Trang chủ</a></li>
+                    <li><a href="home.jsp"><i class="fa fa-home fa-fw"></i> Trang chủ</a></li>
                 </ul>
 
                 <ul class="nav navbar-right navbar-top-links">

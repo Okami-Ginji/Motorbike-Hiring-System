@@ -499,8 +499,8 @@
                                     <h2 style="margin: 16px;" href="motorcycleDetail?id=${motorbike.motorcycleId}"><strong>${motorbike.model}</strong></h2>
                                     <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>${priceMap[motorbike.priceListID]}/ngày</p>
                                     <div class="button-wrapper">
-                                        <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">DETAILS</a></button>
-                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">BUY NOW</a></button>
+                                        <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">CHI TIẾT</a></button>
+                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">THUÊ NGAY</a></button>
                                     </div>
                                 </div>
                             </c:forEach>

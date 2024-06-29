@@ -186,6 +186,5 @@
             });
         </script>
         
-        <a href="#" class="scrollup1"><i class="ri-arrow-up-fill" style="display: inline;"></i><span class="screen-reader-text"></span></a>
     </body>
 </html>

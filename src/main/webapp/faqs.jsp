@@ -27,7 +27,7 @@
             }
 
             .faq_area {
-/*                padding-top: 100px;*/
+                padding-top: 100px;
                 padding-bottom: 100px;
                 position: relative;
                 z-index: 1;

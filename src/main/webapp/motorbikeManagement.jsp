@@ -208,7 +208,7 @@
         <div class="col-md-2">
             <jsp:include page="/includes/sidebar.jsp" /> 
         </div>
-        <div class="container-fluid tab-container">
+        <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"

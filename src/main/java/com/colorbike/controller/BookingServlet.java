@@ -48,20 +48,10 @@ public class BookingServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String pickuploc = request.getParameter("pickuploc");
-        String returnloc = request.getParameter("returnloc");
-        String pickUpDateStr = request.getParameter("pickupdate");
-        String returnDateStr = request.getParameter("returndate");
-        String pickUpTime = request.getParameter("pickuptime");
-        String returnTime = request.getParameter("returntime");
-        request.setAttribute("pickuploc", pickuploc);
-        request.setAttribute("returnloc", returnloc);
-        request.setAttribute("pickupdate", pickUpDateStr);
-        request.setAttribute("returndate", returnDateStr);
-        request.setAttribute("pickuptime", pickUpTime);
-        request.setAttribute("returntime", returnTime);
+     
        
         MotorcycleDAO daoM = MotorcycleDAO.getInstance();
+        
         //Tu mototcycle vao
         String motorcycleid = request.getParameter("motorcycleid");
         Motorcycle motorcycle =daoM.getMotorcycleByid(motorcycleid);
@@ -88,8 +78,8 @@ public class BookingServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
 //        session.setAttribute("account", AccountDAO.getInstance().checkLogin("thinhtvde170182@fpt.edu.vn", "Lb4_aa"));
-//        session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
-        session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
+        session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
+//        session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
         request.getRequestDispatcher("booking.jsp").forward(request, response);
     }
 

@@ -13,12 +13,13 @@
         <link href="assets/bootstrap.min.css" rel="stylesheet"/>
         <!-- Custom styles for this template -->
         <link href="assets/jumbotron-narrow.css" rel="stylesheet"> 
-
+        
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" rel="stylesheet"> 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet"> 
         <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"> 
-
+       
         <script src="assets/jquery-1.11.3.min.js"></script>
         <style>
             .table-responsive{
@@ -43,7 +44,7 @@
 
 
             .btn-default {
-                background-color: #007bff;
+                background: linear-gradient(243.4deg, rgb(0, 132, 255) 13%, rgb(8, 126, 120) 98%);
                 color: white;
                 border: none;
                 width: 100%;
@@ -73,7 +74,8 @@
             .container {
                 margin: 20px auto;
                 width: 800px;
-                padding: 30px
+                padding: 30px;
+                background-color: white !important;
             }
 
             .card.box1 {
@@ -279,7 +281,7 @@
         </style>
     </head>
 
-    <body style="background: #F9F9F9;">
+    <body style="background: white;">
         <div class="container bg-light d-md-flex align-items-center">
             <div class="card box1 shadow-sm p-md-5 p-4">
                 <div class="fw-bolder mb-4">

@@ -289,6 +289,7 @@
                 display: block;
                 width: 100%;
                 overflow: hidden;
+                background-color: #effaf4;
             }
 
             .vertical .steps {
@@ -304,6 +305,7 @@
 
             .content {
                 height: 800px;
+                background-color: white;
             }
 
             .steps ul {
@@ -383,12 +385,12 @@
             }
 
             .current .title .step-number {
-                background: #4966b1;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 color: #fff;
             }
 
             .current .title .step-text {
-                color: #4966b1;
+                color: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
             }
 
             .content h3 {
@@ -397,7 +399,8 @@
 
             .content,
             .actions {
-                background: #f8f8f8;
+/*                background: #f8f8f8;*/
+                background-color: white;
             }
 
             .actions {
@@ -430,7 +433,7 @@
                 width: 140px;
                 height: 50px;
                 color: #fff;
-                background: #4966b1;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 align-items: center;
                 -moz-align-items: center;
                 -webkit-align-items: center;
@@ -486,7 +489,7 @@
             }
 
             .form-radio-flex input:checked+label {
-                border: 1px solid #4966b1;
+                border: 1px solid linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 z-index: 1;
             }
 
@@ -495,7 +498,7 @@
             }
 
             .form-radio-flex input:hover {
-                border: 1px solid #4966b1;
+                border: 1px solid linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
             }
 
             label.error {
@@ -598,7 +601,7 @@
             }
 
             #slider-margin .noUi-connect {
-                background: #4966b1;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
             }
 
             #slider-margin .noUi-connects {
@@ -617,7 +620,7 @@
                 outline: none;
                 border: none;
                 right: -15px;
-                border: 1px solid #4966b1;
+                border: 1px solid linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 border-radius: 0px;
             }
 
@@ -631,7 +634,7 @@
                 border: none;
                 background: transparent;
                 font-size: 16px;
-                color: #4966b1;
+                color: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 padding: 0px;
             }
 
@@ -1587,7 +1590,7 @@
 
                         <h3>Thanh toán</h3>
                         <fieldset>
-                            <a onclick="yourFunctionName()">aaaaa</a>
+<!--                            <a onclick="yourFunctionName()">aaaaa</a>-->
                             <h2>THANH TOÁN CỌC</h2>
                             <p class="desc">Hãy thanh toán số tiền cọc theo bên dưới để hoàn thành đơn đặt xe của bạn</p>
                             <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 550px; border-style: hidden"></iframe>
@@ -1637,7 +1640,7 @@
                     labels: {
                         previous: 'Lùi lại',
                         next: 'Tiếp theo',
-                        finish: 'Finish',
+                        finish: 'Kết thúc',
                         current: '',
                     },
                     onStepChanging: function (event, currentIndex, newIndex) {
@@ -1716,7 +1719,7 @@
                         if(currentIndex === 0){
                             nextButton.style.pointerEvents = 'auto';
                             nextButton.style.color = 'white';
-                            nextButton.style.background = '#4966b1';
+                            nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                         }
                         if (currentIndex === 1) {
 //                            nextButton.style.pointerEvents = 'none';
@@ -1728,6 +1731,8 @@
                            
                        }
                        if(currentIndex === 5){
+                           var finishButton = document.querySelector('.wizard .actions a[href="#finish"]');
+                           finishButton.style.display = 'none';
                             // Lấy thẻ h2
                             const dataH2 = document.getElementById('dataInput');
 
@@ -1803,13 +1808,13 @@
                             validateForm();
 //                            nextButton.style.pointerEvents = 'auto';
 //                            nextButton.style.color = 'white';
-//                            nextButton.style.background = '#4966b1';
+//                            nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                         }
                         
                         if (currentIndex === 2) {
                             nextButton.style.pointerEvents = 'auto';
                             nextButton.style.color = 'white';
-                            nextButton.style.background = '#4966b1';
+                            nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                             let sum = 0;
                             const checkboxMotorContainer = document.getElementById('motorcyclelist');
                             const selectBoxes = checkboxMotorContainer.querySelectorAll('.form-check-select');
@@ -2116,7 +2121,7 @@
                                if (checkbox.checked) {
                                    nextButton.style.pointerEvents = 'auto';
                                    nextButton.style.color = 'white';
-                                   nextButton.style.background = '#4966b1';
+                                   nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                                } else {
                                    nextButton.style.pointerEvents = 'none';
                                    nextButton.style.background = '#e8e8e8';
@@ -2264,7 +2269,7 @@
                     if (allFieldsFilled) {
                         nextButton.style.pointerEvents = 'auto';
                         nextButton.style.color = 'white';
-                        nextButton.style.background = '#4966b1';
+                        nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                     } else {
                         nextButton.style.pointerEvents = 'none';
                         nextButton.style.background = '#e8e8e8';
@@ -2348,7 +2353,7 @@
                     nextButton.disabled = false;
                     nextButton.style.pointerEvents = 'auto';
                     nextButton.style.color = 'white';
-                    nextButton.style.background = '#4966b1';
+                    nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                 } else {
                     nextButton.disabled = true;
                     nextButton.style.pointerEvents = 'none';
@@ -2383,7 +2388,7 @@
                 if (anySelected) {
                     nextButton.style.pointerEvents = 'auto';
                     nextButton.style.color = 'white';
-                    nextButton.style.background = '#4966b1';
+                    nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                     const checkboxContainer = document.getElementById('protection');
                     // Lấy tất cả các checkbox trong div
                     const checkboxes = checkboxContainer.querySelectorAll('.form-check-select');

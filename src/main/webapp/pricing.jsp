@@ -119,7 +119,7 @@
                                                     </td>
 
                                                     <td class="price rentalNow">
-                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
+                                                        <p class="btn-custom rentalButton"><a href="booking">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><fmt:formatNumber value="${p.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" /></span>
@@ -130,7 +130,7 @@
                                                     </td>
 
                                                     <td class="price rentalNow">
-                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
+                                                        <p class="btn-custom rentalButton"><a href="booking">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><fmt:formatNumber value="${p.dailyPriceForWeek * 1000}" type="currency" currencySymbol="VNĐ" /></span>
@@ -141,7 +141,7 @@
                                                     </td>
 
                                                     <td class="price rentalNow">
-                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
+                                                        <p class="btn-custom rentalButton"><a href="booking">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><fmt:formatNumber value="${p.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" /></span>

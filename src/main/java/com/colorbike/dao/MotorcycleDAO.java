@@ -473,10 +473,13 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-        SearchCriteria searchCriteria = new SearchCriteria();
-        searchCriteria.addPriceRange(200, 230);
-        searchCriteria.addPriceRange(270, 230);
-        System.out.println(dao.getListDisplacements());
+        for(Motorcycle x: dao.getAll()){
+            System.out.println(x);
+        }
+//        SearchCriteria searchCriteria = new SearchCriteria();
+//        searchCriteria.addPriceRange(200, 230);
+//        searchCriteria.addPriceRange(270, 230);
+//        System.out.println(dao.getListDisplacements());
         //System.out.println(dao.searchMotorcycleByCriteria(searchCriteria));
 //        System.out.println(dao.getListDisplacements());
     }

@@ -113,12 +113,7 @@
                         %></label>
                 </div> 
             </div>
-            <p>
-                &nbsp;
-            </p>
-            <footer class="footer">
-                <p>&copy; VNPAY 2020</p>
-            </footer>
+                <a href="index.jsp"><button>Về trang chính</button></a>
         </div>  
     </body>
 </html>

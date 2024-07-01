@@ -163,17 +163,12 @@ public class AccessoryDAO implements Serializable, DAO<Accessory> {
 //            System.out.println(a);
 //        }
 AccessoryDAO dao =new AccessoryDAO();
-    Accessory newAccessory = new Accessory(
-            22,
-            "Helmet123456",
-            "helmet.jpg",
-            "helmet-icon.jpg",
-            "High-quality helmet for safety.",
-            49
-        );
+    for(Accessory x: dao.getAll()){
+        System.out.println(x);
+    }
 
         // Gọi phương thức addNewAccessory để thêm Accessory vào cơ sở dữ liệu
-        dao.updateAccessory(newAccessory);
+      
     }
 
 }

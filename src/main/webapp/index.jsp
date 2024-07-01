@@ -702,8 +702,6 @@ defer>
                     window.location.href = 'event';
                 } else {
                     window.location.href = 'login.jsp';
-<<<<<<< HEAD
-=======
                 }
             }
 
@@ -793,7 +791,6 @@ defer>
                             }
                         });
                     }
->>>>>>> 4e7aa1bab0d2ae7cc4574dea99cd0390886d84cc
                 }
             }
 

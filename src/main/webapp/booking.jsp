@@ -10,6 +10,7 @@
 <html lang="en">
 
     <head>
+      
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="colorlib.com">
@@ -155,7 +156,7 @@
             body {
                 font-size: 14px;
                 line-height: 1.6;
-                color: #222;
+                color: #001973;
                 font-weight: 400;
                 font-family: 'Roboto Slab';
                 margin: 0px;
@@ -170,7 +171,7 @@
                 z-index: 99;
             }
 
-            .container {
+            .container-booking {
                 width: 1400px;
                 margin: 0 auto;
                 background: #fff;
@@ -673,7 +674,7 @@
             }
 
             @media screen and (max-width: 1024px) {
-                .container {
+                .containerbooking {
                     width: calc(100% - 40px);
                     max-width: 100%;
                 }
@@ -996,7 +997,7 @@
             }
 
             .rent-button {
-                background-color: #28a745;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 color: black;
                 border: none;
                 padding: 15px 10px;
@@ -1085,17 +1086,25 @@
             label.error{
                 display: none !important;
             }
+            .note-star{
+                color: red;
+            }
         </style>
+        
     </head>
 
     <body>
+<!--        <div id="navbar-container"></div>-->
+
         <div class="overlay" id="overlay">
             <span>Đang xử lý...</span>
         </div>
         <div class="main">
-            <div class="container">
+            <iframe src="pricing.jsp" style="width: 100%; height: 100px"></iframe>
+            <div class="container-booking">
               
                 <form method="POST" id="signup-form" class="signup-form" action="">
+                    
                     <div >
                         <button type="submit" id="paymentButton" style="display: none"></button>
                         <h3>Ngày giờ</h3>
@@ -1105,41 +1114,39 @@
                             <div class="form-row">
                                 <div class="form-flex">
                                     <div class="form-group">
-                                        <label for="pickupdate" class="form-label">Ngày nhận xe</label>
-                                        <input type="date" name="pickupdate" id="pickupdate" value="${pickupdate}"/>
+                                        <label for="pickupdate" class="form-label">Ngày nhận xe <span class="note-star"> *</span></label>
+                                        <input type="date" name="pickupdate" id="pickupdate" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="pickuptime" class="form-label">Giờ nhận xe</label>
-                                        <input type="time" name="pickuptime" id="pickuptime" value="${pickuptime}" />
+                                        <label for="pickuptime" class="form-label">Giờ nhận xe <span class="note-star"> *</span></label>
+                                        <input type="time" name="pickuptime" id="pickuptime"  />
                                     </div>
                                     <div class="form-group">
-                                        <label for="returndate" class="form-label">Ngày trả xe</label>
-                                        <input type="date" name="returndate" id="returndate" value="${returndate}" />
+                                        <label for="returndate" class="form-label">Ngày trả xe <span class="note-star"> *</span></label>
+                                        <input type="date" name="returndate" id="returndate"  />
                                     </div>
                                     <div class="form-group">
-                                        <label for="returntime" class="form-label">Giờ trả xe</label>
-                                        <input type="time" name="returntime" id="returntime" value="${returntime}"/>
+                                        <label for="returntime" class="form-label">Giờ trả xe <span class="note-star"> *</span></label>
+                                        <input type="time" name="returntime" id="returntime" />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row location">
                                 <div class="form-flex">
                                     <div class="form-group">
-                                        <label for="pickuplocation" class="form-label">Địa điểm nhận xe</label>
+                                        <label for="pickuplocation" class="form-label">Địa điểm nhận xe <span class="note-star"> *</span></label>
                                         <select name="pickuplocation" id="pickuplocation" class="form-label">
-                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${pickuploc == "1" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
-                                            </option>
-                                            <option value="Da Nang International Airport" ${pickuploc == "2" ? 'selected' : ''}>Da Nang International Airport</option>
-                                            <option value="Your own address" ${pickuploc == "3" ? 'selected' : ''}>Your own address</option>
+                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" >Ga Đà Nẵng-202 Đường Hải Phòng</option>             
+                                            <option value="Da Nang International Airport">Sân bay quốc tế Đà Nẵng </option>
+                                            <option value="Your own address" >Địa chỉ của bạn</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="returnlocation" class="form-label">Địa điểm trả xe</label>
+                                        <label for="returnlocation" class="form-label">Địa điểm trả xe <span class="note-star"> *</span></label>
                                         <select name="returnlocation" id="returnlocation" class="form-label">
-                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${returnloc == "1" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
-                                            </option>
-                                            <option value="Da Nang International Airport" ${returnloc == "2" ? 'selected' : ''}>Da Nang International Airport</option>
-                                            <option value="Your own address" ${returnloc == "3" ? 'selected' : ''}>Your own address</option>
+                                          <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" >Ga Đà Nẵng-202 Đường Hải Phòng</option>             
+                                            <option value="Da Nang International Airport">Sân bay quốc tế Đà Nẵng </option>
+                                            <option value="Your own address" >Địa chỉ của bạn</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1349,12 +1356,12 @@
                                     <div class="form-row">
                                         <div class="form-flex">
                                             <div class="form-group">
-                                                <label class="form-label">Họ</label>
+                                                <label class="form-label">Họ <span class="note-star"> *</span></label>
                                                 <input type="text" name="first_name" id="first_name" value="${account.firstName}" oninput="validateForm()" />
                                               
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label">Tên</label>
+                                                <label class="form-label">Tên <span class="note-star"> *</span></label>
                                                 <input type="text" name="last_name" id="last_name" value="${account.lastName}" oninput="validateForm()" />
                                                 
                                             </div>
@@ -1363,12 +1370,12 @@
                                     <div class="form-row">
                                         <div class="form-flex">
                                             <div class="form-group">
-                                                <label for="email" class="form-label">Email</label>
+                                                <label for="email" class="form-label">Email <span class="note-star"> *</span></label>
                                                 <input type="email" name="email" id="email" value="${account.email}" oninput="validateForm()" />
 <!--                                                <span class="text-input">Example :<span> Jeff@gmail.com</span></span>-->
                                             </div>
                                             <div class="form-group">
-                                                <label for="phonenumber" class="form-label">Số điện thoại</label>
+                                                <label for="phonenumber" class="form-label">Số điện thoại <span class="note-star"> *</span></label>
                                                 <input type="text" name="phonenumber" id="phonenumber" value="${account.phoneNumber}" oninput="validateForm()"/>
 <!--                                                <span class="text-input">+84</span>-->
                                             </div>
@@ -1377,17 +1384,17 @@
                                     <div class="form-row">
                                         <div class="form-flex">
                                             <div class="form-group">
-                                                <label for="address" class="form-label">Địa chỉ</label>
+                                                <label for="address" class="form-label">Địa chỉ <span class="note-star"> *</span></label>
                                                 <input type="text" name="address" id="address" value="${account.address}" oninput="validateForm()" />
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-flex">
                                                     <div class="form-group">
-                                                         <label for="birth_date" class="form-label">Ngày sinh</label>
+                                                         <label for="birth_date" class="form-label">Ngày sinh <span class="note-star"> *</span></label>
                                                          <input type="date" name="dob" id="dob" value="${account.dob}" oninput="validateForm()" />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="gender" class="form-label">Giới tính</label>
+                                                        <label for="gender" class="form-label">Giới tính <span class="note-star"> *</span></label>
                                                         <div class="form-radio-group">   
                                                             <label><input type="radio" name="gender" value="Không muốn tiết lộ" ${account.gender == 'Không muốn tiết lộ' ? 'checked' : ''} onclick="validateForm()">Bí mật</label>
                                                             <label><input type="radio" name="gender" value="Nam" ${account.gender == 'Nam' ? 'checked' : ''} onclick="validateForm()">Nam</label>
@@ -1408,16 +1415,16 @@
                                                 <div class="form-row">
                                                     <div class="form-flex">
                                                         <div class="form-group" style="width: 40%;">
-                                                            <label for="drivernumber" class="form-label">CCCD/CMND</label>
+                                                            <label for="drivernumber" class="form-label">CCCD/CMND <span class="note-star"> *</span></label>
                                                             <input type="text" name="drivernumber" id="identityCard" value="${c.identityCard}" onblur="validateForm()"/>
                                                         </div>
                                                         <div style="width: 30%; display: flex; padding-right: 40px">
                                                             <div class="form-group" style="width: 50%">
-                                                                <label for="issuedon" class="form-label">Ngày cấp</label>
+                                                                <label for="issuedon" class="form-label">Ngày cấp <span class="note-star"> *</span></label>
                                                                 <input type="date" name="issuedon" id="issuedon" value="${c.issuedOnDate}" oninput="validateForm()"/>
                                                             </div>
                                                             <div class="form-group" style="width: 50%">
-                                                                <label for="expdate" class="form-label">Ngày hết hạn</label>
+                                                                <label for="expdate" class="form-label">Ngày hết hạn <span class="note-star"> *</span></label>
                                                                 <input type="date" name="expdate" id="expdate" value="${c.expDate}" oninput="validateForm()"/>
                                                             </div>
                                                         </div>
@@ -1444,16 +1451,16 @@
                                             <div class="form-row">
                                                 <div class="form-flex">
                                                     <div class="form-group" style="width: 40%;">
-                                                        <label for="drivernumber" class="form-label">CCCD/CMND</label>
+                                                        <label for="drivernumber" class="form-label">CCCD/CMND <span class="note-star"> *</span></label>
                                                         <input type="text" name="drivernumber" id="identityCard" oninput = "validateForm()"/>
                                                     </div>
                                                     <div style="width: 30%; display: flex; padding-right: 40px">
                                                         <div class="form-group" style="width: 50%">
-                                                            <label for="issuedon" class="form-label">Ngày cấp</label>
+                                                            <label for="issuedon" class="form-label">Ngày cấp <span class="note-star"> *</span></label>
                                                             <input type="date" name="issuedon" id="issuedon" oninput="validateForm()"/>
                                                         </div>
                                                         <div class="form-group" style="width: 50%">
-                                                            <label for="expdate" class="form-label">Ngày hết hạn</label>
+                                                            <label for="expdate" class="form-label">Ngày hết hạn <span class="note-star"> *</span></label>
                                                             <input type="date" name="expdate" id="expdate" oninput="validateForm()"/>
                                                         </div>
                                                     </div>
@@ -1611,6 +1618,39 @@
         <script src="vendor/nouislider/nouislider.min.js"></script>
         <script src="vendor/wnumb/wNumb.js"></script>
         <script>
+            fetch('includes/navbar2.jsp')  // Sử dụng đường dẫn tương đối
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(html => {
+                const container = document.getElementById('navbar-container');
+                const shadowRoot = container.attachShadow({ mode: 'open' });
+
+                // Thêm liên kết tới thư viện Bootstrap Icons
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css';
+                shadowRoot.appendChild(link);
+
+                const template = document.createElement('template');
+                template.innerHTML = html;
+
+                // Copy các thẻ link và script từ template vào shadow DOM
+                const linksAndScripts = template.content.querySelectorAll('link, script');
+                linksAndScripts.forEach(element => {
+                    shadowRoot.appendChild(element.cloneNode(true));
+                });
+
+                // Copy nội dung chính vào shadow DOM
+                shadowRoot.appendChild(template.content.cloneNode(true));
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+            
             let totalI = 0;
             const numberAccessStatesI = {};
             (function ($) {
@@ -2624,7 +2664,7 @@
                     console.error("Error sending data:", error);
                 }
             });
-            window.location.href = 'index.jsp';
+            window.location.href = 'home';
         }
 
         // Nếu dữ liệu đã có sẵn trong LocalStorage khi trang được tải lại

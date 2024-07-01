@@ -20,7 +20,7 @@
         <jsp:include page="/includes/navbar2.jsp" /> 
         <div class="noidung">
             <section
-                class="feature-grid2-5331c43e-593a-4933-bcf2-96beb7ea5e25 sw-background-color-f4f2f1 sw-padding-top-l sw-padding-bottom-2xl sw-border-top-style-none sw-border-top-width-xs sw-border-top-color-000000 sw-border-bottom-style-none sw-border-bottom-width-xs sw-border-bottom-color-000000 sw-background-repeat-no-repeat sw-background-size-cover sw-background-position-center sw-background-attachment-scroll MuiBox-root css-0"
+                class="feature-grid2-5331c43e-593a-4933-bcf2-96beb7ea5e25 sw-background-color-f4f2f1 sw-padding-top-l sw-padding-bottom-2xl sw-border-top-style-none sw-border-top-width-xs sw-border-top-color-000000 sw-border-bottom-style-none sw-border-bottom-width-xs sw-border-bottom-color-000000 sw-background-repeat-no-repeat sw-background-size-cover sw-background-position-center sw-background-attachment-scroll MuiBox-root css-0 mb-3"
                 data-block-version="3.1.0"
                 data-block-id="5331c43e-593a-4933-bcf2-96beb7ea5e25"
                 data-block-updated
@@ -37,7 +37,7 @@
                             <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-md-4 css-1ay72je event">
                                 <div class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column css-1o5yux1 image-container">
                                     <img style="width: 90%;" class="sw-width-xs sw-height-xs sw-margin-bottom-2xs MuiBox-root css-0" src="images/${touristLocations.locationImage}" alt="Shedule">
-                                    <h3 class="colorWord sw-font-size-xl sw-text-color-default sw-font-family-arvo sw-font-weight-medium sw-letter-spacing-normal sw-margin-top-6xs sw-margin-bottom-6xs">
+                                    <h3 class="colorWord sw-font-size-xl sw-text-color-default sw-font-family-arvo sw-font-weight-medium sw-letter-spacing-normal sw-margin-top-6xs sw-margin-bottom-6xs mt-3">
                                         ${touristLocations.locationName}
                                     </h3>
                                     <p class="sw-font-size-m sw-text-color-default sw-font-family-default sw-font-weight-default sw-line-height-normal sw-letter-spacing-normal">

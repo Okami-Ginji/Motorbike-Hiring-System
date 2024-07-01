@@ -390,6 +390,21 @@
         <!-- Preloader -->
         <div id="preloader"></div>
 
+
+        <script>
+            window.embeddedChatbotConfig = {
+                chatbotId: "qUNf-UR7ycIWmYS6ZiWCL",
+                domain: "www.chatbase.co"
+            }
+        </script>
+        <script
+            src="https://www.chatbase.co/embed.min.js"
+            chatbotId="qUNf-UR7ycIWmYS6ZiWCL"
+            domain="www.chatbase.co"
+            defer>
+        </script>
+
+
         <!-- Vendor JS Files -->
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="assets/vendor/php-email-form/validate.js"></script>

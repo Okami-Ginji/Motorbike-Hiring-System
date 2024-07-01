@@ -108,8 +108,6 @@
             .eye {
                 width: 100%;
                 /*                max-width: 80%;*/
-
-          
             }
 
             .inputRow.input-error .tooltip {
@@ -127,7 +125,29 @@
                 cursor: pointer;
             }
 
+            .error-message {
+                color: red;
+                font-size: 0.9rem;
+                display: none;
+                margin-left: 5%;
+            }
+            .password-strength {
+                font-size: 0.9rem;
+                display: none;
+                margin-left: 5%;
+            }
 
+            .weak {
+                color: red;
+            }
+
+            .medium {
+                color: orange;
+            }
+
+            .strong {
+                color: green;
+            }
         </style>
     </head>
 
@@ -141,7 +161,7 @@
 
                 <!-- Registration Form -->
                 <div class="col-md-7 col-lg-6 ml-auto" data-aos="fade-left">
-                    <form action="register" method="post">
+                    <form action="register" method="post" onsubmit="return validatePhoneNumber()">
                         <div class="row">
                             <!-- First Name -->
                             <div class="col-lg-6 mb-4 info" data-aos="fade-up">
@@ -173,20 +193,25 @@
                             <!-- Phone Number -->
                             <div class="input-group col-lg-12 mb-4 info" data-aos="fade-up" data-aos-delay="300">
                                 <input id="phoneNumber" type="tel" name="phone" placeholder="Nhập vào số điện thoại" required>
+                                <span class="error-message" id="phone-error">*Số điện thoại phải có 10 chữ số.</span>
                             </div>
 
                             <!-- Password -->
                             <div class="col-lg-6 mb-4 info inputRow" data-aos="fade-up" data-aos-delay="500">
                                 <input type="password" class="eye" name="password" id="password" value="" placeholder="Mật khẩu" maxlength="30" required />
                                 <span id="password-eye-1"><i class="ri-eye-off-line"></i></span>
+
                             </div>
+
 
                             <!-- Password Confirmation -->
                             <div class="col-lg-6 mb-4 info inputRow" data-aos="fade-up" data-aos-delay="600">
                                 <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation" value="" placeholder="Xác nhận mật khẩu" maxlength="30" required />
                                 <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
                             </div>
-
+                            
+                            <span class="password-strength" id="password-strength">*</span>
+                            
                             <!-- Submit Button -->
                             <div class="form-group col-lg-12 mx-auto mb-0" data-aos="zoom-in" data-aos-delay="700">
                                 <button type="submit" name="register-submit" id="register-submit" class="btn btn-block py-2 register font-weight-bold" data-aos="zoom-in" data-aos-delay="700">Tạo tài khoản</button>
@@ -213,14 +238,48 @@
         <script src="js/register.js"></script>
         <script src="js/aos.js"></script>
         <script>
-            AOS.init({
-                duration: 400, // Duration of animation in milliseconds
-                once: true // Whether animation should happen only once
-            });
+                        AOS.init({
+                            duration: 400, // Duration of animation in milliseconds
+                            once: true // Whether animation should happen only once
+                        });
         </script>
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {
+                const phoneInput = document.getElementById("phoneNumber");
+                const phoneError = document.getElementById("phone-error");
+                const passwordInput = document.getElementById("password");
+                const passwordError = document.getElementById("password-error");
+                const passwordStrength = document.getElementById("password-strength");
+
+                phoneInput.addEventListener("input", () => {
+                    if (phoneInput.value.length === 10 || phoneInput.value.length === 0) {
+                        phoneError.style.display = "none";
+                    } else {
+                        phoneError.style.display = "block";
+                    }
+                });
+
+
+                passwordInput.addEventListener("input", () => {
+                    const password = passwordInput.value;
+                    
+
+                    if (password.length > 10) {
+                        passwordStrength.textContent = "Mật khẩu mạnh";
+                        passwordStrength.className = "password-strength strong";
+                    } else if (password.length >= 8) {
+                        passwordStrength.textContent = "Mật khẩu vừa";
+                        passwordStrength.className = "password-strength medium";
+                    } else if (password.length > 0) {
+                        passwordStrength.textContent = "Mật khẩu yếu";
+                        passwordStrength.className = "password-strength weak";
+                    } else {
+                        passwordStrength.textContent = "";
+                    }
+                    passwordStrength.style.display = password.length > 0 ? "block" : "none";
+                });
+
                 const togglePasswordVisibility = (inputId, iconId) => {
                     const passwordInput = document.getElementById(inputId);
                     const icon = document.getElementById(iconId).querySelector("i");
@@ -235,6 +294,7 @@
                 passwordBtn1.addEventListener("click", () => togglePasswordVisibility("password", "password-eye-1"));
                 passwordBtn2.addEventListener("click", () => togglePasswordVisibility("passwordConfirmation", "password-eye-2"));
             });
+
         </script>
     </body>
 

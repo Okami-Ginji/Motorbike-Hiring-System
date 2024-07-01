@@ -81,9 +81,9 @@
             .card.box1 {
                 width: 350px;
                 height: 445px;
-                background-color: #3ecc6d;
-                color: #baf0c3;
-                border-radius: 0
+                background-color: #effaf4;
+                color: #001973;
+                border-radius: 0;
             }
 
             .card.box2 {
@@ -289,7 +289,7 @@
                 </div>
                 <div class="d-flex flex-column" >
                     <div class="d-flex align-items-center justify-content-between text">
-                        <span class="">Tiền cọc:</span>
+                        <span class="">% cọc:</span>
                         <span class="ps-1 font-a">50%</span></span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between text mb-4" style="border-top: solid; margin-top: 5px; padding-top: 5px;">
@@ -324,10 +324,7 @@
 
 
                         <!--                       <h5>Cách 2: Tách phương thức tại site của đơn vị kết nối</h5>-->
-                        <div class="form-radio">
-                            <input type="radio" id="bankCode" name="bankCode" value="VNPAYQR">
-                            <label for="bankCode">Thanh toán bằng mã VNPAYQR</label><br>
-                        </div>
+                      
                         <div class="form-radio">
                             <input type="radio" id="bankCode" name="bankCode" value="VNBANK">
                             <label for="bankCode">Thanh toán qua thẻ ATM/Tài khoản nội địa</label><br>

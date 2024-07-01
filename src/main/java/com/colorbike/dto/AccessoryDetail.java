@@ -18,5 +18,5 @@ public class AccessoryDetail implements Serializable{
     private String bookingID;
     private int accessoryID;
     private int quantity;
-    private double totalPrice; 
+    private double totalPrice;     
 }

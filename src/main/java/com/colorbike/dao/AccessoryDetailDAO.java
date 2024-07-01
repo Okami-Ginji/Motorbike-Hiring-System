@@ -5,7 +5,6 @@
 package com.colorbike.dao;
 
 import com.colorbike.dto.AccessoryDetail;
-import com.colorbike.dto.MotorcycleStatus;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -15,12 +14,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author huypd
  */
 public class AccessoryDetailDAO implements Serializable, DAO<AccessoryDetail> {
+
     private static AccessoryDetailDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
@@ -36,29 +38,29 @@ public class AccessoryDetailDAO implements Serializable, DAO<AccessoryDetail> {
         }
         return instance;
     }
-    
-    public LinkedHashMap<Integer, Integer> getListByBookingId(String id){
+
+    public LinkedHashMap<Integer, Integer> getListByBookingId(String id) {
         LinkedHashMap<Integer, Integer> list = new LinkedHashMap<>();
         ResultSet rs;
         String sql = "Select AccessoryID,Quantity from [AccessoryDetail] where BookingID like ?;";
         try {
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ps.setString(1, id);
-             rs = ps.executeQuery();
-             if (rs.next()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
                 int accessoryID = rs.getInt("AccessoryID");
                 int quantity = rs.getInt("Quantity");
-                list.put(accessoryID,quantity);
-             }
-         } catch (SQLException e) {
-             System.out.println(e);
-         }
+                list.put(accessoryID, quantity);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
         return list;
     }
-        
-    public void insertMotorcycleStatus(int motorcycleStatusId, String staffid, String status,String updatedate, String note) {
-        String sql = "INSERT INTO [dbo].[Motorcycle Status] ([MotorcycleDetailID], [StaffID], [Status], [UpdateDate], [Note])\n" +
-                    "VALUES (?, ?, ?, ?, ?);";
+
+    public void insertMotorcycleStatus(int motorcycleStatusId, String staffid, String status, String updatedate, String note) {
+        String sql = "INSERT INTO [dbo].[Motorcycle Status] ([MotorcycleDetailID], [StaffID], [Status], [UpdateDate], [Note])\n"
+                + "VALUES (?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, motorcycleStatusId);
@@ -73,9 +75,27 @@ public class AccessoryDetailDAO implements Serializable, DAO<AccessoryDetail> {
         }
     }
     
+    public List<AccessoryDetail> getAccessoryDetail(String accessoryID) {
+        List<AccessoryDetail> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "select * from AccessoryDetail where AccessoryID=?";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, accessoryID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new AccessoryDetail(rs.getString("bookingID"), rs.getInt("accessoryID"), rs.getInt("quantity"), rs.getDouble("totalPrice")));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         AccessoryDetailDAO dao = getInstance();
-        LinkedHashMap<Integer, Integer>  list = dao.getListByBookingId("BOOK000002");
+        LinkedHashMap<Integer, Integer> list = dao.getListByBookingId("BOOK000002");
         System.out.println(list.get(1));
     }
 
@@ -86,9 +106,9 @@ public class AccessoryDetailDAO implements Serializable, DAO<AccessoryDetail> {
 
     @Override
     public void insert(AccessoryDetail t) {
-        String sql = "INSERT INTO [AccessoryDetail] ([BookingID], AccessoryID, Quantity, [TotalPrice]) \n" +
-                        "VALUES \n" +
-                        "(?, ?, ?, ?);";
+        String sql = "INSERT INTO [AccessoryDetail] ([BookingID], AccessoryID, Quantity, [TotalPrice]) \n"
+                + "VALUES \n"
+                + "(?, ?, ?, ?);";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, t.getBookingID());
@@ -111,7 +131,4 @@ public class AccessoryDetailDAO implements Serializable, DAO<AccessoryDetail> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-  
-
-   
 }

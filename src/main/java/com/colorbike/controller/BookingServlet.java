@@ -47,14 +47,12 @@ public class BookingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-     
-       
+               
         MotorcycleDAO daoM = MotorcycleDAO.getInstance();
         
         //Tu mototcycle vao
         String motorcycleid = request.getParameter("motorcycleid");
-        Motorcycle motorcycle =daoM.getMotorcycleByid(motorcycleid);
+        Motorcycle motorcycle = daoM.getMotorcycleByid(motorcycleid);
         request.setAttribute("chosenmotor", motorcycleid);
         
         

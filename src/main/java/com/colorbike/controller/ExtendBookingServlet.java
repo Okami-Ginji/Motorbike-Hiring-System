@@ -49,9 +49,9 @@ public class ExtendBookingServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-//        String bookingid = request.getParameter("bookingid");
+        String bookingid = request.getParameter("bookingid");
         BookingDAO daoB = BookingDAO.getInstance();
-        Booking booking = daoB.getBookingById("BOOK000001");
+        Booking booking = daoB.getBookingById(bookingid);
         request.setAttribute("booking", booking);
         
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");

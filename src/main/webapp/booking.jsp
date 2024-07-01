@@ -4,6 +4,7 @@
     Author     : DiepTCNN
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -1100,7 +1101,7 @@
             <span>Đang xử lý...</span>
         </div>
         <div class="main">
-            <iframe src="pricing.jsp" style="width: 100%; height: 100px"></iframe>
+          
             <div class="container-booking">
               
                 <form method="POST" id="signup-form" class="signup-form" action="">
@@ -1336,7 +1337,7 @@
                                                     <label for="daily-checkbox" class="items-free">Free</label>
                                                 </c:if>
                                                 <c:if test="${a.price ne 0}">
-                                                    <label for="daily-checkbox">₫${a.price}.000</label>
+                                                    <label for="daily-checkbox">₫${a.price}00</label>
                                                 </c:if>
                                             </div>
                                         </div>

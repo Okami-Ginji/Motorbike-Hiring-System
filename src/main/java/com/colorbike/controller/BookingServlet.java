@@ -47,38 +47,44 @@ public class BookingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-               
-        MotorcycleDAO daoM = MotorcycleDAO.getInstance();
-        
-        //Tu mototcycle vao
-        String motorcycleid = request.getParameter("motorcycleid");
-        Motorcycle motorcycle = daoM.getMotorcycleByid(motorcycleid);
-        request.setAttribute("chosenmotor", motorcycleid);
-        
-        
-        List<Motorcycle> listM = daoM.getAll();
-        LinkedHashMap<String, String> map = daoM.getAllAvailableMotorCycle();
-        request.setAttribute("listM", listM);
-        request.setAttribute("listMA", map);
-        
-        PriceListDAO daoP = PriceListDAO.getInstance();
-        List<PriceList> listP = daoP.getAllPriceList();
-        request.setAttribute("listP", listP);
-                
-        AccessoryDAO daoA = AccessoryDAO.getInstance();
-        List<Accessory> listA = daoA.getAll();
-        request.setAttribute("listA", listA);
-        
-        CustomerDAO daoC = CustomerDAO.getInstance();
-        List<Customer> listC = daoC.getAll();
-        request.setAttribute("listC", listC);
-        
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-//        session.setAttribute("account", AccountDAO.getInstance().checkLogin("thinhtvde170182@fpt.edu.vn", "Lb4_aa"));
-        session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
-//        session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
-        request.getRequestDispatcher("booking.jsp").forward(request, response);
+        if(account != null){           
+    //        session.setAttribute("account", AccountDAO.getInstance().checkLogin("thinhtvde170182@fpt.edu.vn", "Lb4_aa"));
+//            session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
+            session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
+            MotorcycleDAO daoM = MotorcycleDAO.getInstance();
+        
+            //Tu mototcycle vao
+            String motorcycleid = request.getParameter("motorcycleid");
+            Motorcycle motorcycle = daoM.getMotorcycleByid(motorcycleid);
+            request.setAttribute("chosenmotor", motorcycleid);
+
+
+            List<Motorcycle> listM = daoM.getAll();
+            LinkedHashMap<String, String> map = daoM.getAllAvailableMotorCycle();
+            request.setAttribute("listM", listM);
+            request.setAttribute("listMA", map);
+
+            PriceListDAO daoP = PriceListDAO.getInstance();
+            List<PriceList> listP = daoP.getAllPriceList();
+            request.setAttribute("listP", listP);
+
+            AccessoryDAO daoA = AccessoryDAO.getInstance();
+            List<Accessory> listA = daoA.getAll();
+            request.setAttribute("listA", listA);
+
+            CustomerDAO daoC = CustomerDAO.getInstance();
+            List<Customer> listC = daoC.getAll();
+            request.setAttribute("listC", listC);
+
+            request.getRequestDispatcher("booking.jsp").forward(request, response);  
+        } else {
+            response.sendRedirect("login.jsp");
+        }
+           
+       
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

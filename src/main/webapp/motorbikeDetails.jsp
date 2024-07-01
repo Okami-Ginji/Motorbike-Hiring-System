@@ -154,7 +154,7 @@
                 </div>
 
                 <h3 class="mt-5 text-center">Một số phụ kiện đi kèm</h3>
-                <div class="row">
+                <div style="justify-content: center" class="row">
                     <c:forEach items="${listAccess}" var="listAccess">
                         <div style="margin-right: 67px" class="col-md-1 d-flex align-self-stretch ftco-animate">
                             <div class="media block-6 services">
@@ -165,7 +165,7 @@
                                             <img src="images/${listAccess.accessoryImageicon}" alt="${listAccess.accessoryName}" style="width: 60px; height: 60px;">
                                         </div>
                                         <div class="text">
-                                            <h3 style="margin-top: -17px" class="heading mb-0 pl-3 text-left">
+                                            <h3 style="margin-top: -17px;;" class="heading mb-0 pl-3 text-left">
                                                 ${listAccess.accessoryName}
                                             </h3>
                                         </div>
@@ -182,7 +182,7 @@
                         <div class="row" id="accessoryForm">
                             <div class="pl-4 col-md-6">
                                 <div class="mt-4 title">
-                                    <h1 class="fw-bold" id="accessoryName"></h1>
+                                    <h1  style= "font-family: 'Roboto Slab'" class="fw-bold" id="accessoryName"></h1>
                                 </div>
                                 <div class="description">
                                     <p id="accessoryDescription"></p>

@@ -161,9 +161,6 @@
                 background-color: #f5c6cb;
             }
 
-            .filter-search {
-                margin-top: 3px;
-            }
 
             .filter-search input {
                 border: 1px solid rgb(2, 184, 175);
@@ -470,8 +467,8 @@
 
                         <div class="filter-search filter-group">
                             <form action="searchMotorcycle" method="post" class="d-flex" style="width: 110%; padding-right: 10%;">
-                                <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
-                                <button class="btn xemketqua" style="color: white; font-weight: bold; border: 1px solid #00ff6f;" type="submit">Search</button>
+                                <input style="padding: 10px 20px;" value="${key}" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
+                                <button class="btn xemketqua" style="color: white; font-weight: bold; border: 1px solid #00ff6f; width: 52%" type="submit">Tìm kiếm</button>
                             </form>
                         </div>
 

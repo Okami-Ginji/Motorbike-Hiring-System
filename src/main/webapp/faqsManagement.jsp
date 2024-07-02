@@ -252,7 +252,8 @@
     <body>
         <div class="row">
             <div class="col-md-2">
-                <jsp:include page="/includes/sidebar.jsp" /> 
+                <!--       sidebar-->
+                <jsp:include page="/includes/sidebar2.jsp" />
             </div>
 
             <div class="col-md-10">

@@ -234,7 +234,7 @@
             <div class="row fullform">
                 <div class="containerContent col-md-6">
                     <h3 class="colorbike">COLORBIKE</h3>
-                    <h1 class="begin">Chào Mừng Bạn Trở Lại</h1>
+                    <h1 class="begin">Welcome Back</h1>
                     <h4 class="h4 animate__animated animate__fadeInUp" style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
                             <i class="bi bi-exclamation-circle"></i> ${error}
                         </h4>
@@ -254,10 +254,10 @@
                             <div>
                                 <input type="checkbox" id="remember-me"
                                        id="rememberMe" name="rem" value="ON" />
-                                <label for="remember-me">Nhớ Mật Khẩu</label>
+                                <label for="remember-me">Remember</label>
                             </div>
                             <div class="inputFP">
-                                <a href="forgotPassword.jsp">Quên Mật Khẩu?</a>
+                                <a href="forgotPassword.jsp">Forgot password?</a>
                             </div>
                         </div>
 
@@ -265,10 +265,10 @@
                             style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
                             <i class="bi bi-exclamation-circle"></i>
                         </h4>
-                        <button class="gradient-background animate__animated animate__pulse" type="submit">Đăng Nhập</button>
+                        <button class="gradient-background animate__animated animate__pulse" type="submit">Login</button>
 
                     </form>
-                    <h6>Hoặc Đăng Nhập Với</h6>
+                    <h6>Or Login With</h6>
                     <div class="logins">
                         <a
                             href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/MotorcyleHiringProject/login-google&response_type=code&client_id=158327451054-1sdvun9trsl75ng2i96pfmr9lsgrjnjb.apps.googleusercontent.com&approval_prompt=force"><img
@@ -277,9 +277,8 @@
                         <a href="#"><img src="images/facebook.png"
                                          alt="facebook" /></a>
                     </div>
-                    <p>Nếu bạn không có tài khoản <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:small;">Tạo tài
-                            khoản</a></p>
-                    <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background-color: #99D3FF; padding: 3px; border-radius: 5px; ">Về Trang Chủ</a></p>
+                    <p>If you don't have an account <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:small;">Register</a></p>
+                    <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background-color: #99D3FF; padding: 3px; border-radius: 5px; ">Home Page</a></p>
                 </div>
                 <div class="containerImg col-md-6 animate__animated animate__zoomIn">
                     <img src="assets/img/login.png" alt="header" />

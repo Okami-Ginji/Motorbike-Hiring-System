@@ -82,7 +82,7 @@
 
             .logoImg img {
                 width: 127%;
-                border-radius: 100px;
+                /*border-radius: 100px;*/
             }
 
             .img-fluid {
@@ -156,7 +156,7 @@
             <div class="row py-5 align-items-center formRegister">
                 <!-- For Demo Purpose -->
                 <div class="col-md-5 pr-lg-5 mb-md-0 logoImg" data-aos="zoom-in">
-                    <img src="images/register2.png" style="" alt="" class="img-fluid mb-3 d-none d-md-block">
+                    <img src="images/register3.png" style="" alt="" class="img-fluid mb-3 d-none d-md-block">
                 </div>
 
                 <!-- Registration Form -->
@@ -165,16 +165,16 @@
                         <div class="row">
                             <!-- First Name -->
                             <div class="col-lg-6 mb-4 info" data-aos="fade-up">
-                                <input id="firstName" type="text" name="firstname" placeholder="Nhập vào Tên" required>
+                                <input id="firstName" type="text" name="firstname" placeholder="Firstname" required>
                             </div>
 
                             <!-- Last Name -->
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="100">
-                                <input id="lastName" type="text" name="lastname" placeholder="Nhập vào Họ" required>
+                                <input id="lastName" type="text" name="lastname" placeholder="LastName" required>
                             </div>
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="100">
                                 <select id="gender" name="gender" class="inputRow">
-                                    <option disabled selected>Giới tính</option>
+                                    <option disabled selected>Gender</option>
                                     <option value="Nam">Nam</option>
                                     <option value="Nữ">Nữ</option>
                                     <option value="unknown">Không xác định</option>
@@ -182,23 +182,23 @@
                             </div>
                             <!-- Username -->
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="400">
-                                <input id="Username" type="text" name="username" placeholder="Nhập vào Username" required>
+                                <input id="Username" type="text" name="username" placeholder="Username" required>
                             </div>
 
                             <!-- Email Address -->
                             <div class="input-group col-lg-12 mb-4 info" data-aos="fade-up" data-aos-delay="200">
-                                <input id="email" type="email" name="email" placeholder="Nhập vào Email" required>
+                                <input id="email" type="email" name="email" placeholder="Email" required>
                             </div>
 
                             <!-- Phone Number -->
                             <div class="input-group col-lg-12 mb-4 info" data-aos="fade-up" data-aos-delay="300">
-                                <input id="phoneNumber" type="tel" name="phone" placeholder="Nhập vào số điện thoại" required>
+                                <input id="phoneNumber" type="tel" name="phone" placeholder="PhoneNumber" required>
                                 <span class="error-message" id="phone-error">*Số điện thoại phải có 10 chữ số.</span>
                             </div>
 
                             <!-- Password -->
                             <div class="col-lg-6 mb-4 info inputRow" data-aos="fade-up" data-aos-delay="500">
-                                <input type="password" class="eye" name="password" id="password" value="" placeholder="Mật khẩu" maxlength="30" required />
+                                <input type="password" class="eye" name="password" id="password" value="" placeholder="Password" maxlength="30" required />
                                 <span id="password-eye-1"><i class="ri-eye-off-line"></i></span>
 
                             </div>
@@ -206,7 +206,7 @@
 
                             <!-- Password Confirmation -->
                             <div class="col-lg-6 mb-4 info inputRow" data-aos="fade-up" data-aos-delay="600">
-                                <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation" value="" placeholder="Xác nhận mật khẩu" maxlength="30" required />
+                                <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation" value="" placeholder="Re-Password" maxlength="30" required />
                                 <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
                             </div>
                             
@@ -214,7 +214,7 @@
                             
                             <!-- Submit Button -->
                             <div class="form-group col-lg-12 mx-auto mb-0" data-aos="zoom-in" data-aos-delay="700">
-                                <button type="submit" name="register-submit" id="register-submit" class="btn btn-block py-2 register font-weight-bold" data-aos="zoom-in" data-aos-delay="700">Tạo tài khoản</button>
+                                <button type="submit" name="register-submit" id="register-submit" class="btn btn-block py-2 register font-weight-bold" data-aos="zoom-in" data-aos-delay="700">Register</button>
                             </div>
 
 
@@ -227,7 +227,7 @@
 
                             <!-- Already Registered -->
                             <div class="text-center w-100" data-aos="fade-up" data-aos-delay="1000">
-                                <p class="text-muted font-weight-bold">Đã có tài khoản? <a href="login2.jsp" class="ml-2" style="color: #0A8EBF;">Đăng nhập</a></p>
+                                <p class="text-muted font-weight-bold">Already have an account? <a href="login2.jsp" class="ml-2" style="color: #0A8EBF;">Login</a></p>
                             </div>
                         </div>
                     </form>

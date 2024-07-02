@@ -367,7 +367,7 @@
                 document.getElementById('extension-info').style.display = 'none';
             }
             function closeDetail() {
-                window.location.href = 'bookingHistory.jsp';
+                window.location.href = 'bookingHistory?status=all';
             }
 
             function openCancellation() {

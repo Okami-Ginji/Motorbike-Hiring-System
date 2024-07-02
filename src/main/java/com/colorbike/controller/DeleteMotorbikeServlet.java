@@ -37,7 +37,7 @@ public class DeleteMotorbikeServlet extends HttpServlet {
             String id = request.getParameter("id");
             MotorcycleDAO md = MotorcycleDAO.getInstance();
 
-            md.deleteMotorbikeById(id);
+//            md.deleteMotorbikeById(id);
             response.sendRedirect("motorManage");
             
         } catch (Exception e) {

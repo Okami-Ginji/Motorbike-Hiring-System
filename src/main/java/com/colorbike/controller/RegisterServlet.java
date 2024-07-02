@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
                         || username == null || username.isEmpty()) {
 
                     request.setAttribute("info", "Please enter full information!!!"); 
-                    request.getRequestDispatcher("register2.jsp").forward(request, response);
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
                 }
                 HttpSession session = request.getSession();
                 session.setAttribute("firstname", firstname);

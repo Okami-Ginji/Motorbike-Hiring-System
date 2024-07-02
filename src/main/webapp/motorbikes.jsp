@@ -35,7 +35,7 @@
                 padding-top: 3%;
                 padding-left: 5%;
                 width: 90%;
-                
+
             }
             .xemketqua{
                 background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%) !important;
@@ -104,7 +104,7 @@
                 transition: background-color 0.3s, box-shadow 0.3s;
                 color: #001973;
             }
-            
+
 
             .filter-options:after {
                 border-bottom: 10px solid #fff;
@@ -115,7 +115,7 @@
                 position: absolute;
                 top: -10px;
             }
-            
+
 
 
             .filter-options button:hover {
@@ -161,9 +161,6 @@
                 background-color: #f5c6cb;
             }
 
-            .filter-search {
-                margin-top: 3px;
-            }
 
             .filter-search input {
                 border: 1px solid rgb(2, 184, 175);
@@ -469,9 +466,9 @@
                         </div>
 
                         <div class="filter-search filter-group">
-                            <form action="searchMotorcycle" method="post" class="d-flex" style="width: 110%; padding-right: 10%;">
-                                <input value="" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
-                                <button class="btn xemketqua" style="color: white; font-weight: bold; border: 1px solid #00ff6f;" type="submit">Search</button>
+                            <form action="searchMotorcycle" method="get" class="d-flex" style="width: 110%; padding-right: 10%;">
+                                <input style="padding: 10px 20px;" value="${key}" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
+                                <button class="btn xemketqua" style="color: white; font-weight: bold; border: 1px solid #00ff6f; width: 52%" type="submit">Tìm kiếm</button>
                             </form>
                         </div>
 
@@ -501,8 +498,9 @@
                                         <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ" />/ngày
                                     </p>
                                     <div class="button-wrapper">
-                                        <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">DETAILS</a></button>
-                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">BOOK NOW</a></button>
+                                        <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">CHI TIẾT</a></button>
+                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">THUÊ NGAY</a></button>
+
                                     </div>
                                 </div>
                             </c:forEach>
@@ -512,9 +510,11 @@
                                         <ul class="pagination">
                                             <c:forEach begin="1" end="${endP}" var="i">
                                                 <li class="page-item ${currentIndex == i ? 'active' : ''}">
-                                                    <a class="page-link" href="motorcycle?index=${i}">${i}</a>
+                                                    <c:if test="${search == 'none'}">
+                                                        <a class="page-link ${i == index? "active":""}" href="motorcycle?index=${i}">${i}</a>
+                                                    </c:if>                                              
                                                 </li>
-                                            </c:forEach>
+                                                </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
@@ -532,7 +532,7 @@
 
 
     <!-- loader -->
-    
+
 
 
     <script src="js/jquery.min.js"></script>

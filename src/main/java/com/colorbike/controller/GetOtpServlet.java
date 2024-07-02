@@ -67,7 +67,7 @@ public class GetOtpServlet extends HttpServlet {
             String password = (String) session.getAttribute("password");
             dao.createANewAccount(firstname, lastname, gender, phone, email, username, password);
             request.setAttribute("msg", "Create a new account successfully!");
-            request.getRequestDispatcher("login2.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "The code number is incorrect! Please try again");
             request.getRequestDispatcher("otpRegister.jsp").forward(request, response);

@@ -48,7 +48,7 @@
 
                     .swiper-slide img {
                         height: 300px;
-                        object-fit: cover; /* ??m b?o hình ?nh phù h?p v?i vùng tròn */
+                        object-fit: cover; /* ??m b?o hÃ¬nh ?nh phÃ¹ h?p v?i vÃ¹ng trÃ²n */
                     }
                     .rentalNow{
                         background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
@@ -132,7 +132,7 @@
                                                             <span
                                                                 class="text-3xl font-bold text-gray-900 dark:text-white"><fmt:formatNumber value="${p.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" /></span>
                                                             <a href="booking"
-                                                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center rentalNow" onclick="redirectToBooking(event)">Thuê Xe Ngay</a>
+                                                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center rentalNow" onclick="redirectToBooking(event,'${m.motorcycleId}')">Thuê Xe Ngay</a>
                                                         </div>
                                                     </c:if>
                                                 </c:forEach>
@@ -187,9 +187,9 @@
                             }
                         }
                     });
-                    function redirectToBooking(event) {
+                    function redirectToBooking(event, motorcycleId) {
                         event.preventDefault(); // Prevent the default anchor behavior
-                         window.top.location.href = 'booking';// Redirect to the booking page
+                         window.top.location.href = 'booking?motorcycleid='+motorcycleId;// Redirect to the booking page
                     }
                 </script>
 

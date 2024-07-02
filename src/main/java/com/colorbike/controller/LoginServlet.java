@@ -79,7 +79,7 @@ public class LoginServlet extends HttpServlet {
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
 
             request.setAttribute("error", "Vui lòng cung cấp cả tên người dùng và mật khẩu");
-            request.getRequestDispatcher("login2.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
         if (account == null) {
 
             request.setAttribute("error", "Tên đăng nhập hoặc Mật khẩu không đúng! <br> Vui lòng nhập lại");
-            request.getRequestDispatcher("login2.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             session.setAttribute("account", account);
 
@@ -99,7 +99,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("homeStaff.jsp");
             } else {
                 request.setAttribute("error", "Tài khoản bạn đã bị khóa <br> Vui lòng liên hệ với trang web để lấy lại thông tin");
-                request.getRequestDispatcher("login2.jsp").forward(request, response);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }
     }

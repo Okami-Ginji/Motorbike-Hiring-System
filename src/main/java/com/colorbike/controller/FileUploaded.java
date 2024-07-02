@@ -19,12 +19,18 @@ import org.apache.commons.fileupload.FileUpload;
  */
 public class FileUploaded {
     private String uploadPath;
-
+    private String uploadPathTarget;
+    
     public FileUploaded(String uploadPath) {
         this.uploadPath = uploadPath;
+        this.uploadPathTarget = "/images";
+        File uploadTarget = new File(uploadPathTarget);
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs(); // Tạo thư mục nếu chưa tồn tại
+        }
+        if (!uploadTarget.exists()) {
+            uploadTarget.mkdirs(); // Tạo thư mục nếu chưa tồn tại
         }
     }
     
@@ -33,6 +39,11 @@ public class FileUploaded {
         String originalFileName = getFileName(part);
         if (originalFileName != null && !originalFileName.isEmpty()) {
             String newFileName = generateNewFileName(originalFileName);
+            
+            String filePathTarget = uploadPathTarget + File.separator + fileName;
+            File fileTarget = new File(filePathTarget);
+            Files.copy(part.getInputStream(), fileTarget.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            
             String filePath = uploadPath + File.separator + fileName;
             File file = new File(filePath);
             Files.copy(part.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -41,7 +52,7 @@ public class FileUploaded {
         return null;
     }
 
-    private String getFileName(Part part) {
+    public String getFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
         if (contentDisposition != null) {
             for (String cd : contentDisposition.split(";")) {
@@ -53,7 +64,7 @@ public class FileUploaded {
         return null;
     }
 
-    private String generateNewFileName(String originalFileName) {
+    public String generateNewFileName(String originalFileName) {
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String fileExtension = "";
         int dotIndex = originalFileName.lastIndexOf('.');

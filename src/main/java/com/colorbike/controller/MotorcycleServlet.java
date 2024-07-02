@@ -56,7 +56,7 @@ public class MotorcycleServlet extends HttpServlet {
             indexPage = "1";
         }
         int index = Integer.parseInt(indexPage);
-
+        request.setAttribute("index", index);
         int count = motorcycleDAO.getTotalMotorcycles();
         int endPage = count / 9;
         if (count % 9 != 0) {
@@ -77,7 +77,7 @@ public class MotorcycleServlet extends HttpServlet {
             priceMap.put(p.getPriceListId(), p.getDailyPriceForDay());
         }
 
-
+        request.setAttribute("search", "none");
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);

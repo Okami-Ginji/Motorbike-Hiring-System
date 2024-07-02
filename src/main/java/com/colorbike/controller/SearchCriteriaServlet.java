@@ -41,17 +41,6 @@ public class SearchCriteriaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String indexPage = request.getParameter("index");
-        if (indexPage == null) {
-            indexPage = "1";
-        }
-        int index = Integer.parseInt(indexPage);
-
-        int count = motorcycleDAO.getTotalMotorcycles();
-        int endPage = count / 9;
-        if (count % 9 != 0) {
-            endPage++;
-        }
 
         String[] priceRanges = request.getParameterValues("priceRanges");
         String[] brands = request.getParameterValues("brands");
@@ -95,14 +84,13 @@ public class SearchCriteriaServlet extends HttpServlet {
                 criteria.addDemandID(Integer.parseInt(demandId));
             }
         }
-        List<Motorcycle> motorcycles = motorcycleDAO.searchMotorcycleByCriteria(criteria, index);
+        List<Motorcycle> motorcycles = motorcycleDAO.searchMotorcycleByCriteria(criteria);
         List<Category> categoriesList = categoryDAO.getAllCategory();
         List<PriceList> priceLists = priceListDAO.getAllPriceList();
         List<Brand> brandLists = brandDAO.getAllBrand();
         List<String> listDisplacement = motorcycleDAO.getListDisplacements();
         List<Demand> listDemand = demandDAO.getAllDemand();
         List<PriceRange> listPriceRange = demandPriceRangeDAO.getListDemandPriceRanges();
-        request.setAttribute("endP", endPage);
 
         Map<Integer, String> categoryMap = new HashMap<>();
         for (Category category : categoriesList) {
@@ -113,7 +101,6 @@ public class SearchCriteriaServlet extends HttpServlet {
         for (PriceList priceList : priceLists) {
             priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
         }
-
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);

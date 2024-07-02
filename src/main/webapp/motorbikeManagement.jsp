@@ -47,6 +47,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             /* Nội dung tab */
@@ -69,7 +70,7 @@
             .nav-tabs {
                 display: flex;
                 margin-top: 0; /* Xóa khoảng trống phía trên */
-                padding-left: 0; /* Xóa padding bên trái */
+                padding-left: 50px; /* Xóa padding bên trái */
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
 
@@ -202,11 +203,17 @@
             }
 
         </style>
+<!--        <link href="staffAssets/css/style.css" rel="stylesheet">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!--<link href="staffAssets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
     </head>
-
+ 
     <body>
+        <!-- ======= Header ======= -->
+      
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" /> 
+       
+            <jsp:include page="/includes/sidebar.jsp" />
         </div>
         <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
@@ -525,6 +532,17 @@
         </div>
 
         <script type="text/javascript">
+             // Sử dụng fetch để tải sidebar2.jsp
+//            fetch('includes/sidebar.jsp')
+//            .then(response => response.text())
+//            .then(data => {
+//                const sidebar = document.createElement('div');
+//                const shadow = sidebar.attachShadow({ mode: 'open' });
+//                shadow.innerHTML = data;
+//                document.getElementById('sidebar').appendChild(sidebar);
+//            })
+//            .catch(error => console.error('Error loading sidebar:', error));
+    
             function confirmDelete(motorcycleId) {
                 Swal.fire({
                     title: 'Bạn có chắc chắn?',
@@ -627,6 +645,8 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <!-- Theme js -->
         <script type="text/javascript" src="js/main.js"></script>
+        
+       
     </body>
 </html>
 

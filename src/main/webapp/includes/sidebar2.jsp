@@ -3,6 +3,7 @@
     Created on : Jun 29, 2024, 2:00:00 PM
     Author     : DiepTCNN
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Favicons -->
@@ -27,19 +28,23 @@
 <!-- Template Main CSS File -->
 <link href="staffAssets/css/style.css" rel="stylesheet">
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+<aside style="width: 270px" id="sidebar" class="sidebar">
+    <% 
+        String currentPage = request.getRequestURI();
+        request.setAttribute("currentPage", currentPage);
+    %>
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="staff2.jsp">
+            <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff.jsp">
                 <i class="bi bi-grid"></i>
                 <span>Trang chủ</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="manageCustomer">
+            <a class="nav-link ${currentPage.contains('/manageCustomer') ? '' : 'collapsed'}" href="manageCustomer">
                 <i class="bi bi-grid"></i>
                 <span>Thông tin khách hàng</span>
             </a>
@@ -97,7 +102,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
+            <a class="nav-link ${currentPage.contains('/profileStaff.jsp') ? '' : 'collapsed'}" href="profileStaff.jsp">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
@@ -119,9 +124,9 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-login.html">
+            <a class="nav-link collapsed" href="logout>
                 <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
+                <span>Logout</span>
             </a>
         </li><!-- End Login Page Nav -->
 

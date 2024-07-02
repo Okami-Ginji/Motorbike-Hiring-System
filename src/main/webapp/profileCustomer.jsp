@@ -252,11 +252,14 @@
                                                     <a class="inline-block py-0 pl-1 pr-2 mb-0 font-bold text-center align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in bg-none text-sky-900" href="javascript:;"> <i class="fab fa-instagram fa-lg" aria-hidden="true"></i> </a>
                                                 </li>
                                             </ul>
+
                                             <div style="margin-right: 12%;" class="pr-3 items-center w-1/4 h-auto">
-                                                <img style="width: 135%" id="profile-image" class="h-auto rounded-lg shadow-soft-xl cursor-pointer" src="images/avarta.jpg" alt="Profile Image">
+                                                <img style="width: 100%" id="profile-image" class="h-auto rounded-lg shadow-soft-xl cursor-pointer" src="images/${account.image}" alt="Profile Image">
                                                 <input type="file" id="image-upload" class="hidden" accept="image/png, image/jpeg">
                                             </div>
+
                                         </div>
+                                        <hr class="bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent">
 
                                     </div>
                                     <!-- Modal -->
@@ -265,6 +268,8 @@
                                             <h2 class="text-2xl mb-4">Chỉnh sửa thông tin</h2>
                                             <form action="updateprofile" method="post" id="form-update" class="space-y-4">
                                                 <input hidden name="accountID" value="${account.accountId}">
+                                                <input hidden name="roleID" value="${account.roleID}">
+
                                                 <div class="flex flex-wrap mb-3">
                                                     <div class="w-full md:w-1/2 pr-2 mb-3 md:mb-0">
                                                         <label for="account-firstname">Họ</label>
@@ -322,15 +327,20 @@
                                     <!-- Modal Chỉnh Sửa Ảnh -->
                                     <div id="cropImageModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 hidden z-40">
                                         <div class="bg-white p-4 rounded-lg shadow-lg w-1/3">
-                                            <div>
-                                                <img id="crop-image" src="" alt="Image to crop">
-                                            </div>
-                                            <div class="flex justify-end mt-4">
-                                                <button id="crop-save" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
-                                                <button id="crop-cancel" class="ml-2 bg-red-500 text-white px-4 py-2 rounded-lg">Cancel</button>
-                                            </div>
+                                            <form action="${pageContext.request.contextPath}/uploadimage" method="post" enctype="multipart/form-data" id="form-upload">
+                                                <div>
+                                                    <img id="crop-image" src="" alt="Image to crop">
+                                                    <input type="file" name="file" id="image-upload" hidden>
+                                                    <input type="text" name="name" size="100">
+                                                </div>
+                                                <div class="flex justify-end mt-4">
+                                                    <button type="button" id="crop-save" class="bg-blue-500 px-4 py-2 rounded-lg">Save</button>
+                                                    <button type="button" id="crop-cancel" class="ml-2 bg-red-500 px-4 py-2 rounded-lg">Cancel</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
+                                    <!-- End Modal Chỉnh Sửa Ảnh -->
                                 </div>
                             </div>
                         </div>
@@ -425,7 +435,7 @@
 
             function uploadImage(formData) {
                 fetch('/uploadimage', {
-                    method: 'GET',
+                    method: 'POST',
                     body: formData,
                 })
                         .then(response => response.json())

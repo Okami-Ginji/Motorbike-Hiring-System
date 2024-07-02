@@ -210,6 +210,8 @@
             .bike {
                 color: rgb(0, 255, 140);
             }
+
+            
         </style>
         <meta charset="UTF-8"/>
     </head>
@@ -780,7 +782,7 @@
                         });
                     }
                 }
-            }
+                }
 
 
                 requiredFields.forEach(field => {
@@ -792,6 +794,7 @@
                 checkFields();
 
             });
+
             
             function SidebarAction() {
                 const sidebar = document.getElementById('sidebar');

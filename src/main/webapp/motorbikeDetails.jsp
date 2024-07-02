@@ -280,8 +280,8 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-                        <span class="subheading">Choose Car</span>
-                        <h2 class="mb-2">Related Cars</h2>
+                        <span class="subheading">Chọn xe</span>
+                        <h2 class="mb-2">TOP SẢN PHẨM</h2>
                     </div>
                 </div>
                 <iframe src="slide.jsp" style="width: 99.1%; height: 540px; padding: 0; margin: 0;"></iframe>

@@ -30,12 +30,15 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             .tab-content {
+                
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                margin-left: 35px;
             }
 
             .tab-content h3 {
@@ -49,6 +52,7 @@
             .nav-tabs {
                 display: flex;
                 margin-left: 3%;
+                padding-left: 50px; /* Xóa padding bên trái */
                 border-bottom: 2px solid #ddd;
             }
 
@@ -88,11 +92,13 @@
 
                 .tab-content {
                     padding: 10px;
+                    
                 }
             }
 
             .container-fluid {
                 padding: 2rem 0;
+                
             }
 
             .tableview {

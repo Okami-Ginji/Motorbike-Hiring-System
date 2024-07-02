@@ -1108,7 +1108,7 @@
                     
                     <div >
                         <button type="submit" id="paymentButton" style="display: none"></button>
-                        <h3>Dates</h3>
+                        <h3>Ngày giờ</h3>
                         <fieldset>
                             <h2>NGÀY & GIỜ</h2>
                             <p class="desc">Hãy lựa chọn ngày giờ và địa điểm bạn muốn giao / trả xe</p>
@@ -1154,7 +1154,7 @@
                             </div>
                         </fieldset>
 
-                        <h3>Motorcycle</h3>
+                        <h3>Xe máy</h3>
                         <fieldset>
                             <h2>CHỌN XE MÁY</h2>
                             <p class="desc">Hãy chọn những chiếc xe tuyệt vời nhất cho hành trình của bạn</p>
@@ -1252,7 +1252,7 @@
                             </div>
                         </fieldset>
 
-                        <h3>Extras</h3>
+                        <h3>Phụ kiện đi kèm</h3>
                         <fieldset>
                             <h2>PHỤ KIỆN ĐI KÈM</h2>
                             <p class="desc">Hãy chọn những phụ kiện có thể giúp ích cho hành trình của bạn</p>
@@ -1346,7 +1346,7 @@
                             </div>
                         </fieldset>
 
-                        <h3>Customer</h3>
+                        <h3>Khách hàng</h3>
                         <fieldset>
                             <h2>THÔNG TIN CÁ NHÂN</h2>
                             <p class="desc">Hãy xác nhận hoặc cập nhật thông tin của bạn</p>
@@ -1478,7 +1478,7 @@
                             </div>
                         </fieldset>
 
-                        <h3>Confirm</h3>
+                        <h3>Xác nhận</h3>
                         <fieldset>
                             <h2>XÁC NHẬN ĐƠN ĐẶT XE</h2>
                             <p class="desc">Hãy xác nhận thông tin và đồng ý với các điều khoản dịch vụ </p>
@@ -1596,11 +1596,11 @@
 
 
 
-                        <h3>Payment</h3>
+                        <h3>Thanh toán</h3>
                         <fieldset>
 <!--                            <a onclick="yourFunctionName()">aaaaa</a>-->
-                            <h2>DEPOSIT PAYMENT</h2>
-                            <p class="desc">Please pay the deposit below to complete your vehicle order</p>
+                            <h2>THANH TOÁN CỌC</h2>
+                            <p class="desc">Hãy thanh toán số tiền cọc theo bên dưới để hoàn thành đơn đặt xe của bạn</p>
                             <iframe id="myIframe" src="vnpay_pay.jsp" style="width: 100%; height: 550px; border-style: hidden"></iframe>
                             
                         </fieldset>

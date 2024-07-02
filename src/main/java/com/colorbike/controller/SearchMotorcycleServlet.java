@@ -35,7 +35,7 @@ import java.util.Map;
 public class SearchMotorcycleServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String key = request.getParameter("textSearch");
 
@@ -52,22 +52,7 @@ public class SearchMotorcycleServlet extends HttpServlet {
         List<String> listDisplacement = motorcycleDAO.getListDisplacements();
         List<Demand> listDemand = demandDAO.getAllDemand();
         List<SearchCriteria.PriceRange> listPriceRange = demandPriceRangeDAO.getListDemandPriceRanges();
-
-        String indexPage = request.getParameter("index");
-        if (indexPage == null) {
-            indexPage = "1";
-        }
-        int index = Integer.parseInt(indexPage);
-
-        int count = motorcycleDAO.getTotalMotorcycles();
-        int endPage = count / 9;
-        if (count % 9 != 0) {
-            endPage++;
-        }
-
-        List<Motorcycle> motorcycles = motorcycleDAO.searchAndPagingMotorcyclesByName(key, index);
-
-        request.setAttribute("endP", endPage);
+        List<Motorcycle> motorcycles = motorcycleDAO.searchMotorcyclesByName(key);
         request.setAttribute("key", key);
 
         Map<Integer, String> categoryMap = new HashMap<>();
@@ -82,7 +67,7 @@ public class SearchMotorcycleServlet extends HttpServlet {
         if (motorcycles.isEmpty()) {
             request.setAttribute("noResults", true);
         }
-         request.setAttribute("listPriceRange", listPriceRange);
+        request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);
         request.setAttribute("listDemand", listDemand);
@@ -96,7 +81,7 @@ public class SearchMotorcycleServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

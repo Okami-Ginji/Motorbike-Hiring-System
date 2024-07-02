@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
 
         <style>
             .rental{
@@ -155,7 +155,7 @@
 
     <body class="index-page">
 
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
 
         <main class="main">
 
@@ -485,7 +485,7 @@
 
         </main>
 
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
 
         <!-- Scroll Top -->
         <a href="#" id="scroll-top"

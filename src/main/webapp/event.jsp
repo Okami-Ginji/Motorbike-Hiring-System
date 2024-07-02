@@ -187,10 +187,10 @@
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"/>
-        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
     </head>
     <body class="home blog wp-embed-responsive">
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
         
         <main id="maincontent" role="main" style="margin-top: 5%;">
             <div class="middle-align container">
@@ -313,7 +313,7 @@
                                                         });
 
     </script>
-    <jsp:include page="/includes/footer.jsp" />
+    <jsp:include page="/includes/customer/footer.jsp" />
     <a href="#" class="scrollup1"><i class="ri-arrow-up-fill" style="display: inline;"></i><span class="screen-reader-text">Scroll Up</span></a>
     <!--cái này có thể để vào footer nếu muốn-->
 </html>

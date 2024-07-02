@@ -82,9 +82,7 @@
     </head>
     <body>
 
-        <jsp:include page="/includes/navbar2.jsp" />
-
-
+        <jsp:include page="/includes/customer/navbar.jsp" />
         <section class="ftco-section ftco-cart">
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -119,7 +117,7 @@
                                                     </td>
 
                                                     <td class="price rentalNow">
-                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
+                                                        <p class="btn-custom rentalButton"><a href="booking?motorcycleid=${m.motorcycleId}">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><fmt:formatNumber value="${p.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" /></span>
@@ -130,7 +128,7 @@
                                                     </td>
 
                                                     <td class="price rentalNow">
-                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
+                                                        <p class="btn-custom rentalButton"><a href="booking?motorcycleid=${m.motorcycleId}">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
                                                                 <span class="num"><fmt:formatNumber value="${p.dailyPriceForWeek * 1000}" type="currency" currencySymbol="VNĐ" /></span>
@@ -141,10 +139,10 @@
                                                     </td>
 
                                                     <td class="price rentalNow">
-                                                        <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
+                                                        <p class="btn-custom rentalButton"><a href="booking?motorcycleid=${m.motorcycleId}">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" /></span>
+                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" groupingUsed="true" minFractionDigits="0" maxFractionDigits="0" /></span>
                                                                 <span class="per">/tháng</span>
                                                             </h3>
                                                             <span class="subheading">Có thiết bị đi kèm</span>
@@ -163,7 +161,7 @@
         </section>
 
 
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
 
 
 

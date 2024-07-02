@@ -35,7 +35,7 @@
                 padding-top: 3%;
                 padding-left: 5%;
                 width: 90%;
-                
+
             }
             .xemketqua{
                 background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%) !important;
@@ -104,7 +104,7 @@
                 transition: background-color 0.3s, box-shadow 0.3s;
                 color: #001973;
             }
-            
+
 
             .filter-options:after {
                 border-bottom: 10px solid #fff;
@@ -115,7 +115,7 @@
                 position: absolute;
                 top: -10px;
             }
-            
+
 
 
             .filter-options button:hover {
@@ -369,7 +369,7 @@
     </head>
 
     <body>
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
         <div style="margin-top: 3%;">
 
             <!-- thanh search -->
@@ -466,7 +466,7 @@
                         </div>
 
                         <div class="filter-search filter-group">
-                            <form action="searchMotorcycle" method="post" class="d-flex" style="width: 110%; padding-right: 10%;">
+                            <form action="searchMotorcycle" method="get" class="d-flex" style="width: 110%; padding-right: 10%;">
                                 <input style="padding: 10px 20px;" value="${key}" name="textSearch" class="form-control me-2" type="search" placeholder="Name" aria-label="Search">
                                 <button class="btn xemketqua" style="color: white; font-weight: bold; border: 1px solid #00ff6f; width: 52%" type="submit">Tìm kiếm</button>
                             </form>
@@ -510,9 +510,11 @@
                                         <ul class="pagination">
                                             <c:forEach begin="1" end="${endP}" var="i">
                                                 <li class="page-item ${currentIndex == i ? 'active' : ''}">
-                                                    <a class="page-link" href="motorcycle?index=${i}">${i}</a>
+                                                    <c:if test="${search == 'none'}">
+                                                        <a class="page-link ${i == index? "active":""}" href="motorcycle?index=${i}">${i}</a>
+                                                    </c:if>                                              
                                                 </li>
-                                            </c:forEach>
+                                                </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
@@ -525,12 +527,12 @@
         </div>
 
     </div>
-    <jsp:include page="/includes/footer.jsp" />
+    <jsp:include page="/includes/customer/footer.jsp" />
 
 
 
     <!-- loader -->
-    
+
 
 
     <script src="js/jquery.min.js"></script>

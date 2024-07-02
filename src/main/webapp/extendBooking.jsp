@@ -26,7 +26,7 @@
         <script src="assets/jquery-1.11.3.min.js"></script>
         
         <!-- Main css -->
-        <style>
+       <style>
             /* @extend display-flex; */
             display-flex,
             .form-flex,
@@ -155,7 +155,7 @@
             body {
                 font-size: 14px;
                 line-height: 1.6;
-                color: #222;
+                color: #001973;
                 font-weight: 400;
                 font-family: 'Roboto Slab';
                 margin: 0px;
@@ -170,7 +170,7 @@
                 z-index: 99;
             }
 
-            .container {
+            .container-booking {
                 width: 1400px;
                 margin: 0 auto;
                 background: #fff;
@@ -289,6 +289,7 @@
                 display: block;
                 width: 100%;
                 overflow: hidden;
+                background-color: #effaf4;
             }
 
             .vertical .steps {
@@ -304,6 +305,7 @@
 
             .content {
                 height: 800px;
+                background-color: white;
             }
 
             .steps ul {
@@ -383,12 +385,12 @@
             }
 
             .current .title .step-number {
-                background: #4966b1;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 color: #fff;
             }
 
             .current .title .step-text {
-                color: #4966b1;
+                color: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
             }
 
             .content h3 {
@@ -397,7 +399,8 @@
 
             .content,
             .actions {
-                background: #f8f8f8;
+/*                background: #f8f8f8;*/
+                background-color: white;
             }
 
             .actions {
@@ -430,7 +433,7 @@
                 width: 140px;
                 height: 50px;
                 color: #fff;
-                background: #4966b1;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 align-items: center;
                 -moz-align-items: center;
                 -webkit-align-items: center;
@@ -486,7 +489,7 @@
             }
 
             .form-radio-flex input:checked+label {
-                border: 1px solid #4966b1;
+                border: 1px solid linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 z-index: 1;
             }
 
@@ -495,7 +498,7 @@
             }
 
             .form-radio-flex input:hover {
-                border: 1px solid #4966b1;
+                border: 1px solid linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
             }
 
             label.error {
@@ -598,7 +601,7 @@
             }
 
             #slider-margin .noUi-connect {
-                background: #4966b1;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
             }
 
             #slider-margin .noUi-connects {
@@ -617,7 +620,7 @@
                 outline: none;
                 border: none;
                 right: -15px;
-                border: 1px solid #4966b1;
+                border: 1px solid linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 border-radius: 0px;
             }
 
@@ -631,7 +634,7 @@
                 border: none;
                 background: transparent;
                 font-size: 16px;
-                color: #4966b1;
+                color: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 padding: 0px;
             }
 
@@ -670,7 +673,7 @@
             }
 
             @media screen and (max-width: 1024px) {
-                .container {
+                .containerbooking {
                     width: calc(100% - 40px);
                     max-width: 100%;
                 }
@@ -993,7 +996,7 @@
             }
 
             .rent-button {
-                background-color: #28a745;
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
                 color: black;
                 border: none;
                 padding: 15px 10px;
@@ -1082,6 +1085,9 @@
             label.error{
                 display: none !important;
             }
+            .note-star{
+                color: red;
+            }
         </style>
     </head>
 
@@ -1090,7 +1096,7 @@
             <span>Đang xử lý...</span>
         </div>
         <div class="main">
-            <div class="container">
+            <div class="container-booking">
               
                 <form method="POST" id="signup-form" class="signup-form" action="">
                     
@@ -1103,19 +1109,19 @@
                             <div class="form-row">
                                 <div class="form-flex">
                                     <div class="form-group">
-                                        <label for="pickupdate" class="form-label">Ngày nhận xe</label>
+                                        <label for="pickupdate" class="form-label">Ngày nhận xe <span class="note-star"> *</span></label>
                                         <input type="date" name="pickupdate" id="pickupdate" value="${startDate}" disabled/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="pickuptime" class="form-label">Giờ nhận xe</label>
+                                        <label for="pickuptime" class="form-label">Giờ nhận xe <span class="note-star"> *</span></label>
                                         <input type="time" name="pickuptime" id="pickuptime" value="${startTime}" disabled/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="returndate" class="form-label">Ngày trả xe</label>
+                                        <label for="returndate" class="form-label">Ngày trả xe <span class="note-star"> *</span></label>
                                         <input type="date" name="returndate" id="returndate"  />
                                     </div>
                                     <div class="form-group">
-                                        <label for="returntime" class="form-label">Giờ trả xe</label>
+                                        <label for="returntime" class="form-label">Giờ trả xe <span class="note-star"> *</span></label>
                                         <input type="time" name="returntime" id="returntime"  />
                                     </div>
                                 </div>
@@ -1126,7 +1132,7 @@
                                     <input id="bookingid" style="display: none" value="${booking.bookingID}">
                                     <div class="form-flex">
                                     <div class="form-group">
-                                        <label for="pickuplocation" class="form-label">Địa điểm nhận xe</label>
+                                        <label for="pickuplocation" class="form-label">Địa điểm nhận xe <span class="note-star"> *</span></label>
                                         <select name="pickuplocation" id="pickuplocation" class="form-label"  disabled>
                                             <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${booking.deliveryLocation == "Da Nang Railway Station-202 Hải Phòng Street" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
                                             </option>
@@ -1135,7 +1141,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="returnlocation" class="form-label">Địa điểm trả xe</label>
+                                        <label for="returnlocation" class="form-label">Địa điểm trả xe <span class="note-star"> *</span></label>
                                         <select name="returnlocation" id="returnlocation" class="form-label" disabled>
                                             <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${booking.returnedLocation == "Da Nang Railway Station-202 Hải Phòng Street" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
                                             </option>
@@ -1404,10 +1410,12 @@
                         if(currentIndex === 0){
                             nextButton.style.pointerEvents = 'auto';
                             nextButton.style.color = 'white';
-                            nextButton.style.background = '#4966b1';
+                            nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                         }
 
                        if(currentIndex === 2){
+                            var finishButton = document.querySelector('.wizard .actions a[href="#finish"]');
+                            finishButton.style.display = 'none';
                             // Lấy thẻ h2
                             const datatotalH2 = document.getElementById('dataInput');
                             const datapaymentH2 = document.getElementById('listpayment');
@@ -1635,7 +1643,7 @@
                                if (checkbox.checked) {
                                    nextButton.style.pointerEvents = 'auto';
                                    nextButton.style.color = 'white';
-                                   nextButton.style.background = '#4966b1';
+                                   nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                                } else {
                                    nextButton.style.pointerEvents = 'none';
                                    nextButton.style.background = '#e8e8e8';
@@ -1754,7 +1762,7 @@
                     if (allFieldsFilled) {
                         nextButton.style.pointerEvents = 'auto';
                         nextButton.style.color = 'white';
-                        nextButton.style.background = '#4966b1';
+                        nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                     } else {
                         nextButton.style.pointerEvents = 'none';
                         nextButton.style.background = '#e8e8e8';
@@ -1830,7 +1838,7 @@
                     nextButton.disabled = false;
                     nextButton.style.pointerEvents = 'auto';
                     nextButton.style.color = 'white';
-                    nextButton.style.background = '#4966b1';
+                    nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                 } else {
                     nextButton.disabled = true;
                     nextButton.style.pointerEvents = 'none';
@@ -1854,7 +1862,7 @@
                 if (anySelected) {
                     nextButton.style.pointerEvents = 'auto';
                     nextButton.style.color = 'white';
-                    nextButton.style.background = '#4966b1';
+                    nextButton.style.background = 'linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%)';
                     const checkboxContainer = document.getElementById('protection');
                     // Lấy tất cả các checkbox trong div
                     const checkboxes = checkboxContainer.querySelectorAll('.form-check-select');

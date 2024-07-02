@@ -17,18 +17,36 @@
     rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="staffAssets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="staffAssets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="staffAssets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="staffAssets/vendor/quill/quill.snow.css" rel="stylesheet">
-<link href="staffAssets/vendor/quill/quill.bubble.css" rel="stylesheet">
-<link href="staffAssets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="staffAssets/vendor/simple-datatables/style.css" rel="stylesheet">
+<!-- <link href="staffAssets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+-->        <link href="staffAssets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"><!--
+        <link href="staffAssets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="staffAssets/vendor/quill/quill.snow.css" rel="stylesheet">
+        <link href="staffAssets/vendor/quill/quill.bubble.css" rel="stylesheet">
+        <link href="staffAssets/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="staffAssets/vendor/simple-datatables/style.css" rel="stylesheet">-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .custom-icon:before {
+        content: "\f444"; /* Mã Unicode của biểu tượng */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900; /* Dùng font-weight 900 cho các biểu tượng Solid */
+        display: inline-block;
+        font-family: bootstrap-icons !important;
+        font-style: normal;
+        font-weight: normal !important;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        vertical-align: -.125em;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
 
+</style>
 <!-- Template Main CSS File -->
 <link href="staffAssets/css/style.css" rel="stylesheet">
 <!-- ======= Sidebar ======= -->
-<aside style="width: 270px" id="sidebar" class="sidebar">
+<aside style="width: 260px" id="sidebar" class="sidebar">
     <% 
         String currentPage = request.getRequestURI();
         request.setAttribute("currentPage", currentPage);
@@ -56,7 +74,7 @@
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>Xe Máy</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="motorManage">
                         <i class="bi bi-circle"></i><span>Thông tin xe máy</span>
@@ -82,17 +100,17 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="feedbackManage">
+                    <a onclick="CallSideBar('feedbackManage')">
                         <i class="bi bi-circle"></i><span>Quản lí Đánh giá</span>
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
+                    <a onclick="CallSideBar('eventStaffServlet')">
                         <i class="bi bi-circle"></i><span>Quản lí sự kiện</span>
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
+                    <a onclick="CallSideBar('TourismLocationServletStaff')" >
                         <i class="bi bi-circle"></i><span>Quản lí địa điểm du lịch</span>
                     </a>
                 </li>
@@ -124,8 +142,8 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="logout>
-                <i class="bi bi-box-arrow-in-right"></i>
+            <a class="nav-link collapsed" href="logout">
+               <i class="bi bi-box-arrow-in-right"></i>
                 <span>Logout</span>
             </a>
         </li><!-- End Login Page Nav -->
@@ -143,5 +161,37 @@
 <script src="staffAssets/vendor/tinymce/tinymce.min.js"></script>
 <script src="staffAssets/vendor/php-email-form/validate.js"></script>
 
+<script>
+                        function CallSideBar(iframeSrc) {
+                            var url = "manageColorBike.jsp?iframeSrc=" + iframeSrc;
+
+                            // Chuyển hướng đến URL mới
+                            window.location.href = url;
+                        }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--<script>
+    $(document).ready(function () {
+        // Toggle submenus
+        $('.sidebar ul li').click(function () {
+            $(this).children('ul').slideToggle();
+            $(this).find('.arrow').toggleClass('collapsed');
+        });
+
+        // Smooth scroll
+        $('.sidebar ul li a').click(function (e) {
+//            e.preventDefault();
+            var target = $(this).attr('href');
+            $('html, body').animate({
+                scrollTop: $(target).offset().top
+            }, 800);
+        });
+    });
+    
+    
+    
+</script>-->
 <!-- Template Main JS File -->
-<script src="staffAssets/js/main.js"></script>
+<!--<script src="staffAssets/js/main.js"></script>-->

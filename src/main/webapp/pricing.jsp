@@ -122,7 +122,7 @@
                                                         <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" /></span>
+                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" groupingUsed="true" minFractionDigits="0" maxFractionDigits="0" /></span>
                                                                 <span class="per">/ngày</span>
                                                             </h3>
                                                             <span class="subheading">Có thiết bị đi kèm</span>
@@ -133,7 +133,7 @@
                                                         <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForWeek * 1000}" type="currency" currencySymbol="VNĐ" /></span>
+                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForWeek * 1000}" type="currency" currencySymbol="VNĐ" groupingUsed="true" minFractionDigits="0" maxFractionDigits="0" /></span>
                                                                 <span class="per">/tuần</span>
                                                             </h3>
                                                             <span class="subheading">Có thiết bị đi kèm</span>
@@ -144,7 +144,7 @@
                                                         <p class="btn-custom rentalButton"><a href="#">Thuê xe máy</a></p>
                                                         <div class="price-rate">
                                                             <h3>
-                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" /></span>
+                                                                <span class="num"><fmt:formatNumber value="${p.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" groupingUsed="true" minFractionDigits="0" maxFractionDigits="0" /></span>
                                                                 <span class="per">/tháng</span>
                                                             </h3>
                                                             <span class="subheading">Có thiết bị đi kèm</span>

@@ -27,12 +27,12 @@
 <!-- Template Main CSS File -->
 <link href="staffAssets/css/style.css" rel="stylesheet">
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar" style="height: 100%;">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="staff2.jsp">
+            <a class="nav-link " href="homestaff2.jsp">
                 <i class="bi bi-grid"></i>
                 <span>Trang chủ</span>
             </a>
@@ -82,12 +82,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
+                    <a href="eventStaffServlet">
                         <i class="bi bi-circle"></i><span>Quản lí sự kiện</span>
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
+                    <a href="TourismLocationServletStaff">
                         <i class="bi bi-circle"></i><span>Quản lí địa điểm du lịch</span>
                     </a>
                 </li>
@@ -97,7 +97,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
+            <a class="nav-link collapsed" href="profileStaff.jsp">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
@@ -119,7 +119,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-login.html">
+            <a class="nav-link collapsed" href="login.jsp">
                 <i class="bi bi-box-arrow-in-right"></i>
                 <span>Login</span>
             </a>

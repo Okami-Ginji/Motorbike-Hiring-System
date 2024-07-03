@@ -205,7 +205,7 @@ writing-mode: horizontal-tb;
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" /> 
+            <jsp:include page="/includes/sidebar2.jsp" /> 
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->

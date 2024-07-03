@@ -1,5 +1,5 @@
 <%-- 
-    Document   : event
+    Document   : touristLocation
     Created on : May 25, 2024, 9:43:36 PM
     Author     : ADMIN
 --%>

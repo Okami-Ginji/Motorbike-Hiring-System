@@ -196,9 +196,13 @@
     </head>
 
     <body>
-        <jsp:include page="/includes/staff/header-staff.jsp" />
-        <jsp:include page="/includes/staff/sidebar.jsp" />
-        <div style="float: right" class="container-fluid tab-container col-md-10">
+        <!-- ======= Header ======= -->
+      
+        <div class="col-md-2">
+       
+            
+        </div>
+        <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
             <ul class="m-auto nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
@@ -283,7 +287,7 @@
                                                         </button>
                                                         <button class="btn btn-danger btn-sm" onclick="confirmDelete('${m.motorcycleId}')">
 
-                                                            <a style="color: white" href="deleteMotor?id=${m.motorcycleId}"><i class="fas fa-trash"></i></a>
+                                                            <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
                                                 </td>
@@ -513,6 +517,9 @@
                 </div>
             </div>
         </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <script type="text/javascript">
             // Sử dụng fetch để tải sidebar2.jsp

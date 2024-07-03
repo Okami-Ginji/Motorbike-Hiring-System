@@ -76,7 +76,7 @@
             </a>
             <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="motorManage">
+                    <a onclick="CallSideBar('motorManage')">
                         <i class="bi bi-circle"></i><span>Thông tin xe máy</span>
                     </a>
                 </li>
@@ -86,7 +86,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="pricingManage">
+                    <a onclick="CallSideBar('pricingManage')">
                         <i class="bi bi-circle"></i><span>Quản lí bảng giá</span>
                     </a>
                 </li>

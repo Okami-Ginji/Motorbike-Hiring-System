@@ -46,6 +46,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             /* Nội dung tab */
@@ -53,6 +54,7 @@
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                margin-left: 35px;
                 /*background: rgba(30, 151, 191, 0.1);*/
             }
 
@@ -68,7 +70,7 @@
             .nav-tabs {
                 display: flex;
                 margin-top: 0; /* Xóa khoảng trống phía trên */
-                padding-left: 0; /* Xóa padding bên trái */
+                padding-left: 50px;
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
 
@@ -202,9 +204,9 @@
         </style>
     </head>
     <body>
-        <div class="row">
-            <div class="col-md-2">
-                <jsp:include page="/includes/staff/sidebar.jsp" /> 
+
+           <div class="col-md-2">
+           
             </div>
             <div class="container-fluid tab-container">
                 <!-- Danh sách tab ngang -->
@@ -344,7 +346,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+
 
 
 

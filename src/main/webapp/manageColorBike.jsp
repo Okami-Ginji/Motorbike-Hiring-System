@@ -44,17 +44,6 @@
         <jsp:include page="/includes/staff/sidebar.jsp" />
         <iframe src="${param.iframeSrc}" style="width: 100%; height: 750px; " scrolling="no"></iframe>
         
-        <script src="staffAssets/vendor/apexcharts/apexcharts.min.js"></script>
-        <script src="staffAssets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="staffAssets/vendor/chart.js/chart.umd.js"></script>
-        <script src="staffAssets/vendor/echarts/echarts.min.js"></script>
-        <script src="staffAssets/vendor/quill/quill.js"></script>
-        <script src="staffAssets/vendor/simple-datatables/simple-datatables.js"></script>
-        <script src="staffAssets/vendor/tinymce/tinymce.min.js"></script>
-        <script src="staffAssets/vendor/php-email-form/validate.js"></script>
-
-        <!-- Template Main JS File -->
-        <script src="staffAssets/js/main.js"></script>
 
     </body>
 </html>

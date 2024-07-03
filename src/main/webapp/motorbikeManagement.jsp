@@ -213,7 +213,7 @@
       
         <div class="col-md-2">
        
-            <jsp:include page="/includes/sidebar.jsp" />
+            
         </div>
         <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
@@ -530,6 +530,9 @@
                 </div>
             </div>
         </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <script type="text/javascript">
              // Sử dụng fetch để tải sidebar2.jsp

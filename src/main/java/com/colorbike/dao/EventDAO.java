@@ -95,7 +95,7 @@ public class EventDAO implements Serializable {
         return null;
     }
 
-    public List<Event> searchCompanyByName(String textSearch) {
+    public List<Event> searchEventByName(String textSearch) {
         List<Event> list = new ArrayList<>();
         String sql = "SELECT * FROM [Event]\n"
                 + "WHERE [EventTitle] COLLATE Vietnamese_CI_AI "

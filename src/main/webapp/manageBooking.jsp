@@ -14,8 +14,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Booking List</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -77,6 +75,8 @@
     </head>
 
     <body>
+        <jsp:include page="/includes/staff/header-staff.jsp" />
+        <jsp:include page="/includes/staff/sidebar.jsp" />
         <div class="container">
             <div class="row flex-lg-nowrap">
                 <div class="col-12 col-lg-auto mb-3">
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div style="margin-top: 5rem" class="col col-lg">
                     <div>
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
@@ -314,7 +314,7 @@
                     </div>
 
                 </div>
-                <div style="width: 18%" class="col-12 col-lg-3 mb-3">
+                <div style="width: 18%; margin-top: 137px;" class="col-12 col-lg-3 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <hr class="my-4">

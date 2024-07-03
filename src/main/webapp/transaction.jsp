@@ -100,7 +100,7 @@
             </ul>
         </div>
         
-        <jsp:include page="/includes/sidebar.jsp" /> 
+        <jsp:include page="/includes/staff/sidebar.jsp" /> 
         <!-- end breadcrumbs -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
         <div class="container">

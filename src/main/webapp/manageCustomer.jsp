@@ -13,8 +13,6 @@
         <meta charset="utf-8">
         <title>Manage Customer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <style type="text/css">
             body {
                 margin-top: 20px;
@@ -37,42 +35,33 @@
             }
         </style>
     </head>
-
     <body>
-        <jsp:include page="/includes/sidebar.jsp" /> 
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/9c87e70b87.js" crossorigin="anonymous"></script>
+        <jsp:include page="/includes/staff/header-staff.jsp" />
+        <jsp:include page="/includes/staff/sidebar.jsp" />
         <div class="container">
             <div class="row flex-lg-nowrap">
-                <div class="col-12 col-lg-auto mb-3">
-                    <div class="card p-3">
-                        <div class="e-navlist e-navlist--active-bg">
-                            <ul class="nav">
-                                <li class="nav-item"><a class="nav-link px-2 active" href="homeStaff.jsp"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Trang chủ</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="row flex-lg-nowrap">
-                        <div class="col mb-3">
+                        <div class="col-md-1 col-lg-1">
+                        </div>
+                        <div style="margin-top: 5rem; margin-left: 56px" class="col col-lg">
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="card-title">
                                         <h6 class="mr-2"><span>Làm TỐT</span><small class="px-1">cuối tháng tăng lương</small></h6>
                                     </div>
                                     <div class="e-table">
-                                        <div class="table-responsive table-lg mt-3">
+                                        <div class="table-responsive table-lg">
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th class="max-width">Họ và tên</th>
-                                                        <th class="max-width">Tên đăng nhập</th>
-                                                        <th class="sortable">Ngày sinh</th>
-                                                        <th class="max-width">Điện thoại</th>
+                                                        <th>Họ và tên</th>
+                                                        <th>Tên đăng nhập</th>
+                                                        <th>Ngày sinh</th>
+                                                        <th>Điện thoại</th>
                                                         <th> </th>
-                                                        <th style="width: 74px;">Trạng thái</th>
+                                                        <th>Trạng thái</th>
                                                         <th>Thao tác</th>
                                                     </tr>
                                                 </thead>
@@ -147,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-3 mb-3">
+                        <div style="margin-top: 5rem;" class="col-md-2 col-lg-2 mb-3">
                             <div class="card">
                                 <div class="card-body">
                                     <hr class="my-3">
@@ -324,7 +313,6 @@
         </div>
 
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
                                         function openUserModal(button) {
                                             var modal = $('#user-form-modal');

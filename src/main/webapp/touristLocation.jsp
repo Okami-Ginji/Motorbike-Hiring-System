@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ColorBike Tourism Location</title>
         <link rel="website icon" type="png" href="images\logo.png">
@@ -17,7 +17,7 @@
               href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     </head>
     <body>
-        <jsp:include page="/includes/navbar2.jsp" /> 
+        <jsp:include page="/includes/customer/navbar.jsp" /> 
         <div class="noidung">
             <section
                 class="feature-grid2-5331c43e-593a-4933-bcf2-96beb7ea5e25 sw-background-color-f4f2f1 sw-padding-top-l sw-padding-bottom-2xl sw-border-top-style-none sw-border-top-width-xs sw-border-top-color-000000 sw-border-bottom-style-none sw-border-bottom-width-xs sw-border-bottom-color-000000 sw-background-repeat-no-repeat sw-background-size-cover sw-background-position-center sw-background-attachment-scroll MuiBox-root css-0 mb-3"
@@ -59,7 +59,7 @@
                 </div>
             </section>
         </div>
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
         <!-- Các tệp JS -->
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery-migrate-3.0.1.min.js"></script>

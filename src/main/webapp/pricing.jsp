@@ -82,9 +82,7 @@
     </head>
     <body>
 
-        <jsp:include page="/includes/navbar2.jsp" />
-
-
+        <jsp:include page="/includes/customer/navbar.jsp" />
         <section class="ftco-section ftco-cart">
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -163,7 +161,7 @@
         </section>
 
 
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
 
 
 

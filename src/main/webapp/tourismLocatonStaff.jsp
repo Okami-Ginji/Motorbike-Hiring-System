@@ -174,7 +174,7 @@
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" />
+            <jsp:include page="/includes/staff/sidebar.jsp" />
         </div>
         <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->

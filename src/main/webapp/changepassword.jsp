@@ -173,7 +173,7 @@
                         </div>
                     </c:if>
                     <div class="inputDiv">
-                        <label class="inputLabel" for="password">Mật khẩu cũ</label>
+                        <label class="inputLabel" for="password">Mật khẩu hiện tại</label>
                         <div class="input-wrapper">
                             <input type="password" id="password" name="password" required>
                             <span id="password-eye-2" onclick="showPassword('password')">

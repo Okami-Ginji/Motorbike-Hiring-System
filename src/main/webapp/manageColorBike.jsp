@@ -40,8 +40,8 @@
         <link href="staffAssets/css/style.css" rel="stylesheet">
     </head>
     <body>
-        <jsp:include page="/includes/navbar-staff.jsp" />
-        <jsp:include page="/includes/sidebar2.jsp" />
+        <jsp:include page="/includes/staff/header-staff.jsp" />
+        <jsp:include page="/includes/staff/sidebar.jsp" />
         <iframe src="${param.iframeSrc}" style="width: 100%; height: 750px; " scrolling="no"></iframe>
         
         <script src="staffAssets/vendor/apexcharts/apexcharts.min.js"></script>

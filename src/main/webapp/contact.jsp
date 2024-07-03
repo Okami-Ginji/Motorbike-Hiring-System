@@ -109,7 +109,7 @@
 
     <body>
 
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
 
 
         <div style="margin-top: 8%;">
@@ -190,7 +190,7 @@
             </section>
         </div>
 
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
 
         <!-- Các tệp JS -->
         <script src="js/jquery.min.js"></script>

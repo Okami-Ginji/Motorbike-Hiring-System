@@ -96,7 +96,10 @@ public class ChangePasswordServlet extends HttpServlet {
         } else {
             request.setAttribute("errorPass", "Mật khẩu hiện tại không đúng.");
         }
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        if (ac.getRoleID() == 1) {
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        } 
+        request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
     }
 
     /**

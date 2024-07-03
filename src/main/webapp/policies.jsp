@@ -51,7 +51,7 @@
     </head>
 
     <body>
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
 
         <div class="wrapper d-flex align-items-stretch" style="margin-top: 5%;">
             <nav id="sidebar">
@@ -124,7 +124,7 @@
                 </p>
             </div>
         </div>
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.min.js"></script>

@@ -4,7 +4,7 @@
     Author     : DiepTCNN
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/includes/header2.jsp" />
+<jsp:include page="/includes/customer/header.jsp" />
 <footer id="footer" class="footer">
 
     <div class="container footer-top">

@@ -4,8 +4,7 @@
  */
 package com.colorbike.controller;
 
-import com.colorbike.dao.EventDAO;
-import com.colorbike.dto.Event;
+import com.colorbike.dto.Account;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,15 +12,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
  * @author MINH TUAN
  */
-@WebServlet(name = "SearchEventServlet", urlPatterns = {"/searchevent"})
-public class SearchEventServlet extends HttpServlet {
+@WebServlet(name = "HomeStaffServlet", urlPatterns = {"/homeStaff"})
+public class HomeStaffServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +32,10 @@ public class SearchEventServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SearchEventServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SearchEventServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        session.setAttribute("account", account);
+        request.getRequestDispatcher("homeStaff.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,13 +50,7 @@ public class SearchEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        String textSearch = request.getParameter("textSearch");
-        List<Event> listEvent = EventDAO.getInstance().searchEventByName(textSearch);
-        session.setAttribute("listEvent", listEvent);
-        request.setAttribute("textSearch", textSearch);
-        request.getRequestDispatcher("event.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

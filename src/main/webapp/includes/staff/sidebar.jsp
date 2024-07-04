@@ -76,7 +76,7 @@
             </a>
             <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="motorManage">
+                    <a onclick="CallSideBar('motorManage')">
                         <i class="bi bi-circle"></i><span>Thông tin xe máy</span>
                     </a>
                 </li>
@@ -86,8 +86,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="pricingManage">
+                    <a onclick="CallSideBar('pricingManage')">
                         <i class="bi bi-circle"></i><span>Quản lí bảng giá</span>
+                    </a>
+                </li>
+                 <li>
+                    <a onclick="CallSideBar('accessoriesStaffServlet')" >
+                        <i class="bi bi-circle"></i><span>Quản lí phụ kiện</span>
                     </a>
                 </li>
             </ul>
@@ -172,26 +177,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!--<script>
-    $(document).ready(function () {
-        // Toggle submenus
-        $('.sidebar ul li').click(function () {
-            $(this).children('ul').slideToggle();
-            $(this).find('.arrow').toggleClass('collapsed');
-        });
 
-        // Smooth scroll
-        $('.sidebar ul li a').click(function (e) {
-//            e.preventDefault();
-            var target = $(this).attr('href');
-            $('html, body').animate({
-                scrollTop: $(target).offset().top
-            }, 800);
-        });
-    });
-    
-    
-    
-</script>-->
 <!-- Template Main JS File -->
-<!--<script src="staffAssets/js/main.js"></script>-->
+<script src="staffAssets/js/main.js"></script>

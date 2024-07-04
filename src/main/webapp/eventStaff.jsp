@@ -185,7 +185,7 @@
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/staff/sidebar.jsp" />
+           
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
@@ -568,7 +568,8 @@
                 });
             });
         </script>
-
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

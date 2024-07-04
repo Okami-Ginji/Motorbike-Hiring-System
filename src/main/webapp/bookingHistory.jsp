@@ -621,7 +621,7 @@
                                                                 });
                                                             });
                                                             checkURL();
-
+ 
 
                                                             // Add event listener to confirmed status select
                                                             confirmedStatusSelect.addEventListener("change", () => {

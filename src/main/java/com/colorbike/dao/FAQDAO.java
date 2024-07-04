@@ -120,15 +120,9 @@ public class FAQDAO implements Serializable, DAO<FAQDAO> {
     }
 
     public static void main(String[] args) {
-        FAQ updatedFAQ = new FAQ();
-        updatedFAQ.setQuestionID(9); // ID của FAQ mà bạn muốn cập nhật
-        updatedFAQ.setQuestion("What is Java?");
-        updatedFAQ.setAnswer("Java is a high-level, class-based, object-oriented programming language.");
-
-        // Tạo đối tượng DAO và gọi phương thức addNewFAQs
-        FAQDAO faqDAO = new FAQDAO();
-        faqDAO.updateFAQs(updatedFAQ);
-//        faqDAO.addNewFAQs(newFAQ);
-        //System.out.println(faqDAO.getAllFAQ());
+        FAQDAO dao = new FAQDAO();
+        for(FAQ x: dao.getAllFAQ()){
+            System.out.println(x);
+        }
     }
 }

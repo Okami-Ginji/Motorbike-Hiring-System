@@ -82,10 +82,12 @@ public class RegisterServlet extends HttpServlet {
 
                 response.sendRedirect("otpRegister.jsp");
             } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Password and cf-password is not equal.");
+                request.setAttribute("msgPass", "Mật khẩu và xác nhận mật khẩu không bằng nhau. Vui lòng thử lại!");
+                request.getRequestDispatcher("register2.jsp").forward(request, response);
             }
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Email is invalid or existed."); // email đã tồn tại
+            request.setAttribute("msgEmail", "Email không hợp lệ hoặc đã tồn tại. Vui lòng thử lại!"); // email đã tồn tại
+            request.getRequestDispatcher("register2.jsp").forward(request, response);
         }
     }
 

@@ -46,6 +46,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             /* Nội dung tab */
@@ -53,6 +54,7 @@
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                margin-left: 35px;
                 /*background: rgba(30, 151, 191, 0.1);*/
             }
 
@@ -68,7 +70,7 @@
             .nav-tabs {
                 display: flex;
                 margin-top: 0; /* Xóa khoảng trống phía trên */
-                padding-left: 0; /* Xóa padding bên trái */
+                padding-left: 50px;
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
 
@@ -202,149 +204,188 @@
         </style>
     </head>
     <body>
-        <div class="row">
-            <div class="col-md-2">
-                <jsp:include page="/includes/staff/sidebar.jsp" /> 
-            </div>
-            <div class="container-fluid tab-container">
-                <!-- Danh sách tab ngang -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#Section1"
-                                                              aria-controls="home" role="tab"
-                                                              data-toggle="tab">Display All Prices</a></li>
-                    <li role="presentation"><a href="#Section2"
-                                               aria-controls="profile" role="tab"
-                                               data-toggle="tab">Add New Pricing</a></li>
-                    <li role="presentation">
-                        <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Update </a>
-                    </li>
-                </ul>
-                <!-- Nội dung tab -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="Section1">
-                        <!-- Nội dung phần tab Display All Motorbikes -->
-                        <div class="container-fluid">
-                            <div class="row tableview">
-                                <div class="col-12">
-                                    <table class="table table-image">
-                                        <thead>
+        <div class="col-md-2">
+
+        </div>
+        <div class="container-fluid tab-container">
+            <!-- Danh sách tab ngang -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#Section1"
+                                                          aria-controls="home" role="tab"
+                                                          data-toggle="tab">Display All Prices</a></li>
+                <li role="presentation"><a href="#Section2"
+                                           aria-controls="profile" role="tab"
+                                           data-toggle="tab">Add New Pricing</a></li>
+                <li role="presentation">
+                    <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Update </a>
+                </li>
+            </ul>
+            <!-- Nội dung tab -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                    <!-- Nội dung phần tab Display All Motorbikes -->
+                    <div class="container-fluid">
+                        <div class="row tableview">
+                            <div class="col-12">
+                                <table class="table table-image">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Daily Price For Day</th>
+                                            <th scope="col">Daily Price For Week</th>
+                                            <th scope="col">Daily Price For Month</th>
+                                            <th scope="col">Model</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+
+                                    <c:forEach items="${listP}" var="p">
+
+                                        <tbody id="table-body">
                                             <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Daily Price For Day</th>
-                                                <th scope="col">Daily Price For Week</th>
-                                                <th scope="col">Daily Price For Month</th>
-                                                <th scope="col">Actions</th>
+                                                <th scope="row">${p.priceListId}</th>     
+
+                                                <td>${p.dailyPriceForDay}</td>
+                                                <td>${p.dailyPriceForWeek}</td>
+                                                <td>${p.dailyPriceForMonth}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" id="launchModalBtn"
+                                                            data-toggle="modal" data-target="#user-form-modal" onclick="OneClick(this)"
+                                                            data-motorcycleName="<c:forEach items="${listM}" var="m">
+                                                                <c:if test="${p.priceListId == m.priceListID}">
+                                                                    ${m.model},
+                                                                </c:if>
+                                                            </c:forEach>">               
+                                                        <span class="bold">Detail</span>
+                                                    </button>
+
+                                                </td>
+                                                <td class="action-buttons">
+                                                    <div class="buttons">
+                                                        <button class="btn btn-primary btn-sm" onclick="populateUpdateForm(${p.priceListId}, ${p.dailyPriceForDay}, ${p.dailyPriceForWeek}, ${p.dailyPriceForMonth})">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm" onclick="">
+
+                                                            <a style="color: white"><i class="fas fa-trash"></i></a>
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <c:forEach items="${listP}" var="p">
-                                            <tbody id="table-body">
-                                                <tr>
-                                                    <th scope="row">${p.priceListId}</th>                                                                                           
-                                                    <td>${p.dailyPriceForDay}</td>
-                                                    <td>${p.dailyPriceForWeek}</td>
-                                                    <td>${p.dailyPriceForMonth}</td>
-
-                                                    <td class="action-buttons">
-                                                        <div class="buttons">
-                                                            <button class="btn btn-primary btn-sm" onclick="populateUpdateForm(${p.priceListId}, ${p.dailyPriceForDay}, ${p.dailyPriceForWeek}, ${p.dailyPriceForMonth})">
-                                                                <i class="fas fa-edit"></i>
-                                                            </button>
-                                                            <button class="btn btn-danger btn-sm" onclick="">
-
-                                                                <a style="color: white"><i class="fas fa-trash"></i></a>
-                                                            </button>
+                                        </tbody>
+                                    </c:forEach>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="Section2">
+                    <!-- Nội dung phần tab Add New Motorbike -->
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row ">
+                                <div class="col-lg-10 col-md-8 ml-auto">
+                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
+                                        <div class="col-md-12">
+                                            <div class="addnew">
+                                                <form class="addnew-motorbike-form" method="post" action="addpricing">
+                                                    <h3>Add New Pricing</h3>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" name="priceForDay" placeholder="Daily Price For Day" value="" step="0.01" min="0" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" name="priceForWeek" placeholder="Daily Price For Week" value="" step="0.01" min="0" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="" name="priceForMonth" placeholder="Daily Price For Month" value="" step="0.01" min="0" required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-dark">Thêm</button>
+                                                    <div class="feedback mt-3">
+                                                        <div id="success-message" class="alert alert-success" style="display: none;">
+                                                            Motorbike added successfully!
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                        <div id="error-message" class="alert alert-danger" style="display: none;">
+                                                            File Format Not Supported
+                                                        </div>
 
-                                            </tbody>
-                                        </c:forEach>
-                                    </table>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+
+                <!-- Nội dung của Section 3 -->
+                <div role="tabpanel" class="tab-pane fade" id="Section3">
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-10 col-md-8 ml-auto">
+                                    <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
+                                        <div class="col-md-12">
+                                            <div class="addnew">
+                                                <form class="edit-location-form" id="" action="updatePricing"  method="post">
+                                                    <h3>Update Pricing List</h3>
+                                                    <br>
+                                                    <input type="hidden" class="form-control" id="id" name="id" value="" >
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="priceForDay" value="" name="priceForDay" placeholder="Daily Price For Day" step="0.01" min="0" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="priceForWeek" value="" name="priceForWeek" placeholder="Daily Price For Week" step="0.01" min="0" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="priceForMonth" value="" name="priceForMonth" placeholder="Daily Price For Month" step="0.01" min="0" required>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-dark">Cập nhật xe máy</button>
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div style="margin: 11rem;" class="modal-content" >
+                            <div style="padding: 10px 16px;" class="modal-header">
+                                <h5 class="modal-title">Thông tin chi tiết</h5>
+                                <button style="border: 1px solid #000" onclick="closeDetail()" type="button" class="btn close" data-dismiss="modal">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div style="padding-top: 0px" class="info modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">                                       
+                                        <div class="col-md-8">
+                                            <div class="row" style="padding-left: 20px;">
+                                                
+                                                <div class="col-md-12 mb-4">
+                                                    <label>Model: </label>
+                                                    <p style="display: inline;" id="modal-motorcycleName"></p>
+                                                </div>                                            
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div role="tabpanel" class="tab-pane fade" id="Section2">
-                        <!-- Nội dung phần tab Add New Motorbike -->
-                        <section>
-                            <div class="container-fluid">
-                                <div class="row ">
-                                    <div class="col-lg-10 col-md-8 ml-auto">
-                                        <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
-                                            <div class="col-md-12">
-                                                <div class="addnew">
-                                                    <form class="addnew-motorbike-form" method="post" action="addpricing">
-                                                        <h3>Add New Pricing</h3>
-                                                        <br>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="" name="priceForDay" placeholder="Daily Price For Day" value="" step="0.01" min="0" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="" name="priceForWeek" placeholder="Daily Price For Week" value="" step="0.01" min="0" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="" name="priceForMonth" placeholder="Daily Price For Month" value="" step="0.01" min="0" required>
-                                                        </div>
-                                                        <button type="submit" class="btn btn-dark">Thêm</button>
-                                                        <div class="feedback mt-3">
-                                                            <div id="success-message" class="alert alert-success" style="display: none;">
-                                                                Motorbike added successfully!
-                                                            </div>
-                                                            <div id="error-message" class="alert alert-danger" style="display: none;">
-                                                                File Format Not Supported
-                                                            </div>
-
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-
-                    <!-- Nội dung của Section 3 -->
-                    <div role="tabpanel" class="tab-pane fade" id="Section3">
-                        <section>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-10 col-md-8 ml-auto">
-                                        <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
-                                            <div class="col-md-12">
-                                                <div class="addnew">
-                                                    <form class="edit-location-form" id="" action="updatePricing"  method="post">
-                                                        <h3>Update Pricing List</h3>
-                                                        <br>
-                                                        <input type="hidden" class="form-control" id="id" name="id" value="" >
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="priceForDay" value="" name="priceForDay" placeholder="Daily Price For Day" step="0.01" min="0" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="priceForWeek" value="" name="priceForWeek" placeholder="Daily Price For Week" step="0.01" min="0" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="priceForMonth" value="" name="priceForMonth" placeholder="Daily Price For Month" step="0.01" min="0" required>
-                                                        </div>
-
-                                                        <button type="submit" class="btn btn-dark">Cập nhật xe máy</button>
-
-                                                    </form>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
                 </div>
             </div>
         </div>
+
 
 
 
@@ -376,10 +417,44 @@
                 // Chuyển đến tab Update
                 $('.nav-tabs a[href="#Section3"]').tab('show');
             }
+
+            function OneClick(button) {
+                var modal = $('#user-form-modal');
+               
+                modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
+
+                const modelData = button.getAttribute('data-motorcycleName');
+
+                // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
+                //licenseData = licenseData.trim() || '';
+                var newData = modelData.toString().trim();
+                //alert(newData);
+                // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
+                const modelArray = newData.split(',');
+                // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
+                //button.setAttribute('data-license', licenseArray.join(','));
+
+                // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
+                console.log(modelArray); // Hiển thị mảng trong console
+
+                // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
+                const licenseDisplayElement = document.getElementById('modal-motorcycleName');
+                if (licenseDisplayElement) {
+                    // Xóa nội dung cũ của phần tử
+                    licenseDisplayElement.innerHTML = '';
+
+                    // Duyệt qua mảng và hiển thị từng phần tử
+                    for (let i = 0; i < modelArray.length; i++) {
+                        const item = modelArray[i].trim();
+                        const p = document.createElement('p'); // Tạo một phần tử <p>
+                        p.innerHTML = item; // Gán nội dung của phần tử
+                        p.style.marginLeft = '50px';
+                        p.style.textAlign = 'left';
+                        licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
+                    }
+                }
+            }
         </script>
-
-
-
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

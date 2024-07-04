@@ -90,6 +90,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         ResultSet rs;
         LinkedHashMap<String, String> list = new LinkedHashMap<>();
         try {
+
             String sql = "WITH LatestStatus AS (\n"
                     + "    SELECT\n"
                     + "        ms.MotorcycleDetailID,\n"

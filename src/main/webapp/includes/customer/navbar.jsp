@@ -44,16 +44,16 @@
 
             <div class="user-menu-wrap">
 
-                <a class="mini-photo-wrapper"><img class="mini-photo" src="images\avarta.jpg" width="36" height="36"/></a>
+                <a class="mini-photo-wrapper"><img class="mini-photo object-fit-cover" src="images/${account.image}" width="36" height="36"/></a>
 
 
                 <div class="menu-container">
                     <ul class="user-menu">
-                        <div class="profile-highlight">
-                            <img src="images\avarta.jpg" alt="profile-img" width=36 height=36>
+                        <div class="profile-highlight align-items-center">
+                            <img src="images/${account.image}" alt="profile-img" width=56 height=56>
                             <div class="details">
                                 <div class="sitename" id="profile-name">COLORBIKE</div>
-                                <div id="profile-footer">Hello ${sessionScope.account.email}</div>
+                                <div id="profile-footer">Xin chào ${sessionScope.account.email}</div>
                             </div>
                         </div>
                         <!--                        <li class="user-menu__item">
@@ -76,7 +76,7 @@
                         </li>
                         <div class="footer">
                             <li class="user-menu__item"><a class="user-menu-link" href="logout" style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);background-clip: text;
-                                                           color: transparent !important; font-weight: bold; font-size: large; display: flex; justify-content: center;">Logout</a></li>
+                                                           color: transparent !important; font-weight: bold; font-size: large; display: flex; justify-content: center;">Đăng xuất</a></li>
                             <!--<li class="user-menu__item"><a class="user-menu-link" href="#">Settings</a></li>-->
                         </div>
                     </ul>

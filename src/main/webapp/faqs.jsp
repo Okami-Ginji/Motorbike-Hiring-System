@@ -173,7 +173,7 @@
             </div>
         </div>
 
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
 
         <!-- Các tệp JS -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

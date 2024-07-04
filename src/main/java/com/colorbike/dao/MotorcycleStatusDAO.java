@@ -39,7 +39,7 @@ public class MotorcycleStatusDAO implements Serializable, DAO<MotorcycleStatus>{
     }
         
     public void insertMotorcycleStatus(int motorcycleStatusId, String staffid, String status,String updatedate, String note) {
-         String sql = "INSERT INTO [dbo].[Motorcycle Status] ([MotorcycleDetailID], [StaffID], [Status], [UpdateDate], [Note])\n" +
+         String sql = "INSERT INTO [dbo].[Motorcycle Status] ([MotorcycleDetailID], [StaffID], [StatusAction], [UpdateDate], [Note])\n" +
                     "VALUES (?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

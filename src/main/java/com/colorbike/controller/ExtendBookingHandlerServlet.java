@@ -130,7 +130,7 @@ public class ExtendBookingHandlerServlet extends HttpServlet {
         
         //Extend
         ExtensionDAO daoE = ExtensionDAO.getInstance();
-        daoE.addExtension(returnPre, returnDate, amount/100, bookingid);
+        daoE.addExtension(returnPre, returnDate, amount/100000, bookingid);
         
         //Payment
         // Định dạng chuỗi đầu vào
@@ -145,7 +145,7 @@ public class ExtendBookingHandlerServlet extends HttpServlet {
         // Chuyển đổi LocalDateTime thành chuỗi định dạng mới
         String paymentDateText = dateTime.format(outputFormatter);
         PaymentDAO daoP = PaymentDAO.getInstance();
-        daoP.addPayment(bookingid, "Ngân hàng", paymentDateText, amount/100, "Thành công");
+        daoP.addPayment(bookingid, "Ngân hàng", paymentDateText, amount/100000, "Thành công");
         
         // Send confirmation email
 //       StringBuilder emailContent = new StringBuilder();

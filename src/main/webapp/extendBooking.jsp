@@ -1134,19 +1134,19 @@
                                     <div class="form-group">
                                         <label for="pickuplocation" class="form-label">Địa điểm nhận xe <span class="note-star"> *</span></label>
                                         <select name="pickuplocation" id="pickuplocation" class="form-label"  disabled>
-                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${booking.deliveryLocation == "Da Nang Railway Station-202 Hải Phòng Street" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
+                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${booking.deliveryLocation == "Ga Đà Nẵng-202 Đường Hải Phòng" ? 'selected' : ''}>Ga Đà Nẵng-202 Đường Hải Phòng
                                             </option>
-                                            <option value="Da Nang International Airport" ${booking.deliveryLocation == "Da Nang International Airport" ? 'selected' : ''}>Da Nang International Airport</option>
-                                            <option value="Your own address" ${booking.deliveryLocation == "Your own address" ? 'selected' : ''}>Your own address</option>
+                                            <option value="Sân bay quốc tế Đà Nẵng" ${booking.deliveryLocation == "Sân bay quốc tế Đà Nẵng" ? 'selected' : ''}>Sân bay quốc tế Đà Nẵng</option>
+                                            <option value="Địa chỉ của bạn" ${booking.deliveryLocation == "Địa chỉ của bạn" ? 'selected' : ''}>Địa chỉ của bạn</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="returnlocation" class="form-label">Địa điểm trả xe <span class="note-star"> *</span></label>
                                         <select name="returnlocation" id="returnlocation" class="form-label" disabled>
-                                            <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${booking.returnedLocation == "Da Nang Railway Station-202 Hải Phòng Street" ? 'selected' : ''}>Da Nang Railway Station-202 Hải Phòng Street
+                                             <option value="Ga Đà Nẵng-Số 202 đường Hải Phòng" ${booking.deliveryLocation == "Ga Đà Nẵng-202 Đường Hải Phòng" ? 'selected' : ''}>Ga Đà Nẵng-202 Đường Hải Phòng
                                             </option>
-                                            <option value="Da Nang International Airport" ${booking.returnedLocation == "Da Nang International Airport" ? 'selected' : ''}>Da Nang International Airport</option>
-                                            <option value="Your own address" ${booking.returnedLocation == "Your own address" ? 'selected' : ''}>Your own address</option>
+                                            <option value="Sân bay quốc tế Đà Nẵng" ${booking.deliveryLocation == "Sân bay quốc tế Đà Nẵng" ? 'selected' : ''}>Sân bay quốc tế Đà Nẵng</option>
+                                            <option value="Địa chỉ của bạn" ${booking.deliveryLocation == "Địa chỉ của bạn" ? 'selected' : ''}>Địa chỉ của bạn</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1256,7 +1256,7 @@
                                                             <label for="daily-checkbox" class="items-free">Free</label>
                                                         </c:if>
                                                         <c:if test="${a.key.price ne 0}">
-                                                            <label for="daily-checkbox">₫${a.key.price}.000</label>
+                                                            <label for="daily-checkbox">₫${a.key.price/a.value}00</label>
                                                         </c:if>
                                                     </div>
                                                 </div>

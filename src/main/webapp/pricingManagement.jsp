@@ -205,7 +205,7 @@
     </head>
     <body>
         <div class="col-md-2">
-            
+
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
@@ -231,40 +231,48 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col"> Model</th>
                                             <th scope="col">Daily Price For Day</th>
                                             <th scope="col">Daily Price For Week</th>
                                             <th scope="col">Daily Price For Month</th>
+                                            <th scope="col">Model</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
-                                    <c:forEach items="${listM}" var="m">
-                                        <c:forEach items="${listP}" var="p">
-                                            <c:if test="${p.priceListId == m.priceListID}">
-                                                <tbody id="table-body">
-                                                    <tr>
-                                                        <th scope="row">${p.priceListId}</th>     
-                                                        <td>${m.model}</td>
-                                                        <td>${p.dailyPriceForDay}</td>
-                                                        <td>${p.dailyPriceForWeek}</td>
-                                                        <td>${p.dailyPriceForMonth}</td>
 
-                                                        <td class="action-buttons">
-                                                            <div class="buttons">
-                                                                <button class="btn btn-primary btn-sm" onclick="populateUpdateForm(${p.priceListId}, ${p.dailyPriceForDay}, ${p.dailyPriceForWeek}, ${p.dailyPriceForMonth})">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </button>
-                                                                <button class="btn btn-danger btn-sm" onclick="">
+                                    <c:forEach items="${listP}" var="p">
 
-                                                                    <a style="color: white"><i class="fas fa-trash"></i></a>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                        <tbody id="table-body">
+                                            <tr>
+                                                <th scope="row">${p.priceListId}</th>     
 
-                                                </tbody>
-                                            </c:if>
-                                        </c:forEach>
+                                                <td>${p.dailyPriceForDay}</td>
+                                                <td>${p.dailyPriceForWeek}</td>
+                                                <td>${p.dailyPriceForMonth}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary" id="launchModalBtn"
+                                                            data-toggle="modal" data-target="#user-form-modal" onclick="OneClick(this)"
+                                                            data-motorcycleName="<c:forEach items="${listM}" var="m">
+                                                                <c:if test="${p.priceListId == m.priceListID}">
+                                                                    ${m.model},
+                                                                </c:if>
+                                                            </c:forEach>">               
+                                                        <span class="bold">Detail</span>
+                                                    </button>
+
+                                                </td>
+                                                <td class="action-buttons">
+                                                    <div class="buttons">
+                                                        <button class="btn btn-primary btn-sm" onclick="populateUpdateForm(${p.priceListId}, ${p.dailyPriceForDay}, ${p.dailyPriceForWeek}, ${p.dailyPriceForMonth})">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-sm" onclick="">
+
+                                                            <a style="color: white"><i class="fas fa-trash"></i></a>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </c:forEach>
                                 </table>
                             </div>
@@ -348,6 +356,33 @@
                         </div>
                     </section>
                 </div>
+                <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div style="margin: 11rem;" class="modal-content" >
+                            <div style="padding: 10px 16px;" class="modal-header">
+                                <h5 class="modal-title">Thông tin chi tiết</h5>
+                                <button style="border: 1px solid #000" onclick="closeDetail()" type="button" class="btn close" data-dismiss="modal">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div style="padding-top: 0px" class="info modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">                                       
+                                        <div class="col-md-8">
+                                            <div class="row" style="padding-left: 20px;">
+                                                
+                                                <div class="col-md-12 mb-4">
+                                                    <label>Model: </label>
+                                                    <p style="display: inline;" id="modal-motorcycleName"></p>
+                                                </div>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -381,6 +416,43 @@
 
                 // Chuyển đến tab Update
                 $('.nav-tabs a[href="#Section3"]').tab('show');
+            }
+
+            function OneClick(button) {
+                var modal = $('#user-form-modal');
+               
+                modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
+
+                const modelData = button.getAttribute('data-motorcycleName');
+
+                // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
+                //licenseData = licenseData.trim() || '';
+                var newData = modelData.toString().trim();
+                //alert(newData);
+                // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
+                const modelArray = newData.split(',');
+                // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
+                //button.setAttribute('data-license', licenseArray.join(','));
+
+                // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
+                console.log(modelArray); // Hiển thị mảng trong console
+
+                // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
+                const licenseDisplayElement = document.getElementById('modal-motorcycleName');
+                if (licenseDisplayElement) {
+                    // Xóa nội dung cũ của phần tử
+                    licenseDisplayElement.innerHTML = '';
+
+                    // Duyệt qua mảng và hiển thị từng phần tử
+                    for (let i = 0; i < modelArray.length; i++) {
+                        const item = modelArray[i].trim();
+                        const p = document.createElement('p'); // Tạo một phần tử <p>
+                        p.innerHTML = item; // Gán nội dung của phần tử
+                        p.style.marginLeft = '50px';
+                        p.style.textAlign = 'left';
+                        licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
+                    }
+                }
             }
         </script>
 

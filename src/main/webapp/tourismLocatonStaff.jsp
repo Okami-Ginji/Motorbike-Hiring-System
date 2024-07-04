@@ -30,6 +30,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             .tab-content {
@@ -37,6 +38,7 @@
                 padding: 20px;
                 background-color: #E0E0E0;
                 overflow-y: auto;
+                margin-left: 35px;
             }
 
             .tab-content h3 {
@@ -49,6 +51,7 @@
 
             .nav-tabs {
                 display: flex;
+                padding-left: 50px;
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
             }
@@ -171,7 +174,7 @@
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" />
+           
         </div>
         <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
@@ -331,6 +334,7 @@
                     </section>
                 </div>
             </div>
+         
             <script>
                 function editTouristLocation(locationId, locationName, locationImage, description, urlArticle, staffID) {
                     document.getElementById('editLocationId').value = locationId;
@@ -439,6 +443,9 @@
                     });
                 });
             </script>
+            
+               
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

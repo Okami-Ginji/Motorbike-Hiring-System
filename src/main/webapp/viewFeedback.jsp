@@ -46,6 +46,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             /* Nội dung tab */
@@ -53,6 +54,7 @@
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                margin-left: 35px;
                 /*background: rgba(30, 151, 191, 0.1);*/
             }
 
@@ -68,7 +70,7 @@
             .nav-tabs {
                 display: flex;
                 margin-top: 0; /* Xóa khoảng trống phía trên */
-                padding-left: 0; /* Xóa padding bên trái */
+                padding-left: 50px;
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
 
@@ -204,7 +206,7 @@
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" /> 
+           
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
@@ -280,7 +282,8 @@
             </div>
         </div>
 
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
         <script type="text/javascript">

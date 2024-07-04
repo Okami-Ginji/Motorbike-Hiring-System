@@ -46,6 +46,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             /* Nội dung tab */
@@ -53,6 +54,7 @@
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                margin-left: 35px;
                 /*background: rgba(30, 151, 191, 0.1);*/
             }
 
@@ -68,7 +70,7 @@
             .nav-tabs {
                 display: flex;
                 margin-top: 0; /* Xóa khoảng trống phía trên */
-                padding-left: 0; /* Xóa padding bên trái */
+                padding-left: 50px;
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
 
@@ -201,10 +203,9 @@
 
         </style>
     </head>
-
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" /> 
+            
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
@@ -270,7 +271,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div role="tabpanel" class="tab-pane fade" id="Section2">
                     <!-- Nội dung phần tab Add New Motorbike -->
                     <section>
@@ -384,9 +384,6 @@
             }
         </script>
 
-
-
-
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script
@@ -395,5 +392,3 @@
     </body>
 
 </html>
-
-

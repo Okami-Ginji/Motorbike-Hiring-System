@@ -116,11 +116,11 @@
                 vertical-align: middle;
             }
         </style>
-        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
     </head>
     <body>
 
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
 
         <div class="faq_area section_padding_130" id="faq">
             <div class="container noidung" data-aos="fade-up">

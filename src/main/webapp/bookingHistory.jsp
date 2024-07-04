@@ -339,7 +339,7 @@
             }
         </style>
     </head>
-    <jsp:include page="/includes/navbar2.jsp" />
+    <jsp:include page="/includes/customer/navbar.jsp" />
     <body class="  font-body " data-framework="tailwind">
         <link href="https://www.loopple.com/css/vendor/tailwind.min.css" rel="stylesheet">
         <link href="https://www.loopple.com/css/tailwind/app.css?v=1.0.0" rel="stylesheet">

@@ -14,27 +14,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Vertical Tabs with Right Navigation</title>
-        <link rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!-- Google Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
-            rel="stylesheet">
-        <!-- Font Awesome -->
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- OWL Car -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/owl.theme.default.min.css">
-        <!-- Showmore css -->
         <link rel="stylesheet" href="css/showMoreItems-theme.min.css">
-        <!-- Data Table -->
-        <link rel="stylesheet"
-              href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-
-        <link rel="stylesheet"
-              href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        <link rel="stylesheet" href="staffAssets/css/style.css">
         <style>
             body,
             html {
@@ -47,6 +35,7 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             /* Nội dung tab */
@@ -69,7 +58,7 @@
             .nav-tabs {
                 display: flex;
                 margin-top: 0; /* Xóa khoảng trống phía trên */
-                padding-left: 0; /* Xóa padding bên trái */
+                padding-left: 50px; /* Xóa padding bên trái */
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
 
@@ -202,15 +191,19 @@
             }
 
         </style>
+        <!--        <link href="staffAssets/css/style.css" rel="stylesheet">-->
+        <!--<link href="staffAssets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
     </head>
 
     <body>
+        <!-- ======= Header ======= -->
+        
         <div class="col-md-2">
-            <%@ include file="/includes/sidebar.jsp" %>
+                
         </div>
         <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="m-auto nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
                                                           data-toggle="tab">Display All Motorbikes</a></li>
@@ -229,7 +222,7 @@
                 <div role="tabpanel" class="tab-pane fade in active" id="Section1">
                     <!-- Nội dung phần tab Display All Motorbikes -->
                     <div class="container-fluid">
-                        <div class="row tableview">
+                        <div class="m-auto row tableview">
                             <div class="col-12">
                                 <table class="table table-image">
                                     <thead>
@@ -293,7 +286,7 @@
                                                         </button>
                                                         <button class="btn btn-danger btn-sm" onclick="confirmDelete('${m.motorcycleId}')">
 
-                                                            <a style="color: white" href="deleteMotor?id=${m.motorcycleId}"><i class="fas fa-trash"></i></a>
+                                                            <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
                                                 </td>
@@ -485,7 +478,7 @@
                 </div>
                 <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
                     <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
+                        <div style="margin: 11rem;" class="modal-content" >
                             <div style="padding: 10px 16px;" class="modal-header">
                                 <h5 class="modal-title">Thông tin chi tiết</h5>
                                 <button style="border: 1px solid #000" onclick="closeDetail()" type="button" class="btn close" data-dismiss="modal">
@@ -520,109 +513,108 @@
             </div>
         </div>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
         <script type="text/javascript">
-            function confirmDelete(motorcycleId) {
-                Swal.fire({
-                    title: 'Bạn có chắc chắn?',
-                    text: "Bạn sẽ không thể khôi phục hành động này!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#1089FF',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Vâng, xóa nó!',
-                    cancelButtonText: 'Hủy'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = 'motorManage?motorcycleId=' + motorcycleId;
-                    }
-                });
-            }
+                                    // Sử dụng fetch để tải sidebar2.jsp
+//            fetch('includes/sidebar.jsp')
+//            .then(response => response.text())
+//            .then(data => {
+//                const sidebar = document.createElement('div');
+//                const shadow = sidebar.attachShadow({ mode: 'open' });
+//                shadow.innerHTML = data;
+//                document.getElementById('sidebar').appendChild(sidebar);
+//            })
+//            .catch(error => console.error('Error loading sidebar:', error));
 
-            function addMotorbikeDetail() {
-                const motorcycleId = document.getElementById('model').value;
-                const licensePlate = document.getElementById('licensePlate').value;
-                var data = {
-                    motorcycleId: motorcycleId,
-                    licensePlate: licensePlate
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "addMotorDetail", // Thay đổi URL tới servlet của bạn
-                    data: JSON.stringify(data),
-                    contentType: "application/json",
-                    success: function (response) {
-                        // Nếu thành công, hiển thị thông báo thành công
-                        document.getElementById('msg').style.color = 'green';
-                        document.getElementById('msg').textContent = "Đã nhập dữ liệu thành công!";
-                        window.location.href = 'motorManage';
-                    },
-                    error: function (xhr, status, error) {
-                        document.getElementById('msg').style.color = 'red';
-                        document.getElementById('msg').textContent = xhr.responseText || "Biển số xe đã có! Vui lòng nhập lại!";
-                    }
-                });
-            }
-            function OneClick(button) {
-                var modal = $('#user-form-modal');
-                modal.find('#modal-motorcycleID').text(button.getAttribute('data-motorcycleId'));
-                modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
-                modal.find('#modal-license').text(button.getAttribute('data-license'));
+                                    function confirmDelete(motorcycleId) {
+                                        Swal.fire({
+                                            title: 'Bạn có chắc chắn?',
+                                            text: "Bạn sẽ không thể khôi phục hành động này!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#1089FF',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Vâng, xóa nó!',
+                                            cancelButtonText: 'Hủy'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = 'motorManage?motorcycleId=' + motorcycleId;
+                                            }
+                                        });
+                                    }
+
+                                    function addMotorbikeDetail() {
+                                        const motorcycleId = document.getElementById('model').value;
+                                        const licensePlate = document.getElementById('licensePlate').value;
+                                        var data = {
+                                            motorcycleId: motorcycleId,
+                                            licensePlate: licensePlate
+                                        };
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "addMotorDetail", // Thay đổi URL tới servlet của bạn
+                                            data: JSON.stringify(data),
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                // Nếu thành công, hiển thị thông báo thành công
+                                                document.getElementById('msg').style.color = 'green';
+                                                document.getElementById('msg').textContent = "Đã nhập dữ liệu thành công!";
+                                                window.location.href = 'motorManage';
+                                            },
+                                            error: function (xhr, status, error) {
+                                                document.getElementById('msg').style.color = 'red';
+                                                document.getElementById('msg').textContent = xhr.responseText || "Biển số xe đã có! Vui lòng nhập lại!";
+                                            }
+                                        });
+                                    }
+                                    function OneClick(button) {
+                                        var modal = $('#user-form-modal');
+                                        modal.find('#modal-motorcycleID').text(button.getAttribute('data-motorcycleId'));
+                                        modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
+                                        modal.find('#modal-license').text(button.getAttribute('data-license'));
 
 
-                const licenseData = button.getAttribute('data-license');
+                                        const licenseData = button.getAttribute('data-license');
 
-                // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
-                //licenseData = licenseData.trim() || '';
-                var newData = licenseData.toString().trim();
-                //alert(newData);
-                // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
-                const licenseArray = newData.split(',');
-                // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
-                //button.setAttribute('data-license', licenseArray.join(','));
+                                        // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
+                                        //licenseData = licenseData.trim() || '';
+                                        var newData = licenseData.toString().trim();
+                                        //alert(newData);
+                                        // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
+                                        const licenseArray = newData.split(',');
+                                        // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
+                                        //button.setAttribute('data-license', licenseArray.join(','));
 
-                // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
-                console.log(licenseArray); // Hiển thị mảng trong console
+                                        // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
+                                        console.log(licenseArray); // Hiển thị mảng trong console
 
-                // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
-                const licenseDisplayElement = document.getElementById('modal-license');
-                if (licenseDisplayElement) {
-                    // Xóa nội dung cũ của phần tử
-                    licenseDisplayElement.innerHTML = '';
+                                        // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
+                                        const licenseDisplayElement = document.getElementById('modal-license');
+                                        if (licenseDisplayElement) {
+                                            // Xóa nội dung cũ của phần tử
+                                            licenseDisplayElement.innerHTML = '';
 
-                    // Duyệt qua mảng và hiển thị từng phần tử
-                    for (let i = 0; i < licenseArray.length; i++) {
-                        const item = licenseArray[i].trim();
-                        const p = document.createElement('p'); // Tạo một phần tử <p>
-                        p.innerHTML = item; // Gán nội dung của phần tử
-                        p.style.marginLeft = '5px';
-                        p.style.textAlign = 'left';
-                        licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
-                    }
-                }
-            }
+                                            // Duyệt qua mảng và hiển thị từng phần tử
+                                            for (let i = 0; i < licenseArray.length; i++) {
+                                                const item = licenseArray[i].trim();
+                                                const p = document.createElement('p'); // Tạo một phần tử <p>
+                                                p.innerHTML = item; // Gán nội dung của phần tử
+                                                p.style.marginLeft = '5px';
+                                                p.style.textAlign = 'left';
+                                                licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
+                                            }
+                                        }
+                                    }
         </script>
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!-- Bootstrap js -->
-        <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/popper.js"></script>
-        <!-- OWL Car -->
         <script src="js/owl.carousel.min.js"></script>
-        <!-- Show More js -->
         <script src="js/showMoreItems.min.js"></script>
-        <!-- Data TAble -->
-        <script
-        src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-        <!-- Bootstrap -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <!-- Theme js -->
-        <script type="text/javascript" src="js/main.js"></script>
+        <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
 

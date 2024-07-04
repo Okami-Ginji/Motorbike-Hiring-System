@@ -15,10 +15,10 @@
               href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
         <link rel="stylesheet"
               href="https://unpkg.com/bs-brain@2.0.4/components/abouts/about-4/assets/css/about-4.css">
-        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
     </head>
     <body>
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
         <div class="noidung">
             <section class="py-3 py-md-5 py-xl-8">
                 <div class="container about-header" data-aos="fade-up">
@@ -154,7 +154,7 @@
                 </div>
             </section>
         </div>
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="assets/vendor/php-email-form/validate.js"></script>
         <script src="assets/vendor/aos/aos.js"></script>

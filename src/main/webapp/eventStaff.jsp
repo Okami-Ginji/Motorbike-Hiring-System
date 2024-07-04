@@ -30,12 +30,15 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             .tab-content {
+                
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                margin-left: 35px;
             }
 
             .tab-content h3 {
@@ -49,6 +52,7 @@
             .nav-tabs {
                 display: flex;
                 margin-left: 3%;
+                padding-left: 50px; /* Xóa padding bên trái */
                 border-bottom: 2px solid #ddd;
             }
 
@@ -88,11 +92,13 @@
 
                 .tab-content {
                     padding: 10px;
+                    
                 }
             }
 
             .container-fluid {
                 padding: 2rem 0;
+                
             }
 
             .tableview {
@@ -179,7 +185,7 @@
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" />
+           
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
@@ -562,7 +568,8 @@
                 });
             });
         </script>
-
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

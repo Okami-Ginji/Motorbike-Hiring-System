@@ -203,10 +203,13 @@
     </head>
 
     <body>
-        <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" /> 
-        </div>
-        <div class="container-fluid tab-container">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+        <!-- ======= Header ======= -->
+
+        <jsp:include page="/includes/staff/sidebar.jsp" />
+        <div style="max-width: 960px; margin-top: 10rem" class="container">
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"

@@ -57,7 +57,7 @@ public class UpdateProfileServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phonenumber");
         String userName = request.getParameter("username");
         String accountID = request.getParameter("accountID");
-
+        int roleID = Integer.parseInt(request.getParameter("roleID"));
         try {
             if (isEmptyOrNull(email) && isEmptyOrNull(userName)) {
                 request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Không được để trống email và username.");
@@ -80,7 +80,11 @@ public class UpdateProfileServlet extends HttpServlet {
         } catch (NumberFormatException ex) {
             System.out.println(ex);
         }
-        request.getRequestDispatcher("profileCustomer.jsp").forward(request, response);
+        if (roleID == 1) {
+            request.getRequestDispatcher("profileCustomer.jsp").forward(request, response);
+        }
+        request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
+
     }
 
     private boolean isEmptyOrNull(String str) {

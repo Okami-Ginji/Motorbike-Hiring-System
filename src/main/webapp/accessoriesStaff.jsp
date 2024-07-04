@@ -31,12 +31,14 @@
                 display: flex;
                 flex-direction: column;
                 height: 100vh;
+                margin-top: 60px;
             }
 
             .tab-content {
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
+                margin-left: 35px;
             }
 
             .tab-content h3 {
@@ -51,6 +53,7 @@
                 display: flex;
                 margin-left: 3%;
                 border-bottom: 2px solid #ddd;
+                padding-left: 50px;
             }
 
             .nav-tabs li {

@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+        <link rel="website icon" type="png" href="images/logo.png">
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
@@ -227,7 +228,7 @@
 
                             <!-- Already Registered -->
                             <div class="text-center w-100" data-aos="fade-up" data-aos-delay="1000">
-                                <p class="text-muted font-weight-bold">Already have an account? <a href="login2.jsp" class="ml-2" style="color: #0A8EBF;">Login</a></p>
+                                <p class="text-muted font-weight-bold">Already have an account? <a href="login.jsp" class="ml-2" style="color: #0A8EBF;">Login</a></p>
                             </div>
                         </div>
                     </form>

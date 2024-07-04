@@ -17,8 +17,9 @@
         <meta content="" name="keywords">
 
         <!-- Favicons -->
-        <link href="staffAssets/img/favicon.png" rel="icon">
-        <link href="staffAssets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!--        <link href="staffAssets/img/favicon.png" rel="icon">
+                <link href="staffAssets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
+        <link rel="website icon" type="png" href="images/logo.png">
 
         <!-- Google Fonts -->
         <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -43,8 +44,8 @@
 
     <body>
 
-       <!-- ======= Header ======= -->
-       <jsp:include page="/includes/navbar-staff.jsp" />
+        <!-- ======= Header ======= -->
+        <jsp:include page="/includes/navbar-staff.jsp" />
         <!--       sidebar-->
         <jsp:include page="/includes/sidebar2.jsp" />
 

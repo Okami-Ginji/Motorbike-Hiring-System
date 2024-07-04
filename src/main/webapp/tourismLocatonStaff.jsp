@@ -294,28 +294,28 @@
                                                     <h3>Update Tourist Location</h3>
                                                     <div class="form-group">
                                                         <label for="editLocationImage">Location ID</label>
-                                                        <input type="text" id="editLocationId" name="editLocationId">
+                                                        <input type="text" id="editLocationId" name="locationId">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="editLocationImage">Location Image:</label>
                                                         <div id="editLocationImagePreview"></div>
-                                                        <input type="file" class="form-control-file" id="editLocationImage" name="editLocationImage" accept="image/*">
+                                                        <input type="file" class="form-control-file" id="editLocationImage" name="locationImage" accept="image/*">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="editLocationName">Location Name:</label>
-                                                        <input type="text" class="form-control" id="editLocationName" name="editLocationName" placeholder="Enter location name">
+                                                        <input type="text" class="form-control" id="editLocationName" name="locationName" placeholder="Enter location name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="editDescription">Description:</label>
-                                                        <textarea class="form-control" id="editDescription" name="editDescription" rows="3" placeholder="Enter description"></textarea>
+                                                        <textarea class="form-control" id="editDescription" name="description" rows="3" placeholder="Enter description"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="editUrlArticle">URL Article:</label>
-                                                        <input type="text" class="form-control" id="editUrlArticle" name="editUrlArticle" placeholder="Enter URL article">
+                                                        <input type="text" class="form-control" id="editUrlArticle" name="urlArticle" placeholder="Enter URL article">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="editStaffID">Select Staff:</label>
-                                                        <select class="form-control" id="editStaffID" name="editStaffID">
+                                                        <select class="form-control" id="editStaffID" name="staffID">
                                                             <!-- Options sẽ được tạo bằng cách sử dụng forEach hoặc theo dạng tĩnh -->
                                                             <c:forEach var="staff" items="${staffList}" varStatus="loop">
                                                                 <option value="${staff.staffID}">${staff.staffID}</option>

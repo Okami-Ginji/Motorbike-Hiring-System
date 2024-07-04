@@ -35,12 +35,13 @@ public class CancellationDAO {
         return instance;
     }
 
-    public boolean insertCancellation(String note, String bookingId) {  //sẽ update thêm staff từ từ đã, hiện tại staff đang null
-        String sql = "INSERT INTO Cancellation (CancellationDate, Note, BookingID) VALUES (CURRENT_TIMESTAMP, ?, ?)";
+    public boolean insertCancellation(String note, String bookingId, String staffID) {  //sẽ update thêm staff từ từ đã, hiện tại staff đang null
+        String sql = "INSERT INTO Cancellation (CancellationDate, Note, BookingID, StaffID) VALUES (CURRENT_TIMESTAMP, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, note);
             ps.setString(2, bookingId);
+            ps.setString(3, staffID);
             int rs = ps.executeUpdate();
             if (rs > 0) {
                 return true;
@@ -75,8 +76,27 @@ public class CancellationDAO {
         return list;
     }
 
+    public boolean updateCancellationByStaff(String staffId, String bookingId) {
+        PreparedStatement stm;
+        String sql = "Update Cancellation SET StaffID = ? where BookingID = ?";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, staffId);
+            stm.setString(2, bookingId);
+
+            int rowAffect = stm.executeUpdate();
+            if (rowAffect > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(CancellationDAO.getInstance().insertCancellation("Hahahihihuhu", "BOOK00000")); 
-        System.out.println(getInstance().getAllCancellation());
+//        System.out.println(getInstance().getAllCancellation());
+        System.out.println(getInstance().updateCancellationByStaff("STAFF00003", "BOOK000003"));
     }
 }

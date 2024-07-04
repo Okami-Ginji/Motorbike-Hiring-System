@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  * @author huypd
  */
 public class BookingDAO {
-
+    
     private static BookingDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
@@ -33,15 +33,15 @@ public class BookingDAO {
     //Chỉ new DAO qua hàm static getInstance() để quản lí được số object/instance đã new - SINGLETON DESIGN PATTERN
     private BookingDAO() {
     }
-
+    
     public static BookingDAO getInstance() {
-
+        
         if (instance == null) {
             instance = new BookingDAO();
         }
         return instance;
     }
-
+    
     public void addBooking(String bookingID, String bookingDate, String startDate, String endDate, String deliveryLocation, String returnedLocation, Integer voucherID, int customerID) {
         String sql = " INSERT INTO [dbo].[Booking] (\n"
                 + "    [BookingID], \n"
@@ -95,12 +95,12 @@ public class BookingDAO {
                 ps.setInt(10, customerID);
                 ps.executeUpdate();
             }
-
+            
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-
+    
     public List<Map<String, Object>> getMotorcyclesByBookingID(String bookingID) {
         PreparedStatement stm;
         ResultSet rs;
@@ -121,7 +121,7 @@ public class BookingDAO {
                 motorcycleInfo.put("Quantity", rs.getInt("Quantity"));
                 motorcycleInfo.put("Image", rs.getString("Image"));
                 motorcycleInfo.put("CategoryName", rs.getString("CategoryName"));
-
+                
                 motorcycleList.add(motorcycleInfo);
             }
         } catch (Exception ex) {
@@ -129,7 +129,7 @@ public class BookingDAO {
         }
         return motorcycleList;
     }
-
+    
     public Booking getBookingById(String bookingId) {
         PreparedStatement stm;
         ResultSet rs;
@@ -217,7 +217,7 @@ public class BookingDAO {
         }
         return list;
     }
-
+    
     public Map<String, Integer> getMotorcycleDetailsByBookingID(String bookingID) {
         PreparedStatement stm;
         ResultSet rs;
@@ -245,7 +245,7 @@ public class BookingDAO {
         }
         return motorcycleDetails;
     }
-
+    
     public boolean updateBookingStatus(String bookingID, String status) {
         PreparedStatement stm;
         String sql = "UPDATE Booking SET StatusBooking = ? WHERE BookingID = ?";
@@ -262,14 +262,15 @@ public class BookingDAO {
         }
         return false;
     }
-
-    public boolean updateDeliveryStatus(String bookingID, String delistatus) {
+    
+    public boolean updateDeliveryStatus(String deliveryStatus, String bookingID) {
         PreparedStatement stm;
         String sql = "UPDATE Booking SET DeliveryStatus = ? WHERE BookingID = ?";
         try {
             stm = conn.prepareStatement(sql);
-            stm.setString(1, delistatus);
+            stm.setString(1, deliveryStatus);
             stm.setString(2, bookingID);
+            
             int rowAffect = stm.executeUpdate();
             if (rowAffect > 0) {
                 return true;
@@ -279,7 +280,7 @@ public class BookingDAO {
         }
         return false;
     }
-
+    
     public Booking getLastestBooking(int accountId) {
         PreparedStatement stm;
         ResultSet rs;
@@ -300,7 +301,7 @@ public class BookingDAO {
         }
         return null;
     }
-
+    
     public List<Booking> getAllBookings() {
         PreparedStatement stm;
         ResultSet rs;
@@ -342,22 +343,22 @@ public class BookingDAO {
         }
         return list;
     }
-
+    
     public Booking getBookingsByUsername(String username) {
         PreparedStatement stm;
         ResultSet rs;
-
+        
         String sql = "SELECT b.*, c.*, a.* "
                 + "FROM Booking b "
                 + "JOIN Customer c ON b.CustomerID = c.CustomerID "
                 + "JOIN Account a ON a.AccountID = b.CustomerID "
                 + "WHERE a.username = ?";
-
+        
         try {
             stm = conn.prepareStatement(sql);
             stm.setString(1, username);
             rs = stm.executeQuery();
-
+            
             while (rs.next()) {
                 Booking booking = new Booking();
                 // Lấy thông tin Booking
@@ -374,7 +375,7 @@ public class BookingDAO {
                 Account account = AccountDAO.getInstance().getAccountbyID(customer.getAccountId());
                 customer.setAccountId(account.getAccountId());
                 booking.setCustomerID(customer.getCustomerId());
-
+                
                 return booking;
             }
         } catch (SQLException ex) {
@@ -382,13 +383,13 @@ public class BookingDAO {
         }
         return null;
     }
-
+    
     public static void main(String[] args) {
         BookingDAO bookingDAO = BookingDAO.getInstance();
 //        System.out.println(bookingDAO.getMotorcycleDetailsByBookingID("BOOK000006"));
 //        System.out.println(bookingDAO.updateBookingStatus("BOOK000006", "Đã hủy"));
 //        System.out.println(bookingDAO.getLastestBooking(10));
-        System.out.println(bookingDAO.getAllBookings());
-        System.out.println(bookingDAO.getBookingsByUsername("minhtuns2311"));
+//        System.out.println(bookingDAO.getAllBookings());
+//        System.out.println(bookingDAO.getBookingsByUsername("minhtuns2311"));
     }
 }

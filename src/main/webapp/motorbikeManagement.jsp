@@ -211,7 +211,7 @@
                                            aria-controls="profile" role="tab"
                                            data-toggle="tab">Add New Model</a></li>
                 <li role="presentation">
-                    <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Add New Motorbike</a>
+                    <a href="#Section3" aria-controls="addNewMotorbike" role="tab" data-toggle="tab">Add New Motorbike</a>
                 </li>
                 <li role="presentation">
                     <a href="#Section4" aria-controls="update" role="tab" data-toggle="tab">Update </a>
@@ -281,7 +281,7 @@
                                                 </td>
                                                 <td class="action-buttons">
                                                     <div class="buttons">
-                                                        <button class="btn btn-primary btn-sm" onclick="">
+                                                        <button class="btn btn-primary btn-sm" onclick="editMotorcycle('${m.motorcycleId}', '${m.model}', '${m.image}', '${m.displacement}', '${m.description}', '${m.minAge}', '${m.brandID}', '${m.categoryID}', '${m.priceListID}')">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                         <button class="btn btn-danger btn-sm" onclick="confirmDelete('${m.motorcycleId}')">
@@ -421,27 +421,26 @@
                                     <div class="row align-items-center pt-md-5 mt-md-5 mb-5">
                                         <div class="col-md-12">
                                             <div class="addnew">
-                                                <form class="edit-location-form" id="editLocationForm" action="UpdateTourismLoctionServletStaff" method="post" enctype="multipart/form-data">
+                                                <form class="" id="" action="updateMotorcycle" method="post" enctype="multipart/form-data">
                                                     <h3>Update Tourist Location</h3>
                                                     <div class="form-group">
+                                                        <div id="editMotorbikeImagePreview"></div>
                                                         <input type="file" class="form-control-file" id="motorbikeImage" name="image">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Enter Motorbike ID" name="id">
+                                                        <input type="text" class="form-control" id="id" placeholder="Enter Motorbike ID" name="id">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Enter model" name="model">
+                                                        <input type="text" class="form-control" id="modelName" placeholder="Enter model" name="modelName">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control"
-                                                               placeholder="Enter displacement" name="displacement">
+                                                        <input type="text" class="form-control" id="displacement" placeholder="Enter displacement" name="displacement">
                                                     </div>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3"
-                                                                  placeholder="Enter description" name="description"></textarea>
+                                                        <textarea class="form-control" rows="3" id="description" placeholder="Enter description" name="description"></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" placeholder="Enter min age" name="minAge">
+                                                        <input type="number" class="form-control" id="minAge" placeholder="Enter min age" name="minAge">
                                                     </div>
                                                     <div class="form-group">
                                                         <select class="form-control" id="bid" name="brandID">
@@ -513,11 +512,10 @@
             </div>
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
         <script type="text/javascript">
-                                    // Sử dụng fetch để tải sidebar2.jsp
+            // Sử dụng fetch để tải sidebar2.jsp
 //            fetch('includes/sidebar.jsp')
 //            .then(response => response.text())
 //            .then(data => {
@@ -527,94 +525,127 @@
 //                document.getElementById('sidebar').appendChild(sidebar);
 //            })
 //            .catch(error => console.error('Error loading sidebar:', error));
+            function editMotorcycle(id, model, image, displacement, description, minAge, bid, cid, pid) {
+                document.getElementById('id').value = id;
+                document.getElementById('modelName').value = model;
+                document.getElementById('displacement').value = displacement;
+                document.getElementById('description').value = description;
+                document.getElementById('minAge').value = minAge;
+                document.getElementById('bid').value = bid;
+                document.getElementById('cid').value = cid;
+                document.getElementById('pid').value = pid;
 
-                                    function confirmDelete(motorcycleId) {
-                                        Swal.fire({
-                                            title: 'Bạn có chắc chắn?',
-                                            text: "Bạn sẽ không thể khôi phục hành động này!",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#1089FF',
-                                            cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Vâng, xóa nó!',
-                                            cancelButtonText: 'Hủy'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                window.location.href = 'motorManage?motorcycleId=' + motorcycleId;
-                                            }
-                                        });
-                                    }
+                var imgContainer = document.getElementById('editMotorbikeImagePreview');
+                imgContainer.innerHTML = ''; // Xóa hình ảnh cũ (nếu có)
+                console.log("thinh");
+                // Hiển thị hình ảnh đối tượng
+                if (image) {
+                    console.log("hihihi");
+                    var img = document.createElement('img');
+                    img.src = 'images/' + image;
+                    img.alt = 'Motorbike Image';
+                    img.className = 'img-fluid img-thumbnail';
+                    imgContainer.appendChild(img);
+                } else {
+                    imgContainer.innerHTML = 'No image available';
+                }
 
-                                    function addMotorbikeDetail() {
-                                        const motorcycleId = document.getElementById('model').value;
-                                        const licensePlate = document.getElementById('licensePlate').value;
-                                        var data = {
-                                            motorcycleId: motorcycleId,
-                                            licensePlate: licensePlate
-                                        };
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "addMotorDetail", // Thay đổi URL tới servlet của bạn
-                                            data: JSON.stringify(data),
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                // Nếu thành công, hiển thị thông báo thành công
-                                                document.getElementById('msg').style.color = 'green';
-                                                document.getElementById('msg').textContent = "Đã nhập dữ liệu thành công!";
-                                                window.location.href = 'motorManage';
-                                            },
-                                            error: function (xhr, status, error) {
-                                                document.getElementById('msg').style.color = 'red';
-                                                document.getElementById('msg').textContent = xhr.responseText || "Biển số xe đã có! Vui lòng nhập lại!";
-                                            }
-                                        });
-                                    }
-                                    function OneClick(button) {
-                                        var modal = $('#user-form-modal');
-                                        modal.find('#modal-motorcycleID').text(button.getAttribute('data-motorcycleId'));
-                                        modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
-                                        modal.find('#modal-license').text(button.getAttribute('data-license'));
+                // Chuyển sang tab Section 4 (nếu cần thiết)
+                $('a[href="#Section4"]').tab('show');
+
+            }
+            function confirmDelete(motorcycleId) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1089FF',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Vâng, xóa nó!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'motorManage?motorcycleId=' + motorcycleId;
+                    }
+                });
+            }
+
+            function addMotorbikeDetail() {
+                const motorcycleId = document.getElementById('model').value;
+                const licensePlate = document.getElementById('licensePlate').value;
+                var data = {
+                    motorcycleId: motorcycleId,
+                    licensePlate: licensePlate
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "addMotorDetail", // Thay đổi URL tới servlet của bạn
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function (response) {
+                        // Nếu thành công, hiển thị thông báo thành công
+                        document.getElementById('msg').style.color = 'green';
+                        document.getElementById('msg').textContent = "Đã nhập dữ liệu thành công!";
+                        window.location.href = 'motorManage';
+                    },
+                    error: function (xhr, status, error) {
+                        document.getElementById('msg').style.color = 'red';
+                        document.getElementById('msg').textContent = xhr.responseText || "Biển số xe đã có! Vui lòng nhập lại!";
+                    }
+                });
+            }
+            function OneClick(button) {
+                var modal = $('#user-form-modal');
+                modal.find('#modal-motorcycleID').text(button.getAttribute('data-motorcycleId'));
+                modal.find('#modal-motorcycleName').text(button.getAttribute('data-motorcycleName'));
+                modal.find('#modal-license').text(button.getAttribute('data-license'));
 
 
-                                        const licenseData = button.getAttribute('data-license');
+                const licenseData = button.getAttribute('data-license');
 
-                                        // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
-                                        //licenseData = licenseData.trim() || '';
-                                        var newData = licenseData.toString().trim();
-                                        //alert(newData);
-                                        // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
-                                        const licenseArray = newData.split(',');
-                                        // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
-                                        //button.setAttribute('data-license', licenseArray.join(','));
+                // Đảm bảo licenseData là một chuỗi, nếu null thì gán giá trị mặc định là ''
+                //licenseData = licenseData.trim() || '';
+                var newData = licenseData.toString().trim();
+                //alert(newData);
+                // Chuyển đổi ký tự đặc biệt '|' thành ký tự xuống dòng hoặc thẻ <br> nếu cần thiết
+                const licenseArray = newData.split(',');
+                // Gán lại dữ liệu đã định dạng vào thuộc tính của nút (nếu cần thiết)
+                //button.setAttribute('data-license', licenseArray.join(','));
 
-                                        // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
-                                        console.log(licenseArray); // Hiển thị mảng trong console
+                // Hiển thị dữ liệu đã định dạng (ví dụ, trong console hoặc một phần tử HTML khác)
+                console.log(licenseArray); // Hiển thị mảng trong console
 
-                                        // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
-                                        const licenseDisplayElement = document.getElementById('modal-license');
-                                        if (licenseDisplayElement) {
-                                            // Xóa nội dung cũ của phần tử
-                                            licenseDisplayElement.innerHTML = '';
+                // Nếu bạn muốn hiển thị từng phần tử trong một phần tử HTML khác:
+                const licenseDisplayElement = document.getElementById('modal-license');
+                if (licenseDisplayElement) {
+                    // Xóa nội dung cũ của phần tử
+                    licenseDisplayElement.innerHTML = '';
 
-                                            // Duyệt qua mảng và hiển thị từng phần tử
-                                            for (let i = 0; i < licenseArray.length; i++) {
-                                                const item = licenseArray[i].trim();
-                                                const p = document.createElement('p'); // Tạo một phần tử <p>
-                                                p.innerHTML = item; // Gán nội dung của phần tử
-                                                p.style.marginLeft = '5px';
-                                                p.style.textAlign = 'left';
-                                                licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
-                                            }
-                                        }
-                                    }
+                    // Duyệt qua mảng và hiển thị từng phần tử
+                    for (let i = 0; i < licenseArray.length; i++) {
+                        const item = licenseArray[i].trim();
+                        const p = document.createElement('p'); // Tạo một phần tử <p>
+                        p.innerHTML = item; // Gán nội dung của phần tử
+                        p.style.marginLeft = '5px';
+                        p.style.textAlign = 'left';
+                        licenseDisplayElement.appendChild(p); // Thêm phần tử vào phần tử hiển thị
+                    }
+                }
+            }
         </script>
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<!--        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> lỗi update-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="js/owl.carousel.min.js"></script>
         <script src="js/showMoreItems.min.js"></script>
         <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
         <script src="js/main.js"></script>
+
+<!--        ajax-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </body>
 </html>
 

@@ -237,6 +237,42 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
     }
 
+    public void updateMotorcycle(Motorcycle motorbike) {
+        PreparedStatement stm;
+        try {
+            String sql = "UPDATE [dbo].[Motorcycle]\n"
+                    + "   SET [Model] = ?\n"
+                    + "      ,[Image] = ?\n"
+                    + "      ,[Displacement] = ?\n"
+                    + "      ,[Description] = ?\n"
+                    + "      ,[MinAge] = ?\n"
+                    + "      ,[BrandID] = ?\n"
+                    + "      ,[CategoryID] = ?\n"
+                    + "      ,[PriceListID] = ?\n"
+                    + " WHERE [MotorcycleID] = ?";
+            stm = conn.prepareStatement(sql);
+
+            stm.setString(1, motorbike.getModel());
+            stm.setString(2, motorbike.getImage());
+            stm.setString(3, motorbike.getDisplacement());
+            stm.setString(4, motorbike.getDescription());
+            stm.setInt(5, motorbike.getMinAge());
+            stm.setInt(6, motorbike.getBrandID());
+            stm.setInt(7, motorbike.getCategoryID());
+            stm.setInt(8, motorbike.getPriceListID());
+            stm.setString(9, motorbike.getMotorcycleId());
+            
+            int rowsUpdated = stm.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Motorcycle updated successfully.");
+            } else {
+                System.out.println("No Motorcycle updated.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating Motorcycle: " + e.getMessage());
+        }
+    }
+
     //đếm số lượn motorcycles trong database
     public int getTotalMotorcycles() {
         PreparedStatement stm;

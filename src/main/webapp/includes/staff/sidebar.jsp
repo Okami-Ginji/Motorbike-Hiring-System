@@ -3,6 +3,7 @@
     Created on : Jun 29, 2024, 2:00:00 PM
     Author     : DiepTCNN
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Favicons -->
@@ -26,37 +27,44 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
     .custom-icon:before {
-            content: "\f444"; /* Mã Unicode của biểu tượng */
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900; /* Dùng font-weight 900 cho các biểu tượng Solid */
-            display: inline-block;
-    font-family: bootstrap-icons !important;
-    font-style: normal;
-    font-weight: normal !important;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    vertical-align: -.125em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
-        }
+        content: "\f444"; /* Mã Unicode của biểu tượng */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900; /* Dùng font-weight 900 cho các biểu tượng Solid */
+        display: inline-block;
+        font-family: bootstrap-icons !important;
+        font-style: normal;
+        font-weight: normal !important;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        vertical-align: -.125em;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
 </style>
 <!-- Template Main CSS File -->
 <link href="staffAssets/css/style.css" rel="stylesheet">
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar" style="height: 100%;">
+
+<aside style="width: 260px" id="sidebar" class="sidebar">
+    <% 
+        String currentPage = request.getRequestURI();
+        request.setAttribute("currentPage", currentPage);
+    %>
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="homestaff2.jsp">
+
+            <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff.jsp">
                 <i class="bi bi-grid"></i>
                 <span>Trang chủ</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="manageCustomer">
+            <a class="nav-link ${currentPage.contains('/manageCustomer') ? '' : 'collapsed'}" href="manageCustomer">
                 <i class="bi bi-grid"></i>
                 <span>Thông tin khách hàng</span>
             </a>
@@ -68,7 +76,7 @@
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>Xe Máy</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
                 <li>
                     <a onclick="CallSideBar('motorManage')">
                         <i class="bi bi-circle"></i><span>Thông tin xe máy</span>
@@ -80,7 +88,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="pricingManage">
+                    <a onclick="CallSideBar('pricingManage')">
                         <i class="bi bi-circle"></i><span>Quản lí bảng giá</span>
                     </a>
                 </li>
@@ -121,7 +129,8 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="profileStaff.jsp">
+
+            <a class="nav-link ${currentPage.contains('/profileStaff.jsp') ? '' : 'collapsed'}" href="profileStaff.jsp">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
@@ -143,9 +152,10 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="login.jsp">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
+
+            <a class="nav-link collapsed" href="logout">
+               <i class="bi bi-box-arrow-in-right"></i>
+                <span>Logout</span>
             </a>
         </li><!-- End Login Page Nav -->
 
@@ -163,12 +173,12 @@
 <script src="staffAssets/vendor/php-email-form/validate.js"></script>
 
 <script>
-    function CallSideBar(iframeSrc){
-        var url = "manageColorBike.jsp?iframeSrc=" + iframeSrc;
-            
-            // Chuyển hướng đến URL mới
-            window.location.href = url;
-    }
+                        function CallSideBar(iframeSrc) {
+                            var url = "manageColorBike.jsp?iframeSrc=" + iframeSrc;
+
+                            // Chuyển hướng đến URL mới
+                            window.location.href = url;
+                        }
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

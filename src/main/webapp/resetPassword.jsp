@@ -11,7 +11,7 @@
 
 
     <head>
-        <jsp:include page="/includes/header.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
 
         <link rel="stylesheet" href="css/css/register.css">
 

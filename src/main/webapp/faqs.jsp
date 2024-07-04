@@ -117,11 +117,11 @@
                 vertical-align: middle;
             }
         </style>
-        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
     </head>
     <body>
 
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
 
         <div class="faq_area section_padding_130" id="faq">
             <div class="container noidung" data-aos="fade-up">
@@ -174,7 +174,7 @@
             </div>
         </div>
 
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
 
         <!-- Các tệp JS -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

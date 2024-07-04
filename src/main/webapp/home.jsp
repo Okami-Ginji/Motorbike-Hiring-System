@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <jsp:include page="/includes/header2.jsp" />
+        <jsp:include page="/includes/customer/header.jsp" />
 
         <style>
             .rental{
@@ -23,12 +23,12 @@
                 font-weight: 800;
                 color: white;
                 transition: transform .2s;
-                border: 1px solid rgb(2, 184, 175); 
+                border: 1px solid rgb(2, 184, 175);
                 border-radius: 5px;
                 box-shadow: 0 2px 10px #9BE9E6;
             }
             .rental :hover{
-                background: linear-gradient(243.4deg, rgb(0, 132, 255) 13%, rgb(8, 126, 120) 98%);                
+                background: linear-gradient(243.4deg, rgb(0, 132, 255) 13%, rgb(8, 126, 120) 98%);
             }
             .rentalbutton:hover {
                 transform: scale(1.1);
@@ -59,12 +59,103 @@
             .call-to-action a:hover{
                 color: white;
             }
+            .sidebar {
+                height: 60%;
+                width: 250px;
+                background: linear-gradient(135deg, #5aa389, rgb(2, 195, 255));
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(300px);
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                position: fixed;
+                top: 148px;
+                bottom: 0px;
+                right: 0;
+                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+            .sidebar-content {
+                text-align: center;
+                padding-left: 20px;
+            }
+
+            .sidebar-content p {
+                margin-bottom: 20px;
+                font-size: 1.1em;
+                text-align: left;
+            }
+
+            .sidebar-content button {
+                background: rgb(0,208, 141);
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                font-size: 1em;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: background 0.3s ease, transform 0.3s ease;
+            }
+
+            .sidebar-content button:hover {
+                background: #2c3e50;
+                transform: scale(1.05);
+            }
+            .sidebar-action {
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 10%, rgb(10 123 230) 98%);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                position: fixed;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1), background 0.3s ease;
+                z-index: 1001;
+            }
+
+            .sidebar-action:hover {
+                background-color: rgb(2, 255, 162);
+            }
+
+            .sidebar-action span {
+                font-size: 24px;
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar-action .notification-dot {
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-action.open {
+                right: 255px;
+            }
+
+            .sidebar-action.open span {
+                transform: rotate(180deg);
+            }
         </style>
     </head>
 
     <body class="index-page">
 
-        <jsp:include page="/includes/navbar2.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
 
         <main class="main">
 
@@ -84,8 +175,8 @@
                                 đơn giản, an toàn và đầy thú vị</p>
                             <div class="rentalbutton">
                                 <a href="booking" type="button"
-                                        class="align-items-stretch mb-3 rental"
-                                        data-aos="fade-up" style="padding: 2.5%; font-size: large; font-weight: 700; text-align: center; color: white;">THUÊ XE NGAY</a>
+                                   class="align-items-stretch mb-3 rental"
+                                   data-aos="fade-up" style="padding: 2.5%; font-size: large; font-weight: 700; text-align: center; color: white;">THUÊ XE NGAY</a>
                             </div>
                             <div class="row gy-4" data-aos="fade-up" data-aos-delay="300">
 
@@ -138,7 +229,22 @@
 
                     </div>
                 </div>
-
+                <c:if test="${not empty requestScope.book && statusBooking != 'Đã hủy'}">
+                    <div class="follow-container">
+                        <div class="sidebar" id="sidebar">
+                            <div class="sidebar-content">
+                                <p>Cảm ơn bạn đã sử dụng dịch vụ của <span><strong>COLOR<span class="bike">BIKE</span></strong></span>, hãy bấm vào đây để theo dõi nhanh đơn hàng của mình nhé!</p>
+                                <a href="bookingHistoryDetail?bookingId=${requestScope.book.bookingID}">
+                                    <button>Theo dõi đơn hàng</button>
+                                </a>                   
+                            </div>
+                        </div>
+                        <div onclick="SidebarAction()" class="sidebar-action" id="sidebarAction">
+                            <span class="arrow-icon"><i class="bi bi-play-fill"></i></span>
+                            <div class="notification-dot"></div>
+                        </div>
+                    </div>
+                </c:if>
             </section><!-- /Hero Section -->
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -236,7 +342,7 @@
                 <h2>TOP Sản Phẩm</h2>
             </div>
             <iframe src="slide.jsp" style="width: 99.1%; height: 540px; padding: 0; margin: 0;"></iframe>
-               
+
 
             <!-- Call To Action Section -->
             <section id="call-to-action" class="call-to-action section">
@@ -379,7 +485,7 @@
             
         </main>
 
-        <jsp:include page="/includes/footer.jsp" />
+        <jsp:include page="/includes/customer/footer.jsp" />
 
         <!-- Scroll Top -->
         <a href="#" id="scroll-top"
@@ -395,6 +501,19 @@
             window.embeddedChatbotConfig = {
                 chatbotId: "qUNf-UR7ycIWmYS6ZiWCL",
                 domain: "www.chatbase.co"
+            }
+            function SidebarAction() {
+                const sidebar = document.getElementById('sidebar');
+                const sidebarToggle = document.getElementById('sidebarAction');
+
+                sidebar.classList.toggle('open');
+                sidebarToggle.classList.toggle('open');
+                if (sidebarToggle.classList.contains('open')) {
+                    const notificationDot = document.querySelector('.notification-dot');
+                    if (notificationDot) {
+                        notificationDot.style.display = 'none';
+                    }
+                }
             }
         </script>
         <script

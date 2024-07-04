@@ -251,12 +251,13 @@
 
     <body>
         <div class="row">
+            <jsp:include page="/includes/staff/header-staff.jsp" />
             <div class="col-md-2">
-                <!--       sidebar-->
-                <jsp:include page="/includes/sidebar2.jsp" />
+
+                <jsp:include page="/includes/staff/sidebar.jsp" /> 
             </div>
 
-            <div class="col-md-10">
+            <div style="margin-top: 6rem" class="col-md-10">
                 <div class="container col-md-8">
                     <div class="row">
                         <div class="col-md-12">

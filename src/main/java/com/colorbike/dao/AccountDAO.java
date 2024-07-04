@@ -535,14 +535,14 @@ public class AccountDAO implements Serializable {
         return list;
     }
 
-    public boolean updateProfileImage(int userId, String filePath) {
+    public boolean updateProfileImage(int AccountID, String filePath) {
         PreparedStatement st;
         ResultSet rs;
         String sql = "UPDATE Account SET Image = ? WHERE AccountID = ?";
         try {
             st = conn.prepareStatement(sql);
             st.setString(1, filePath);
-            st.setInt(2, userId);
+            st.setInt(2, AccountID);
             int rowsUpdated = st.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
@@ -567,5 +567,6 @@ public class AccountDAO implements Serializable {
 //        for(Account x: dao.getListAccountByRole(1)){
 //            System.out.println(x);
 //        }
+System.out.println(dao.updateProfileImage(2, "hahaAc1.jpg"));
     }
 }

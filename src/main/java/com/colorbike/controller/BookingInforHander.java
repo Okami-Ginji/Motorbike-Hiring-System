@@ -230,7 +230,7 @@ public class BookingInforHander extends HttpServlet {
             bikeCounts.put(bikeName, bikeCounts.getOrDefault(bikeName, 0) + 1);
             List<Integer> list = daoMD.getListAvailableMotorcycleDetailIdByMotorcycleName(bikeName);
             int randomElement = list.get(random.nextInt(list.size()));
-            daoMS.insertMotorcycleStatus(randomElement, "STAFF00001", "Chờ xử lý", formattedDateString, "Chờ nhân viên xác nhận");
+            daoMS.insertMotorcycleStatus(randomElement, "STAFF00001", "Không có sẵn", formattedDateString, "Chờ nhân viên xác nhận");
             daoBD.addBookingDetail(randomElement, bookingid, bikePrice);
         }
 
@@ -260,7 +260,7 @@ public class BookingInforHander extends HttpServlet {
         // Chuyển đổi LocalDateTime thành chuỗi định dạng mới
         String paymentDateText = dateTime.format(outputFormatter);
         PaymentDAO daoP = PaymentDAO.getInstance();
-        daoP.addPayment(bookingid, "Ngân hàng", paymentDateText, amount/100, "Thành công");
+        daoP.addPayment(bookingid, "Ngân hàng", paymentDateText, amount/100000, "Thành công");
         
         // Send confirmation email
        StringBuilder emailContent = new StringBuilder();

@@ -6,6 +6,7 @@ package com.colorbike.dao;
 
 import com.colorbike.dto.Account;
 import com.colorbike.dto.Motorcycle;
+import com.colorbike.dto.MotorcycleDetail;
 import com.colorbike.dto.PriceList;
 import com.colorbike.dto.SearchCriteria;
 import com.colorbike.dto.SearchCriteria.PriceRange;
@@ -64,45 +65,55 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
-                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
-                        rs.getInt(9)));
+                Motorcycle motorcycle = new Motorcycle();
+                motorcycle.setMotorcycleId(rs.getString(1));
+                motorcycle.setModel(rs.getString(2));
+                motorcycle.setImage(rs.getString(3));
+                motorcycle.setDisplacement(rs.getString(4));
+                motorcycle.setDescription(rs.getString(5));
+                motorcycle.setMinAge(rs.getInt(6));
+                motorcycle.setBrandID(rs.getInt(7));
+                motorcycle.setCategoryID(rs.getInt(8));
+                motorcycle.setPriceListID(rs.getInt(9));
+                List<MotorcycleDetail> listMotorcycleDetails = MotorcycleDetailDAO.getInstance().getMotorcycleDetail(rs.getString(1));
+                motorcycle.setListMotorcycleDetails(listMotorcycleDetails);
+                list.add(motorcycle);
             }
         } catch (Exception ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-    
-    public LinkedHashMap<String, String> getAllAvailableMotorCycle(){
+
+    public LinkedHashMap<String, String> getAllAvailableMotorCycle() {
         PreparedStatement stm;
         ResultSet rs;
         LinkedHashMap<String, String> list = new LinkedHashMap<>();
         try {
-            String sql = "WITH LatestStatus AS (\n" +
-                        "    SELECT\n" +
-                        "        ms.MotorcycleDetailID,\n" +
-                        "        ms.Status,\n" +
-                        "        ROW_NUMBER() OVER (PARTITION BY ms.MotorcycleDetailID ORDER BY ms.MotorcycleStatusID DESC) AS RowNum\n" +
-                        "    FROM\n" +
-                        "        [dbo].[Motorcycle Status] ms\n" +
-                        ")\n" +
-                        "SELECT\n" +
-                        "    m.MotorcycleID,\n" +
-                        "    COUNT(md.MotorcycleDetailID) AS AvailableCount\n" +
-                        "FROM\n" +
-                        "    [dbo].[Motorcycle] m\n" +
-                        "INNER JOIN\n" +
-                        "    [dbo].[Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n" +
-                        "INNER JOIN\n" +
-                        "    LatestStatus ls ON md.MotorcycleDetailID = ls.MotorcycleDetailID AND ls.RowNum = 1\n" +
-                        "WHERE\n" +
-                        "    ls.Status like N'Có sẵn'\n" +
-                        "GROUP BY\n" +
-                        "    m.MotorcycleID\n" +
-                        "ORDER BY\n" +
-                        "    m.MotorcycleID;";
-          
+            String sql = "WITH LatestStatus AS (\n"
+                    + "    SELECT\n"
+                    + "        ms.MotorcycleDetailID,\n"
+                    + "        ms.Status,\n"
+                    + "        ROW_NUMBER() OVER (PARTITION BY ms.MotorcycleDetailID ORDER BY ms.MotorcycleStatusID DESC) AS RowNum\n"
+                    + "    FROM\n"
+                    + "        [dbo].[Motorcycle Status] ms\n"
+                    + ")\n"
+                    + "SELECT\n"
+                    + "    m.MotorcycleID,\n"
+                    + "    COUNT(md.MotorcycleDetailID) AS AvailableCount\n"
+                    + "FROM\n"
+                    + "    [dbo].[Motorcycle] m\n"
+                    + "INNER JOIN\n"
+                    + "    [dbo].[Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n"
+                    + "INNER JOIN\n"
+                    + "    LatestStatus ls ON md.MotorcycleDetailID = ls.MotorcycleDetailID AND ls.RowNum = 1\n"
+                    + "WHERE\n"
+                    + "    ls.Status like N'Có sẵn'\n"
+                    + "GROUP BY\n"
+                    + "    m.MotorcycleID\n"
+                    + "ORDER BY\n"
+                    + "    m.MotorcycleID;";
+
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -115,6 +126,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
+
     //Lấy xe máy theo id ==> xem detail
     public Motorcycle getMotorcycleByid(String id) {
         PreparedStatement stm;
@@ -145,48 +157,47 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return null;
     }
-    
-    
+
     public LinkedHashMap<Motorcycle, Integer> getListMotorcycleByBookingId(String id) {
         PreparedStatement stm;
         ResultSet rs;
         LinkedHashMap<Motorcycle, Integer> list = new LinkedHashMap<>();
         try {
-            String sql = "SELECT\n" +
-                        "    m.MotorcycleID,\n" +
-                        "    m.Model,\n" +
-                        "    m.Image,\n" +
-                        "    m.Displacement,\n" +
-                        "    m.Description,\n" +
-                        "    m.MinAge,\n" +
-                        "    m.BrandID,\n" +
-                        "    m.CategoryID,\n" +
-                        "    m.PriceListID,\n" +
-                        "    COUNT(bd.BookingDetailID) AS Quantity\n" +
-                        "FROM\n" +
-                        "    [dbo].[Booking Detail] bd\n" +
-                        "JOIN\n" +
-                        "    [dbo].[Motorcycle Detail] md ON bd.MotorcycleDetailID = md.MotorcycleDetailID\n" +
-                        "JOIN\n" +
-                        "    [dbo].[Motorcycle] m ON md.MotorcycleID = m.MotorcycleID\n" +
-                        "WHERE\n" +
-                        "    bd.BookingID = ?\n" +
-                        "GROUP BY\n" +
-                        "    m.MotorcycleID,\n" +
-                        "    m.Model,\n" +
-                        "    m.Image,\n" +
-                        "    m.Displacement,\n" +
-                        "    m.Description,\n" +
-                        "    m.MinAge,\n" +
-                        "    m.BrandID,\n" +
-                        "    m.CategoryID,\n" +
-                        "    m.PriceListID;";
+            String sql = "SELECT\n"
+                    + "    m.MotorcycleID,\n"
+                    + "    m.Model,\n"
+                    + "    m.Image,\n"
+                    + "    m.Displacement,\n"
+                    + "    m.Description,\n"
+                    + "    m.MinAge,\n"
+                    + "    m.BrandID,\n"
+                    + "    m.CategoryID,\n"
+                    + "    m.PriceListID,\n"
+                    + "    COUNT(bd.BookingDetailID) AS Quantity\n"
+                    + "FROM\n"
+                    + "    [dbo].[Booking Detail] bd\n"
+                    + "JOIN\n"
+                    + "    [dbo].[Motorcycle Detail] md ON bd.MotorcycleDetailID = md.MotorcycleDetailID\n"
+                    + "JOIN\n"
+                    + "    [dbo].[Motorcycle] m ON md.MotorcycleID = m.MotorcycleID\n"
+                    + "WHERE\n"
+                    + "    bd.BookingID = ?\n"
+                    + "GROUP BY\n"
+                    + "    m.MotorcycleID,\n"
+                    + "    m.Model,\n"
+                    + "    m.Image,\n"
+                    + "    m.Displacement,\n"
+                    + "    m.Description,\n"
+                    + "    m.MinAge,\n"
+                    + "    m.BrandID,\n"
+                    + "    m.CategoryID,\n"
+                    + "    m.PriceListID;";
             stm = conn.prepareStatement(sql);
             stm.setString(1, id);
             rs = stm.executeQuery();
             while (rs.next()) {
                 list.put(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9)) ,
+                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9)),
                         rs.getInt(10));
             }
         } catch (Exception ex) {
@@ -194,7 +205,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
-    
+
     public void addMotorcycle(Motorcycle motor) {
         String sql = "INSERT INTO [dbo].[Motorcycle]\n"
                 + "           ([MotorcycleID]\n"
@@ -218,7 +229,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             ps.setInt(6, motor.getMinAge());
             ps.setInt(7, motor.getBrandID());
             ps.setInt(8, motor.getCategoryID());
-            ps.setInt(9, motor.getPriceListID());         
+            ps.setInt(9, motor.getPriceListID());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -304,6 +315,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
+
     public List<Motorcycle> pagingListMotorcycles(List<Motorcycle> list, int start, int end) {
         List<Motorcycle> pagingList = new ArrayList();
         for (int i = start; i < end; i++) {
@@ -353,9 +365,8 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     .append(generateParameterPlaceholders(criteria.getDemandIDs().size()))
                     .append(")");
         }
-        
+
         sql.append("\nORDER BY MotorcycleID");
-               
 
         try {
             stm = conn.prepareStatement(sql.toString());
@@ -391,7 +402,6 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     stm.setInt(parameterIndex++, demandID);
                 }
             }
-            
 
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -477,7 +487,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
 
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-        for(Motorcycle x: dao.getAll()){
+        for (Motorcycle x : dao.getAll()) {
             System.out.println(x);
         }
 //        SearchCriteria searchCriteria = new SearchCriteria();

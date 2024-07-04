@@ -495,7 +495,7 @@
                                     </div>
                                     <h2 style="margin: 16px;" href="motorcycleDetail?id=${motorbike.motorcycleId}"><strong>${motorbike.model}</strong></h2>
                                     <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>
-                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ" />/ngày
+                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ"/>/ngày
                                     </p>
                                     <div class="button-wrapper">
                                         <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">CHI TIẾT</a></button>

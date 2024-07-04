@@ -230,34 +230,40 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
+                                            <th scope="col"> Model</th>
                                             <th scope="col">Daily Price For Day</th>
                                             <th scope="col">Daily Price For Week</th>
                                             <th scope="col">Daily Price For Month</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
-                                    <c:forEach items="${listP}" var="p">
-                                        <tbody id="table-body">
-                                            <tr>
-                                                <th scope="row">${p.priceListId}</th>                                                                                           
-                                                <td>${p.dailyPriceForDay}</td>
-                                                <td>${p.dailyPriceForWeek}</td>
-                                                <td>${p.dailyPriceForMonth}</td>
+                                    <c:forEach items="${listM}" var="m">
+                                        <c:forEach items="${listP}" var="p">
+                                            <c:if test="${p.priceListId == m.priceListID}">
+                                                <tbody id="table-body">
+                                                    <tr>
+                                                        <th scope="row">${p.priceListId}</th>     
+                                                        <td>${m.model}</td>
+                                                        <td>${p.dailyPriceForDay}</td>
+                                                        <td>${p.dailyPriceForWeek}</td>
+                                                        <td>${p.dailyPriceForMonth}</td>
 
-                                                <td class="action-buttons">
-                                                    <div class="buttons">
-                                                        <button class="btn btn-primary btn-sm" onclick="populateUpdateForm(${p.priceListId}, ${p.dailyPriceForDay}, ${p.dailyPriceForWeek}, ${p.dailyPriceForMonth})">
-                                                            <i class="fas fa-edit"></i>
-                                                        </button>
-                                                        <button class="btn btn-danger btn-sm" onclick="">
+                                                        <td class="action-buttons">
+                                                            <div class="buttons">
+                                                                <button class="btn btn-primary btn-sm" onclick="populateUpdateForm(${p.priceListId}, ${p.dailyPriceForDay}, ${p.dailyPriceForWeek}, ${p.dailyPriceForMonth})">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </button>
+                                                                <button class="btn btn-danger btn-sm" onclick="">
 
-                                                            <a style="color: white"><i class="fas fa-trash"></i></a>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                                    <a style="color: white"><i class="fas fa-trash"></i></a>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
-                                        </tbody>
+                                                </tbody>
+                                            </c:if>
+                                        </c:forEach>
                                     </c:forEach>
                                 </table>
                             </div>
@@ -365,7 +371,7 @@
                     }
                 });
             }
-       
+
             function populateUpdateForm(id, priceForDay, priceForWeek, priceForMonth) {
                 // Chuyển dữ liệu vào form
                 document.getElementById('id').value = id;

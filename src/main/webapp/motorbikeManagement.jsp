@@ -206,7 +206,7 @@
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/sidebar.jsp" /> 
+            <%@ include file="/includes/sidebar.jsp" %>
         </div>
         <div class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
@@ -509,14 +509,10 @@
                                                     <label>License Plate: </label>
                                                     <div style="display: inline;" id="modal-license"></div>
                                                 </div>
-
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>

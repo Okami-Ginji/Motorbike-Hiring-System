@@ -82,9 +82,9 @@ public class UpdateProfileServlet extends HttpServlet {
         }
         if (roleID == 1) {
             request.getRequestDispatcher("profileCustomer.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
-
     }
 
     private boolean isEmptyOrNull(String str) {

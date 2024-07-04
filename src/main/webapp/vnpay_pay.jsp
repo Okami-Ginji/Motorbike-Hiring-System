@@ -498,7 +498,7 @@
                     // Tạo thẻ span thứ hai
                         const spanContent = document.createElement('span');
                         spanContent.className = 'ps-1 font-a';
-                        const num = parseFloat(amount)/10;
+                        const num = parseFloat(amount)*100;
                         total -= num;
                         spanContent.textContent = "- " + formatCurrency(num);
                         

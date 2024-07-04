@@ -24,7 +24,7 @@
                 <li><a href="about.jsp">Về Chúng Tôi</a></li>
                 <li><a href="motorcycle">Xe Máy</a></li>
                 <li><a href="pricing">Bảng Giá</a></li>
-                <li class="dropdown"><a href="home.jsp"><span>Dịch Vụ</span> <i
+                <li class="dropdown"><a><span>Dịch Vụ</span> <i
                             class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
                         <li><a href="FAQ">FAQs</a></li>

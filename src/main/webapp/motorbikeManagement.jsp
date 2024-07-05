@@ -206,15 +206,15 @@
             <ul class="m-auto nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
-                                                          data-toggle="tab">Display All Motorbikes</a></li>
+                                                          data-toggle="tab">Danh Sách Xe Máy</a></li>
                 <li role="presentation"><a href="#Section2"
                                            aria-controls="profile" role="tab"
-                                           data-toggle="tab">Add New Model</a></li>
+                                           data-toggle="tab">Thêm mẫu mới</a></li>
                 <li role="presentation">
-                    <a href="#Section3" aria-controls="addNewMotorbike" role="tab" data-toggle="tab">Add New Motorbike</a>
+                    <a href="#Section3" aria-controls="addNewMotorbike" role="tab" data-toggle="tab">Thêm Mới Xe Máy</a>
                 </li>
                 <li role="presentation">
-                    <a href="#Section4" aria-controls="update" role="tab" data-toggle="tab">Update </a>
+                    <a href="#Section4" aria-controls="update" role="tab" data-toggle="tab">Chỉnh Sửa Xe Máy</a>
                 </li>
             </ul>
             <!-- Nội dung tab -->

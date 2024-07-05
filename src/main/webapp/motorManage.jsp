@@ -212,10 +212,10 @@ writing-mode: horizontal-tb;
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
-                                                          data-toggle="tab">Display All Motorbikes</a></li>
+                                                          data-toggle="tab">Danh Sách Xe Máy</a></li>
                 <li role="presentation"><a href="#Section2"
                                            aria-controls="profile" role="tab"
-                                           data-toggle="tab">Add New Motorbike</a></li>
+                                           data-toggle="tab">Thêm Mới Xe Máy</a></li>
             </ul>
             <!-- Nội dung tab -->
             <div class="tab-content">

@@ -180,13 +180,13 @@
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
-                    <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Display All Tourist Locations</a>
+                    <a href="#Section1" aria-controls="home" role="tab" data-toggle="tab">Danh Sách Địa Điểm DU Lịch</a>
                 </li>
                 <li role="presentation">
-                    <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Add New Tourist Location</a>
+                    <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Thêm Mới Địa Điểm Du Lịch</a>
                 </li>
                 <li role="presentation">
-                    <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Update Tourist Location</a>
+                    <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Chỉnh Sửa Địa Điểm Du Lịch</a>
                 </li>
             </ul>
             <!-- Nội dung tab -->
@@ -199,13 +199,14 @@
                                 <table class="table table-image displayTour">
                                     <thead>
                                         <tr>
-                                            <th scope="col">LocationID</th>
-                                            <th scope="col">Location Image</th>
-                                            <th scope="col">Location Name</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">UrlArticle</th>
-                                            <th scope="col">Staff ID</th>
-                                            <th scope="col">Actions</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Ảnh</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Mô Tả</th>
+                                            <th scope="col">Đường Dẫn Bài Viết</th>
+                                            <th scope="col">Nhân Viên</th>
+                                            <th scope="col">Hành Động</th>
+
                                         </tr>
                                     </thead>
                                     <tbody id="table-body">
@@ -248,21 +249,20 @@
                                         <div class="col-md-12">
                                             <div class="addnew">
                                                 <form class="addnew-location-form" id="addLocationForm" action="AddTouristLocationServletStaff" method="post" enctype="multipart/form-data">
-                                                    <h3>Add New Tourist Location</h3>
                                                     <div class="form-group">
                                                         <input type="file" class="form-control-file" id="locationImage" name="locationImage" accept="image/*" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="locationName" name="locationName" placeholder="Enter location name" required>
+                                                        <input type="text" class="form-control" id="locationName" name="locationName" placeholder="Nhập tên địa điểm du lịch" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description" required></textarea>
+                                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả" required></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="urlArticle" name="urlArticle" placeholder="Enter URL article" required>
+                                                        <input type="text" class="form-control" id="urlArticle" name="urlArticle" placeholder="Nhập đường dẫn bài viết" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="staffID">Select Staff:</label>
+                                                        <label for="staffID">Lựa Chọn Nhân Viên:</label>
                                                         <select class="form-control" id="staffID" name="staffID" required>
                                                             <!--<option value="">Select Staff</option>-->
                                                             <c:forEach var="staff" items="${staffList}" varStatus="loop">
@@ -270,7 +270,7 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <button type="submit" class="btn btn-dark">Add Location</button>
+                                                    <button type="submit" class="btn btn-primary">Thêm Mới</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -291,30 +291,29 @@
                                         <div class="col-md-12">
                                             <div class="editlocation">
                                                 <form class="edit-location-form" id="editLocationForm" action="UpdateTourismLoctionServletStaff" method="post" enctype="multipart/form-data">
-                                                    <h3>Update Tourist Location</h3>
                                                     <div class="form-group">
-                                                        <label for="editLocationImage">Location ID</label>
-                                                        <input type="text" id="editLocationId" name="locationId">
+                                                        <label for="editLocationImage">ID:</label>
+                                                        <input type="text" id="editLocationId" name="locationId" readonly>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="editLocationImage">Location Image:</label>
+                                                        <label for="editLocationImage">Ảnh:</label>
                                                         <div id="editLocationImagePreview"></div>
                                                         <input type="file" class="form-control-file" id="editLocationImage" name="locationImage" accept="image/*">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="editLocationName">Location Name:</label>
+                                                        <label for="editLocationName">Tên Địa Điểm:</label>
                                                         <input type="text" class="form-control" id="editLocationName" name="locationName" placeholder="Enter location name">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="editDescription">Description:</label>
+                                                        <label for="editDescription">Mô Tả</label>
                                                         <textarea class="form-control" id="editDescription" name="description" rows="3" placeholder="Enter description"></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="editUrlArticle">URL Article:</label>
+                                                        <label for="editUrlArticle">Đường Dẫn Bài Viết:</label>
                                                         <input type="text" class="form-control" id="editUrlArticle" name="urlArticle" placeholder="Enter URL article">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="editStaffID">Select Staff:</label>
+                                                        <label for="editStaffID">Lựa Chọn Nhân Viên:</label>
                                                         <select class="form-control" id="editStaffID" name="staffID">
                                                             <!-- Options sẽ được tạo bằng cách sử dụng forEach hoặc theo dạng tĩnh -->
                                                             <c:forEach var="staff" items="${staffList}" varStatus="loop">
@@ -322,7 +321,7 @@
                                                             </c:forEach>
                                                         </select>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Update Location</button>
+                                                    <button type="submit" class="btn btn-primary">Cập Nhập Chỉnh Sửa</button>
                                                 </form>
 
                                             </div>

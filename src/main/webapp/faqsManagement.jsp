@@ -12,6 +12,7 @@
     <head>
         <meta charset="utf-8">
 
+        <link rel="website icon" type="png" href="images/logo.png">
 
         <title>FAQs Manage</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -265,13 +266,13 @@
 
                                 <div class="ibox-content m-b-sm border-bottom">
                                     <div class="text-center p-lg">
-                                        <h2>Manage FAQs of ColorBike company</h2>
-                                        <span>If you want to add a question, click here </span>
+                                        <h2>Quản lý Câu hỏi thường gặp của công ty ColorBike</h2>
+                                        <span>Nếu bạn muốn thêm một câu hỏi, bấm vào đây </span>
 
                                         <button type="button" class="btn btn-primary" id="launchModalBtn" data-mdb-toggle="modal"
                                                 data-mdb-target="#staticBackdrop1">
                                             <i class="fa fa-plus"></i>
-                                            <span class="bold">Add FAQs</span>
+                                            <span class="bold">Thêm FAQs</span>
                                         </button>
                                     </div>
                                 </div>
@@ -311,20 +312,20 @@
                     <div class="modal-dialog d-flex justify-content-center">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add New FAQs</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Thêm Mới FAQs</h5>
                             </div>
                             <div class="modal-body">
                                 <!-- Form để nhập câu hỏi mới -->
                                 <form id="addQuestionForm" action="faqs" method="post">
                                     <div class="form-group">
-                                        <label for="question">Question:</label>
+                                        <label for="question">Câu Hỏi:</label>
                                         <input type="text" class="form-control" id="question" name="question" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="answer">Answer:</label>
+                                        <label for="answer">Trả Lời:</label>
                                         <textarea class="form-control" id="answer" name="answer" rows="3" required></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Thêm</button>
                                 </form>
                             </div>
                         </div>
@@ -346,17 +347,17 @@
                                 <div class="modal-body">
                                     <input type="hidden" name="questionID" id="editQuestionID" />
                                     <div class="form-group">
-                                        <label for="editQuestion">Question</label>
+                                        <label for="editQuestion">Câu Hỏi:</label>
                                         <input type="text" class="form-control" id="editQuestion" name="question" required />
                                     </div>
                                     <div class="form-group">
-                                        <label for="editAnswer">Answer</label>
+                                        <label for="editAnswer">Trả Lời:</label>
                                         <textarea class="form-control" id="editAnswer" name="answer" rows="4" required></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" class="btn btn-primary">Cập Nhập Chỉnh Sửa</button>
                                 </div>
                             </form>
                         </div>

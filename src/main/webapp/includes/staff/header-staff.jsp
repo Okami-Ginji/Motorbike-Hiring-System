@@ -6,9 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Favicons -->
-<link href="staffAssets/img/favicon.png" rel="icon">
-<link href="staffAssets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+<!--<link href="staffAssets/img/favicon.png" rel="icon">-->
+<!--<link href="staffAssets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
+<link rel="website icon" type="png" href="images/logo.png">
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
 <link

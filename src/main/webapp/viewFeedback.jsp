@@ -206,14 +206,14 @@
 
     <body>
         <div class="col-md-2">
-           
+
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
-                                                          data-toggle="tab">Display All Feedback</a></li>
+                                                          data-toggle="tab">Danh Sách Đánh Giá</a></li>
 
             </ul>
             <!-- Nội dung tab -->
@@ -225,26 +225,26 @@
                             <div class="col-12">
                                 <div class="buttons" style="display: flex; justify-content: right;">
                                     <select class="form-control" style="width: 200px;" onchange="sortTable(this.value)">
-                                        <option value="">Sort by Stars</option>
-                                        <option value="asc">Ascending</option>
-                                        <option value="desc">Descending</option>
+                                        <option value="">Sắp xếp theo sao</option>
+                                        <option value="asc">Tăng dần</option>
+                                        <option value="desc">Giảm dần</option>
                                     </select>
                                     <select class="form-control" style="width: 200px; margin-left: 10px;" onchange="filterTable(this.value)">
-                                        <option value="">Filter by Stars</option>
-                                        <option value="5">5 Stars</option>
-                                        <option value="4">4 Stars</option>
-                                        <option value="3">3 Stars</option>
-                                        <option value="2">2 Stars</option>
-                                        <option value="1">1 Star</option>
+                                        <option value="">Lọc theo sao</option>
+                                        <option value="5">5 sao</option>
+                                        <option value="4">4 sao</option>
+                                        <option value="3">3 sao</option>
+                                        <option value="2">2 sao</option>
+                                        <option value="1">1 sao</option>
                                     </select>
                                 </div>
                                 <table class="table table-image" id="feedbackTable">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Content</th>
-                                            <th scope="col" style="padding: 0 50px;">Rate</th>
-                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Nội Dung</th>
+                                            <th scope="col" style="padding: 6px 50px;">Đánh Giá</th>
+                                            <th scope="col">Tên Khách Hàng</th>
 
                                         </tr>
                                     </thead>

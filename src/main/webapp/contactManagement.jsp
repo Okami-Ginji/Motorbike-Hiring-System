@@ -12,7 +12,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Vertical Tabs with Right Navigation</title>
+        <title>Contact Manager</title>
+        <link rel="website icon" type="png" href="images/logo.png">
+
         <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Google Fonts -->
@@ -214,7 +216,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
-                                                          data-toggle="tab">Display All Contact</a></li>
+                                                          data-toggle="tab">Danh Sách Liên Hệ</a></li>
             </ul>
             <!-- Nội dung tab -->
             <div class="tab-content">
@@ -226,13 +228,14 @@
                                 <table class="table table-image">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Phone Number</th>
+                                            <th scope="col">Mã Số</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Số Điện Thoại</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Message</th>
-                                            <th scope="col">Username</th>
+                                            <th scope="col">Tiêu Đề</th>
+                                            <th scope="col">Thông Điệp</th>
+                                            <th scope="col">Tên Đăng Nhập</th>
+
                                         </tr>
                                     </thead>
                                     <c:forEach items="${listContact}" var="c">

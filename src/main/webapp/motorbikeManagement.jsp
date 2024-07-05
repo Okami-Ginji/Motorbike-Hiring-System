@@ -17,12 +17,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="css/showMoreItems-theme.min.css">
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-        <link rel="stylesheet" href="staffAssets/css/style.css">
         <style>
             body,
             html {
@@ -191,8 +187,7 @@
             }
 
         </style>
-        <!--        <link href="staffAssets/css/style.css" rel="stylesheet">-->
-        <!--<link href="staffAssets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+     
     </head>
 
     <body>
@@ -282,7 +277,7 @@
                                                 </td>
                                                 <td class="action-buttons">
                                                     <div class="buttons">
-                                                        <button class="btn btn-primary btn-sm" onclick="">
+                                                        <button class="btn btn-primary btn-sm" onclick="editMotorcycle('${m.motorcycleId}', '${m.model}','${m.image}', '${m.displacement}', '${m.description}', '${m.minAge}', '${m.brandID}', '${m.categoryID}', '${m.priceListID}')">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                         <button class="btn btn-danger btn-sm" onclick="confirmDelete('${m.motorcycleId}')">
@@ -518,8 +513,7 @@
             </div>
         </div>
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
 
         <script type="text/javascript">
             // Sử dụng fetch để tải sidebar2.jsp
@@ -612,6 +606,35 @@
                     }
                 }
             }
+             function editMotorcycle(id, model, image, displacement, description, minAge, bid, cid, pid) {
+                                        document.getElementById('id').value = id;
+                                        document.getElementById('model').value = model;
+                                        document.getElementById('displacement').value = displacement;
+                                        document.getElementById('description').value = description;
+                                        document.getElementById('minAge').value = minAge;
+                                        document.getElementById('bid').value = bid;
+                                        document.getElementById('cid').value = cid;
+                                        document.getElementById('pid').value = pid;
+
+                                        var imgContainer = document.getElementById('editMotorbikeImagePreview');
+                                        imgContainer.innerHTML = ''; // Xóa hình ảnh cũ (nếu có)
+                                        console.log("thinh");
+                                        // Hiển thị hình ảnh đối tượng
+                                        if (image) {
+                                            console.log("hihihi");
+                                            var img = document.createElement('img');
+                                            img.src = 'images/' + image;
+                                            img.alt = 'Motorbike Image';
+                                            img.className = 'img-fluid img-thumbnail';
+                                            imgContainer.appendChild(img);
+                                        } else {
+                                            imgContainer.innerHTML = 'No image available';
+                                        }
+
+                                        // Chuyển sang tab Section 4 (nếu cần thiết)
+                                        $('a[href="#Section4"]').tab('show');
+                                        
+                                    }
         </script>
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -620,6 +643,8 @@
         <script src="js/showMoreItems.min.js"></script>
         <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>
 

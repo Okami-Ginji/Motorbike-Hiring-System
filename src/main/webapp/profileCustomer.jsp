@@ -26,6 +26,33 @@
         <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
         <link href="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/css/nucleo-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/soft-ui-dashboard-tailwind/css/soft-ui-dashboard-tailwind.css">
+        
+<!--         <style>
+         #cropImageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        #cropImageModal .modal-content {
+            width: 500px;
+            height: 500px;
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #crop-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>-->
     </head>
     <jsp:include page="/includes/customer/navbar.jsp" />
     <body class="  font-body " data-framework="tailwind">
@@ -267,7 +294,7 @@
                                         <div style="width: 56%; margin-top: 5rem" class="bg-white p-8 rounded-lg shadow-lg">
                                             <h2 class="text-2xl mb-4">Chỉnh sửa thông tin</h2>
                                             <form action="updateprofile" method="post" id="form-update" class="space-y-4">
-                                                <input hidden name="accountID" value="${account.accountId}">
+                                                <input hidden id="accountID" name="accountID" value="${account.accountId}">
                                                 <input hidden name="roleID" value="${account.roleID}">
 
                                                 <div class="flex flex-wrap mb-3">
@@ -331,7 +358,7 @@
                                                 <div>
                                                     <img id="crop-image" src="" alt="Image to crop">
                                                     <input type="file" name="file" id="image-upload" hidden>
-                                                    <input type="text" name="name" size="100">
+<!--                                                    <input type="text" name="name" size="100">-->
                                                 </div>
                                                 <div class="flex justify-end mt-4">
                                                     <button type="button" id="crop-save" class="bg-blue-500 px-4 py-2 rounded-lg">Save</button>
@@ -355,6 +382,7 @@
         <script
             src="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/soft-ui-dashboard-tailwind/js/soft-ui-dashboard-tailwind.js"
         async=""></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </body>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -417,9 +445,12 @@
                         });
 
                         document.getElementById('crop-save').addEventListener('click', function () {
+                            const id = document.getElementById("accountID").value;                       
                             cropper.getCroppedCanvas().toBlob((blob) => {
+                                console.log(blob);
                                 const formData = new FormData();
                                 formData.append('file', blob, 'profile.png');
+                                formData.append('id',id);
                                 uploadImage(formData);
                                 modal.classList.add('hidden');
                             });
@@ -433,19 +464,38 @@
                 }
             });
 
-            function uploadImage(formData) {
-                fetch('/uploadimage', {
-                    method: 'POST',
-                    body: formData,
-                })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                document.getElementById('profile-image').src = data.filePath;
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-            }
+           
         });
+         function uploadImage(formData) {
+             console.log(formData);
+                // Gửi dữ liệu tới servlet bằng AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "uploadimage", // Thay đổi URL tới servlet của bạn
+    //                data: JSON.stringify(data),              
+    //                contentType: "application/json",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log("Data sent successfully:", response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error sending data:", error);
+                    }
+                });
+//                fetch('uploadimage', {
+//                    method: 'POST',
+//                    body: formData
+//                })
+//                        .then(response => response.json())
+//                        .then(data => {
+//                            if (data.success) {
+//                                document.getElementById('profile-image').src = data.filePath;
+//                            }
+//                        })
+//                        .catch(error => console.error('Error:', error));
+            }
     </script>
+   
 </html>

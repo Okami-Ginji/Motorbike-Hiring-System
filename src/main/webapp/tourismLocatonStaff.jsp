@@ -357,7 +357,7 @@
                     } else {
                         imgContainer.innerHTML = 'No image available';
                     }
-
+                    
                     // Chuyển sang tab Section 3 (nếu cần thiết)
                     $('a[href="#Section3"]').tab('show');
                 }

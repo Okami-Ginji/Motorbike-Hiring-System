@@ -180,7 +180,7 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
-
+    
     public boolean update(String firstName, String lastName, String gender, String dob, String address, String phoneNumber,
             String email, String username, int accountid) {
         String sql = "UPDATE Account SET FirstName = ?, LastName = ?, Gender = ?, DayofBirth = ?, Address = ?,"
@@ -207,7 +207,7 @@ public class AccountDAO implements Serializable {
         }
         return false;
     }
-
+    
     public boolean changePassword(int AccountID, String password) {
         String sql = "UPDATE Account SET password = ? WHERE AccountID = ?";
         try {

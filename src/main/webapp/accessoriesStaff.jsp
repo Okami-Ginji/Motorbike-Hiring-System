@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tourist Location Management</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
@@ -172,7 +172,7 @@
 
     <body>
         <div class="col-md-2">
-            <jsp:include page="/includes/staff/sidebar.jsp" />
+            
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
@@ -325,7 +325,7 @@
                 document.getElementById('editAccessoryId').value = accessoryId;
                 var imgContainer = document.getElementById('editAccessoryImagePreview');
                 var imgContainer2 = document.getElementById('editAccessoryImageIconPreview');
-
+console.log("1");
                 // Clear previous images
                 imgContainer.innerHTML = '';
                 imgContainer2.innerHTML = '';
@@ -340,7 +340,7 @@
                 } else {
                     imgContainer.innerHTML = 'No image available';
                 }
-
+console.log("2");
                 if (accessoryImageicon) {
                     var img2 = document.createElement('img');
                     img2.src = 'images/' + accessoryImageicon;
@@ -350,9 +350,11 @@
                 } else {
                     imgContainer2.innerHTML = 'No image icon available';
                 }
-
-                // Switch to Section 3 tab (if needed)
+                console.log("assffafas");
+                // Chuyển sang tab Section 3 (nếu cần thiết)
                 $('a[href="#Section3"]').tab('show');
+                document.
+                console.log("assffafas");
             }
         </script>
 
@@ -369,7 +371,7 @@
                 var fileNameImage = fileInputImage.value;
                 var idxDotImage = fileNameImage.lastIndexOf(".") + 1;
                 var extFileImage = fileNameImage.substr(idxDotImage, fileNameImage.length).toLowerCase();
-                if (extFileImage != "jpg" && extFileImage != "jpeg" && extFileImage != "png" && extFileImage != "gif") {
+                if (extFileImage !== "jpg" && extFileImage !== "jpeg" && extFileImage !== "png" && extFileImage !== "gif") {
                     isValid = false;
                 }
 
@@ -377,7 +379,7 @@
                 var fileNameIcon = fileInputIcon.value;
                 var idxDotIcon = fileNameIcon.lastIndexOf(".") + 1;
                 var extFileIcon = fileNameIcon.substr(idxDotIcon, fileNameIcon.length).toLowerCase();
-                if (extFileIcon != "jpg" && extFileIcon != "jpeg" && extFileIcon != "png" && extFileIcon != "gif") {
+                if (extFileIcon !== "jpg" && extFileIcon !== "jpeg" && extFileIcon !== "png" && extFileIcon !== "gif") {
                     isValid = false;
                 }
 
@@ -433,9 +435,11 @@
                 });
             });
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 
 </html>

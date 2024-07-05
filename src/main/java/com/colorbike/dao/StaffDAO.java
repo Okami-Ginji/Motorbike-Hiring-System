@@ -9,6 +9,7 @@ import com.colorbike.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
  * @author huypd
  */
 public class StaffDAO {
+
     private static StaffDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
@@ -34,7 +36,7 @@ public class StaffDAO {
         }
         return instance;
     }
-    
+
     public List<Staff> getAllStaff() {
         List<Staff> list = new ArrayList<>();
         PreparedStatement stm;
@@ -51,9 +53,33 @@ public class StaffDAO {
         }
         return list;
     }
+
+    public Staff getStaffbyAccountID(int accountID) {
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "select * from Staff\n"
+                + "where accountID = (Select AccountID from Account where RoleID = 2 and AccountID = ?)";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setInt(1, accountID);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                Staff staff = new Staff();
+                staff.setStaffID(rs.getString(1));
+                staff.setManagerID(rs.getString(2));
+                staff.setAccountID(rs.getInt(3));
+                return staff;
+            }
+        }catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
-            StaffDAO dao = new StaffDAO();
-        System.out.println(dao.getAllStaff());
+        StaffDAO dao = new StaffDAO();
+//        System.out.println(dao.getAllStaff());
+        System.out.println(dao.getStaffbyAccountID(5));
     }
 
 }

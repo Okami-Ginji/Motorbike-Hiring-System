@@ -65,7 +65,7 @@ public class CancelBookingServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (cancelReason != null && !cancelReason.trim().isEmpty()) {
-            boolean isInserted = CancellationDAO.getInstance().insertCancellation(cancelReason, bookingId);
+            boolean isInserted = CancellationDAO.getInstance().insertCancellation(cancelReason, bookingId, null);
             BookingDAO.getInstance().updateBookingStatus(bookingId, "Đã hủy");
             if (isInserted) {
                 session.setAttribute("cancelSuccess", "Hủy đơn thành công");

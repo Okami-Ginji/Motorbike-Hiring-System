@@ -299,7 +299,7 @@
                     <button onclick="openExtensionForm()" id="extension">Gia Hạn</button>
                 </c:if>
                 <c:if test="${statusBooking == 'Đã hủy' || booking.deliveryStatus == 'Đã trả'}">
-                    <button id="rebook-btn">Đặt lại</button>
+                    <button onclick="openBooking()" id="rebook-btn">Đặt lại</button>
                 </c:if>
                 <button onclick="closeDetail()">Quay về</button>
             </div>
@@ -376,6 +376,10 @@
 
             function closeCancellation() {
                 document.getElementById('cancellation-info').style.display = 'none';
+            }
+            
+            function openBooking() {
+                window.location.href = 'booking';
             }
 
             //click ngoài là tắt 

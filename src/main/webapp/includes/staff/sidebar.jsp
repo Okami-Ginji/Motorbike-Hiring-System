@@ -137,7 +137,7 @@
 
             <a class="nav-link ${currentPage.contains('/profileStaff.jsp') ? '' : 'collapsed'}" href="profileStaff.jsp">
                 <i class="bi bi-person"></i>
-                <span>Profile</span>
+                <span>Thông tin cá nhân</span>
             </a>
         </li><!-- End Profile Page Nav -->
 
@@ -160,7 +160,7 @@
 
             <a class="nav-link collapsed" href="logout">
                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Logout</span>
+                <span>Đăng xuất</span>
             </a>
         </li><!-- End Login Page Nav -->
 

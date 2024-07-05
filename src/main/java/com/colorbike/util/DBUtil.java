@@ -16,7 +16,7 @@ public class DBUtil {
     public static Connection makeConnection() {
         Connection conn = null;
         try {
-            String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=ColorBikeWebsite;encrypt=false;trustServerCertificate=false;loginTimeout=30;";
+            String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=ColorBikeWebsite;encrypt=false;trustServerCertificate=false;";
             String user = "sa";
             String pass = "tramy12345";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

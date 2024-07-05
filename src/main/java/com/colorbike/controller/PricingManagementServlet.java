@@ -5,7 +5,9 @@
 
 package com.colorbike.controller;
 
+import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
+import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,9 +38,13 @@ public class PricingManagementServlet extends HttpServlet {
         
         
         PriceListDAO pd = PriceListDAO.getInstance();
+        MotorcycleDAO md = MotorcycleDAO.getInstance();
+        
         List<PriceList> listP = pd.getAllPriceList();
+        List<Motorcycle> listM = md.getAll();
         
         request.setAttribute("listP", listP);
+        request.setAttribute("listM", listM);
         request.getRequestDispatcher("pricingManagement.jsp").forward(request, response);
         
     } 

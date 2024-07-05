@@ -489,13 +489,13 @@
                             </c:if>
 
                             <c:forEach var="motorbike" items="${motorcycles}">
-                                <div class="box col-md-3">
+                                <div class="box col-md-2" style="width: 13.6667%;">
                                     <div class="banner-image">
                                         <img src="images/${motorbike.image}" width="100%" height="100%" alt="alt"/>
                                     </div>
                                     <h2 style="margin: 16px;" href="motorcycleDetail?id=${motorbike.motorcycleId}"><strong>${motorbike.model}</strong></h2>
                                     <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>
-                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ" />/ngày
+                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ"/>/ngày
                                     </p>
                                     <div class="button-wrapper">
                                         <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">CHI TIẾT</a></button>

@@ -90,11 +90,10 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         ResultSet rs;
         LinkedHashMap<String, String> list = new LinkedHashMap<>();
         try {
-
             String sql = "WITH LatestStatus AS (\n"
                     + "    SELECT\n"
                     + "        ms.MotorcycleDetailID,\n"
-                    + "        ms.Status,\n"
+                    + "        ms.StatusAction,\n"
                     + "        ROW_NUMBER() OVER (PARTITION BY ms.MotorcycleDetailID ORDER BY ms.MotorcycleStatusID DESC) AS RowNum\n"
                     + "    FROM\n"
                     + "        [dbo].[Motorcycle Status] ms\n"
@@ -109,7 +108,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "INNER JOIN\n"
                     + "    LatestStatus ls ON md.MotorcycleDetailID = ls.MotorcycleDetailID AND ls.RowNum = 1\n"
                     + "WHERE\n"
-                    + "    ls.Status like N'Có sẵn'\n"
+                    + "    ls.StatusAction like N'Có sẵn'\n"
                     + "GROUP BY\n"
                     + "    m.MotorcycleID\n"
                     + "ORDER BY\n"
@@ -261,7 +260,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             stm.setInt(7, motorbike.getCategoryID());
             stm.setInt(8, motorbike.getPriceListID());
             stm.setString(9, motorbike.getMotorcycleId());
-            
+
             int rowsUpdated = stm.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Motorcycle updated successfully.");

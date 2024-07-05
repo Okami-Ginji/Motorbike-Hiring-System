@@ -43,16 +43,29 @@ public class UploadImageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-        String id = request.getParameter("id");
-        
-        String name = "imageAcc" + id + ".jpg";
-        Part filePart = request.getPart("file");
-            System.out.println(name);
-        fileUploadHandler.handleFileUpload(filePart, name);
-        
-        AccountDAO dao = AccountDAO.getInstance();
-        dao.updateProfileImage(Integer.parseInt(id), name);
-        
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("account");
+            if (account == null) {
+                response.sendRedirect("login.jsp");  // Redirect to login if session is invalid
+                return;
+            }
+            String id = request.getParameter("id");
+
+            String name = "imageAcc" + id + ".jpg";
+            Part filePart = request.getPart("file");
+                System.out.println(name);
+            fileUploadHandler.handleFileUpload(filePart, name);
+
+            AccountDAO dao = AccountDAO.getInstance();
+            dao.updateProfileImage(Integer.parseInt(id), name);
+            
+            // Cập nhật thuộc tính image trong đối tượng account
+            account.setImage(name);
+
+            // Cập nhật lại đối tượng account trong session
+            session.setAttribute("account", account);
+
+            
       
         } catch (Exception e) {
             System.out.println(e);

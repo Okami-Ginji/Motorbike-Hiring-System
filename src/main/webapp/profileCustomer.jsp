@@ -247,7 +247,7 @@
                                             </ul>
 
                                             <div style="margin-right: 12%;" class="flex pr-3 items-center w-1/4 h-auto">
-                                                <img style="width: 100%" id="profile-image" class="h-auto rounded-lg shadow-soft-xl cursor-pointer" src="images/${account.image}" alt="Profile Image">
+                                                <img style="width: 100%" id="profile-image" class="h-auto rounded-lg shadow-soft-xl cursor-pointer" src="images/${account.image}?${now.time}" alt="Profile Image">
                                                 <input type="file" id="image-upload" class="hidden" accept="image/png, image/jpeg">
                                             </div>
 
@@ -444,6 +444,7 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
+                        alert("Cập nhật ảnh thành công");
                         console.log("Data sent successfully:", response);
                     },
                     error: function(xhr, status, error) {

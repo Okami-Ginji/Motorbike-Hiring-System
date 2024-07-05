@@ -44,29 +44,35 @@
         <c:if test="${sessionScope.account != null}">
 
             <div class="user-menu-wrap">
-                
+
                 <c:choose>
-                    <c:when test="${account.image != null}">
-                        <a class="mini-photo-wrapper"><img class="mini-photo" src="images/${account.image}" width="36" height="36"/></a>
+                    <c:when test="${sessionScope.account.image != null}">
+                        <a class="mini-photo-wrapper"><img class="mini-photo" src="images/${sessionScope.account.image}?${now.time}" width="36" height="36"/></a>
+
                     </c:when>
                     <c:otherwise>
                         <a class="mini-photo-wrapper"><img class="mini-photo" src="images\avarta.jpg" width="36" height="36"/></a>
+
                     </c:otherwise>
                 </c:choose>
-                
+
+
+
 
 
                 <div class="menu-container">
                     <ul class="user-menu">
                         <div class="profile-highlight">
-                           <c:choose>
-                                <c:when test="${account.image != null}">
-                                    <img src="images/${account.image}" alt="profile-img" width="36" height="36">
+                            <c:choose>
+                                <c:when test="${sessionScope.account.image != null}">
+                                    <img src="images/${sessionScope.account.image}?${now.time}" alt="profile-img" width="36" height="36">
                                 </c:when>
                                 <c:otherwise>
                                     <img src="images/avarta.jpg" alt="profile-img" width="36" height="36">
                                 </c:otherwise>
                             </c:choose>
+
+
                             <div class="details">
                                 <div class="sitename" id="profile-name">COLORBIKE</div>
                                 <div id="profile-footer">Xin chào ${sessionScope.account.email}</div>
@@ -290,15 +296,42 @@
 
 
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    function yourFunction() {
+            console.log("Hàm này sẽ được thực hiện sau mỗi 10 giây.");
+            $.ajax({
+                type: "POST",
+                url: "auto", // Thay đổi URL tới servlet của bạn
+                success: function (response) {
+                    console.log("Data sent successfully:", response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error sending data:", error);
+                }
+            });
+        
+    }
+
+// Thiết lập hàm để thực hiện sau mỗi 10 giây
+//    setInterval(yourFunction, 10 * 1000);
+
+// Thực hiện ngay lập tức lần đầu tiên nếu cần thiết
+    yourFunction();
+    
     document.querySelector('.mini-photo-wrapper').addEventListener('click', function () {
         document.querySelector('.menu-container').classList.toggle('active');
     });
+
+   
+
 </script>
 
 <script
-            src="https://www.chatbase.co/embed.min.js"
-            chatbotId="qUNf-UR7ycIWmYS6ZiWCL"
-            domain="www.chatbase.co"
-            defer>
-        </script>
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="qUNf-UR7ycIWmYS6ZiWCL"
+    domain="www.chatbase.co"
+    defer>
+</script>
+

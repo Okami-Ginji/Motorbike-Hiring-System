@@ -101,7 +101,7 @@
 
             .tableview {
                 width: 95%;
-             
+
                 margin: 0 auto;
             }
 
@@ -168,7 +168,7 @@
                 margin-top: 10px;
                 display: none;
             }
-            
+
         </style>
     </head>
 
@@ -334,122 +334,123 @@
                     </section>
                 </div>
             </div>
-         
-            <script>
-                function editTouristLocation(locationId, locationName, locationImage, description, urlArticle, staffID) {
-                    document.getElementById('editLocationId').value = locationId;
-                    document.getElementById('editLocationName').value = locationName;
-                    document.getElementById('editDescription').value = description;
-                    document.getElementById('editUrlArticle').value = urlArticle;
-                    document.getElementById('editStaffID').value = staffID;
+        </div>
 
-                    var imgContainer = document.getElementById('editLocationImagePreview');
-                    imgContainer.innerHTML = ''; // Xóa hình ảnh cũ (nếu có)
-                    console.log("thinh");
-                    // Hiển thị hình ảnh đối tượng
-                    if (locationImage) {
-                        console.log("hihihi");
-                        var img = document.createElement('img');
-                        img.src = 'images/' + locationImage;
-                        img.alt = 'Location Image';
-                        img.className = 'img-fluid img-thumbnail';
-                        imgContainer.appendChild(img);
-                    } else {
-                        imgContainer.innerHTML = 'No image available';
-                    }
+        <script>
+            function editTouristLocation(locationId, locationName, locationImage, description, urlArticle, staffID) {
+                document.getElementById('editLocationId').value = locationId;
+                document.getElementById('editLocationName').value = locationName;
+                document.getElementById('editDescription').value = description;
+                document.getElementById('editUrlArticle').value = urlArticle;
+                document.getElementById('editStaffID').value = staffID;
 
-                    // Chuyển sang tab Section 3 (nếu cần thiết)
-                    $('a[href="#Section3"]').tab('show');
+                var imgContainer = document.getElementById('editLocationImagePreview');
+                imgContainer.innerHTML = ''; // Xóa hình ảnh cũ (nếu có)
+                console.log("thinh");
+                // Hiển thị hình ảnh đối tượng
+                if (locationImage) {
+                    console.log("hihihi");
+                    var img = document.createElement('img');
+                    img.src = 'images/' + locationImage;
+                    img.alt = 'Location Image';
+                    img.className = 'img-fluid img-thumbnail';
+                    imgContainer.appendChild(img);
+                } else {
+                    imgContainer.innerHTML = 'No image available';
                 }
 
-            </script>
+                // Chuyển sang tab Section 3 (nếu cần thiết)
+                $('a[href="#Section3"]').tab('show');
+            }
 
-            <script type="text/javascript">
-                function confirmDelete(locationId) {
-                    Swal.fire({
-                        title: 'Bạn có chắc chắn?',
-                        text: "Bạn sẽ không thể khôi phục hành động này!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#1089FF',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Vâng, xóa nó!',
-                        cancelButtonText: 'Hủy'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'DeleteTourismLocationServletStaff?locationId=' + locationId;
+        </script>
+
+        <script type="text/javascript">
+            function confirmDelete(locationId) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1089FF',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Vâng, xóa nó!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'DeleteTourismLocationServletStaff?locationId=' + locationId;
+                    }
+                })
+            }
+        </script>
+
+        <script>
+            document.getElementById('addLocationForm').addEventListener('submit', function (event) {
+                var fileInput = document.getElementById('locationImage');
+                var errorMessage = document.getElementById('error-message');
+                var successMessage = document.getElementById('success-message');
+
+                // Validate file type if needed
+                var fileName = fileInput.value;
+                var idxDot = fileName.lastIndexOf(".") + 1;
+                var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                if (extFile != "jpg" && extFile != "jpeg" && extFile != "png" && extFile != "gif") {
+                    event.preventDefault();
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                    successMessage.style.display = 'block';
+                }
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('#addLocationForm').submit(function (event) {
+                    event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+                    var formData = new FormData(this); // Lấy dữ liệu từ form
+
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            // Hiển thị thông báo thành công bằng SweetAlert
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Location added successfully!',
+                                timer: 2000, // Tự động đóng sau 2 giây
+                                showConfirmButton: false
+                            }).then(function () {
+                                // Chuyển hướng về trang TourismLocationServletStaff sau khi thêm thành công
+                                window.location.href = 'TourismLocationServletStaff';
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Hiển thị thông báo lỗi bằng SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Error adding location. Please try again.',
+                                confirmButtonText: 'OK'
+                            });
+                            console.error(xhr.responseText);
                         }
-                    })
-                }
-            </script>
-
-            <script>
-                document.getElementById('addLocationForm').addEventListener('submit', function (event) {
-                    var fileInput = document.getElementById('locationImage');
-                    var errorMessage = document.getElementById('error-message');
-                    var successMessage = document.getElementById('success-message');
-
-                    // Validate file type if needed
-                    var fileName = fileInput.value;
-                    var idxDot = fileName.lastIndexOf(".") + 1;
-                    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-                    if (extFile != "jpg" && extFile != "jpeg" && extFile != "png" && extFile != "gif") {
-                        event.preventDefault();
-                        errorMessage.style.display = 'block';
-                    } else {
-                        errorMessage.style.display = 'none';
-                        successMessage.style.display = 'block';
-                    }
-                });
-            </script>
-
-            <script>
-                $(document).ready(function () {
-                    $('#addLocationForm').submit(function (event) {
-                        event.preventDefault(); // Ngăn chặn hành động mặc định của form
-
-                        var formData = new FormData(this); // Lấy dữ liệu từ form
-
-                        $.ajax({
-                            type: 'POST',
-                            url: $(this).attr('action'),
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            success: function (response) {
-                                // Hiển thị thông báo thành công bằng SweetAlert
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success!',
-                                    text: 'Location added successfully!',
-                                    timer: 2000, // Tự động đóng sau 2 giây
-                                    showConfirmButton: false
-                                }).then(function () {
-                                    // Chuyển hướng về trang TourismLocationServletStaff sau khi thêm thành công
-                                    window.location.href = 'TourismLocationServletStaff';
-                                });
-                            },
-                            error: function (xhr, status, error) {
-                                // Hiển thị thông báo lỗi bằng SweetAlert
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error!',
-                                    text: 'Error adding location. Please try again.',
-                                    confirmButtonText: 'OK'
-                                });
-                                console.error(xhr.responseText);
-                            }
-                        });
                     });
                 });
-            </script>
-            
-               
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            });
+        </script>
 
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 
 </html>

@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        <link rel="website icon" type="png" href="images/logo.png">
+
 
         <style>
             body, html {
@@ -171,10 +173,8 @@
     </head>
 
     <body>
-        <div class="col-md-2">
-            
-        </div>
-        <div class="container-fluid tab-container">
+
+        <div class="container-fluid tab-container"  style="margin-left: 12%;">
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
@@ -196,13 +196,14 @@
                                 <table class="table table-image">
                                     <thead>
                                         <tr>
-                                            <th scope="col">AccessoryID</th>
-                                            <th scope="col">AccessoryName</th>
-                                            <th scope="col">AccessoryImage</th>
-                                            <th scope="col">AccessoryImageIcon</th>
-                                            <th scope="col">AccessoryDescription</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Actions</th>
+                                            <th scope="col">ID</th>
+
+                                            <th scope="col">Tên Phụ Kiện</th>
+                                            <th scope="col">Hình Ảnh</th>
+                                            <th scope="col">Icon</th>
+                                            <th scope="col">Thông Tin Mô Tả</th>
+                                            <th scope="col">Giá</th>
+                                            <th scope="col">Hành Động</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-body">
@@ -244,28 +245,29 @@
                 </div>
 
 
-                <div role="tabpanel" class="tab-pane fade" id="Section2">
+                <div role="tabpanel" class="tab-pane fade" id="Section2" style="margin-left: 12%;">
                     <section>
                         <div class="container-fluid">
                             <form id="addLocationForm" action="/AddAccessoryStaff" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label for="accessoryName">Accessory Name:</label>
+                                    <label for="accessoryName">Tên Phụ Kiện:</label>
                                     <input type="text" class="form-control" id="accessoryName" name="accessoryName" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="accessoryImage">Accessory Image:</label>
+
+                                    <label for="accessoryImage">Hình ảnh:</label>
                                     <input type="file" class="form-control" id="accessoryImage" name="accessoryImage" accept="image/*" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="accessoryImageIcon">Accessory Image Icon:</label>
+                                    <label for="accessoryImageIcon">Icon:</label>
                                     <input type="file" class="form-control" id="accessoryImageIcon" name="accessoryImageIcon" accept="image/*" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="accessoryDescription">Accessory Description:</label>
+                                    <label for="accessoryDescription">Thông Tin Mô Tả:</label>
                                     <textarea class="form-control" id="accessoryDescription" name="accessoryDescription" rows="3" required style="resize: vertical;"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="price">Price:</label>
+                                    <label for="price">Giá:</label>
                                     <input type="number" class="form-control" id="price" name="price" required min="0">
                                 </div>
 
@@ -277,33 +279,35 @@
                     </section>
                 </div>
 
-                <div role="tabpanel" class="tab-pane fade" id="Section3">
+                <div role="tabpanel" class="tab-pane fade" id="Section3" style="margin-left: 12%;">
                     <section>
                         <div class="container-fluid">
                             <form action="UpdateAccessoryStaff" id="editLocationForm" method="POST" enctype="multipart/form-data">
-                                Chỉnh Sửa Thông Tin Sự Kiện
                                 <input type="hidden" id="editAccessoryId" name="accessoryId" >
 
                                 <div class="form-group">
-                                    <label for="editAccessoryName">Accessory Name:</label>
+                                    <label for="editAccessoryName">Tên Phụ Kiện:</label>
                                     <input type="text" class="form-control" id="editAccessoryName" name="accessoryName" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="editAccessoryImage">Accessory Image:</label>
+
+                                    <label for="editAccessoryImage">Hình ảnh:</label>
                                     <div id="editAccessoryImagePreview"></div>
                                     <input type="file" class="form-control" id="editAccessoryImage" name="accessoryImage" accept="image/*">
                                 </div>
                                 <div class="form-group">  
-                                    <label for="editAccessoryImageIcon">Accessory Image Icon:</label>
+                                    <label for="editAccessoryImageIcon">Biểu Tượng:</label>
+
                                     <div id="editAccessoryImageIconPreview"></div>
                                     <input type="file" class="form-control" id="editAccessoryImageIcon" name="accessoryImageIcon" accept="image/*">
                                 </div>
                                 <div class="form-group">
-                                    <label for="editAccessoryDescription">Accessory Description:</label>
+
+                                    <label for="editAccessoryDescription">Thông Tin Mô Tả:</label>
                                     <textarea class="form-control" id="editAccessoryDescription" name="accessoryDescription" rows="3" required style="resize: vertical;"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="editPrice">Price:</label>
+                                    <label for="editPrice">Giá:</label>
                                     <input type="number" class="form-control" id="editPrice" name="price" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Cập Nhập Chỉnh Sửa</button>
@@ -435,11 +439,10 @@ console.log("2");
                 });
             });
         </script>
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 
 </html>

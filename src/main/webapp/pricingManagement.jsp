@@ -212,12 +212,12 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
-                                                          data-toggle="tab">Display All Prices</a></li>
+                                                          data-toggle="tab">THÔNG TIN BẢNG GIÁ</a></li>
                 <li role="presentation"><a href="#Section2"
                                            aria-controls="profile" role="tab"
-                                           data-toggle="tab">Add New Pricing</a></li>
+                                           data-toggle="tab">THÊM GIÁ MỚI</a></li>
                 <li role="presentation">
-                    <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">Update </a>
+                    <a href="#Section3" aria-controls="update" role="tab" data-toggle="tab">CẬP NHẬT GIÁ THUÊ XE</a>
                 </li>
             </ul>
             <!-- Nội dung tab -->
@@ -231,11 +231,11 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Daily Price For Day</th>
-                                            <th scope="col">Daily Price For Week</th>
-                                            <th scope="col">Daily Price For Month</th>
-                                            <th scope="col">Model</th>
-                                            <th scope="col">Actions</th>
+                                            <th scope="col">Giá Thuê Theo Ngày</th>
+                                            <th scope="col">Giá Thuê Theo Tuần</th>
+                                            <th scope="col">Giá Thuê Theo Tháng</th>
+                                            <th scope="col">Mẫu Xe</th>
+                                            <th scope="col">Hành Động</th>
                                         </tr>
                                     </thead>
 
@@ -256,7 +256,7 @@
                                                                     ${m.model},
                                                                 </c:if>
                                                             </c:forEach>">               
-                                                        <span class="bold">Detail</span>
+                                                        <span class="bold">Chi Tiết</span>
                                                     </button>
 
                                                 </td>
@@ -289,16 +289,16 @@
                                         <div class="col-md-12">
                                             <div class="addnew">
                                                 <form class="addnew-motorbike-form" method="post" action="addpricing">
-                                                    <h3>Add New Pricing</h3>
+                                                    <h3>THÊM GIÁ MỚI</h3>
                                                     <br>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" name="priceForDay" placeholder="Daily Price For Day" value="" step="0.01" min="0" required>
+                                                        <input type="text" class="form-control" id="" name="priceForDay" placeholder="Giá Thuê Theo Ngày" value="" step="0.01" min="0" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" name="priceForWeek" placeholder="Daily Price For Week" value="" step="0.01" min="0" required>
+                                                        <input type="text" class="form-control" id="" name="priceForWeek" placeholder="Giá Thuê Theo Tuần" value="" step="0.01" min="0" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="" name="priceForMonth" placeholder="Daily Price For Month" value="" step="0.01" min="0" required>
+                                                        <input type="text" class="form-control" id="" name="priceForMonth" placeholder="Giá Thuê Theo Tháng" value="" step="0.01" min="0" required>
                                                     </div>
                                                     <button type="submit" class="btn btn-dark">Thêm</button>
                                                     <div class="feedback mt-3">
@@ -331,17 +331,17 @@
                                         <div class="col-md-12">
                                             <div class="addnew">
                                                 <form class="edit-location-form" id="" action="updatePricing"  method="post">
-                                                    <h3>Update Pricing List</h3>
+                                                    <h3>CẬP NHẬT GIÁ THUÊ XE</h3>
                                                     <br>
                                                     <input type="hidden" class="form-control" id="id" name="id" value="" >
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="priceForDay" value="" name="priceForDay" placeholder="Daily Price For Day" step="0.01" min="0" required>
+                                                        <input type="text" class="form-control" id="priceForDay" value="" name="priceForDay" placeholder="Giá Thuê Theo Ngày" step="0.01" min="0" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="priceForWeek" value="" name="priceForWeek" placeholder="Daily Price For Week" step="0.01" min="0" required>
+                                                        <input type="text" class="form-control" id="priceForWeek" value="" name="priceForWeek" placeholder="Giá Thuê Theo Tuần" step="0.01" min="0" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="priceForMonth" value="" name="priceForMonth" placeholder="Daily Price For Month" step="0.01" min="0" required>
+                                                        <input type="text" class="form-control" id="priceForMonth" value="" name="priceForMonth" placeholder="Giá Thuê Theo Tháng" step="0.01" min="0" required>
                                                     </div>
 
                                                     <button type="submit" class="btn btn-dark">Cập nhật xe máy</button>
@@ -372,7 +372,7 @@
                                             <div class="row" style="padding-left: 20px;">
                                                 
                                                 <div class="col-md-12 mb-4">
-                                                    <label>Model: </label>
+                                                    <label>Mẫu Xe: </label>
                                                     <p style="display: inline;" id="modal-motorcycleName"></p>
                                                 </div>                                            
                                             </div>

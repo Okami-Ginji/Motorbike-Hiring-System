@@ -46,8 +46,8 @@
             <div class="user-menu-wrap">
                 
                 <c:choose>
-                    <c:when test="${sessionScope.account.image != null}">
-                        <a class="mini-photo-wrapper"><img class="mini-photo" src="images/${sessionScope.account.image}" width="36" height="36"/></a>
+                    <c:when test="${account.image != null}">
+                        <a class="mini-photo-wrapper"><img class="mini-photo" src="images/${account.image}" width="36" height="36"/></a>
                     </c:when>
                     <c:otherwise>
                         <a class="mini-photo-wrapper"><img class="mini-photo" src="images\avarta.jpg" width="36" height="36"/></a>
@@ -60,8 +60,8 @@
                     <ul class="user-menu">
                         <div class="profile-highlight">
                            <c:choose>
-                                <c:when test="${sessionScope.account.image != null}">
-                                    <img src="images/${sessionScope.account.image}" alt="profile-img" width="36" height="36">
+                                <c:when test="${account.image != null}">
+                                    <img src="images/${account.image}" alt="profile-img" width="36" height="36">
                                 </c:when>
                                 <c:otherwise>
                                     <img src="images/avarta.jpg" alt="profile-img" width="36" height="36">
@@ -69,7 +69,7 @@
                             </c:choose>
                             <div class="details">
                                 <div class="sitename" id="profile-name">COLORBIKE</div>
-                                <div id="profile-footer">Hello ${sessionScope.account.email}</div>
+                                <div id="profile-footer">Xin chào ${sessionScope.account.email}</div>
                             </div>
                         </div>
                         <!--                        <li class="user-menu__item">
@@ -92,7 +92,7 @@
                         </li>
                         <div class="footer">
                             <li class="user-menu__item"><a class="user-menu-link" href="logout" style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);background-clip: text;
-                                                           color: transparent !important; font-weight: bold; font-size: large; display: flex; justify-content: center;">Logout</a></li>
+                                                           color: transparent !important; font-weight: bold; font-size: large; display: flex; justify-content: center;">Đăng xuất</a></li>
                             <!--<li class="user-menu__item"><a class="user-menu-link" href="#">Settings</a></li>-->
                         </div>
                     </ul>

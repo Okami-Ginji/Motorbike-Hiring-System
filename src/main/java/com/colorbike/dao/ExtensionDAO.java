@@ -123,9 +123,28 @@ public class ExtensionDAO implements Serializable {
         return list;
     }
 
+    public boolean updateExtensionByStaff(String staffId, String bookingId) {
+        PreparedStatement stm;
+        String sql = "Update Extension SET StaffID = ? where BookingID = ?";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, staffId);
+            stm.setString(2, bookingId);
+
+            int rowAffect = stm.executeUpdate();
+            if (rowAffect > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(ExtensionDAO.getInstance().getExtensionByBookingID("BOOK000006"));
         System.out.println(getInstance().getAllExtension());
+        System.out.println(getInstance().updateExtensionByStaff("STAFF00001", "BOOK000006"));
     }
 
 }

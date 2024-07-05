@@ -139,15 +139,56 @@
 
             .weak {
                 color: red;
+                position: absolute;
+                bottom: 161px;
+                z-index: 1;
             }
 
             .medium {
                 color: orange;
+                position: absolute;
+                bottom: 161px;
+                z-index: 1;
             }
 
             .strong {
                 color: green;
+                position: absolute;
+                bottom: 161px;
+                z-index: 1;
             }
+            .gender{
+                position: absolute;
+                top: 121px;
+                z-index: 1;
+            }
+
+            /*             Ẩn placeholder mặc định 
+                        input::placeholder {
+                            color: transparent;
+                        }
+            
+                        .custom-placeholder {
+                            position: absolute;
+                            pointer-events: none;
+                            color: black;
+                            font-size: 1rem;
+                            top: 50%;
+                            left: 1.75rem;
+                            transform: translateY(-50%);
+                            transition: all 0.2s ease;
+                        }*/
+
+            /*            .red-asterisk {
+                            color: red;
+                        }
+            
+                         Ẩn placeholder tùy chỉnh khi input không rỗng 
+                        input:not(:placeholder-shown) + .custom-placeholder,
+                        input:focus + .custom-placeholder {
+                            opacity: 0;
+                            visibility: hidden;
+                        }*/
         </style>
     </head>
 
@@ -161,11 +202,12 @@
 
                 <!-- Registration Form -->
                 <div class="col-md-7 col-lg-6 ml-auto" data-aos="fade-left">
-                    <form action="register" method="post" onsubmit="return validatePhoneNumber()">
+                    <form action="register" method="post" onsubmit="return validateForm()">
                         <div class="row">
                             <!-- First Name -->
                             <div class="col-lg-6 mb-4 info" data-aos="fade-up">
                                 <input id="firstName" type="text" name="firstname" placeholder="Nhập vào Tên" required>
+                                <!--                                <span id="placeholder" class="custom-placeholder">Nhập vào Tên<span class="red-asterisk">*</span></span>-->
                             </div>
 
                             <!-- Last Name -->
@@ -184,9 +226,9 @@
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="400">
                                 <input id="Username" type="text" name="username" placeholder="Nhập vào Username" required>
                             </div>
-
+                            <span class="error-message gender" id="gender-error">*Vui lòng chọn giới tính.</span>
                             <!-- Email Address -->
-                            <div class="input-group col-lg-12 mb-4 info" data-aos="fade-up" data-aos-delay="200">
+                            <div class="input-group col-lg-12 mb-4 info mt-1" data-aos="fade-up" data-aos-delay="200">
                                 <input id="email" type="email" name="email" placeholder="Nhập vào Email" required>
                             </div>
 
@@ -210,12 +252,17 @@
                                 <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
                             </div>
                             
-                            <span class="password-strength" id="password-strength">*</span>
+                            <span class="password-strength" id="password-strength"></span>
                             
+                            <div style="color: red; margin-left:5%;">${msgPass}</div>
+                             <div style="color: red; margin-left:5%;">${msgEmail}</div>
+
+                            <div id="checkValid" class="" style="display: none; color: red; margin-left: 5%;">Vui lòng nhập đúng định dạng trước khi tiếp tục.</div>
                             <!-- Submit Button -->
-                            <div class="form-group col-lg-12 mx-auto mb-0" data-aos="zoom-in" data-aos-delay="700">
+                            <div class="form-group col-lg-12 mx-auto mb-0 mt-2" data-aos="zoom-in" data-aos-delay="700">
                                 <button type="submit" name="register-submit" id="register-submit" class="btn btn-block py-2 register font-weight-bold" data-aos="zoom-in" data-aos-delay="700">Tạo tài khoản</button>
                             </div>
+
 
 
                             <!-- Divider Text -->
@@ -249,30 +296,26 @@
                 const phoneInput = document.getElementById("phoneNumber");
                 const phoneError = document.getElementById("phone-error");
                 const passwordInput = document.getElementById("password");
-                const passwordError = document.getElementById("password-error");
                 const passwordStrength = document.getElementById("password-strength");
+                const genderSelect = document.getElementById("gender");
+                const genderError = document.getElementById("gender-error");
+                const checkValid = document.getElementById("checkValid");
 
                 phoneInput.addEventListener("input", () => {
-                    if (phoneInput.value.length === 10 || phoneInput.value.length === 0) {
-                        phoneError.style.display = "none";
-                    } else {
-                        phoneError.style.display = "block";
-                    }
+                    validatePhoneNumber();
                 });
-
 
                 passwordInput.addEventListener("input", () => {
                     const password = passwordInput.value;
-                    
 
                     if (password.length > 10) {
-                        passwordStrength.textContent = "Mật khẩu mạnh";
+                        passwordStrength.textContent = "*Mật khẩu mạnh";
                         passwordStrength.className = "password-strength strong";
                     } else if (password.length >= 8) {
-                        passwordStrength.textContent = "Mật khẩu vừa";
+                        passwordStrength.textContent = "*Mật khẩu vừa";
                         passwordStrength.className = "password-strength medium";
                     } else if (password.length > 0) {
-                        passwordStrength.textContent = "Mật khẩu yếu";
+                        passwordStrength.textContent = "*Mật khẩu yếu";
                         passwordStrength.className = "password-strength weak";
                     } else {
                         passwordStrength.textContent = "";
@@ -293,9 +336,59 @@
                 const passwordBtn2 = document.getElementById("password-eye-2");
                 passwordBtn1.addEventListener("click", () => togglePasswordVisibility("password", "password-eye-1"));
                 passwordBtn2.addEventListener("click", () => togglePasswordVisibility("passwordConfirmation", "password-eye-2"));
-            });
 
+                document.querySelector("form").addEventListener("submit", function (event) {
+                    const isValid = validateForm();
+                    if (!isValid) {
+                        event.preventDefault();
+                        checkValid.style.display = "block";
+                        passwordStrength.style.display = "none";
+                    } else {
+                        checkValid.style.display = "none";
+                    }
+                });
+
+                function validatePhoneNumber() {
+                    const phoneValue = phoneInput.value;
+                    const phoneRegex = /^0\d{9}$/;
+                    if (phoneValue.length === 0) {
+                        phoneError.style.display = "none";
+                        return false;
+                    } else if (!/^\d+$/.test(phoneValue)) {
+                        phoneError.textContent = "*Số điện thoại chỉ được chứa các chữ số.";
+                        phoneError.style.display = "block";
+                        return false;
+                    } else if (!phoneValue.startsWith('0')) {
+                        phoneError.textContent = "*Số điện thoại phải bắt đầu bằng số 0.";
+                        phoneError.style.display = "block";
+                        return false;
+                    } else if (phoneValue.length !== 10) {
+                        phoneError.textContent = "*Số điện thoại phải có đúng 10 chữ số.";
+                        phoneError.style.display = "block";
+                        return false;
+                    } else {
+                        phoneError.style.display = "none";
+                        return true;
+                    }
+                }
+
+                function validateForm() {
+                    const genderSelect = document.getElementById("gender");
+                    const genderError = document.getElementById("gender-error");
+                    const isPhoneValid = validatePhoneNumber();
+
+                    if (genderSelect.value === "Giới tính") {
+                        genderError.style.display = "block";
+                        return false;
+                    } else {
+                        genderError.style.display = "none";
+                    }
+
+                    return isPhoneValid;
+                }
+            });
         </script>
+
     </body>
 
 </html>

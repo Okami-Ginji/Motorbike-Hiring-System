@@ -192,10 +192,6 @@
                 });
             });
         </script>
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> 228c8365bda1ddd15e0b09a9cbbf8694dbe9ff7e
     </body>
 </html>

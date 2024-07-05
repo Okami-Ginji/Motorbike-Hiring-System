@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * @author huypd
  */
 public class AccountDAO implements Serializable {
-
+    
     private static AccountDAO instance;
     private Connection conn = DBUtil.makeConnection();
 
@@ -32,17 +32,17 @@ public class AccountDAO implements Serializable {
     //Chỉ new DAO qua hàm static getInstance() để quản lí được số object/instance đã new - SINGLETON DESIGN PATTERN
     private AccountDAO() {
     }
-
+    
     public static AccountDAO getInstance() {
-
+        
         if (instance == null) {
             instance = new AccountDAO();
         }
         return instance;
     }
-
+    
     public Account checkLogin(String userName, String passWord) {
-
+        
         PreparedStatement stm;
         ResultSet rs;
         try {
@@ -61,7 +61,7 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
-
+    
     public void createANewAccountForLoginGoogle(String email, String password) {
         String sql = "INSERT INTO Account(Email, Username, Password, RoleID)\n"
                 + "VALUES (?, ?, ?, 1)";
@@ -75,7 +75,7 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
-
+    
     public void createANewAccount(String firstName, String lastName, String gender, String phone, String email, String userName, String password) {
         String sql = "INSERT INTO [dbo].[Account]\n"
                 + "           ([FirstName]\n"
@@ -102,7 +102,7 @@ public class AccountDAO implements Serializable {
             System.out.println(e);
         }
     }
-
+    
     public Account getAccountByEmail(String email) {
         PreparedStatement stm;
         ResultSet rs;
@@ -121,7 +121,7 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
-
+    
     public boolean createToken(String token, String email) {
         Timestamp expiration = new Timestamp(System.currentTimeMillis() + 1 * 60 * 1000); // 1 phút
         String checkEmailSql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
@@ -145,14 +145,14 @@ public class AccountDAO implements Serializable {
             insertTokenStmt.setTimestamp(2, expiration);
             insertTokenStmt.setString(3, email);
             insertTokenStmt.executeUpdate();
-
+            
             return true;
         } catch (SQLException e) {
             System.out.println(e);
             return false;
         }
     }
-
+    
     public int getAccountIdByToken(String token) {
         ResultSet rs;
         String sql = "Select AccountID from PasswordResetToken where Token = ?";
@@ -168,7 +168,7 @@ public class AccountDAO implements Serializable {
         }
         return -9999;
     }
-
+    
     public void resetPassword(String email, String password) {
         String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
         try {
@@ -185,7 +185,7 @@ public class AccountDAO implements Serializable {
             String email, String username, int accountid) {
         String sql = "UPDATE Account SET FirstName = ?, LastName = ?, Gender = ?, DayofBirth = ?, Address = ?,"
                 + "PhoneNumber = ?, Email = ?, Username = ? WHERE AccountID = ?";
-
+        
         try {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setString(1, firstName);
@@ -197,7 +197,7 @@ public class AccountDAO implements Serializable {
             st.setString(7, email);
             st.setString(8, username);
             st.setInt(9, accountid);
-
+            
             int rowAffect = st.executeUpdate();
             if (rowAffect > 0) {
                 return true;
@@ -223,7 +223,7 @@ public class AccountDAO implements Serializable {
         }
         return false;
     }
-
+    
     public Account getAccountbyID(int id) {
         String sql = " SELECT * FROM Account\n"
                 + " WHERE AccountID = ?";
@@ -252,10 +252,10 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
-
+    
     public List<Account> getAllAccount() {
         List<Account> list = new ArrayList<>();
-
+        
         PreparedStatement stm;
         ResultSet rs;
         try {
@@ -272,7 +272,7 @@ public class AccountDAO implements Serializable {
         }
         return list;
     }
-
+    
     public List<Account> getListAccountByRole(int role) {
         List<Account> listA = new ArrayList<>();
         String sql = "SELECT \n"
@@ -314,7 +314,7 @@ public class AccountDAO implements Serializable {
         }
         return listA;
     }
-
+    
     public List<Account> getAllCustomerAccount() {
         List<Account> listA = new ArrayList<>();
         String sql = "SELECT \n"
@@ -356,7 +356,7 @@ public class AccountDAO implements Serializable {
         }
         return listA;
     }
-
+    
     public Map<Integer, Integer> getBookingCountbyAccount() {
         Map<Integer, Integer> counts = new HashMap<>();
         PreparedStatement st;
@@ -379,13 +379,13 @@ public class AccountDAO implements Serializable {
         }
         return counts;
     }
-
+    
     public Map<Integer, Integer> updateRoleAndGetStatuses(int accountId, boolean isActive) {
         String sql = "UPDATE Account SET RoleID = ? WHERE AccountID = ?";
         int newRoleId = isActive ? 1 : 4;  // 1 for active, 4 for disable
         PreparedStatement st;
         ResultSet rs;
-
+        
         try {
             st = conn.prepareStatement(sql);
             st.setInt(1, newRoleId);
@@ -394,13 +394,13 @@ public class AccountDAO implements Serializable {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-
+        
         Map<Integer, Integer> roleStatuses = new HashMap<>();
         String query = "SELECT AccountID, RoleID FROM Account";
         try {
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
-
+            
             while (rs.next()) {
                 int accId = rs.getInt("AccountID");
                 int roleId = rs.getInt("RoleID");
@@ -411,12 +411,12 @@ public class AccountDAO implements Serializable {
         }
         return roleStatuses;
     }
-
+    
     public List<Account> searchAccountsbyUserNameandName(String username, String name) {
         List<Account> list = new ArrayList<>();
         PreparedStatement st;
         ResultSet rs;
-
+        
         try {
             StringBuilder sql = new StringBuilder("SELECT * FROM Account WHERE 1=1");
             if (!username.isEmpty() && !name.isEmpty()) {
@@ -431,10 +431,10 @@ public class AccountDAO implements Serializable {
                 }
             }
             sql.append(" AND (RoleID = 1 OR RoleID = 4)");
-
+            
             st = conn.prepareStatement(sql.toString());
             int index = 1;
-
+            
             if (!username.isEmpty() && !name.isEmpty()) {
                 st.setString(index++, "%" + username + "%");
                 st.setString(index++, "%" + name + "%");
@@ -443,9 +443,9 @@ public class AccountDAO implements Serializable {
             } else if (!name.isEmpty()) {
                 st.setString(index++, "%" + name + "%");
             }
-
+            
             rs = st.executeQuery();
-
+            
             while (rs.next()) {
                 list.add(new Account(
                         rs.getInt("AccountID"),
@@ -467,7 +467,7 @@ public class AccountDAO implements Serializable {
         }
         return list;
     }
-
+    
     public Account getAccountbyBookingID(String bookingId) {
         PreparedStatement st;
         ResultSet rs;
@@ -500,10 +500,10 @@ public class AccountDAO implements Serializable {
         }
         return null;
     }
-
+    
     public List<Account> getAccountbyCustomerID(int customerID) {
         List<Account> list = new ArrayList<>();
-
+        
         PreparedStatement st;
         ResultSet rs;
         String sql = "Select * from Account\n"
@@ -534,7 +534,40 @@ public class AccountDAO implements Serializable {
         }
         return list;
     }
-
+    
+    public Account getAccountbyCustomerId(int customerID) {
+        
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "Select * from Account\n"
+                + "JOIN Customer on Account.AccountID = Customer.AccountID\n"
+                + "Where CustomerID = ?";
+        try {
+            st = conn.prepareStatement(sql);
+            st.setInt(1, customerID);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                Account acc = new Account();
+                acc.setAccountId(rs.getInt(1));
+                acc.setFirstName(rs.getString(2));
+                acc.setLastName(rs.getString(3));
+                acc.setGender(rs.getString(4));
+                acc.setDob(rs.getString(5));
+                acc.setAddress(rs.getString(6));
+                acc.setPhoneNumber(rs.getString(7));
+                acc.setImage(rs.getString(8));
+                acc.setEmail(rs.getString(9));
+                acc.setUserName(rs.getString(10));
+                acc.setPassWord(rs.getString(11));
+                acc.setRoleID(rs.getInt(12));
+                return acc;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public boolean updateProfileImage(int AccountID, String filePath) {
         PreparedStatement st;
         ResultSet rs;
@@ -550,7 +583,7 @@ public class AccountDAO implements Serializable {
         }
         return false;
     }
-
+    
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
 //        System.out.println(dao.changePassword(7, "asdf"));
@@ -567,6 +600,7 @@ public class AccountDAO implements Serializable {
 //        for(Account x: dao.getListAccountByRole(1)){
 //            System.out.println(x);
 //        }
-System.out.println(dao.updateProfileImage(2, "hahaAc1.jpg"));
+//        System.out.println(dao.updateProfileImage(2, "hahaAc1.jpg"));
+        System.out.println(dao.getAccountbyCustomerId(4));
     }
 }

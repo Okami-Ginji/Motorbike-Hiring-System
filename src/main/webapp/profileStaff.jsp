@@ -59,6 +59,7 @@
 
         <jsp:include page="/includes/staff/header-staff.jsp" />
         <jsp:include page="/includes/staff/sidebar.jsp" />
+
         <div style="max-width: 960px; margin-top: 5rem" class="container">
             <div class="row flex-lg-nowrap">
                 <div class="col">
@@ -264,7 +265,6 @@
         <script>
             function changeType(button) {
                 var inputElements = document.querySelectorAll(".form-control");
-
                 if (button.id === "update") {
                     button.id = "save";
                     button.textContent = "Lưu";
@@ -281,7 +281,6 @@
                     document.getElementById("form-update").submit();
                     button.id = "update";
                     button.textContent = "Cập nhật";
-
                     inputElements.forEach(x => {
                         if (x.name !== "pass") {
                             x.readOnly = true;
@@ -293,11 +292,9 @@
                     document.getElementById('account-fullname').style.display = 'block';
                 }
             }
-
             function showPassword(inputId) {
                 const passInput = document.getElementById(inputId);
                 const icon = passInput.nextElementSibling.querySelector('i');
-
                 if (passInput.type === 'password') {
                     passInput.type = 'text';
                     icon.className = 'ri-eye-line';
@@ -310,66 +307,65 @@
             document.addEventListener("DOMContentLoaded", function () {
                 const myTab = document.getElementById('myTab');
                 // lấy giá trị của 'activeTab' từ localStorage
-                const activeTab = localStorage.getItem('activeTab'); //cs sẵn
+                const activeTab = localStorage.getItem('activeTab'); // có sẵn
                 if (activeTab) {
                     const tabTrigger = new bootstrap.Tab(document.querySelector('#' + activeTab));
                     tabTrigger.show();
                 }
+
                 myTab.addEventListener('click', function (event) {
-                    //ktra ptu dc click là button
+                    // kiểm tra event.target có tồn tại và là button không
                     if (event.target && event.target.nodeName === 'BUTTON') {
                         // lưu id của tab hiện tại vào localStorage
                         localStorage.setItem('activeTab', event.target.id);
                     }
                 });
-                const passwordInput = document.getElementById("newPassword");
-                const passwordStrength = document.getElementById("password-strength");
-                const passwordText = document.getElementById("password-text");
-                const currentPass = document.getElementById("currentpass");
-                const valuePass = document.getElementById("password");
-                const confirmPass = document.getElementById("confirmPassword");
-                const passwordconfirmText = document.getElementById("password-confirmText");
+            });
 
-                //check mk hiện tại
-                valuePass.addEventListener("input", () => {
-                    if (valuePass.value !== currentPass.value) {
-                        passwordText.textContent = "Mật khẩu hiện tại không đúng";
-                        passwordText.className = "password-strength red";
-                    } else {
-                        passwordText.textContent = "";
-                    }
-                });
-
-                //check password
-                passwordInput.addEventListener("input", () => {
-                    const password = passwordInput.value;
-                    if (password.length >= 12) {
-                        passwordStrength.textContent = "Mật khẩu mạnh";
-                        passwordStrength.className = "password-strength green";
-                    } else if (password.length >= 9) {
-                        passwordStrength.textContent = "Mật khẩu vừa";
-                        passwordStrength.className = "password-strength orange";
-                    } else if (password.length >= 6) {
-                        passwordStrength.textContent = "Mật khẩu yếu";
-                        passwordStrength.className = "password-strength red";
-                    } else if (password.length > 0) {
-                        passwordStrength.textContent = "Mật khẩu phải 6 ký tự trở lên";
-                        passwordStrength.className = "password-strength red";
-                    } else {
-                        passwordStrength.textContent = "";
-                    }
-                    passwordStrength.style.display = password.length > 0 ? "block" : "none";
-                });
-
-                //check newpass = confirmpass
-                confirmPass.addEventListener("input", () => {
-                    if (confirmPass.value !== passwordInput.value) {
-                        passwordconfirmText.textContent = "Mật khẩu mới và mật khẩu xác nhận không khớp";
-                        passwordconfirmText.className = "password-strength red";
-                    } else {
-                        passwordconfirmText.textContent = "";
-                    }
-                });
+            const passwordInput = document.getElementById("newPassword");
+            const passwordStrength = document.getElementById("password-strength");
+            const passwordText = document.getElementById("password-text");
+            const currentPass = document.getElementById("currentpass");
+            const valuePass = document.getElementById("password");
+            const confirmPass = document.getElementById("confirmPassword");
+            const passwordconfirmText = document.getElementById("password-confirmText");
+            //check mk hiện tại
+            valuePass.addEventListener("input", () => {
+                if (valuePass.value !== currentPass.value) {
+                    passwordText.textContent = "Mật khẩu hiện tại không đúng";
+                    passwordText.className = "password-strength red";
+                } else {
+                    passwordText.textContent = "";
+                }
+            });
+            //check password
+            passwordInput.addEventListener("input", () => {
+                const password = passwordInput.value;
+                if (password.length >= 12) {
+                    passwordStrength.textContent = "Mật khẩu mạnh";
+                    passwordStrength.className = "password-strength green";
+                } else if (password.length >= 9) {
+                    passwordStrength.textContent = "Mật khẩu vừa";
+                    passwordStrength.className = "password-strength orange";
+                } else if (password.length >= 6) {
+                    passwordStrength.textContent = "Mật khẩu yếu";
+                    passwordStrength.className = "password-strength red";
+                } else if (password.length > 0) {
+                    passwordStrength.textContent = "Mật khẩu phải 6 ký tự trở lên";
+                    passwordStrength.className = "password-strength red";
+                } else {
+                    passwordStrength.textContent = "";
+                }
+                passwordStrength.style.display = password.length > 0 ? "block" : "none";
+            });
+            //check newpass = confirmpass
+            confirmPass.addEventListener("input", () => {
+                if (confirmPass.value !== passwordInput.value) {
+                    passwordconfirmText.textContent = "Mật khẩu mới và mật khẩu xác nhận không khớp";
+                    passwordconfirmText.className = "password-strength red";
+                } else {
+                    passwordconfirmText.textContent = "";
+                }
             });
         </script>
     </body>

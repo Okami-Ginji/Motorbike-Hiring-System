@@ -334,7 +334,7 @@
                     </section>
                 </div>
             </div>
-         
+        </div>
             <script>
                 function editTouristLocation(locationId, locationName, locationImage, description, urlArticle, staffID) {
                     document.getElementById('editLocationId').value = locationId;

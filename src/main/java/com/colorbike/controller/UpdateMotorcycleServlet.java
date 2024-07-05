@@ -2,56 +2,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package com.colorbike.controller;
 
-import com.colorbike.dao.BookingDAO;
-import com.colorbike.dao.CancellationDAO;
+import com.colorbike.dao.MotorcycleDAO;
+import com.colorbike.dto.Motorcycle;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
+import jakarta.servlet.http.Part;
 
 /**
  *
- * @author MINH TUAN
+ * @author DiepTCNN
  */
-@WebServlet(name = "CancelBookingServlet", urlPatterns = {"/cancelbooking"})
-public class CancelBookingServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@MultipartConfig
+@WebServlet(name="UpdateMotorcycleServlet", urlPatterns={"/updateMotorcycle"})
+public class UpdateMotorcycleServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CancelBookingServlet</title>");
+            out.println("<title>Servlet UpdateMotorcycleServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CancelBookingServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateMotorcycleServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -59,28 +60,13 @@ public class CancelBookingServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String bookingId = request.getParameter("bookingId");
-        String cancelReason = request.getParameter("cancelreason");
-        HttpSession session = request.getSession();
+    throws ServletException, IOException {
+        
+        
+    } 
 
-        if (cancelReason != null && !cancelReason.trim().isEmpty()) {
-            boolean isInserted = CancellationDAO.getInstance().insertCancellation(cancelReason, bookingId, null);
-            BookingDAO.getInstance().updateBookingStatus(bookingId, "Đã hủy");
-            if (isInserted) {
-                session.setAttribute("cancelSuccess", "Hủy đơn thành công");
-            } else {
-                session.setAttribute("cancelFail", "Hủy đơn thất bại... Vui lòng thử lại");
-            }
-        } else {
-            session.setAttribute("cancelFail", "Hủy đơn thất bại! Vui lòng nhập lý do hủy đơn ...");
-        }
-        response.sendRedirect("bookingHistoryDetail?bookingId=" + bookingId);
-    }
-
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -88,13 +74,33 @@ public class CancelBookingServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    throws ServletException, IOException {
+        MotorcycleDAO md = MotorcycleDAO.getInstance();
+        FileUploaded fileUploaded = new FileUploaded("D:\\MotorcycleRental\\src\\main\\webapp\\images");
+        String id = request.getParameter("id");
+        String model = request.getParameter("modelName");
+
+        
+        String name = "image" + id + ".jpg";
+        Part part = request.getPart("image");
+        fileUploaded.handleFileUpload(part, name);
+        
+        
+        String displacement = request.getParameter("displacement");
+        String description = request.getParameter("description");
+        int minAge = Integer.parseInt(request.getParameter("minAge"));
+        int bid = Integer.parseInt(request.getParameter("brandID"));
+        int cid = Integer.parseInt(request.getParameter("categoryID"));
+        int pid = Integer.parseInt(request.getParameter("priceListID"));
+        
+        Motorcycle motorcycle = new Motorcycle(id, model, name, displacement, description, minAge, bid, cid, pid);
+        md.updateMotorcycle(motorcycle);
+        
+        response.sendRedirect("motorManage");
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

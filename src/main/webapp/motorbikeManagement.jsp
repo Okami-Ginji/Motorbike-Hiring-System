@@ -206,6 +206,7 @@
             <ul class="m-auto nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
+
                                                           data-toggle="tab">THÔNG TIN XE MÁY</a></li>
                 <li role="presentation"><a href="#Section2"
                                            aria-controls="profile" role="tab"

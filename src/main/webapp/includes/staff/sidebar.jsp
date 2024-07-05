@@ -46,6 +46,7 @@
 <!-- Template Main CSS File -->
 <link href="staffAssets/css/style.css" rel="stylesheet">
 <!-- ======= Sidebar ======= -->
+
 <aside style="width: 260px" id="sidebar" class="sidebar">
     <% 
         String currentPage = request.getRequestURI();
@@ -55,6 +56,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
+
             <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff.jsp">
                 <i class="bi bi-grid"></i>
                 <span>Trang chủ</span>
@@ -115,6 +117,7 @@
                     </a>
                 </li>
                 <li>
+
                     <a onclick="CallSideBar('TourismLocationServletStaff')" >
                         <i class="bi bi-circle"></i><span>Quản lí địa điểm du lịch</span>
                     </a>
@@ -125,6 +128,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
+
             <a class="nav-link ${currentPage.contains('/profileStaff.jsp') ? '' : 'collapsed'}" href="profileStaff.jsp">
                 <i class="bi bi-person"></i>
                 <span>Thông tin cá nhân</span>
@@ -147,6 +151,7 @@
 
 
         <li class="nav-item">
+
             <a class="nav-link collapsed" href="logout">
                <i class="bi bi-box-arrow-in-right"></i>
                 <span>Đăng xuất</span>

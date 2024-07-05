@@ -127,8 +127,8 @@
     </head>
     <body>
 
-        <jsp:include page="/includes/staff/header-staff.jsp" />
-        <jsp:include page="/includes/staff/sidebar.jsp" />
+        <jsp:include page="/includes/customer/navbar.jsp" />
+        
 
 
         <section class="ftco-section ftco-car-details">

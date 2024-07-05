@@ -122,12 +122,6 @@
                         <i class="bi bi-circle"></i><span>Quản lí địa điểm du lịch</span>
                     </a>
                 </li>
-                <li>
-
-                    <a onclick="CallSideBar('accessoriesStaffServlet')" >
-                        <i class="bi bi-circle"></i><span>Quản lí phụ kiện đi kèm</span>
-                    </a>
-                </li>
             </ul>
         </li><!-- End Tables Nav -->
 

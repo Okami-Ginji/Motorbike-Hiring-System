@@ -197,13 +197,13 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Tên</th>
-                                            <th scope="col">Ảnh</th>
-                                            <th scope="col">Biểu Tượng</th>
-                                            <th scope="col">Mô Tả</th>
+
+                                            <th scope="col">Tên Phụ Kiện</th>
+                                            <th scope="col">Hình Ảnh</th>
+                                            <th scope="col">Icon</th>
+                                            <th scope="col">Thông Tin Mô Tả</th>
                                             <th scope="col">Giá</th>
                                             <th scope="col">Hành Động</th>
-
                                         </tr>
                                     </thead>
                                     <tbody id="table-body">
@@ -254,15 +254,16 @@
                                     <input type="text" class="form-control" id="accessoryName" name="accessoryName" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="accessoryImage">Hình Ảnh Phụ Kiện:</label>
+
+                                    <label for="accessoryImage">Hình ảnh:</label>
                                     <input type="file" class="form-control" id="accessoryImage" name="accessoryImage" accept="image/*" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="accessoryImageIcon">Biểu Tượng Phụ Kiện:</label>
+                                    <label for="accessoryImageIcon">Icon:</label>
                                     <input type="file" class="form-control" id="accessoryImageIcon" name="accessoryImageIcon" accept="image/*" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="accessoryDescription">Mô Tả:</label>
+                                    <label for="accessoryDescription">Thông Tin Mô Tả:</label>
                                     <textarea class="form-control" id="accessoryDescription" name="accessoryDescription" rows="3" required style="resize: vertical;"></textarea>
                                 </div>
                                 <div class="form-group">
@@ -289,17 +290,20 @@
                                     <input type="text" class="form-control" id="editAccessoryName" name="accessoryName" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="editAccessoryImage">Hình Ảnh Phụ Kiện:</label>
+
+                                    <label for="editAccessoryImage">Hình ảnh:</label>
                                     <div id="editAccessoryImagePreview"></div>
                                     <input type="file" class="form-control" id="editAccessoryImage" name="accessoryImage" accept="image/*">
                                 </div>
                                 <div class="form-group">  
-                                    <label for="editAccessoryImageIcon">Biểu Tượng Phụ Kiện:</label>
+                                    <label for="editAccessoryImageIcon">Biểu Tượng:</label>
+
                                     <div id="editAccessoryImageIconPreview"></div>
                                     <input type="file" class="form-control" id="editAccessoryImageIcon" name="accessoryImageIcon" accept="image/*">
                                 </div>
                                 <div class="form-group">
-                                    <label for="editAccessoryDescription">Mô Tả:</label>
+
+                                    <label for="editAccessoryDescription">Thông Tin Mô Tả:</label>
                                     <textarea class="form-control" id="editAccessoryDescription" name="accessoryDescription" rows="3" required style="resize: vertical;"></textarea>
                                 </div>
                                 <div class="form-group">

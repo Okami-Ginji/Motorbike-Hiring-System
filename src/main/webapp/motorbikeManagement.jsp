@@ -206,15 +206,16 @@
             <ul class="m-auto nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"
                                                           aria-controls="home" role="tab"
-                                                          data-toggle="tab">Danh Sách Xe Máy</a></li>
+
+                                                          data-toggle="tab">THÔNG TIN XE MÁY</a></li>
                 <li role="presentation"><a href="#Section2"
                                            aria-controls="profile" role="tab"
-                                           data-toggle="tab">Thêm mẫu mới</a></li>
+                                           data-toggle="tab">THÊM MẪU XE MỚI</a></li>
                 <li role="presentation">
-                    <a href="#Section3" aria-controls="addNewMotorbike" role="tab" data-toggle="tab">Thêm Mới Xe Máy</a>
+                    <a href="#Section3" aria-controls="addNewMotorbike" role="tab" data-toggle="tab">THÊM XE MÁY MỚI</a>
                 </li>
                 <li role="presentation">
-                    <a href="#Section4" aria-controls="update" role="tab" data-toggle="tab">Chỉnh Sửa Xe Máy</a>
+                    <a href="#Section4" aria-controls="update" role="tab" data-toggle="tab">CẬP NHẬT XE MÁY</a>
                 </li>
             </ul>
             <!-- Nội dung tab -->
@@ -228,16 +229,16 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Model</th>
-                                            <th scope="col">Displacement</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Min Age</th>
-                                            <th scope="col">Brand</th>
-                                            <th scope="col">Category</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Detail</th>
-                                            <th scope="col">Actions</th>
+                                            <th scope="col">Hình Ảnh</th>
+                                            <th scope="col">Mẫu</th>
+                                            <th scope="col">Phân Khối</th>
+                                            <th scope="col">Thông Tin Mô Tả</th>
+                                            <th scope="col">Tuổi Sử Dụng</th>
+                                            <th scope="col">Hãng</th>
+                                            <th scope="col">Loại Xe</th>
+                                            <th scope="col">Giá</th>
+                                            <th scope="col">Chi Tiết</th>
+                                            <th scope="col">Hành động</th>
                                         </tr>
                                     </thead>
                                     <c:forEach items="${listM}" var="m">
@@ -251,7 +252,7 @@
                                                 <td>${m.model}</td>
                                                 <td>${m.displacement}</td>
                                                 <td>${m.description}</td>
-                                                <td>${m.minAge}</td>
+                                                <td>${m.minAge}+</td>
                                                 <c:forEach items="${listB}" var="b">
                                                     <c:if test="${m.brandID == b.brandID}">
                                                         <td>${b.brandName}</td>
@@ -275,7 +276,7 @@
                                                             data-license="<c:forEach items="${m.listMotorcycleDetails}" var="listmd">
                                                                 ${listmd.licensePlate},
                                                             </c:forEach>"                                        
-                                                            <span class="bold">Detail</span>
+                                                            <span class="bold">Chi Tiết</span>
                                                     </button>
 
                                                 </td>
@@ -308,26 +309,26 @@
                                         <div class="col-md-12">
                                             <div class="addnew">
                                                 <form class="addnew-motorbike-form" method="post" action="addMotorbike" enctype="multipart/form-data">
-                                                    <h3>Add New Model</h3>
+                                                    <h3>THÊM MẪU XE MỚI</h3>
                                                     <div class="form-group">
                                                         <input type="file" class="form-control-file" id="motorbikeImage" name="image">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Enter Motorbike ID" name="id">
+                                                        <input type="text" class="form-control" placeholder="Nhập vào ID" name="id">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Enter model" name="model">
+                                                        <input type="text" class="form-control" placeholder="Nhập vào mẫu xe" name="model">
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
-                                                               placeholder="Enter displacement" name="displacement">
+                                                               placeholder="Nhập vào phân khối" name="displacement">
                                                     </div>
                                                     <div class="form-group">
                                                         <textarea class="form-control" rows="3"
-                                                                  placeholder="Enter description" name="description"></textarea>
+                                                                  placeholder="Nhập vào thông tin mô tả" name="description"></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" placeholder="Enter min age" name="minAge">
+                                                        <input type="number" class="form-control" placeholder="Nhập vào độ tuổi tối thiểu sử dụng" name="minAge">
                                                     </div>
                                                     <div class="form-group">
                                                         <select class="form-control" id="bid" name="brandID">
@@ -389,7 +390,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="License Plate" name="licensePlate" id="licensePlate">
+                                                    <input type="text" class="form-control" placeholder="Nhập vào biển số xe" name="licensePlate" id="licensePlate">
                                                 </div>
                                                 <div style="color: red;" id="msg"></div> <br>
                                                 <button type="submit" class="btn btn-dark" onclick="addMotorbikeDetail()">Thêm xe máy</button>
@@ -428,19 +429,19 @@
                                                         <input type="file" class="form-control-file" id="motorbikeImage" name="image">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="id" placeholder="Enter Motorbike ID" name="id">
+                                                        <input type="text" class="form-control" id="id" placeholder="Nhập vào ID" name="id">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="modelName" placeholder="Enter model" name="modelName">
+                                                        <input type="text" class="form-control" id="modelName" placeholder="Nhập vào mẫu xe" name="modelName">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="displacement" placeholder="Enter displacement" name="displacement">
+                                                        <input type="text" class="form-control" id="displacement" placeholder="Nhập vào phân khối" name="displacement">
                                                     </div>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" id="description" placeholder="Enter description" name="description"></textarea>
+                                                        <textarea class="form-control" rows="3" id="description" placeholder="Nhập vào thông tin mô tả" name="description"></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" id="minAge" placeholder="Enter min age" name="minAge">
+                                                        <input type="number" class="form-control" id="minAge" placeholder="Nhập vào độ tuổi tối thiểu sử dụng" name="minAge">
                                                     </div>
                                                     <div class="form-group">
                                                         <select class="form-control" id="bid" name="brandID">
@@ -494,11 +495,11 @@
                                                     <p style="display: inline;" id="modal-motorcycleID"></p>
                                                 </div>
                                                 <div class="col-md-12 mb-4">
-                                                    <label>Model: </label>
+                                                    <label>Mẫu: </label>
                                                     <p style="display: inline;" id="modal-motorcycleName"></p>
                                                 </div>
                                                 <div class="col-md-12 mb-4" style="display: flex;">
-                                                    <label>License Plate: </label>
+                                                    <label>Biển số xe: </label>
                                                     <div style="display: inline;" id="modal-license"></div>
                                                 </div>
                                             </div>

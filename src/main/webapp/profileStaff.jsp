@@ -10,9 +10,7 @@
 
     <head>
         <meta charset="utf-8">
-
-
-        <title>bs4 crud users - Bootdey.com</title>
+        <title>Thông tin cá nhân</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <style type="text/css">
@@ -73,7 +71,9 @@
                                                 <div class="mx-auto" style="width: 140px;">
                                                     <div class="d-flex justify-content-center align-items-center rounded"
                                                          style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                        <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">${account.image}</span>
+                                                        <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">
+                                                            <img style="object-fit: cover;" src="images/${account.image}" width="140px" height="140px" alt="alt"/>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,6 +148,7 @@
                                                                     <div class="form-group">
                                                                         <label for="account-email">Email</label>
                                                                         <input style="border: 1px solid #000;" class="form-control" name="email" type="email" id="account-email" value="${account.email}" readonly>
+                                                                        <span class="password-strength" id="email-text"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -156,6 +157,7 @@
                                                                     <div class="form-group">
                                                                         <label for="account-phone">Số điện thoại</label>
                                                                         <input style="border: 1px solid #000;" class="form-control" name="phonenumber" type="text" id="account-phone" value="${account.phoneNumber}" readonly>
+                                                                        <span class="password-strength" id="numphone-text"></span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
@@ -269,8 +271,9 @@
                     button.id = "save";
                     button.textContent = "Lưu";
                     inputElements.forEach(x => {
-                        if (x.name !== "pass" && x.id !== "account-fullname") {
+                        if (x.name !== "pass" && x.id !== "account-fullname" && x.id !== "account-username") {
                             x.readOnly = false;
+
                         }
                     });
                     document.getElementById('account-gender').disabled = false;
@@ -367,6 +370,48 @@
                     passwordconfirmText.textContent = "";
                 }
             });
+
+            const emailInput = document.getElementById("account-email");
+            const emailText = document.getElementById("email-text");
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            const phoneInput = document.getElementById("account-phone");
+            const phoneText = document.getElementById("numphone-text");
+            const phoneRegex = /^0\d{9}$/;
+
+            //check email
+            const validEmail = () => {
+                if (emailInput.value.trim() !== "") {
+                    if (emailRegex.test(emailInput.value)) {
+                        emailText.textContent = "";
+                        emailText.className = "";
+                    } else {
+                        emailText.textContent = "Email chưa đúng format.";
+                        emailText.className = "password-strength red";
+                    }
+                } else {
+                    if (emailInput.value.trim() === "") {
+                        emailText.textContent = "Không được để trống email.";
+                        emailText.className = "password-strength red";
+                    } else {
+                        emailText.textContent = "";
+                        emailText.className = "";
+                    }
+                }
+            };
+
+            //check sdt
+            const validPhone = () => {
+                if (phoneRegex.test(phoneInput.value)) {
+                    phoneText.textContent = "";
+                    phoneText.className = "";
+                } else {
+                    phoneText.textContent = "Số điện thoại phải có 10 số, và bắt đầu bằng số 0.";
+                    phoneText.className = "password-strength red";
+                }
+            };
+            emailInput.addEventListener("input", validEmail);
+            phoneInput.addEventListener("input", validPhone);
         </script>
     </body>
 </html>

@@ -339,6 +339,17 @@
                 opacity: 0.7; /* hoặc bất kỳ thuộc tính CSS nào bạn muốn áp dụng */
                 border: 1px solid #333; /* ví dụ cho border */
             }
+            .status-success {
+                color: green;
+            }
+
+            .status-failure {
+                color: red;
+            }
+
+            .status-pending {
+                color: yellow;
+            }
 
         </style>
     </head>
@@ -369,9 +380,9 @@
                                     <h6 class="pl-6 ml-2 font-bold leading-tight uppercase text-xs opacity-60">Quản lý thuê xe</h6>
                                 </li>
                                 <li class="mt-0.5 w-full"> 
-                                    <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                                       href="transaction.jsp">
-                                        <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
+                                    <a  style="background: #fff;" class="py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="javascript:;">
+                                        <div  style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);"
+                                              class="bg-gradient-to-tl from-purple-700 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                                             <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
                                                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                             <title>credit-card</title>
@@ -427,9 +438,8 @@
                                     <h6 class="pl-6 ml-2 font-bold leading-tight uppercase text-xs opacity-60">Quản lý tài khoản</h6>
                                 </li>
                                 <li class="mt-0.5 w-full"> 
-                                    <a  style="background: #fff;" class="py-2.7 shadow-soft-xl text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="javascript:;">
-                                        <div  style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);"
-                                              class="bg-gradient-to-tl from-purple-700 shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
+                                    <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors" href="profileCustomer.jsp">
+                                        <div class="bg-gradient-to-tl shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                                             <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
                                                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                             <title>customer-support</title>
@@ -453,7 +463,7 @@
                                             </g>
                                             </svg>
                                         </div> <span
-                                            class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Thông tin cá nhân</span>
+                                            style="color: #001973;" class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Thông tin cá nhân</span>
                                     </a> </li>
                                 <li class="mt-0.5 w-full"> 
                                     <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
@@ -500,38 +510,42 @@
                                     <thead style="border: 1px solid">
                                         <tr>
                                             <th scope="col" class="col-table px-8 py-2">Mã đơn</th>
-                                            <th scope="col" class="col-table px-6 py-2">Phương thức</th>
+                                            <th scope="col" class="col-table px-10 py-2">Phương thức</th>
                                             <th scope="col" class="col-table px-10 py-2">Ngày thanh toán</th>
-                                            <th scope="col" class="col-table px-6 py-2">Thành tiền</th>
-                                            <th scope="col" class="col-table px-8 py-2">Trạng thái</th>
-                                            <th scope="col" class="col-table px-6 py-2"></th>
+                                            <th scope="col" class="col-table px-8 py-2">Thành tiền</th>
+                                            <th scope="col" class="col-table px-10 py-2">Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <c:if test="${empty transaction}">
+                                            <tr>
+                                                <td colspan="5" class="text-center italic py-4 text-lg">Không có thông tin giao dịch nào ở đây</td>
+                                            </tr>
+                                        </c:if>
+                                        <c:forEach items="${transaction}" var="trans">
+                                            <tr>
+                                                <td class="px-8 py-2"><strong>${trans.bookingId}</strong></td>
+                                                <td class="px-10 py-2">${trans.paymentMethod}</td>
+                                                <td class="px-10 py-2">${trans.paymentDate}</td>
+                                                <td class="px-8 py-2">
+                                                    <fmt:formatNumber value="${trans.paymentAmount * 1000}" type="currency" currencySymbol="VNĐ" />
+                                                </td>
+                                                <td class="px-10 py-2">
+                                                    <c:choose>
+                                                        <c:when test="${trans.paymentStatus == 'Giao dịch thành công'}">
+                                                            <span class="status-success">${trans.paymentStatus}</span>
+                                                        </c:when>
+                                                        <c:when test="${trans.paymentStatus == 'Giao dịch thất bại'}">
+                                                            <span class="status-failure">${trans.paymentStatus}</span>
+                                                        </c:when>
+                                                        <c:when test="${trans.paymentStatus == 'Chờ xử lý'}">
+                                                            <span class="status-pending">${trans.paymentStatus}</span>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </td>
 
-                                        <tr class="${status}">
-                                            <td class="px-8 py-2">${o.bookingID}</td>
-                                          
-
-                                            <td class="px-10 py-2">
-
-                                            </td>
-                                            <td class="px-6 py-2"></td>
-                                            <td class="px-8 py-2">${o.statusBooking}</td>
-                                            <td class="px-10 py-2">
-                                            </td>
-                                            <td class="px-6 py-2 text-center">
-                                                <a href="bookingHistoryDetail?bookingId=${o.bookingID}" class="btn btn-info" title="View" data-toggle="tooltip" onclick="showBookingDetail(this)" data-original-title="View">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="text-right">
-                                            <td colspan="7" class="px-4 py-2">
-                                                <input type="hidden" name="bookingId" value="${o.bookingID}" />
-                                                <a style="color: green" id="view-review-button" class="text-decoration-none italic" href="feedback?bookingId=${o.bookingID}">Xem gia hạn</a>
-                                            </td>
-                                        </tr>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

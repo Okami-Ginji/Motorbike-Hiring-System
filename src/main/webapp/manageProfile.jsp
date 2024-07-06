@@ -14,7 +14,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Profile</title>
+        <title>Quản lý thông tin cá nhân</title>
         <!-- Tailwind CSS -->
         <link href="https://www.loopple.com/css/vendor/tailwind.min.css" rel="stylesheet">
         <link href="https://www.loopple.com/css/tailwind/app.css?v=1.0.0" rel="stylesheet">

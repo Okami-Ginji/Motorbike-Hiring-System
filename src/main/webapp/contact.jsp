@@ -9,6 +9,7 @@
 <html lang="en">
 
     <head>
+        <title>Liên hệ</title>
         <link rel="website icon" type="png" href="images\logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM1JLOH1TOdYpD5n5YXoV7zw5i8we5iQd6K3l/Z" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -99,11 +100,11 @@
             .animate__animated.animate__fadeInUp {
                 visibility: visible;
             }
-            
+
             .info span{
                 font-weight: 750;
             }
-           
+
         </style>
     </head>
 
@@ -113,7 +114,7 @@
 
 
         <div style="margin-top: 8%;">
-            
+
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <span>Welcome to ColorBike!<br></span>

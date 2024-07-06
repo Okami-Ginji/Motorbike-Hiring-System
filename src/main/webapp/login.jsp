@@ -16,7 +16,7 @@
         <link
             href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
             rel="stylesheet" />
-        <title>Login Page</title>
+        <title>Đăng nhập</title>
         <link rel="stylesheet"
               href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
         <link rel="stylesheet"

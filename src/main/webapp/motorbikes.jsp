@@ -10,6 +10,7 @@
 <html lang="en">
 
     <head>
+        <title>Danh sách xe máy</title>
         <link rel="website icon" type="png" href="images\logo.png">
         <jsp:include page="/includes/customer/header.jsp" />
         <!-- thanh search -->

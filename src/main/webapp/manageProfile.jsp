@@ -14,7 +14,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Profile</title>
+        <title>Quản lý thông tin cá nhân</title>
         <!-- Tailwind CSS -->
         <link href="https://www.loopple.com/css/vendor/tailwind.min.css" rel="stylesheet">
         <link href="https://www.loopple.com/css/tailwind/app.css?v=1.0.0" rel="stylesheet">
@@ -46,7 +46,7 @@
                         </li>
                         <li class="mt-0.5 w-full"> 
                             <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                               href="javascript:;">
+                               href="transaction">
                                 <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
                                     <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

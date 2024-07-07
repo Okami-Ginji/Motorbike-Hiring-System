@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "UpdateProfileServlet", urlPatterns = {"/updateprofile"})
 public class UpdateProfileServlet extends HttpServlet {
@@ -57,33 +58,43 @@ public class UpdateProfileServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phonenumber");
         String userName = request.getParameter("username");
         String accountID = request.getParameter("accountID");
-        int roleID = Integer.parseInt(request.getParameter("roleID"));
+        HttpSession session = request.getSession();
+        Account ac = (Account) session.getAttribute("account");
+
         try {
-            if (isEmptyOrNull(email) && isEmptyOrNull(userName)) {
-                request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Không được để trống email và username.");
-            } else {
-                if (!isEmptyOrNull(phoneNumber) && !phoneNumber.matches("\\d{9,12}")) {
-                    request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Số điện thoại không bao gồm chữ và bao gồm từ 9 đến 12 số.");
+            if (ac != null) {
+                if (isEmptyOrNull(email)) {
+                    request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Không được để trống email.");
+                } else if (!isEmptyOrNull(email) && !email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+                    request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Email chưa đúng format.");
+                } else if (!isEmptyOrNull(phoneNumber) && !phoneNumber.matches("^0\\d{9}$")) {
+                    request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Điện thoại phải có 10 số, và bắt đầu số 0.");
+                } else if (AccountDAO.getInstance().checkEmailExists(email, ac.getEmail())) {
+                    request.setAttribute("errorProfile", "Email đã tồn tại trước đó. Vui lòng nhập địa chỉ email khác!");
+                } else if (AccountDAO.getInstance().checkPhoneNumExists(phoneNumber, ac.getPhoneNumber())) {
+                    request.setAttribute("errorProfile", "Số điện thoại đã tồn tại trước đó. Vui lòng nhập số khác!");
                 } else {
-                    if (isEmptyOrNull(firstName) || isEmptyOrNull(lastName) || isEmptyOrNull(address)
-                            || isEmptyOrNull(dob) || isEmptyOrNull(gender) || isEmptyOrNull(accountID)) {
-                        request.setAttribute("errorProfile", "Cập nhật hồ sơ thất bại! Vui lòng điền đầy đủ thông tin bắt buộc.");
-                    } else {
-                        AccountDAO.getInstance().update(firstName, lastName, gender, dob, address, phoneNumber, email, userName, Integer.parseInt(accountID));
-                        request.setAttribute("mess", "Cập nhật hồ sơ thành công!");
-                        HttpSession session = request.getSession();
-                        Account account = (Account) session.getAttribute("account");
-                        session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
-                    }
+                    AccountDAO.getInstance().update(firstName, lastName, gender, dob, address, phoneNumber, email, userName, Integer.parseInt(accountID));
+                    session.setAttribute("account", AccountDAO.getInstance().checkLogin(ac.getUserName(), ac.getPassWord()));
+                    request.setAttribute("mess", "Cập nhật hồ sơ thành công!");
                 }
+            } else {
+                response.setContentType("text/html;charset=UTF-8");
+                try (PrintWriter out = response.getWriter()) {
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Bạn cần đăng nhập lại.');");
+                    out.println("location='login.jsp';");
+                    out.println("</script>");
+                }
+                return;
             }
-        } catch (NumberFormatException ex) {
+            if (ac.getRoleID() == 1) {
+                request.getRequestDispatcher("profileCustomer.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
+            }
+        } catch (ServletException | IOException | NumberFormatException ex) {
             System.out.println(ex);
-        }
-        if (roleID == 1) {
-            request.getRequestDispatcher("profileCustomer.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
         }
     }
 

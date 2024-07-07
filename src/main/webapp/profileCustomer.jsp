@@ -14,7 +14,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Profile</title>
+        <title>Thông tin cá nhân</title>
         <!-- Tailwind CSS -->
         <link href="https://www.loopple.com/css/vendor/tailwind.min.css" rel="stylesheet">
         <link href="https://www.loopple.com/css/tailwind/app.css?v=1.0.0" rel="stylesheet">
@@ -26,7 +26,50 @@
         <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
         <link href="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/css/nucleo-icons.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/soft-ui-dashboard-tailwind/css/soft-ui-dashboard-tailwind.css">
+        
+<!--         <style>
+         #cropImageModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        #cropImageModal .modal-content {
+            width: 500px;
+            height: 500px;
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #crop-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>-->
     </head>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .orange {
+            color: orange;
+        }
+
+        .green {
+            color: green;
+        }
+        .text-error {
+            font-style: italic;
+        }
+    </style>
     <jsp:include page="/includes/customer/navbar.jsp" />
     <body class="  font-body " data-framework="tailwind">
         <div class="builder-container builder-container-preview  font-body ">
@@ -41,7 +84,7 @@
                         </li>
                         <li class="mt-0.5 w-full"> 
                             <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                               href="javascript:;">
+                               href="transaction">
                                 <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
                                     <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -179,7 +222,7 @@
                                                         <h6 style="color: green;font-style: italic; margin-bottom: 0">(${mess})</h6>
                                                     </c:if>
                                                     <c:if test="${not empty requestScope.errorProfile}">
-                                                        <h6 style="color: red; font-style: italic; margin-bottom: 0">(${requestScope.errorProfile})</h6>
+                                                        <h6 id="invalid" style="color: red; font-style: italic; margin-bottom: 0">(${requestScope.errorProfile})</h6>
                                                     </c:if>
                                                 </h4>
                                             </div>
@@ -220,7 +263,7 @@
                                             </ul>
 
                                             <div style="margin-right: 12%;" class="flex pr-3 items-center w-1/4 h-auto">
-                                                <img style="width: 100%" id="profile-image" class="h-auto rounded-lg shadow-soft-xl cursor-pointer" src="images/${account.image}" alt="Profile Image">
+                                                <img style="width: 100%" id="profile-image" class="h-auto rounded-lg shadow-soft-xl cursor-pointer" src="images/${account.image}?${now.time}" alt="Profile Image">
                                                 <input type="file" id="image-upload" class="hidden" accept="image/png, image/jpeg">
                                             </div>
 
@@ -233,7 +276,7 @@
                                         <div style="width: 56%; margin-top: 5rem" class="bg-white p-8 rounded-lg shadow-lg">
                                             <h2 class="text-2xl mb-4">Chỉnh sửa thông tin</h2>
                                             <form action="updateprofile" method="post" id="form-update" class="space-y-4">
-                                                <input hidden name="accountID" value="${account.accountId}">
+                                                <input hidden id="accountID" name="accountID" value="${account.accountId}">
                                                 <input hidden name="roleID" value="${account.roleID}">
 
                                                 <div class="flex flex-wrap mb-3">
@@ -250,6 +293,8 @@
                                                     <div class="w-full md:w-1/2 pr-2 mb-3 md:mb-0">
                                                         <label for="account-email">Email <span class="text-red-500">*</span></label>
                                                         <input require value="${account.email}" type="email" id="account-email" name="email" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
+                                                        <span class="text-error" id="email-text"></span>
+
                                                     </div>
                                                     <div class="w-full md:w-1/2 pl-2">
                                                         <label for="account-address">Địa chỉ</label>
@@ -269,6 +314,8 @@
                                                     <div class="w-full md:w-1/2 pl-2">
                                                         <label for="account-phone">Số điện thoại</label>
                                                         <input require value="${account.phoneNumber}" type="text" id="account-phone" name="phonenumber" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
+                                                        <span class="text-error" id="phone-text"></span>
+
                                                     </div>
                                                 </div>
                                                 <div class="flex flex-wrap mb-3">
@@ -278,7 +325,8 @@
                                                     </div>
                                                     <div class="w-full md:w-1/2 pl-2">
                                                         <label for="account-username">Tên đăng nhập <span class="text-red-500">*</span></label>
-                                                        <input require value="${account.userName}" type="text" id="account-username" name="username" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
+                                                        <input style="background-color: #e9e9e9;" readonly value="${account.userName}" type="text" id="account-username" name="username" class="form-control mt-1 p-2 border border-gray-300 rounded-md w-full">
+
                                                     </div>
                                                 </div>
                                                 <div class="flex justify-end">
@@ -297,7 +345,7 @@
                                                 <div>
                                                     <img id="crop-image" src="" alt="Image to crop">
                                                     <input type="file" name="file" id="image-upload" hidden>
-                                                    <input type="text" name="name" size="100">
+<!--                                                    <input type="text" name="name" size="100">-->
                                                 </div>
                                                 <div class="flex justify-end mt-4">
                                                     <button type="button" id="crop-save" class="bg-blue-500 px-4 py-2 rounded-lg">Save</button>
@@ -321,6 +369,7 @@
         <script
             src="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/soft-ui-dashboard-tailwind/js/soft-ui-dashboard-tailwind.js"
         async=""></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </body>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -342,8 +391,50 @@
                     editProfileModal.classList.add('hidden');
                 }
             });
+
         });
 
+        const emailInput = document.getElementById("account-email");
+        const emailText = document.getElementById("email-text");
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const phoneInput = document.getElementById("account-phone");
+        const phoneText = document.getElementById("phone-text");
+        const phoneRegex = /^0\d{9}$/;
+
+        //check email, ussername
+        const validEmail = () => {
+            if (emailInput.value.trim() !== "") {
+                if (emailRegex.test(emailInput.value)) {
+                    emailText.textContent = "";
+                    emailText.className = "";
+                } else {
+                    emailText.textContent = "Email chưa đúng format.";
+                    emailText.className = "text-error red";
+                }
+            } else {
+                if (emailInput.value.trim() === "") {
+                    emailText.textContent = "Không được để trống email.";
+                    emailText.className = "text-error red";
+                } else {
+                    emailText.textContent = "";
+                    emailText.className = "";
+                }
+            }
+        };
+
+        //check sdt
+        const validPhone = () => {
+            if (phoneRegex.test(phoneInput.value)) {
+                phoneText.textContent = "";
+                phoneText.className = "";
+            } else {
+                phoneText.textContent = "Số điện thoại phải có 10 số, và bắt đầu bằng số 0.";
+                phoneText.className = "text-error red";
+            }
+        };
+        emailInput.addEventListener("input", validEmail);
+        phoneInput.addEventListener("input", validPhone);
     </script>
     <!-- Include Cropper.js library -->
     <script src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/js/plugins/chartjs.min.js"></script>
@@ -383,9 +474,12 @@
                         });
 
                         document.getElementById('crop-save').addEventListener('click', function () {
+                            const id = document.getElementById("accountID").value;                       
                             cropper.getCroppedCanvas().toBlob((blob) => {
+                                console.log(blob);
                                 const formData = new FormData();
                                 formData.append('file', blob, 'profile.png');
+                                formData.append('id',id);
                                 uploadImage(formData);
                                 modal.classList.add('hidden');
                             });
@@ -399,19 +493,39 @@
                 }
             });
 
-            function uploadImage(formData) {
-                fetch('/uploadimage', {
-                    method: 'POST',
-                    body: formData,
-                })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                document.getElementById('profile-image').src = data.filePath;
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-            }
+           
         });
+         function uploadImage(formData) {
+             console.log(formData);
+                // Gửi dữ liệu tới servlet bằng AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "uploadimage", // Thay đổi URL tới servlet của bạn
+    //                data: JSON.stringify(data),              
+    //                contentType: "application/json",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert("Cập nhật ảnh thành công");
+                        console.log("Data sent successfully:", response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error sending data:", error);
+                    }
+                });
+//                fetch('uploadimage', {
+//                    method: 'POST',
+//                    body: formData
+//                })
+//                        .then(response => response.json())
+//                        .then(data => {
+//                            if (data.success) {
+//                                document.getElementById('profile-image').src = data.filePath;
+//                            }
+//                        })
+//                        .catch(error => console.error('Error:', error));
+            }
     </script>
+   
 </html>

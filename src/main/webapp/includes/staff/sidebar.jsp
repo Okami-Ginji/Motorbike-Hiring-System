@@ -78,7 +78,7 @@
             </a>
             <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a onclick="CallSideBar('motorManage')">
+                    <a style="cursor: pointer" onclick="CallSideBar('motorManage')">
                         <i class="bi bi-circle"></i><span>Thông tin xe máy</span>
                     </a>
                 </li>
@@ -88,12 +88,12 @@
                     </a>
                 </li>
                 <li>
-                    <a onclick="CallSideBar('pricingManage')">
+                    <a style="cursor: pointer" onclick="CallSideBar('pricingManage')">
                         <i class="bi bi-circle"></i><span>Quản lí bảng giá</span>
                     </a>
                 </li>
                  <li>
-                    <a onclick="CallSideBar('accessoriesStaffServlet')" >
+                    <a style="cursor: pointer" onclick="CallSideBar('accessoriesStaffServlet')" >
                         <i class="bi bi-circle"></i><span>Quản lí phụ kiện</span>
                     </a>
                 </li>
@@ -107,18 +107,18 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a onclick="CallSideBar('feedbackManage')">
+                    <a style="cursor: pointer" onclick="CallSideBar('feedbackManage')">
                         <i class="bi bi-circle"></i><span>Quản lí Đánh giá</span>
                     </a>
                 </li>
                 <li>
-                    <a onclick="CallSideBar('eventStaffServlet')">
+                    <a style="cursor: pointer" onclick="CallSideBar('eventStaffServlet')">
                         <i class="bi bi-circle"></i><span>Quản lí sự kiện</span>
                     </a>
                 </li>
                 <li>
 
-                    <a onclick="CallSideBar('TourismLocationServletStaff')" >
+                    <a style="cursor: pointer" onclick="CallSideBar('TourismLocationServletStaff')" >
                         <i class="bi bi-circle"></i><span>Quản lí địa điểm du lịch</span>
                     </a>
                 </li>

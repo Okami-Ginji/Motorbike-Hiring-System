@@ -384,6 +384,35 @@ public class BookingDAO {
         return null;
     }
     
+    public List<Booking> searchBookingbyBookingId(String bookingId) {
+        PreparedStatement stm;
+        ResultSet rs;
+        List<Booking> list = new ArrayList<>();
+        String sql = "Select * from Booking where BookingID LIKE ?";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, "%" + bookingId + "%");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Booking b = new Booking();
+                b.setBookingID(rs.getString(1));
+                b.setBookingDate(rs.getString(2));
+                b.setStartDate(rs.getString(3));
+                b.setEndDate(rs.getString(4));
+                b.setStatusBooking(rs.getString(5));
+                b.setDeliveryLocation(rs.getString(6));
+                b.setReturnedLocation(rs.getString(7));
+                b.setDeliveryStatus(rs.getString(8));
+                b.setVoucherID(rs.getInt(9));
+                b.setCustomerID(rs.getInt(10));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         BookingDAO bookingDAO = BookingDAO.getInstance();
 //        System.out.println(bookingDAO.getMotorcycleDetailsByBookingID("BOOK000006"));
@@ -391,5 +420,6 @@ public class BookingDAO {
 //        System.out.println(bookingDAO.getLastestBooking(10));
 //        System.out.println(bookingDAO.getAllBookings());
 //        System.out.println(bookingDAO.getBookingsByUsername("minhtuns2311"));
+        System.out.println(bookingDAO.searchBookingbyBookingId("BOOK000004"));
     }
 }

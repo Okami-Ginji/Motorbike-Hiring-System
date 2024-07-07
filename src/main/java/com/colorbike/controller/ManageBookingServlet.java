@@ -146,7 +146,9 @@ public class ManageBookingServlet extends HttpServlet {
         //Gia hạn (của khách hàng) -> staff confirm
         String extendBookId = request.getParameter("extendBookId");
         ExtensionDAO.getInstance().updateExtensionByStaff(staff.getStaffID(), extendBookId);
-
+        //--------------------------------------------------------------------------------
+       
+        //--------------------------------------------------------------------------------
         List<Booking> bookings = BookingDAO.getInstance().getAllBookings();
         List<Cancellation> cancels = CancellationDAO.getInstance().getAllCancellation();
         List<Extension> extend = ExtensionDAO.getInstance().getAllExtension();

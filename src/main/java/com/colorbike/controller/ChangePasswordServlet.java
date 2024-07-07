@@ -79,27 +79,46 @@ public class ChangePasswordServlet extends HttpServlet {
         String password = request.getParameter("password");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
-
-        if (ac != null && ac.getPassWord().equals(password)) {
-            if (!password.equals(newPassword)) {
-                if (newPassword.equals(confirmPassword)) {
+        try {
+            if (ac != null) {
+                if (!ac.getPassWord().equals(password)) {
+                    request.setAttribute("errorPass", "Mật khẩu hiện tại không đúng.");
+                } else if (password.equals(newPassword)) {
+                    request.setAttribute("errorPass", "Mật khẩu hiện tại và mật khẩu cũ không được giống nhau.");
+                } else if (!newPassword.equals(confirmPassword)) {
+                    request.setAttribute("errorPass", "Mật khẩu mới và mật khẩu xác nhận không khớp.");
+                } else if (!checkValidPass(newPassword)) {
+                    request.setAttribute("errorPass", "Password phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số.");
+                } else {
                     AccountDAO.getInstance().changePassword(ac.getAccountId(), newPassword);
                     ac.setPassWord(newPassword);
                     session.setAttribute("account", ac);
                     request.setAttribute("successChange", "Thay đổi mật khẩu thành công.");
-                } else {
-                    request.setAttribute("errorPass", "Mật khẩu mới và mật khẩu xác nhận không khớp.");
                 }
             } else {
-                request.setAttribute("errorPass", "Mật khẩu hiện tại và mật khẩu cũ không được giống nhau.");
+                response.setContentType("text/html;charset=UTF-8");
+                try (PrintWriter out = response.getWriter()) {
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Bạn cần đăng nhập lại.');");
+                    out.println("location='login.jsp';");
+                    out.println("</script>");
+                }
+                return;
             }
-        } else {
-            request.setAttribute("errorPass", "Mật khẩu hiện tại không đúng.");
+
+            if (ac.getRoleID() == 1) {
+                request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
+            }
+        } catch (ServletException | IOException | NumberFormatException ex) {
+            System.out.println(ex);
         }
-        if (ac.getRoleID() == 1) {
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-        } 
-        request.getRequestDispatcher("profileStaff.jsp").forward(request, response);
+    }
+
+    private boolean checkValidPass(String pass) {
+        String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+        return pass != null && pass.matches(passwordRegex);
     }
 
     /**

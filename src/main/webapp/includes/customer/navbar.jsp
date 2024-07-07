@@ -44,14 +44,12 @@
         <c:if test="${sessionScope.account != null}">
 
             <div class="user-menu-wrap">
-
                 <c:choose>
                     <c:when test="${sessionScope.account.image != null}">
-                        <a class="mini-photo-wrapper"><img class="mini-photo" src="images/${sessionScope.account.image}?${now.time}" width="36" height="36"/></a>
-
+                        <a class="mini-photo-wrapper"><img class="mini-photo" style="object-fit: cover" src="images/${sessionScope.account.image}?${now.time}" width="36" height="36"/></a>
                     </c:when>
                     <c:otherwise>
-                        <a class="mini-photo-wrapper"><img class="mini-photo" src="images\avarta.jpg" width="36" height="36"/></a>
+                        <a class="mini-photo-wrapper"><img class="mini-photo" style="object-fit: cover"  src="images\avarta.jpg" width="36" height="36"/></a>
 
                     </c:otherwise>
                 </c:choose>

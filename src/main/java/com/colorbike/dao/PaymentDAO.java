@@ -96,10 +96,40 @@ public class PaymentDAO implements Serializable {
         return list;
     }
 
+    public List<Payment> getAllPaymentsByCustomer(int accountId) {
+        PreparedStatement stm;
+        ResultSet rs;
+        List<Payment> list = new ArrayList<>();
+        String sql = "select PaymentID, Payment.BookingID, PaymentMethod, FORMAT(PaymentDate, 'dd-MM-yyyy HH:mm:ss') AS PaymentDate, PaymentAmount, PaymentStatus\n"
+                + "from Payment\n"
+                + "JOIN Booking b on b.BookingID = Payment.BookingID\n"
+                + "WHERE CustomerID = (Select CustomerID from Customer where AccountID = ?)\n"
+                + "order by Payment.BookingID asc";
+        try {
+            stm = conn.prepareStatement(sql);
+            stm.setInt(1, accountId); 
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Payment p = new Payment();
+                p.setPaymentId(rs.getInt(1));
+                p.setBookingId(rs.getString(2));
+                p.setPaymentMethod(rs.getString(3));
+                p.setPaymentDate(rs.getString(4));
+                p.setPaymentAmount(rs.getDouble(5));
+                p.setPaymentStatus(rs.getString(6));
+                list.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         PaymentDAO dao = getInstance();
-        for (Payment x : dao.getListByBookingId("BOOK908040")) {
-            System.out.println(x);
-        }
+//        for (Payment x : dao.getListByBookingId("BOOK908040")) {
+//            System.out.println(x);
+//        }
+        System.out.println(dao.getAllPaymentsByCustomer(1));
     }
 }

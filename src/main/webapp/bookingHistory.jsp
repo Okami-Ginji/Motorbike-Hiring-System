@@ -12,12 +12,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-
-
-        <title>bs4 account tickets - Bootdey.com</title>
+        <title>Lịch sử thuê xe</title>
         <link href="css/sidebarProfile.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <style type="text/css">
             .widget-author {
                 margin-bottom: 58px;
@@ -372,7 +369,7 @@
                                 </li>
                                 <li class="mt-0.5 w-full"> 
                                     <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors"     
-                                       href="javascript:;">
+                                       href="transaction">
                                         <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-0 text-center xl:p-2.5">
                                             <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
                                                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -512,7 +509,7 @@
                             <div class="flex flex-wrap -mx-3 drop-zone">
                                 <div style="position: relative;" class="table-responsive">
                                     <table class="caption-top min-w-full table-auto table-hover table-borderless table-striped" id="booking-table">
-                                        <caption class="caption-top">History Booking</caption>
+                                        <caption class="caption-top">Lịch sử thuê xe</caption>
                                         <thead style="border: 1px solid">
                                             <tr>
                                                 <th scope="col" class="col-table px-8 py-2">Mã đơn</th>

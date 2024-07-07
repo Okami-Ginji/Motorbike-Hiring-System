@@ -322,7 +322,7 @@
                                         <div class="bg-white p-4 rounded-lg shadow-lg w-1/3">
                                             <form action="${pageContext.request.contextPath}/uploadimage" method="post" enctype="multipart/form-data" id="form-upload">
                                                 <div>
-                                                    <img id="crop-image" src="" alt="Image to crop">
+                                                    <img id="crop-image" src="" alt="Image to crop" style="height: 300px">
                                                     <input type="file" name="file" id="image-upload" hidden>
 <!--                                                    <input type="text" name="name" size="100">-->
                                                 </div>
@@ -396,15 +396,18 @@
             });
 
             document.getElementById('image-upload').addEventListener('change', function (event) {
-                const file = event.target.files[0];
+                const files = event.target.files;
+                const file = files[files.length - 1];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         const modal = document.getElementById('cropImageModal');
                         const cropImage = document.getElementById('crop-image');
+                        cropImage.src = '';
                         cropImage.src = e.target.result;
                         modal.classList.remove('hidden');
-
+                        
+                        
                         const cropper = new Cropper(cropImage, {
                             aspectRatio: 1,
                             viewMode: 1,
@@ -424,6 +427,11 @@
 
                         document.getElementById('crop-cancel').addEventListener('click', function () {
                             modal.classList.add('hidden');
+                            const cropImage = document.getElementById('crop-image');
+                            cropImage.src = '';
+                              if (cropper) {
+                                    cropper.destroy(); // Destroy cropper instance when cancel is clicked
+                                }
                         });
                     };
                     reader.readAsDataURL(file);

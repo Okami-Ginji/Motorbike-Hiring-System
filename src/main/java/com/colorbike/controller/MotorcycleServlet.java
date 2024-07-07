@@ -42,6 +42,7 @@ public class MotorcycleServlet extends HttpServlet {
     BrandDAO brandDAO = BrandDAO.getInstance();
     DemandDAO demandDAO = DemandDAO.getInstance();
     DemandPriceRangeDAO demandPriceRangeDAO = DemandPriceRangeDAO.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,21 +52,8 @@ public class MotorcycleServlet extends HttpServlet {
         List<String> listDisplacement = motorcycleDAO.getListDisplacements();
         List<Demand> listDemand = demandDAO.getAllDemand();
         List<PriceRange> listPriceRange = demandPriceRangeDAO.getListDemandPriceRanges();
-        String indexPage = request.getParameter("index");
-        if (indexPage == null) {
-            indexPage = "1";
-        }
-        int index = Integer.parseInt(indexPage);
-        request.setAttribute("index", index);
-        int count = motorcycleDAO.getTotalMotorcycles();
-        int endPage = count / 9;
-        if (count % 9 != 0) {
-            endPage++;
-        }
 
-        List<Motorcycle> motorcycles = motorcycleDAO.pagingMotorcycles(index);
-
-        request.setAttribute("endP", endPage);
+        List<Motorcycle> motorcycles = motorcycleDAO.getTop3Motorcycles();
 
         Map<Integer, String> categoryMap = new HashMap<>();
         for (Category category : categories) {
@@ -77,7 +65,6 @@ public class MotorcycleServlet extends HttpServlet {
             priceMap.put(p.getPriceListId(), p.getDailyPriceForDay());
         }
 
-        request.setAttribute("search", "none");
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);

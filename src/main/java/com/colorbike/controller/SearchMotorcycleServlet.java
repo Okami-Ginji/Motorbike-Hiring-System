@@ -52,7 +52,7 @@ public class SearchMotorcycleServlet extends HttpServlet {
         List<String> listDisplacement = motorcycleDAO.getListDisplacements();
         List<Demand> listDemand = demandDAO.getAllDemand();
         List<SearchCriteria.PriceRange> listPriceRange = demandPriceRangeDAO.getListDemandPriceRanges();
-        List<Motorcycle> motorcycles = motorcycleDAO.searchMotorcyclesByName(key);
+        List<Motorcycle> motorcycles = motorcycleDAO.searchTop3MotorcyclesByName(key);
         request.setAttribute("key", key);
 
         Map<Integer, String> categoryMap = new HashMap<>();
@@ -67,6 +67,7 @@ public class SearchMotorcycleServlet extends HttpServlet {
         if (motorcycles.isEmpty()) {
             request.setAttribute("noResults", true);
         }
+        request.setAttribute("search", "searchName");
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);

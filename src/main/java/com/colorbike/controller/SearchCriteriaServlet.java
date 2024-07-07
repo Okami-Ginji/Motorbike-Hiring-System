@@ -24,7 +24,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +86,10 @@ public class SearchCriteriaServlet extends HttpServlet {
                 criteria.addDemandID(Integer.parseInt(demandId));
             }
         }
-        List<Motorcycle> motorcycles = motorcycleDAO.searchMotorcycleByCriteria(criteria);
+        HttpSession session = request.getSession();
+        session.setAttribute("criteria", criteria);
+        
+        List<Motorcycle> motorcycles = motorcycleDAO.searchTop3MotorcyclesByCriteria(criteria);
         List<Category> categoriesList = categoryDAO.getAllCategory();
         List<PriceList> priceLists = priceListDAO.getAllPriceList();
         List<Brand> brandLists = brandDAO.getAllBrand();
@@ -101,6 +106,7 @@ public class SearchCriteriaServlet extends HttpServlet {
         for (PriceList priceList : priceLists) {
             priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
         }
+        request.setAttribute("search", "searchCriteria");
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);
         request.setAttribute("listBrand", brandLists);

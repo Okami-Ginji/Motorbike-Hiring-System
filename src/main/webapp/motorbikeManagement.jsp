@@ -241,7 +241,7 @@
                                             <tr>
                                                 <th scope="row">${m.motorcycleId}</th>
                                                 <td class="w-25">
-                                                    <img src="images/imageAcc12.jpg"
+                                                    <img src="images/${m.image}"
                                                          class="img-fluid img-thumbnail" alt="motor">
                                                 </td>
                                                 <td>${m.model}</td>

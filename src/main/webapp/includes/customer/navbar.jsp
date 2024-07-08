@@ -313,7 +313,7 @@
     }
 
 // Thiết lập hàm để thực hiện sau mỗi 10 giây
-    setInterval(yourFunction, 30 * 60 * 1000);
+    setInterval(yourFunction, 1 * 60 * 60 * 1000);
 
 // Thực hiện ngay lập tức lần đầu tiên nếu cần thiết
     yourFunction();

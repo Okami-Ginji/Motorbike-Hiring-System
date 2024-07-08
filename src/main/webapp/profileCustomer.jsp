@@ -171,7 +171,7 @@
                             </a> </li>
                         <li class="mt-0.5 w-full"> 
                             <a class="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-                               href="manageProfile.jsp">
+                               href="settingsProfile.jsp">
                                 <div
                                     class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                                     <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1"
@@ -343,7 +343,7 @@
                                         <div class="bg-white p-4 rounded-lg shadow-lg w-1/3">
                                             <form action="${pageContext.request.contextPath}/uploadimage" method="post" enctype="multipart/form-data" id="form-upload">
                                                 <div>
-                                                    <img id="crop-image" src="" alt="Image to crop">
+                                                    <img id="crop-image" src="" alt="Image to crop" style="height: 300px">
                                                     <input type="file" name="file" id="image-upload" hidden>
 <!--                                                    <input type="text" name="name" size="100">-->
                                                 </div>
@@ -459,15 +459,18 @@
             });
 
             document.getElementById('image-upload').addEventListener('change', function (event) {
-                const file = event.target.files[0];
+                const files = event.target.files;
+                const file = files[files.length - 1];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         const modal = document.getElementById('cropImageModal');
                         const cropImage = document.getElementById('crop-image');
+                        cropImage.src = '';
                         cropImage.src = e.target.result;
                         modal.classList.remove('hidden');
-
+                        
+                        
                         const cropper = new Cropper(cropImage, {
                             aspectRatio: 1,
                             viewMode: 1,
@@ -487,6 +490,11 @@
 
                         document.getElementById('crop-cancel').addEventListener('click', function () {
                             modal.classList.add('hidden');
+                            const cropImage = document.getElementById('crop-image');
+                            cropImage.src = '';
+                              if (cropper) {
+                                    cropper.destroy(); // Destroy cropper instance when cancel is clicked
+                                }
                         });
                     };
                     reader.readAsDataURL(file);

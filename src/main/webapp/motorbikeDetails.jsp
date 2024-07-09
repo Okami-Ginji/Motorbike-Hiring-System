@@ -224,7 +224,7 @@
                                                 <div class="icon d-flex align-items-center justify-content-center" 
                                                      onclick="openModal('${listAccess.accessoryName}', '${listAccess.accessoryDescription}', '${listAccess.price * 1000} VNĐ', 'images/${listAccess.accessoryImage}')">
                                                     <img src="images/${listAccess.accessoryImageicon}" alt="${listAccess.accessoryName}" style="width: 60px;
-                                                height: 60px;">
+                                                    height: 60px;">
                                             </div>
                                             <div class="text">
                                                 <h3 style="margin-top: -17px;
@@ -263,10 +263,7 @@
                         </div>
                     </div>
 
-                    <div class="button-container">
-                        <button class="rent-now-btn" onclick="redirectToBooking(event, '${m.motorcycleId}')">THUÊ XE NGAY</button>
-                        <!-- Replace the URL with the actual booking link and ID -->
-                    </div>
+
 
                     <div class="row">
                         <div class="col-md-12 pills">
@@ -328,7 +325,10 @@
                                     </div>
                                 </div>
 
-
+                                <div class="button-container">
+                                    <button class="rent-now-btn" onclick="redirectToBooking(event, '${m.motorcycleId}')">THUÊ XE NGAY</button>
+                                    <!-- Replace the URL with the actual booking link and ID -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -344,9 +344,9 @@
                         </div>
                     </div>
                     <iframe src="slide.jsp" style="width: 99.1%;
-                        height: 540px;
-                        padding: 0;
-                        margin: 0;"></iframe>
+                            height: 540px;
+                            padding: 0;
+                            margin: 0;"></iframe>
                 </div>
             </section>
 

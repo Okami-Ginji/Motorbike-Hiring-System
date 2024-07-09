@@ -113,7 +113,7 @@
                         %></label>
                 </div> 
             </div>
-                <a href="index.jsp"><button>Về trang chính</button></a>
+                <a href="home"><button>Về trang chính</button></a>
         </div>  
     </body>
 </html>

@@ -136,7 +136,7 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="faqs">
+            <a class="nav-link collapsed" href="faqsStaff">
                 <i class="bi bi-question-circle"></i>
                 <span>F.A.Q</span>
             </a>

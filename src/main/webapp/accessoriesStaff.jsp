@@ -289,13 +289,13 @@
                                     <label for="editAccessoryName">Tên Phụ Kiện:</label>
                                     <input type="text" class="form-control" id="editAccessoryName" name="accessoryName" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="max-width: 500px;">
 
                                     <label for="editAccessoryImage">Hình ảnh:</label>
                                     <div id="editAccessoryImagePreview"></div>
                                     <input type="file" class="form-control" id="editAccessoryImage" name="accessoryImage" accept="image/*">
                                 </div>
-                                <div class="form-group">  
+                                <div class="form-group" style="max-width: 400px;">  
                                     <label for="editAccessoryImageIcon">Biểu Tượng:</label>
 
                                     <div id="editAccessoryImageIconPreview"></div>

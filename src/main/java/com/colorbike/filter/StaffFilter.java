@@ -125,12 +125,15 @@ public class StaffFilter implements Filter {
         Account account = (Account) session.getAttribute("account");
 //        request.getRequestDispatcher("accessdenied.jsp").forward(request, response);  
         
-        if (uri.toLowerCase().contains("staff") || uri.toLowerCase().contains("manage")) {           
-            if(account != null && (account.getRoleID() == 2 || account.getRoleID() == 3)){
+        if (uri.toLowerCase().contains("staff") || uri.toLowerCase().contains("manage")) {       
+           
+            if(account != null && (!uri.toLowerCase().contains("managestaff") && (account.getRoleID() == 2 || account.getRoleID() == 3) 
+                || (uri.toLowerCase().contains("managestaff") && account.getRoleID() == 3))){
                 flag = false;
             }
             else {
                 res.sendRedirect("accessdenied.jsp");
+                return;
             }
         }
         else if(uri.toLowerCase().contains("profilecustomer.jsp") || uri.toLowerCase().contains("transaction") 
@@ -140,10 +143,11 @@ public class StaffFilter implements Filter {
             }
             else {
                 res.sendRedirect("accessdenied.jsp");
+                return;
             }
         }
 //        else if(uri.toLowerCase().contains("profilecustomer.jsp") ||)
-        else{
+        else{          
             flag = false;
         }
        

@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author ADMIN
  */
-@WebServlet(name = "AddFaqsServletStaff", urlPatterns = {"/faqs"})
+@WebServlet(name = "AddFaqsServletStaff", urlPatterns = {"/faqsStaff"})
 public class AddFaqsServletStaff extends HttpServlet {
 
     FAQDAO faqdao = FAQDAO.getInstance();

@@ -14,7 +14,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      
+      <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"> 
 
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
         
@@ -103,7 +104,7 @@
         <div class="container-fluid">
             <div class="vertical-tab">
                 <div>
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs animate__animated animate__fadeInUp">
                         <li><a href="#">Giới thiệu</a></li>
                         <li><a href="#Section1">Đăng ký và Tài khoản</a></li>
                         <li><a href="#Section2">Điều khoản Thuê xe</a></li>
@@ -115,7 +116,7 @@
                         <li><a href="#Section8">Liên hệ</a></li>
                     </ul>
                 </div>
-                <div class="content-wrapper" \>
+                <div class="content-wrapper animate__animated animate__fadeInUp">
                     <div id="Section1" class="content-section">
                         <h3>Giới thiệu</h3>
                         <p>Chào mừng bạn đến với ColorBike! Trang web của chúng

@@ -46,6 +46,7 @@
 <!-- Template Main CSS File -->
 <link href="staffAssets/css/style.css" rel="stylesheet">
 <!-- ======= Sidebar ======= -->
+
 <aside style="width: 260px" id="sidebar" class="sidebar">
     <% 
         String currentPage = request.getRequestURI();
@@ -55,6 +56,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
+
             <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff.jsp">
                 <i class="bi bi-grid"></i>
                 <span>Trang chủ</span>
@@ -76,7 +78,7 @@
             </a>
             <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a onclick="CallSideBar('motorManage')">
+                    <a style="cursor: pointer" onclick="CallSideBar('motorManage')">
                         <i class="bi bi-circle"></i><span>Thông tin xe máy</span>
                     </a>
                 </li>
@@ -86,12 +88,12 @@
                     </a>
                 </li>
                 <li>
-                    <a onclick="CallSideBar('pricingManage')">
+                    <a style="cursor: pointer" onclick="CallSideBar('pricingManage')">
                         <i class="bi bi-circle"></i><span>Quản lí bảng giá</span>
                     </a>
                 </li>
                  <li>
-                    <a onclick="CallSideBar('accessoriesStaffServlet')" >
+                    <a style="cursor: pointer" onclick="CallSideBar('accessoriesStaffServlet')" >
                         <i class="bi bi-circle"></i><span>Quản lí phụ kiện</span>
                     </a>
                 </li>
@@ -105,17 +107,18 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a onclick="CallSideBar('feedbackManage')">
+                    <a style="cursor: pointer" onclick="CallSideBar('feedbackManage')">
                         <i class="bi bi-circle"></i><span>Quản lí Đánh giá</span>
                     </a>
                 </li>
                 <li>
-                    <a onclick="CallSideBar('eventStaffServlet')">
+                    <a style="cursor: pointer" onclick="CallSideBar('eventStaffServlet')">
                         <i class="bi bi-circle"></i><span>Quản lí sự kiện</span>
                     </a>
                 </li>
                 <li>
-                    <a onclick="CallSideBar('TourismLocationServletStaff')" >
+
+                    <a style="cursor: pointer" onclick="CallSideBar('TourismLocationServletStaff')" >
                         <i class="bi bi-circle"></i><span>Quản lí địa điểm du lịch</span>
                     </a>
                 </li>
@@ -125,6 +128,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
+
             <a class="nav-link ${currentPage.contains('/profileStaff.jsp') ? '' : 'collapsed'}" href="profileStaff.jsp">
                 <i class="bi bi-person"></i>
                 <span>Thông tin cá nhân</span>
@@ -132,7 +136,7 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="faqs">
+            <a class="nav-link collapsed" href="faqsStaff">
                 <i class="bi bi-question-circle"></i>
                 <span>F.A.Q</span>
             </a>
@@ -147,6 +151,7 @@
 
 
         <li class="nav-item">
+
             <a class="nav-link collapsed" href="logout">
                <i class="bi bi-box-arrow-in-right"></i>
                 <span>Đăng xuất</span>

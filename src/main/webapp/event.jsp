@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
+        <title>Danh sách sự kiện</title>
         <style id="wp-emoji-styles-inline-css" type="text/css">
             img.wp-smiley,
             img.emoji {
@@ -191,7 +192,7 @@
     </head>
     <body class="home blog wp-embed-responsive">
         <jsp:include page="/includes/customer/navbar.jsp" />
-        
+
         <main id="maincontent" role="main" style="margin-top: 5%;">
             <div class="middle-align container">
                 <div class="row m-0">
@@ -246,23 +247,6 @@
                                     </label>
                                     <input style="background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);" type="submit" class="search-submit" value="Search">
                                 </form>
-                            </aside>
-                            <aside style="box-shadow: 0px 15px 10px -15px #0396C0;" id="archives" role="complementary" class="widget" aria-label="firstsidebar">
-                                <h3 style="color: #0396C0;">Archives</h3>
-                                <ul>
-                                    <li><a href="">October 2008</a></li>
-                                    <li><a href="">September 2008</a></li>
-                                    <li><a href="">June 2008</a></li>
-                                </ul>
-                            </aside>
-                            <aside style="box-shadow: 0px 15px 10px -15px #0396C0;" id="categories" class="widget" role="complementary" aria-label="forthsidebar">
-                                <h3 style="color: #0396C0;">Categories</h3>
-                                <ul>
-                                    <li class="cat-item "><a href="">Black Friday</a></li>
-                                    <li class="cat-item "><a href="">Summer Sale</a> </li>
-                                    <li class="cat-item "><a href="">Winter Sale</a></li>
-                                    <li class="cat-item "><a href="">Winter Sale</a> </li>
-                                </ul>
                             </aside>
                         </div>
                     </div>

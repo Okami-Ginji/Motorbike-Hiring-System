@@ -84,19 +84,19 @@ public class UpdateTourismLoctionServletStaff extends HttpServlet {
         FileUploaded fileUploaded = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\images");
         
         // Récupérer les paramètres depuis la requête
-        String locationIdStr = request.getParameter("editLocationId");
-        String locationName = request.getParameter("editLocationName");
+        String locationIdStr = request.getParameter("locationId");
+        String locationName = request.getParameter("locationName");
 
         
         String name = "imageTour" + locationName + ".jpg";
-        Part part = request.getPart("editLocationImage");
+        Part part = request.getPart("locationImage");
         fileUploaded.handleFileUpload(part, name);
         
         
         
-        String description = request.getParameter("editDescription");
-        String urlArticle = request.getParameter("editUrlArticle");
-        String staffID = request.getParameter("editStaffID");
+        String description = request.getParameter("description");
+        String urlArticle = request.getParameter("urlArticle");
+        String staffID = request.getParameter("staffID");
         try {
             int locationId = Integer.parseInt(locationIdStr);
 

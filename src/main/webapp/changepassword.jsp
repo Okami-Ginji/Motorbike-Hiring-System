@@ -154,12 +154,28 @@
                 cursor: pointer;
                 font-size: 20px;
             }
+            .red {
+                color: red;
+            }
+
+            .orange {
+                color: orange;
+            }
+
+            .green {
+                color: green;
+            }
+            .text-error {
+                font-style: italic;
+                font-size: 13px;
+            }
         </style>
     </head>
     <body>
         <div class="mainDiv">
             <div class="cardStyle" id="changePasswordForm">
                 <form action="changepassword" method="post" name="signupForm" id="signupForm">
+                    <input type="hidden" value="${account.roleID}" name="roleId" id="roleID">
                     <img src="" id="signupLogo"/>
                     <h1 class="formTitle" style="font-weight: bold;">Thay đổi mật khẩu</h1>
                     <c:if test="${not empty requestScope.errorPass}">
@@ -173,6 +189,7 @@
                         </div>
                     </c:if>
                     <div class="inputDiv">
+                        <input type="hidden" value="${account.passWord}" id="currentPassword">
                         <label class="inputLabel" for="password">Mật khẩu hiện tại</label>
                         <div class="input-wrapper">
                             <input type="password" id="password" name="password" required>
@@ -180,7 +197,7 @@
                                 <i class="ri-eye-off-line"></i>
                             </span>
                         </div>
-
+                        <span class="text-error" id="password-text"></span>
                     </div>
 
                     <div class="inputDiv">
@@ -191,7 +208,9 @@
                                 <i class="ri-eye-off-line"></i>
                             </span>
                         </div>
+                        <span class="text-error" id="newpassword-text"></span>
                     </div>
+
                     <div class="inputDiv">
                         <label class="inputLabel" for="confirmPassword">Xác nhận mật khẩu mới</label>
                         <div class="input-wrapper">
@@ -200,6 +219,7 @@
                                 <i class="ri-eye-off-line"></i>
                             </span>
                         </div>
+                        <span class="text-error" id="confirmpassword-text"></span>
                     </div>
                     <div class="buttonWrapper" >
                         <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary">
@@ -237,7 +257,49 @@
                     icon.className = 'ri-eye-off-line';
                 }
             }
+            /////////////////////////////////////////
+            const password = document.getElementById("password");
+            const passwordText = document.getElementById("password-text");
+            const currentPassword = document.getElementById("currentPassword");
+            const validPass = () => {
+                if (password.value !== currentPassword.value) {
+                    passwordText.textContent = "Mật khẩu hiện tại không đúng";
+                    passwordText.className = "text-error red";
+                } else {
+                    passwordText.textContent = "";
+                }
+            };
+            /////////////////////////////////////////
+            const newPassword = document.getElementById("newPassword");
+            const newPassText = document.getElementById("newpassword-text");
+            const newpasswordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
+            const validnewPass = () => {
+                if (newpasswordRegex.test(newPassword.value)) {
+                    newPassText.textContent = "";
+                    newPassText.className = "";
+                } else {
+                    newPassText.textContent = "Password phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số.";
+                    newPassText.className = "text-error red";
+                }
+            };
+            /////////////////////////////////////////
+            const confirmPass = document.getElementById("confirmPassword");
+            const confirmPassText = document.getElementById("confirmpassword-text");
+
+            const validConfirmPass = () => {
+                if (confirmPass.value !== newPassword.value) {
+                    confirmPassText.textContent = "Mật khẩu mới và mật khẩu xác nhận không khớp";
+                    confirmPassText.className = "text-error red";
+                } else {
+                    confirmPassText.textContent = "";
+                    confirmPassText.className = "";
+                }
+            };
+
+            password.addEventListener("input", validPass);
+            newPassword.addEventListener("input", validnewPass);
+            confirmPass.addEventListener("input", validConfirmPass);
         </script>
     </body>
 </html>

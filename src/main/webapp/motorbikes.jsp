@@ -10,6 +10,7 @@
 <html lang="en">
 
     <head>
+        <title>Danh sách xe máy</title>
         <link rel="website icon" type="png" href="images\logo.png">
         <jsp:include page="/includes/customer/header.jsp" />
         <!-- thanh search -->
@@ -241,7 +242,7 @@
             .banner-image {
                 background-position: center;
                 background-size: cover;
-                height: 300px;
+                height: 200px;
                 width: 100%;
                 border-radius: 12px;
                 /*border: 1px solid rgba(255,255,255, 0.255);*/
@@ -351,7 +352,7 @@
                 box-shadow: 0 2px 10px rgb(185, 209, 234);
                 border-radius: 12px;
                 border: 1px solid rgb(2, 184, 175);
-                padding: 38px;
+                padding: 32px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -514,7 +515,7 @@
                                                         <a class="page-link ${i == index? "active":""}" href="motorcycle?index=${i}">${i}</a>
                                                     </c:if>                                              
                                                 </li>
-                                                </c:forEach>
+                                            </c:forEach>
                                         </ul>
                                     </div>
                                 </div>

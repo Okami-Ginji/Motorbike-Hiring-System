@@ -1,5 +1,5 @@
 <%-- 
-    Document   : event
+    Document   : touristLocation
     Created on : May 25, 2024, 9:43:36 PM
     Author     : ADMIN
 --%>
@@ -11,7 +11,7 @@
     <head>
         <jsp:include page="/includes/customer/header.jsp" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>ColorBike Tourism Location</title>
+        <title>Các địa điểm du lịch</title>
         <link rel="website icon" type="png" href="images\logo.png">
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">

@@ -32,12 +32,7 @@ public class UploadImageServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
-        }
-        fileUploadHandler = new FileUploaded(uploadPath);
+        fileUploadHandler = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\images");
     }
 
     @Override
@@ -48,15 +43,30 @@ public class UploadImageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-        String name = request.getParameter("name");
-        Part filePart = request.getPart("file");
-        
-        String realPath = request.getServletContext().getRealPath("/images");
-        String fileName =  Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        if( !Files.exists(Paths.get(realPath))) {
-            Files.createDirectory(Paths.get(realPath));
-        }
-        filePart.write(realPath + "/" + fileName);
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("account");
+            if (account == null) {
+                response.sendRedirect("login.jsp");  // Redirect to login if session is invalid
+                return;
+            }
+            String id = request.getParameter("id");
+
+            String name = "imageAcc" + id + ".jpg";
+            Part filePart = request.getPart("file");
+                System.out.println(name);
+            fileUploadHandler.handleFileUpload(filePart, name);
+
+            AccountDAO dao = AccountDAO.getInstance();
+            dao.updateProfileImage(Integer.parseInt(id), name);
+            
+            // Cập nhật thuộc tính image trong đối tượng account
+            account.setImage(name);
+
+            // Cập nhật lại đối tượng account trong session
+            session.setAttribute("account", account);
+
+            
+      
         } catch (Exception e) {
             System.out.println(e);
         }

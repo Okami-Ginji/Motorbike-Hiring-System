@@ -9,122 +9,222 @@
 <html lang="en">
 
     <head>
-        <title>Sidebar 05</title>
+        <title>Chính sách & Điều Khoản</title>
+        <link rel="website icon" type="png" href="images\logo.png">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/policiesStyle.css">
-        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-              rel="stylesheet">
+      <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"> 
 
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-        <link rel="stylesheet" href="css/animate.css">
-
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="css/magnific-popup.css">
-
-        <link rel="stylesheet" href="css/aos.css">
-
-        <link rel="stylesheet" href="css/ionicons.min.css">
-
-        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-        <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-        <link rel="stylesheet" href="css/flaticon.css">
-        <link rel="stylesheet" href="css/icomoon.css">
-        <link rel="stylesheet" href="css/style.css">
+        
         <style>
-            .logo{
-                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
-                background-clip: text;
-                color: transparent !important;
+            body {
+                font-family: 'Varela Round', sans-serif;
             }
-            .p{
-                color: #001973 !important;
+            .nav-tabs {
+                position: fixed;
+                top: 0;
+                left: 10px;
+                width: 300px;
+                height: 78%;
+                background: radial-gradient(circle at 10% 20%, rgb(226, 240, 254) 0%, rgb(255, 247, 228) 90%);
+                border-radius: 30px;
+                border: 2px solid #001973 !important;
+                padding: 25px;
+                margin-top: 122px;
+
+            }
+            .nav-tabs li {
+                margin-bottom: 5px;
+                width: 280px;
+                margin-left: 22px;
+            }
+
+            .nav-tabs a {
+                border-radius: 30px;
+            }
+            .content-wrapper {
+                margin-left: 316px;
+                padding-top: 20px;
+                margin-top: 8%;
+            }
+            .content-section {
+                margin-bottom: 30px;
+                padding: 15px;
+                border: 1px solid #001973;
+                border-radius: 5px;
+                background-color: #EFFAF4;
+            }
+            .content-section h3 {
+                font-size: 24px;
+                color: #001973;
+                font-weight: bold;
+            }
+
+            .nav-tabs li a {
+                color: #001973;
+                background-color: #fff;
+                font-size: 16px;
+                text-align: center;
+                text-transform: uppercase;
+                padding: 10px;
+                margin-bottom: 5px;
+                display: block;
+                border: 3px solid transparent;
+                transition: all 0.3s ease;
+            }
+            .nav-tabs li.active a,
+            .nav-tabs li a:hover {
+                color: #fff;
+                background-color: #001973;
+                border-color: #001973;
+            }
+
+            @media only screen and (max-width: 767px) {
+                .nav-tabs {
+                    position: static;
+                    width: 100%;
+                    border-right: none;
+                    padding-top: 0;
+                }
+                .content-wrapper {
+                    margin-left: 0;
+                    padding-top: 70px; /* Adjusted for top navbar height */
+                }
             }
         </style>
     </head>
 
     <body>
-        <jsp:include page="/includes/customer/navbar.jsp" />
-
-        <div class="wrapper d-flex align-items-stretch" style="margin-top: 5%;">
-            <nav id="sidebar">
-
-                <div class="p-4">
-                    <!-- <div style="background-color:#01D28E;"> -->
-                    <h1><a href="home.jsp" class="logo">COLOR BIKE <span>Your Adventure - Our Colors</span></a></h1>
-                    <ul class="list-unstyled components mb-5">
-                        <li class="active">
-                            <a href="#"><span class="fa fa-home mr-3"></span> General Principles </a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="fa fa-user mr-3"></span>Policies & Terms </a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="fa fa-briefcase mr-3"></span>Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="fa fa-sticky-note mr-3"></span>Complaint Settlement</a>
-                        </li>
+        <div>
+            <jsp:include page="/includes/customer/navbar.jsp" />
+        </div>
+        <div class="container-fluid">
+            <div class="vertical-tab">
+                <div>
+                    <ul class="nav nav-tabs animate__animated animate__fadeInUp">
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#Section1">Đăng ký và Tài khoản</a></li>
+                        <li><a href="#Section2">Điều khoản Thuê xe</a></li>
+                        <li><a href="#Section3">Sử dụng Xe</a></li>
+                        <li><a href="#Section4">Bảo hiểm và Trách nhiệm</a></li>
+                        <li><a href="#Section5">Hủy Bỏ và Hoàn Tiền</a></li>
+                        <li><a href="#Section6">Quyền riêng tư</a></li>
+                        <li><a href="#Section7">Thay đổi Điều khoản</a></li>
+                        <li><a href="#Section8">Liên hệ</a></li>
                     </ul>
-
                 </div>
-            </nav>
-
-            <!-- Page Content  -->
-            <div id="content" class="p-4 p-md-5 pt-5">
-
-                <h2 class="mb-4">General Principles</h2>
-                <h6>Responsibility and honesty</h6>
-                <p>
-
-                    Mioto aims to build a car rental community with the desire to bring convenience to car renters and car
-                    owners. Therefore, car renters need to be responsible for maintaining the rental car, and respecting it
-                    as if it were your own car. If there is a problem or any problem with the vehicle on your trip, please
-                    boldly resolve it with the vehicle owner HONESTLY and RESPONSIBLY.
-                </p>
-                <h6>Build trust</h6>
-                <p>
-                    Car owners should create a clear and transparent profile on the Mioto app, including personal images,
-                    your name, contact information, and a thorough description, and invest a lot in image quality. Make your
-                    car look attractive, this will help tenants TRUST and your car rental rate will be higher.
-                    You can check the Customer's profile online before deciding to rent, which will give you peace of mind
-                    before handing over the car keys to your guests.
-                </p>
-                <h6>Please keep the car clean</h6>
-                <p>
-                    Mioto aims to build a civilized community, so please love and keep the cars you rent clean. Delivering
-                    and returning CLEAN vehicles helps both parties close the transaction well and be ready for great future
-                    transactions.
-                </p>
-                <h6>Notify immediately when a problem arises</h6>
-                <p>
-                    Whenever a problem arises during the car rental process, the car owner and the car renter should NOTIFY
-                    each other immediately, and use the terms of the car rental contract or Mioto's policies posted on the
-                    Mioto website. .vn for quick resolution.
-                </p>
-                <h6>Comply with the law</h6>
-                <p>
-                    Car owners are responsible for ensuring your vehicles have all legal documents and are in SAFE condition
-                    before handing it over to customers.
-                    The customer renting a car is responsible for strictly COMPLYING with traffic rules and complying with
-                    all relevant applicable laws during the rental period.
-                </p>
-                <h6>Final...</h6>
-                <p>
-                    If the car owner and renter cannot resolve the dispute themselves, please contact Mioto Customer Care.
-                    We are always by your side to help you resolve issues in the best way, following the terms, policies and
-                    operating regulations both parties have committed to with Mioto.
-                </p>
+                <div class="content-wrapper animate__animated animate__fadeInUp">
+                    <div id="Section1" class="content-section">
+                        <h3>Giới thiệu</h3>
+                        <p>Chào mừng bạn đến với ColorBike! Trang web của chúng
+                            tôi cung cấp dịch vụ cho thuê xe máy nhằm giúp bạn
+                            dễ dàng di chuyển và khám phá. Vui lòng đọc kỹ các
+                            điều khoản và điều kiện dưới đây trước khi sử dụng
+                            dịch vụ của chúng tôi.</p>
+                    </div>
+                    <div id="Section2" class="content-section">
+                        <h3>Đăng ký và Tài khoản</h3>
+                        <p>
+                            <b>Đăng ký Tài khoản:</b> Người dùng phải đăng ký
+                            một tài khoản hợp lệ trên trang web ColorBike để sử
+                            dụng dịch vụ cho thuê xe.<br>
+                            <b>Bảo mật Tài khoản:</b> Người dùng có trách nhiệm
+                            bảo mật thông tin tài khoản của mình. ColorBike
+                            không chịu trách nhiệm cho bất kỳ thiệt hại nào phát
+                            sinh do việc lạm dụng tài khoản.
+                        </p>
+                    </div>
+                    <div id="Section3" class="content-section">
+                        <h3>Điều khoản Thuê xe</h3>
+                        <p>
+                            <b>Điều kiện Thuê xe:</b> Người thuê xe phải có bằng
+                            lái xe hợp lệ và đủ 18 tuổi trở lên.<br>
+                            <b>Quá trình Thuê xe:</b> Người dùng có thể đặt xe
+                            trực tuyến thông qua trang web của chúng tôi. Một
+                            khi đặt xe, người dùng sẽ nhận được xác nhận qua
+                            email với thông tin chi tiết về xe và thời gian
+                            thuê.<br>
+                            <b>Thanh toán:</b> Thanh toán phải được thực hiện
+                            trước khi nhận xe. Chúng tôi chấp nhận các phương
+                            thức thanh toán qua thẻ tín dụng, thẻ ghi nợ, và các
+                            ví điện tử hợp lệ.
+                        </p>
+                    </div>
+                    <div id="Section4" class="content-section">
+                        <h3>Sử dụng Xe</h3>
+                        <p>
+                            <b>Sử dụng An toàn:</b> Người dùng phải tuân thủ tất
+                            cả các luật giao thông hiện hành và đảm bảo an toàn
+                            khi sử dụng xe.<br>
+                            <b>Bảo quản Xe:</b> Người dùng có trách nhiệm bảo
+                            quản xe trong suốt thời gian thuê. Mọi hư hại hoặc
+                            mất mát phải được báo cáo ngay lập tức cho
+                            ColorBike.<br>
+                            <b>Trả Xe:</b> Xe phải được trả đúng giờ và đúng địa
+                            điểm quy định. Trả xe muộn sẽ bị tính phí thêm theo
+                            quy định của ColorBike.
+                        </p>
+                    </div>
+                    <div id="Section5" class="content-section">
+                        <h3>Bảo hiểm và Trách nhiệm</h3>
+                        <p>
+                            <b>Bảo hiểm:</b> ColorBike cung cấp bảo hiểm cơ bản
+                            cho xe thuê. Người dùng có thể mua thêm các gói bảo
+                            hiểm mở rộng nếu cần.<br>
+                            <b>Trách nhiệm:</b> Người dùng chịu trách nhiệm pháp
+                            lý cho mọi hành động và hậu quả phát sinh từ việc
+                            sử dụng xe thuê.
+                        </p>
+                    </div>
+                    <div id="Section6" class="content-section">
+                        <h3>Hủy Bỏ và Hoàn Tiền</h3>
+                        <p>
+                            <b>Chính sách Hủy bỏ:</b> Người dùng có thể hủy đơn
+                            hàng mà không mất phí trước 24 giờ so với thời gian
+                            nhận xe.<br>
+                            <b>Hoàn Tiền:</b> Hoàn tiền sẽ được xử lý trong vòng
+                            7 ngày làm việc sau khi yêu cầu hủy bỏ được xác
+                            nhận.
+                        </p>
+                    </div>
+                    <div id="Section7" class="content-section">
+                        <h3>Quyền riêng tư</h3>
+                        <p>
+                            <b>Bảo vệ Thông tin:</b> Chúng tôi cam kết bảo vệ
+                            thông tin cá nhân của người dùng và chỉ sử dụng thông
+                            tin này theo các mục đích hợp pháp liên quan đến dịch
+                            vụ của chúng tôi.<br>
+                            <b>Chia sẻ Thông tin:</b> Chúng tôi không bán, cho thuê
+                            hoặc chia sẻ thông tin cá nhân của người dùng cho bên
+                            thứ ba ngoài các mục đích được quy định trong chính
+                            sách bảo vệ thông tin.
+                        </p>
+                    </div>
+                    <div id="Section8" class="content-section">
+                        <h3>Thay đổi Điều khoản</h3>
+                        <p>
+                            <b>Cập nhật Điều khoản:</b> Chúng tôi có quyền điều chỉnh
+                            và cập nhật Điều khoản và Điều kiện này vào bất kỳ lúc
+                            nào. Người dùng nên xem lại các điều khoản này thường
+                            xuyên để cập nhật thông tin mới nhất.
+                        </p>
+                    </div>
+                    <div id="Section9" class="content-section">
+                        <h3>Liên hệ</h3>
+                        <p>
+                            <b>Hỗ trợ Khách hàng:</b> Nếu có bất kỳ câu hỏi hoặc thắc
+                            mắc nào về các điều khoản và điều kiện này, vui lòng liên
+                            hệ với chúng tôi qua email hoặc số điện thoại được cung
+                            cấp trên trang web của chúng tôi.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-        <jsp:include page="/includes/customer/footer.jsp" />
+        <%--<jsp:include page="/includes/customer/footer.jsp" />--%>
         <script src="js/jquery.min.js"></script>
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.min.js"></script>

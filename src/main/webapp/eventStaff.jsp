@@ -34,7 +34,7 @@
             }
 
             .tab-content {
-                
+
                 flex: 1;
                 padding: 20px;
                 overflow-y: auto;
@@ -92,13 +92,13 @@
 
                 .tab-content {
                     padding: 10px;
-                    
+
                 }
             }
 
             .container-fluid {
                 padding: 2rem 0;
-                
+
             }
 
             .tableview {
@@ -185,7 +185,7 @@
 
     <body>
         <div class="col-md-2">
-           
+
         </div>
         <div class="container-fluid tab-container">
             <!-- Danh sách tab ngang -->
@@ -209,16 +209,17 @@
                                 <table class="table table-image">
                                     <thead>
                                         <tr>
-                                            <th scope="col">EventID</th>
-                                            <th scope="col">EventTitle</th>
-                                            <th scope="col">CreatedDate</th>
-                                            <th scope="col">StartDate</th>
-                                            <th scope="col">EndDate</th>
-                                            <th scope="col">Content</th>
-                                            <th scope="col">EventImage</th>
-                                            <th scope="col">Discount</th>
-                                            <th scope="col">StaffID</th>
-                                            <th scope="col">Actions</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Tiêu Đề</th>
+                                            <th scope="col">Ngày Tạo</th>
+                                            <th scope="col">Ngày Bắt Đầu</th>
+                                            <th scope="col">Ngày Kết Thúc</th>
+                                            <th scope="col">Nội Dung</th>
+                                            <th scope="col">Ảnh</th>
+                                            <th scope="col">Giảm Giá</th>
+                                            <th scope="col">Nhân Viên</th>
+                                            <th scope="col">Hành Động</th>
+
                                         </tr>
                                     </thead>
                                     <tbody id="table-body">
@@ -226,12 +227,12 @@
                                             <tr>
                                                 <td>${eventLists.eventID}</td>
 
-                                                <td>${eventLists.eventTitle}</td>
+                                                <td style="max-width: 100px;">${eventLists.eventTitle}</td>
                                                 <td>${eventLists.createdDate}</td>
                                                 <td>${eventLists.startDate}</td>
                                                 <td>${eventLists.endDate}</td>
-                                                <td>${eventLists.content}</td>
-                                                <td class="w-25">
+                                                <td style="max-width: 250px;">${eventLists.content}</td>
+                                                <td class="w-25" style="max-width: 150px;">
                                                     <img src="images/${eventLists.eventImage}"
                                                          class="img-fluid img-thumbnail" alt="Sheep">
                                                 </td>
@@ -264,56 +265,56 @@
                                     <form class="addnew-event-form" id="addLocationForm" action="AddNewEventStaff" method="post" enctype="multipart/form-data">
                                         <!-- Event Title -->
                                         <div class="form-group row">
-                                            <label for="eventTitle" class="col-sm-2 col-form-label">Event Title</label>
+                                            <label for="eventTitle" class="col-sm-2 col-form-label">Tiêu Đề Sự Kiện:</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Enter event title" required>
+                                                <input type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Nhập tiêu đề sự kiện" required>
                                             </div>
                                         </div>
                                         <!-- Created Date -->
-<!--                                        <div class="form-group row">
-                                            <label for="createdDate" class="col-sm-2 col-form-label">Created Date</label>
-                                            <div class="col-sm-10">
-                                                <input type="date" class="form-control" id="createdDate" name="createdDate" required>
-                                            </div>
-                                        </div>-->
+                                        <!--                                        <div class="form-group row">
+                                                                                    <label for="createdDate" class="col-sm-2 col-form-label">Created Date</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="date" class="form-control" id="createdDate" name="createdDate" required>
+                                                                                    </div>
+                                                                                </div>-->
                                         <!-- Start Date -->
                                         <div class="form-group row">
-                                            <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+                                            <label for="startDate" class="col-sm-2 col-form-label">Ngày Bắt Đầu:</label>
                                             <div class="col-sm-10">
                                                 <input type="date" class="form-control" id="startDate" name="startDate" required>
                                             </div>
                                         </div>
                                         <!-- End Date -->
                                         <div class="form-group row">
-                                            <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
+                                            <label for="endDate" class="col-sm-2 col-form-label">Ngày Kết Thúc:</label>
                                             <div class="col-sm-10">
                                                 <input type="date" class="form-control" id="endDate" name="endDate" required>
                                             </div>
                                         </div>
                                         <!-- Content -->
                                         <div class="form-group row">
-                                            <label for="content" class="col-sm-2 col-form-label">Content</label>
+                                            <label for="content" class="col-sm-2 col-form-label">Nôi Dung:</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Enter content" required></textarea>
+                                                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung sự kiện" required style="resize: vertical;"></textarea>
                                             </div>
                                         </div>
                                         <!-- Event Image -->
                                         <div class="form-group row">
-                                            <label for="eventImage" class="col-sm-2 col-form-label">Event Image</label>
+                                            <label for="eventImage" class="col-sm-2 col-form-label">Hình Ảnh Sự Kiện:</label>
                                             <div class="col-sm-10">
                                                 <input type="file" class="form-control-file" id="eventImage" name="eventImage" accept="image/*" required>
                                             </div>
                                         </div>
                                         <!-- Discount -->
                                         <div class="form-group row">
-                                            <label for="discount" class="col-sm-2 col-form-label">Discount</label>
+                                            <label for="discount" class="col-sm-2 col-form-label">Giảm Giá</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter discount percentage" step="0.01" oninput="validateDiscount(this)" required>
+                                                <input type="number" class="form-control" id="discount" name="discount" placeholder="Nhập phần trăm giảm giá" step="0.01" oninput="validateDiscount(this)" required>
                                             </div>
                                         </div>
                                         <!-- Staff ID -->
                                         <div class="form-group">
-                                            <label for="staffID">Select Staff:</label>
+                                            <label for="staffID">Lựa Chọn Nhân Viên:</label>
                                             <select class="form-control" id="staffID" name="staffID" required>
                                                 <!--<option value="">Select Staff</option>-->
                                                 <c:forEach var="staff" items="${staffList}" varStatus="loop">
@@ -322,7 +323,7 @@
                                             </select>
                                         </div>
                                         <div class="buttons">
-                                            <button type="submit" class="btn btn-dark">Add Event</button>
+                                            <button type="submit" class="btn btn-primary">Thêm Mới Sự Kiện</button>
                                         </div>
                                     </form>
 
@@ -340,42 +341,42 @@
                                     <h3 class="mb-4">Chỉnh Sửa Sự Kiện</h3>
                                     <form class="edit-event-form" id="editEventForm" action="UpdateEventStaff" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
-                                            <label for="editEventID">Event ID:</label>
+                                            <label for="editEventID">ID:</label>
                                             <input type="text" class="form-control" id="editEventID" name="editEventID" readonly>
                                             <!-- 'readonly' attribute is added assuming this field is not editable during update -->
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="editEventTitle">Event Title:</label>
-                                            <input type="text" class="form-control" id="editEventTitle" name="editEventTitle" placeholder="Enter event title">
+                                            <label for="editEventTitle">Tiêu Đề Sự Kiện</label>
+                                            <input type="text" class="form-control" id="editEventTitle" name="editEventTitle" placeholder="Nhập tiêu đề sự kiện">
                                         </div>
                                         <div class="form-group">
-                                            <label for="editCreatedDate">Created Date:</label>
+                                            <label for="editCreatedDate">Ngày Tạo:</label>
                                             <input type="date" class="form-control" id="editCreatedDate" name="editCreatedDate" readonly>
                                         </div>
                                         <div class="form-group">
-                                            <label for="editStartDate">Start Date:</label>
+                                            <label for="editStartDate">Ngày Bắt Đầu:</label>
                                             <input type="date" class="form-control" id="editStartDate" name="editStartDate">
                                         </div>
                                         <div class="form-group">
-                                            <label for="editEndDate">End Date:</label>
+                                            <label for="editEndDate">Ngày Kết Thúc:</label>
                                             <input type="date" class="form-control" id="editEndDate" name="editEndDate">
                                         </div>
                                         <div class="form-group">
-                                            <label for="editContent">Content:</label>
-                                            <textarea class="form-control" id="editContent" name="editContent" rows="3" placeholder="Enter event content"></textarea>
+                                            <label for="editContent">Nội Dung</label>
+                                            <textarea class="form-control" id="editContent" name="editContent" rows="3" placeholder="Nhập nội dung sự kiện" style="resize: vertical;"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="editEventImage">Event Image:</label>
+                                            <label for="editEventImage">Hình Ảnh Sự Kiện:</label>
                                             <div id="editEventImagePreview"></div>
                                             <input type="file" class="form-control-file" id="editEventImage" name="editEventImage" accept="image/*">
                                         </div>
                                         <div class="form-group">
-                                            <label for="editDiscount">Discount (%):</label>
-                                            <input type="number" class="form-control" id="editDiscount" name="editDiscount" placeholder="Enter discount percentage" step="0.01" oninput="validateDiscount(this)">
+                                            <label for="editDiscount">Phần trăm giảm giá (%):</label>
+                                            <input type="number" class="form-control" id="editDiscount" name="editDiscount" placeholder="Nhập phần trăm giảm giá" step="0.01" oninput="validateDiscount(this)">
                                         </div>
                                         <div class="form-group">
-                                            <label for="editStaffID">Select Staff:</label>
+                                            <label for="editStaffID">Lựa Chọn Nhân Viên:</label>
                                             <select class="form-control" id="editStaffID" name="editStaffID">
                                                 <!-- Options will be dynamically populated using JSTL -->
                                                 <c:forEach var="staff" items="${staffList}" varStatus="loop">
@@ -383,7 +384,7 @@
                                                 </c:forEach>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Update Event</button>
+                                        <button type="submit" class="btn btn-primary">Cập Nhập Chỉnh Sửa</button>
                                     </form>
 
                                 </div>
@@ -398,13 +399,13 @@
         </div>
 
         <script>
-           
-           function convertToInputDateFormat(dateString) {
+
+            function convertToInputDateFormat(dateString) {
                 // Tách chuỗi thành các phần ngày, tháng, năm
                 const [day, month, year] = dateString.split('-');
                 // Sắp xếp lại theo định dạng yyyy-MM-dd
                 return {
-                    day, month,year
+                    day, month, year
                 };
             }
 
@@ -420,7 +421,7 @@
                 document.getElementById('editContent').value = content;
                 document.getElementById('editDiscount').value = discount;
                 document.getElementById('editStaffID').value = staffID;
-   
+
                 var imgContainer = document.getElementById('editEventImagePreview');
                 imgContainer.innerHTML = ''; // Xóa hình ảnh cũ (nếu có)
                 console.log("thinh");
@@ -507,7 +508,7 @@
                         window.location.href = 'DeleteEvent?eventID=' + eventID;
                     }
                 })
-            }   
+            }
         </script>
         <script>
             document.getElementById('addLocationForm').addEventListener('submit', function (event) {
@@ -568,7 +569,7 @@
                 });
             });
         </script>
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

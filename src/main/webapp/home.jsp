@@ -482,7 +482,7 @@
                 </div>
 
             </section><!-- /Testimonials Section -->
-
+            
         </main>
 
         <jsp:include page="/includes/customer/footer.jsp" />
@@ -516,12 +516,7 @@
                 }
             }
         </script>
-        <script
-            src="https://www.chatbase.co/embed.min.js"
-            chatbotId="qUNf-UR7ycIWmYS6ZiWCL"
-            domain="www.chatbase.co"
-            defer>
-        </script>
+        
 
 
         <!-- Vendor JS Files -->

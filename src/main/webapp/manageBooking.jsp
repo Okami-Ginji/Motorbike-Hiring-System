@@ -13,7 +13,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Booking List</title>
+        <title>Quản lý thuê xe</title>
+
+        <link rel="website icon" type="png" href="images/logo.png">
+
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -362,19 +365,6 @@
                         </div>
                     </div>
                     <hr class="my-3">
-                    <form action="searchBooking" method="post">
-                        <div>
-                            <div class="form-group fst-italic">
-                                <label>Tìm kiếm qua mã đơn hàng: </label>
-                                <div><input name="username" class="form-control w-100" type="text" placeholder="Mã đơn..."
-                                            value></div>
-                            </div>
-
-                            <div class="mt-2">
-                                <button class="btn btn-secondary w-100" type="submit" value="Search">Tìm kiếm</button>
-                            </div>
-                        </div>
-                    </form>
                     <div class="mt-2 d-flex flex-column align-items-center"></div>
                 </div>
 

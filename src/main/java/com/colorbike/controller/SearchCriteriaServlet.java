@@ -27,6 +27,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,6 +90,8 @@ public class SearchCriteriaServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("criteria", criteria);
         
+        List<Motorcycle> listAllMotorcycles = motorcycleDAO.searchAllMotorcyclesByCriteria(criteria);
+        request.setAttribute("listAllMotorcycles", listAllMotorcycles);
         List<Motorcycle> motorcycles = motorcycleDAO.searchTop3MotorcyclesByCriteria(criteria);
         List<Category> categoriesList = categoryDAO.getAllCategory();
         List<PriceList> priceLists = priceListDAO.getAllPriceList();
@@ -106,6 +109,9 @@ public class SearchCriteriaServlet extends HttpServlet {
         for (PriceList priceList : priceLists) {
             priceMap.put(priceList.getPriceListId(), priceList.getDailyPriceForDay());
         }
+        
+        LinkedHashMap<String, String> listMA = motorcycleDAO.getAllAvailableMotorCycle();
+        request.setAttribute("listMA", listMA);
         request.setAttribute("search", "searchCriteria");
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);

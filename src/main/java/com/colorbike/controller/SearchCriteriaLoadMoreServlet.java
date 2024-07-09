@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.text.NumberFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,24 +50,29 @@ public class SearchCriteriaLoadMoreServlet extends HttpServlet {
         int iAmount = Integer.parseInt(amount);
         List<Motorcycle> listM = MotorcycleDAO.getInstance().searchNext3MotorcyclesByCriteria(criteria, iAmount);
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        LinkedHashMap<String, String> listMA = MotorcycleDAO.getInstance().getAllAvailableMotorCycle();
         for (Motorcycle m : listM) {
             Category c = CategoryDAO.getInstance().getCategoryById(m.getCategoryID());
             PriceList p = PriceListDAO.getInstance().getPricingByid(String.valueOf(m.getPriceListID()));
             String formattedPrice = currencyFormatter.format(p.getDailyPriceForDay() * 1000);
+            boolean found = listMA.containsKey(m.getMotorcycleId());
             out.println("<div class=\"motorcycle box col-md-3\">\n"
                     + "                                    <div class=\"banner-image\">\n"
                     + "                                        <img src=\"images/" + m.getImage() + "\" width=\"100%\" height=\"100%\" alt=\"alt\"/>\n"
                     + "                                    </div>\n"
                     + "                                    <h2 style=\"margin: 16px;\" href=\"motorcycleDetail?id=" + m.getMotorcycleId() + "\"><strong>" + m.getModel() + "</strong></h2>\n"
-                    + "                                    <p style=\"font-weight: bold;\">" + c.getCategoryName() +"<br/>\n"
+                    + "                                    <p style=\"font-weight: bold;\">" + c.getCategoryName() + "<br/>\n"
                     + "                                        " + formattedPrice + "/ngày\n"
                     + "                                    </p>\n"
                     + "                                    <div class=\"button-wrapper\">\n"
-                    + "                                        <button class=\"btn outline-huhu\"><a href=\"motorcycleDetail?id=" + m.getMotorcycleId() + "\">CHI TIẾT</a></button>\n"
-                    + "                                        <button class=\"btn fill\"><a href=\"booking?motorcycleid=" + m.getMotorcycleId() + "\">THUÊ NGAY</a></button>\n"
-                    + "\n"
-                    + "                                    </div>\n"
-                    + "                                </div>");
+                    + "                                        <button class=\"btn outline-huhu\"><a href=\"motorcycleDetail?id=" + m.getMotorcycleId() + "\">CHI TIẾT</a></button>\n");
+            if (found) {
+                out.println("        <button class=\"btn fill\"><a href=\"booking?motorcycleid=" + m.getMotorcycleId() + "\">THUÊ NGAY</a></button>\n");
+            } else {
+                out.println("        <button class=\"btn fill\" disabled><a href=\"#\">HẾT XE</a></button>\n");
+            }
+            out.println("    </div>\n"
+                    + "</div>");
         }
     }
 

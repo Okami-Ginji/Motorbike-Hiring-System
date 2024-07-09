@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +53,8 @@ public class MotorcycleServlet extends HttpServlet {
         List<String> listDisplacement = motorcycleDAO.getListDisplacements();
         List<Demand> listDemand = demandDAO.getAllDemand();
         List<PriceRange> listPriceRange = demandPriceRangeDAO.getListDemandPriceRanges();
-
+        List<Motorcycle> listAllMotorcycles = motorcycleDAO.getAll();
+        request.setAttribute("listAllMotorcycles", listAllMotorcycles);
         List<Motorcycle> motorcycles = motorcycleDAO.getTop3Motorcycles();
 
         Map<Integer, String> categoryMap = new HashMap<>();
@@ -64,6 +66,9 @@ public class MotorcycleServlet extends HttpServlet {
         for (PriceList p : priceLists) {
             priceMap.put(p.getPriceListId(), p.getDailyPriceForDay());
         }
+        
+        LinkedHashMap<String, String> listMA = motorcycleDAO.getAllAvailableMotorCycle();
+        request.setAttribute("listMA", listMA);
 
         request.setAttribute("listPriceRange", listPriceRange);
         request.setAttribute("listDisplacement", listDisplacement);

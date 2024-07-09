@@ -496,12 +496,28 @@
                                     </div>
                                     <h2 style="margin: 16px;" href="motorcycleDetail?id=${motorbike.motorcycleId}"><strong>${motorbike.model}</strong></h2>
                                     <p style="font-weight: bold;">${categoryMap[motorbike.categoryID]}<br/>
-                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="currency" currencySymbol="VNĐ"/>/ngày
+                                        <fmt:formatNumber value="${priceMap[motorbike.priceListID] * 1000}" type="number" maxFractionDigits="0"/>₫/ngày
                                     </p>
                                     <div class="button-wrapper">
                                         <button class="btn outline-huhu"><a href="motorcycleDetail?id=${motorbike.motorcycleId}">CHI TIẾT</a></button>
-                                        <button class="btn fill"><a href="booking?motorcycleid=${motorbike.motorcycleId}">THUÊ NGAY</a></button>
-
+                                        <c:set var="found" value="false" />
+                                        <c:forEach var="entry" items="${listMA}">
+                                            <c:if test="${entry.key eq motorbike.motorcycleId}">
+                                                <c:set var="found" value="true" />                                            
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:choose>
+                                            <c:when test="${found eq true}">
+                                                <button class="btn fill">
+                                                    <a href="booking?motorcycleid=${motorbike.motorcycleId}">THUÊ NGAY</a>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button class="btn fill" disabled>
+                                                    <a href="#">HẾT XE</a>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -509,18 +525,19 @@
                         <div class="row mt-5">
                             <div class="col text-center">
                                 <div class="block-27">
+                                    <c:set var="totalMotorcycles" value="${listAllMotorcycles.size()}" />
                                     <c:choose>
                                         <c:when test="${empty motorcycles}">
                                             <!-- size == 0 ==> nothing here -->
                                         </c:when>
                                         <c:when test="${search == 'searchName'}">
-                                            <button onclick="loadMoreSearchName()" type="button" class="btn btn-primary">Xem thêm</button>
+                                            <button id="loadMoreBtn" onclick="loadMoreSearchName()" type="button" class="btn btn-primary">Xem thêm</button>
                                         </c:when>
                                         <c:when test="${search == 'searchCriteria'}">
-                                            <button onclick="loadMoreSearchCriteria()" type="button" class="btn btn-primary">Xem thêm</button>
+                                            <button id="loadMoreBtn" onclick="loadMoreSearchCriteria()" type="button" class="btn btn-primary">Xem thêm</button>
                                         </c:when>
                                         <c:otherwise>
-                                            <button onclick="loadMore()" type="button" class="btn btn-primary">Xem thêm</button>
+                                            <button id="loadMoreBtn" onclick="loadMore()" type="button" class="btn btn-primary">Xem thêm</button>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
@@ -560,6 +577,16 @@
     <script src="js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+                                                var totalMotorcycles = ${totalMotorcycles};
+                                                var currentAmount = document.getElementsByClassName("motorcycle").length;
+                                                function updateLoadMoreButton() {
+                                                    if (currentAmount >= totalMotorcycles) {
+                                                        document.getElementById("loadMoreBtn").style.display = "none";
+                                                    }
+                                                }
+                                                updateLoadMoreButton();
+
+
                                                 function loadMoreSearchName() {
                                                     var amount = document.getElementsByClassName("motorcycle").length;
                                                     var searchInput = document.getElementById('textSearch').value;
@@ -574,6 +601,8 @@
                                                         success: function (res) {
                                                             var row = document.getElementById('motorcycleContent');
                                                             row.innerHTML += res;
+                                                            currentAmount = document.getElementsByClassName("motorcycle").length;
+                                                            updateLoadMoreButton();
                                                         },
 
                                                         //If there was no response from the server
@@ -594,6 +623,8 @@
                                                         success: function (res) {
                                                             var row = document.getElementById('motorcycleContent');
                                                             row.innerHTML += res;
+                                                            currentAmount = document.getElementsByClassName("motorcycle").length;
+                                                            updateLoadMoreButton();
                                                         },
 
                                                         //If there was no response from the server
@@ -614,6 +645,8 @@
                                                         success: function (res) {
                                                             var row = document.getElementById('motorcycleContent');
                                                             row.innerHTML += res;
+                                                            currentAmount = document.getElementsByClassName("motorcycle").length;
+                                                            updateLoadMoreButton();
                                                         },
 
                                                         //If there was no response from the server

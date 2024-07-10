@@ -52,6 +52,22 @@ public class CategoryDAO implements Serializable, DAO<Category>{
         }
         return list;
     }
+    public Category getCategoryById(int categoryId) {
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "Select * from Category where CategoryID = ?";
+            stm = conn.prepareStatement(sql);
+            stm.setInt(1, categoryId);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                return new Category(rs.getInt("categoryID"),rs.getString("categoryName"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     @Override
     public List<Category> getAll() {

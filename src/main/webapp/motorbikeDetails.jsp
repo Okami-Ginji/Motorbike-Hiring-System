@@ -180,6 +180,7 @@
                     50% {
                         box-shadow: 0 0 20px rgba(2, 184, 175, 1);
                     }
+                    
                     100% {
                         box-shadow: 0 0 5px rgba(2, 184, 175, 0.5);
                     }
@@ -224,7 +225,7 @@
                                                 <div class="icon d-flex align-items-center justify-content-center" 
                                                      onclick="openModal('${listAccess.accessoryName}', '${listAccess.accessoryDescription}', '${listAccess.price * 1000} VNĐ', 'images/${listAccess.accessoryImage}')">
                                                     <img src="images/${listAccess.accessoryImageicon}" alt="${listAccess.accessoryName}" style="width: 60px;
-                                                height: 60px;">
+                                                    height: 60px;">
                                             </div>
                                             <div class="text">
                                                 <h3 style="margin-top: -17px;
@@ -263,10 +264,7 @@
                         </div>
                     </div>
 
-                    <div class="button-container">
-                        <button class="rent-now-btn" onclick="redirectToBooking(event, '${m.motorcycleId}')">THUÊ XE NGAY</button>
-                        <!-- Replace the URL with the actual booking link and ID -->
-                    </div>
+
 
                     <div class="row">
                         <div class="col-md-12 pills">
@@ -275,11 +273,11 @@
                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="pills-pricing-tab" data-toggle="pill" href="#pills-pricing" role="tab" aria-controls="pills-pricing" aria-expanded="true">Pricing</a>
+                                            <a class="nav-link active" id="pills-pricing-tab" data-toggle="pill" href="#pills-pricing" role="tab" aria-controls="pills-pricing" aria-expanded="true">Giá Thuê</a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
+                                            <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Mô tả</a>
                                         </li>
 
                                     </ul>
@@ -292,24 +290,24 @@
                                                 <div class="col-md-8">
                                                     <div class="card pricing-details">
                                                         <div class="card-header text-white text-center">
-                                                            <h3>Pricing Details</h3>
+                                                            <h3>Chi Tiết Giá Thuê Xe</h3>
                                                         </div>
                                                         <div class="card-body">
                                                             <ul class="list-group list-group-flush">
                                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <span>Price per day:</span>
+                                                                    <span>Giá theo ngày:</span>
                                                                     <span class="price">
                                                                         <fmt:formatNumber value="${priceList.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" />
                                                                     </span>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <span>Price per week:</span>
+                                                                    <span>Giá theo tuần:</span>
                                                                     <span class="price">
                                                                         <fmt:formatNumber value="${priceList.dailyPriceForWeek * 1000}" type="currency" currencySymbol="VNĐ" />
                                                                     </span>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <span>Price per month:</span>
+                                                                    <span>Giá theo tháng:</span>
                                                                     <span class="price">
                                                                         <fmt:formatNumber value="${priceList.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" />
                                                                     </span>
@@ -328,7 +326,10 @@
                                     </div>
                                 </div>
 
-
+                                <div class="button-container">
+                                    <button class="rent-now-btn" onclick="redirectToBooking(event, '${m.motorcycleId}')">THUÊ XE NGAY</button>
+                                    <!-- Replace the URL with the actual booking link and ID -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -344,9 +345,9 @@
                         </div>
                     </div>
                     <iframe src="slide.jsp" style="width: 99.1%;
-                        height: 540px;
-                        padding: 0;
-                        margin: 0;"></iframe>
+                            height: 540px;
+                            padding: 0;
+                            margin: 0;"></iframe>
                 </div>
             </section>
 
@@ -427,29 +428,29 @@
 
         </style>
         <script>
-                            function openModal(name, description, price, imageSrc) {
-                                document.getElementById('accessoryName').textContent = name;
-                                document.getElementById('accessoryDescription').textContent = description;
-                                document.getElementById('accessoryPrice').textContent = price;
-                                document.getElementById('accessoryImage').src = imageSrc;
-                                document.getElementById('myModal').style.display = 'block';
-                            }
-                            function closeModal() {
-                                document.getElementById('myModal').style.display = 'none';
-                            }
+                                        function openModal(name, description, price, imageSrc) {
+                                            document.getElementById('accessoryName').textContent = name;
+                                            document.getElementById('accessoryDescription').textContent = description;
+                                            document.getElementById('accessoryPrice').textContent = price;
+                                            document.getElementById('accessoryImage').src = imageSrc;
+                                            document.getElementById('myModal').style.display = 'block';
+                                        }
+                                        function closeModal() {
+                                            document.getElementById('myModal').style.display = 'none';
+                                        }
 
-                            window.onclick = function (event) {
-                                var modal = document.getElementById("myModal");
-                                if (event.target === modal) {
-                                    modal.style.display = "none";
-                                }
-                            }
-                            window.onkeydown = function (event) {
-                                var modal = document.getElementById("myModal");
-                                if (event.key === "Escape" || event.key === "Esc") {
-                                    modal.style.display = "none";
-                                }
-                            }
+                                        window.onclick = function (event) {
+                                            var modal = document.getElementById("myModal");
+                                            if (event.target === modal) {
+                                                modal.style.display = "none";
+                                            }
+                                        }
+                                        window.onkeydown = function (event) {
+                                            var modal = document.getElementById("myModal");
+                                            if (event.key === "Escape" || event.key === "Esc") {
+                                                modal.style.display = "none";
+                                            }
+                                        }
 
         </script>
         <script>

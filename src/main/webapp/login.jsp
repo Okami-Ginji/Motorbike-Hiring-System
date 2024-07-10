@@ -140,16 +140,18 @@
             }
             .logins a {
                 padding: 0.5rem 2.5rem;
-                border: 2px solid var(--text-dark);
+                border: 2px solid #05A7B8;
                 border-radius: 5rem;
             }
             .logins a:hover {
-                background: var(--secondary-color);
-                border: 2px solid var(--primary-color);
+                background:#EFFAF4;
+                border-radius: 5rem;
+                border: 2px solid black;
             }
             .logins img {
                 display: flex;
-                max-width: 20px;
+                max-width: 25px;
+                margin-right: 5px;
             }
             .containerContent p {
                 color: var(--text-light);
@@ -219,12 +221,21 @@
                 width: 100%;
             }
             .colorbike {
-                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
-                background-clip: text; /* Cho phép áp dụng background cho văn bản */
-                color: transparent; /* Văn bản trong suốt */
+                font-weight: 900;
+
             }
 
-
+            .comeback{
+                text-decoration: none;
+                color: #00ACD7;
+            }
+            
+            .googleLogin{
+                text-decoration: none;
+                display: flex;
+                padding: 0 15px;
+                color: #001973;
+            }
         </style>
 
     </head>
@@ -233,11 +244,11 @@
         <div class="container-fluid animate__animated animate__fadeInUp">
             <div class="row fullform">
                 <div class="containerContent col-md-6">
-                    <h3 class="colorbike">COLORBIKE</h3>
-                    <h1 class="begin">Chào Mừng Bạn Trở Lại</h1>
+                    <a class="comeback" href="home"><h3 >COLORBIKE</h3></a>
+                    <h1 class="begin" style="color: #001973;">Chào Mừng Bạn Trở Lại</h1>
                     <h4 class="h4 animate__animated animate__fadeInUp" style="color: red; font-size: 16px; font-weight: bold; text-align: center;">
-                            <i class="bi bi-exclamation-circle"></i> ${error}
-                        </h4>
+                        <i class="bi bi-exclamation-circle"></i> ${error}
+                    </h4>
                     <form id="loginForm" action="login" method="post">
                         <div class="inputRow username animate__animated animate__pulse">
                             <input type="text" name="Username" id="Username"
@@ -270,16 +281,16 @@
                     </form>
                     <h6>Hoặc Đăng Nhập Với</h6>
                     <div class="logins">
-                        <a
+                        <a class="googleLogin"
                             href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:6789/MotorcyleHiringProject/login-google&response_type=code&client_id=158327451054-1sdvun9trsl75ng2i96pfmr9lsgrjnjb.apps.googleusercontent.com&approval_prompt=force"><img
-                                src="images/search.png" alt="google" /></a>
+                                src="images/search.png" alt="google"/>Google</a>
                         <!--<a href="#"><img src="images/github.png" alt="github" /></a>-->
-                        <a href="#"><img src="images/facebook.png"
-                                         alt="facebook" /></a>
+<!--                        <a href="#"><img src="images/facebook.png"
+                                         alt="facebook" /></a>-->
                     </div>
-                    <p>Nếu bạn không có tài khoản <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:small;">Tạo tài
+                    <p>Nếu bạn không có tài khoản? <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:medium;">Tạo tài
                             khoản</a></p>
-                    <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background-color: #99D3FF; padding: 3px; border-radius: 5px; ">Về Trang Chủ</a></p>
+                    <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%); padding: 5px; border-radius: 5px; ">Về Trang Chủ</a></p>
                 </div>
                 <div class="containerImg col-md-6 animate__animated animate__zoomIn">
                     <img src="assets/img/login.png" alt="header" />

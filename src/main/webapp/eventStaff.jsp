@@ -227,12 +227,12 @@
                                             <tr>
                                                 <td>${eventLists.eventID}</td>
 
-                                                <td>${eventLists.eventTitle}</td>
+                                                <td style="max-width: 100px;">${eventLists.eventTitle}</td>
                                                 <td>${eventLists.createdDate}</td>
                                                 <td>${eventLists.startDate}</td>
                                                 <td>${eventLists.endDate}</td>
-                                                <td>${eventLists.content}</td>
-                                                <td class="w-25">
+                                                <td style="max-width: 250px;">${eventLists.content}</td>
+                                                <td class="w-25" style="max-width: 150px;">
                                                     <img src="images/${eventLists.eventImage}"
                                                          class="img-fluid img-thumbnail" alt="Sheep">
                                                 </td>

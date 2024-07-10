@@ -274,7 +274,7 @@
 
                             <!-- Already Registered -->
                             <div class="text-center w-100" data-aos="fade-up" data-aos-delay="1000">
-                                <p class="text-muted font-weight-bold">Đã có tài khoản? <a href="login2.jsp" class="ml-2" style="color: #0A8EBF;">Đăng nhập</a></p>
+                                <p class="text-muted font-weight-bold">Đã có tài khoản? <a href="login.jsp" class="ml-2" style="color: #0A8EBF;">Đăng nhập</a></p>
                             </div>
                         </div>
                     </form>

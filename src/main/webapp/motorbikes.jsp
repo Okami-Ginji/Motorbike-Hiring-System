@@ -374,6 +374,11 @@
                 /*border-radius: 12px;*/
                 border: 2px solid #039DBC !important;
             }
+            
+            .xemthem:hover{
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%) !important;
+                color: white !important;
+            }
         </style>
     </head>
 

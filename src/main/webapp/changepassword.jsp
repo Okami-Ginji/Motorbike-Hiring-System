@@ -230,7 +230,7 @@
             </div>
         </div>
         <div>
-            <a href="manageProfile.jsp" style="position: absolute; top: 20px; left: 20px; text-decoration: none; color: #000">
+            <a href="settingsProfile.jsp" style="position: absolute; top: 20px; left: 20px; text-decoration: none; color: #000">
                 <i style="font-size: 60px;" class="ri-arrow-left-line"></i>
             </a>
         </div>

@@ -315,12 +315,15 @@
 
 
 
-            .fill {
-                background: rgba(0, 212, 255, 0.9);
-                color: rgba(255,255,255,0.95);
-                filter: drop-shadow(0);
-                font-weight: bold;
-                transition: all .3s ease;
+            /*            .fill {
+                            background: rgba(0, 212, 255, 0.9);
+                            color: rgba(255,255,255,0.95);
+                            filter: drop-shadow(0);
+                            font-weight: bold;
+                            transition: all .3s ease;
+                        }*/
+            .fill{
+                border: none !important;
             }
 
             .fill:hover{
@@ -365,6 +368,11 @@
 
             .list h1{
                 margin: 5% 0 3% 0;
+            }
+
+            .xemthem{
+                /*border-radius: 12px;*/
+                border: 2px solid #039DBC !important;
             }
         </style>
     </head>
@@ -531,13 +539,13 @@
                                             <!-- size == 0 ==> nothing here -->
                                         </c:when>
                                         <c:when test="${search == 'searchName'}">
-                                            <button id="loadMoreBtn" onclick="loadMoreSearchName()" type="button" class="btn btn-primary">Xem thêm</button>
+                                            <button id="loadMoreBtn" onclick="loadMoreSearchName()" type="button" class="btn xemthem">Xem thêm</button>
                                         </c:when>
                                         <c:when test="${search == 'searchCriteria'}">
-                                            <button id="loadMoreBtn" onclick="loadMoreSearchCriteria()" type="button" class="btn btn-primary">Xem thêm</button>
+                                            <button id="loadMoreBtn" onclick="loadMoreSearchCriteria()" type="button" class="btn xemthem">Xem thêm</button>
                                         </c:when>
                                         <c:otherwise>
-                                            <button id="loadMoreBtn" onclick="loadMore()" type="button" class="btn btn-primary">Xem thêm</button>
+                                            <button id="loadMoreBtn" onclick="loadMore()" type="button" class="btn xemthem">Xem thêm</button>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>

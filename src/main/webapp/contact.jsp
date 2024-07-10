@@ -169,7 +169,7 @@
                                 <div class="form-group">
                                     <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Nội Dung"></textarea>
                                 </div>
-                                <div style="color: red; margin-left:30px; ">${msg}</div><br>
+                                <div style="color: green; margin-left:30px; ">${msg}</div><br>
                                 <div class="form-group">
                                     <input type="submit" value="Gửi cho chúng tôi" class="btn btn-primary py-3 px-5 animate__animated animate__fadeInUp">
                                 </div>

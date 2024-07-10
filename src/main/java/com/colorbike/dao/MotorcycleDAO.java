@@ -304,17 +304,14 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         return listS;
     }
 
-    public List<Motorcycle> pagingMotorcycles(int index) {
+    public List<Motorcycle> getMotorcycles() {
         PreparedStatement stm;
         ResultSet rs;
         List<Motorcycle> list = new ArrayList<>();
         try {
             String sql = "Select * from [Motorcycle]\n"
-                    + "ORDER BY MotorcycleID\n"
-                    + " OFFSET ? ROWS FETCH NEXT 9 ROW ONLY;";
+                    + "ORDER BY MotorcycleID\n";
             stm = conn.prepareStatement(sql);
-            stm.setInt(1, (index - 1) * 9);
-
             rs = stm.executeQuery();
             while (rs.next()) {
                 list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
@@ -330,7 +327,28 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
     }
 
     //Tìm kiếm xe theo tên
-    public List<Motorcycle> searchMotorcyclesByName(String key) {
+    public List<Motorcycle> searchTop3MotorcyclesByName(String key) {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "Select TOP 3 * from [Motorcycle] WHERE Model LIKE ?\n"
+                    + "ORDER BY MotorcycleID";
+
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, "%" + key + "%");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9)));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    public List<Motorcycle> searchAllMotorcyclesByName(String key) {
         List<Motorcycle> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
@@ -359,9 +377,99 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return pagingList;
     }
+    
+    public List<Motorcycle> searchTop3MotorcyclesByCriteria(SearchCriteria criteria) {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        StringBuilder sql = new StringBuilder("SELECT DISTINCT TOP 3 m.* FROM Motorcycle m JOIN Demand_Detail d ON m.MotorcycleID = d.MotorcycleID WHERE 1=1");
+
+        if (criteria.getPriceRanges() != null && !criteria.getPriceRanges().isEmpty()) {
+            sql.append(" AND PriceListID IN (SELECT PriceListID FROM PriceList WHERE ");
+            for (int i = 0; i < criteria.getPriceRanges().size(); i++) {
+                if (i > 0) {
+                    sql.append(" OR ");
+                }
+                sql.append("DailyPriceForDay BETWEEN ? AND ?");
+            }
+            sql.append(")");
+        }
+
+        if (criteria.getBrandIDs() != null && !criteria.getBrandIDs().isEmpty()) {
+            sql.append(" AND BrandID IN (")
+                    .append(generateParameterPlaceholders(criteria.getBrandIDs().size()))
+                    .append(")");
+        }
+
+        if (criteria.getCategoryIDs() != null && !criteria.getCategoryIDs().isEmpty()) {
+            sql.append(" AND CategoryID IN (")
+                    .append(generateParameterPlaceholders(criteria.getCategoryIDs().size()))
+                    .append(")");
+        }
+
+        if (criteria.getDisplacements() != null && !criteria.getDisplacements().isEmpty()) {
+            sql.append(" AND Displacement IN (")
+                    .append(generateParameterPlaceholders(criteria.getDisplacements().size()))
+                    .append(")");
+        }
+
+        if (criteria.getDemandIDs() != null && !criteria.getDemandIDs().isEmpty()) {
+            sql.append(" AND d.DemandId IN (")
+                    .append(generateParameterPlaceholders(criteria.getDemandIDs().size()))
+                    .append(")");
+        }
+
+        sql.append("\nORDER BY MotorcycleID");
+
+        try {
+            stm = conn.prepareStatement(sql.toString());
+            int parameterIndex = 1;
+
+            if (criteria.getPriceRanges() != null) {
+                for (PriceRange p : criteria.getPriceRanges()) {
+                    stm.setDouble(parameterIndex++, p.getMinPrice());
+                    stm.setDouble(parameterIndex++, p.getMaxPrice());
+                }
+            }
+
+            if (criteria.getBrandIDs() != null) {
+                for (int brandID : criteria.getBrandIDs()) {
+                    stm.setInt(parameterIndex++, brandID);
+                }
+            }
+
+            if (criteria.getCategoryIDs() != null) {
+                for (int categoryID : criteria.getCategoryIDs()) {
+                    stm.setInt(parameterIndex++, categoryID);
+                }
+            }
+
+            if (criteria.getDisplacements() != null) {
+                for (String displacement : criteria.getDisplacements()) {
+                    stm.setString(parameterIndex++, displacement);
+                }
+            }
+
+            if (criteria.getDemandIDs() != null) {
+                for (int demandID : criteria.getDemandIDs()) {
+                    stm.setInt(parameterIndex++, demandID);
+                }
+            }
+
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9)));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MotorcycleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     //Thanh lọc (giá, hãng, loại, phân khối, nhu cầu) 
-    public List<Motorcycle> searchMotorcycleByCriteria(SearchCriteria criteria) {
+    public List<Motorcycle> searchAllMotorcyclesByCriteria(SearchCriteria criteria) {
         List<Motorcycle> list = new ArrayList<>();
         PreparedStatement stm;
         ResultSet rs;
@@ -521,16 +629,212 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public List<Motorcycle> getTop3Motorcycles() {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "SELECT TOP 3 \n"
+                    + "    MotorcycleID,\n"
+                    + "    Model,\n"
+                    + "    Image,\n"
+                    + "    Displacement,\n"
+                    + "    Description,\n"
+                    + "    [MinAge],\n"
+                    + "    BrandID,\n"
+                    + "    CategoryID,\n"
+                    + "    PriceListID\n"
+                    + "FROM \n"
+                    + "    dbo.Motorcycle ORDER BY MotorcycleID";
+            //why không * đi
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Motorcycle motorcycle = new Motorcycle();
+                motorcycle.setMotorcycleId(rs.getString(1));
+                motorcycle.setModel(rs.getString(2));
+                motorcycle.setImage(rs.getString(3));
+                motorcycle.setDisplacement(rs.getString(4));
+                motorcycle.setDescription(rs.getString(5));
+                motorcycle.setMinAge(rs.getInt(6));
+                motorcycle.setBrandID(rs.getInt(7));
+                motorcycle.setCategoryID(rs.getInt(8));
+                motorcycle.setPriceListID(rs.getInt(9));
+                List<MotorcycleDetail> listMotorcycleDetails = MotorcycleDetailDAO.getInstance().getMotorcycleDetail(rs.getString(1));
+                motorcycle.setListMotorcycleDetails(listMotorcycleDetails);
+                list.add(motorcycle);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Motorcycle> getNext3Motorcycles(int iAmount) {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "SELECT "
+                    + "    MotorcycleID,\n"
+                    + "    Model,\n"
+                    + "    Image,\n"
+                    + "    Displacement,\n"
+                    + "    Description,\n"
+                    + "    [MinAge],\n"
+                    + "    BrandID,\n"
+                    + "    CategoryID,\n"
+                    + "    PriceListID\n"
+                    + "FROM \n"
+                    + "    dbo.Motorcycle ORDER BY MotorcycleID\n"
+                    + "OFFSET ? ROWS\n"
+                    + "FETCH NEXT 3 ROWS ONLY;";
+            stm = conn.prepareStatement(sql);
+            stm.setInt(1, iAmount);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Motorcycle motorcycle = new Motorcycle();
+                motorcycle.setMotorcycleId(rs.getString(1));
+                motorcycle.setModel(rs.getString(2));
+                motorcycle.setImage(rs.getString(3));
+                motorcycle.setDisplacement(rs.getString(4));
+                motorcycle.setDescription(rs.getString(5));
+                motorcycle.setMinAge(rs.getInt(6));
+                motorcycle.setBrandID(rs.getInt(7));
+                motorcycle.setCategoryID(rs.getInt(8));
+                motorcycle.setPriceListID(rs.getInt(9));
+                List<MotorcycleDetail> listMotorcycleDetails = MotorcycleDetailDAO.getInstance().getMotorcycleDetail(rs.getString(1));
+                motorcycle.setListMotorcycleDetails(listMotorcycleDetails);
+                list.add(motorcycle);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Motorcycle> searchNext3MotorcyclesByName(String key, int iAmount) {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "Select * from [Motorcycle] WHERE Model LIKE ?\n"
+                    + "ORDER BY MotorcycleID\n"
+                    + "OFFSET ? ROWS\n"
+                    + "FETCH NEXT 3 ROWS ONLY;";
+
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, "%" + key + "%");
+            stm.setInt(2, iAmount);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9)));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         MotorcycleDAO dao = getInstance();
-        for (Motorcycle x : dao.getAll()) {
+        List<Motorcycle> listAllMotorcycles = dao.getAll();
+        for (Motorcycle x : listAllMotorcycles) {
             System.out.println(x);
         }
-//        SearchCriteria searchCriteria = new SearchCriteria();
-//        searchCriteria.addPriceRange(200, 230);
-//        searchCriteria.addPriceRange(270, 230);
-//        System.out.println(dao.getListDisplacements());
-        //System.out.println(dao.searchMotorcycleByCriteria(searchCriteria));
-//        System.out.println(dao.getListDisplacements());
     }
+
+    public List<Motorcycle> searchNext3MotorcyclesByCriteria(SearchCriteria criteria, int iAmount) {
+        List<Motorcycle> list = new ArrayList<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        StringBuilder sql = new StringBuilder("SELECT DISTINCT m.* FROM Motorcycle m JOIN Demand_Detail d ON m.MotorcycleID = d.MotorcycleID WHERE 1=1");
+
+        if (criteria.getPriceRanges() != null && !criteria.getPriceRanges().isEmpty()) {
+            sql.append(" AND PriceListID IN (SELECT PriceListID FROM PriceList WHERE ");
+            for (int i = 0; i < criteria.getPriceRanges().size(); i++) {
+                if (i > 0) {
+                    sql.append(" OR ");
+                }
+                sql.append("DailyPriceForDay BETWEEN ? AND ?");
+            }
+            sql.append(")");
+        }
+
+        if (criteria.getBrandIDs() != null && !criteria.getBrandIDs().isEmpty()) {
+            sql.append(" AND BrandID IN (")
+                    .append(generateParameterPlaceholders(criteria.getBrandIDs().size()))
+                    .append(")");
+        }
+
+        if (criteria.getCategoryIDs() != null && !criteria.getCategoryIDs().isEmpty()) {
+            sql.append(" AND CategoryID IN (")
+                    .append(generateParameterPlaceholders(criteria.getCategoryIDs().size()))
+                    .append(")");
+        }
+
+        if (criteria.getDisplacements() != null && !criteria.getDisplacements().isEmpty()) {
+            sql.append(" AND Displacement IN (")
+                    .append(generateParameterPlaceholders(criteria.getDisplacements().size()))
+                    .append(")");
+        }
+
+        if (criteria.getDemandIDs() != null && !criteria.getDemandIDs().isEmpty()) {
+            sql.append(" AND d.DemandId IN (")
+                    .append(generateParameterPlaceholders(criteria.getDemandIDs().size()))
+                    .append(")");
+        }
+
+        sql.append("\nORDER BY MotorcycleID");
+        sql.append("\nOFFSET ? ROWS FETCH NEXT 3 ROWS ONLY;");
+
+        try {
+            stm = conn.prepareStatement(sql.toString());
+            int parameterIndex = 1;
+
+            if (criteria.getPriceRanges() != null) {
+                for (PriceRange p : criteria.getPriceRanges()) {
+                    stm.setDouble(parameterIndex++, p.getMinPrice());
+                    stm.setDouble(parameterIndex++, p.getMaxPrice());
+                }
+            }
+
+            if (criteria.getBrandIDs() != null) {
+                for (int brandID : criteria.getBrandIDs()) {
+                    stm.setInt(parameterIndex++, brandID);
+                }
+            }
+
+            if (criteria.getCategoryIDs() != null) {
+                for (int categoryID : criteria.getCategoryIDs()) {
+                    stm.setInt(parameterIndex++, categoryID);
+                }
+            }
+
+            if (criteria.getDisplacements() != null) {
+                for (String displacement : criteria.getDisplacements()) {
+                    stm.setString(parameterIndex++, displacement);
+                }
+            }
+
+            if (criteria.getDemandIDs() != null) {
+                for (int demandID : criteria.getDemandIDs()) {
+                    stm.setInt(parameterIndex++, demandID);
+                }
+            }
+            stm.setInt(parameterIndex++, iAmount);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new Motorcycle(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8),
+                        rs.getInt(9)));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MotorcycleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
 }

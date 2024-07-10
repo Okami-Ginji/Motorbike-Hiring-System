@@ -81,6 +81,7 @@ public class PriceListDAO implements Serializable {
         }
         return null;
     }
+    
 
     public void addPricing(PriceList price) {
         String sql = "INSERT INTO [dbo].[PriceList]\n"

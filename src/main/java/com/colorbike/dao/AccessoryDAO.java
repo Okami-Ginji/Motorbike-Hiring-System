@@ -94,7 +94,7 @@ public class AccessoryDAO implements Serializable, DAO<Accessory> {
             stm.setInt(1, id);
             rs = stm.executeQuery();
             while (rs.next()) {
-                return new Accessory(rs.getInt("accessoryID"), rs.getString("accessoryName"), rs.getString("accessoryImage"), 
+                return new Accessory(rs.getInt("accessoryID"), rs.getString("accessoryName"), rs.getString("accessoryImage"),
                         rs.getString("accessoryImageicon"), rs.getString("accessoryDescription"), rs.getInt("price"));
             }
         } catch (Exception ex) {
@@ -102,7 +102,7 @@ public class AccessoryDAO implements Serializable, DAO<Accessory> {
         }
         return null;
     }
-    
+
     public void addNewAccessory(Accessory accessory) {
         PreparedStatement stm;
         ResultSet rs;
@@ -119,30 +119,30 @@ public class AccessoryDAO implements Serializable, DAO<Accessory> {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void updateAccessory(Accessory accessory) {
-    PreparedStatement stm;
-    try {
-        String sql = "UPDATE Accessory SET AccessoryName = ?, AccessoryImage = ?, AccessoryImageIcon = ?, AccessoryDescription = ?, Price = ? WHERE AccessoryID = ?";
-        stm = conn.prepareStatement(sql);
-        stm.setString(1, accessory.getAccessoryName());
-        stm.setString(2, accessory.getAccessoryImage());
-        stm.setString(3, accessory.getAccessoryImageicon());
-        stm.setString(4, accessory.getAccessoryDescription());
-        stm.setDouble(5, accessory.getPrice());
-        stm.setInt(6, accessory.getAccessoryId());
-        
-        int rowsUpdated = stm.executeUpdate();
-        if (rowsUpdated > 0) {
-            System.out.println("Accessory updated successfully");
-        } else {
-            System.out.println("Failed to update accessory");
-        }
-    } catch (SQLException ex) {
-        Logger.getLogger(AccessoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-    }
-}
 
-    
+    public void updateAccessory(Accessory accessory) {
+        PreparedStatement stm;
+        try {
+            String sql = "UPDATE Accessory SET AccessoryName = ?, AccessoryImage = ?, AccessoryImageIcon = ?, AccessoryDescription = ?, Price = ? WHERE AccessoryID = ?";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, accessory.getAccessoryName());
+            stm.setString(2, accessory.getAccessoryImage());
+            stm.setString(3, accessory.getAccessoryImageicon());
+            stm.setString(4, accessory.getAccessoryDescription());
+            stm.setDouble(5, accessory.getPrice());
+            stm.setInt(6, accessory.getAccessoryId());
+
+            int rowsUpdated = stm.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Accessory updated successfully");
+            } else {
+                System.out.println("Failed to update accessory");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccessoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public void insert(Accessory t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -162,13 +162,12 @@ public class AccessoryDAO implements Serializable, DAO<Accessory> {
 //        for (Accessory a : AccessoryDAO.getInstance().getAll()) {
 //            System.out.println(a);
 //        }
-AccessoryDAO dao =new AccessoryDAO();
-    for(Accessory x: dao.getAll()){
-        System.out.println(x);
-    }
+        AccessoryDAO dao = new AccessoryDAO();
+        for (Accessory x : dao.getAll()) {
+            System.out.println(x);
+        }
 
         // Gọi phương thức addNewAccessory để thêm Accessory vào cơ sở dữ liệu
-      
     }
 
 }

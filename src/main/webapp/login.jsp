@@ -288,7 +288,7 @@
 <!--                        <a href="#"><img src="images/facebook.png"
                                          alt="facebook" /></a>-->
                     </div>
-                    <p>Nếu bạn không có tài khoản <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:small;">Tạo tài
+                    <p>Nếu bạn không có tài khoản? <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:medium;">Tạo tài
                             khoản</a></p>
                     <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%); padding: 5px; border-radius: 5px; ">Về Trang Chủ</a></p>
                 </div>

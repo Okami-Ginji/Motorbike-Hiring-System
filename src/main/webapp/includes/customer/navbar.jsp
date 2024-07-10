@@ -31,7 +31,7 @@
                         <li><a href="FAQ">FAQs</a></li>
                         <li><a href="event">Sự Kiện</a></li>
                         <li><a href="touristLocation">Địa Điểm Du Lịch</a></li>
-                        <!-- <li><a href="#">Dropdown 4</a></li> -->
+                         <li><a href="policies.jsp">Chính Sách & Điều Khoản</a></li> 
                     </ul>
                 </li>
                 <li><a href="contact.jsp">Liên Hệ</a></li>

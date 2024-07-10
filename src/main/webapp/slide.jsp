@@ -145,10 +145,11 @@
                                 </c:forEach>
 
                             </div>
-                            <!-- Pagination -->
-                            <div class="swiper-pagination"></div>
-
+                            
                         </div>
+                        <!-- Pagination -->
+                        <div class="swiper-pagination" style="bottom: 22px !important;"></div>
+
                     </div>
                 </div>
 

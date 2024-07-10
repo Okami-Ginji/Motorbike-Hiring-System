@@ -180,6 +180,7 @@
                     50% {
                         box-shadow: 0 0 20px rgba(2, 184, 175, 1);
                     }
+                    
                     100% {
                         box-shadow: 0 0 5px rgba(2, 184, 175, 0.5);
                     }
@@ -427,29 +428,29 @@
 
         </style>
         <script>
-                            function openModal(name, description, price, imageSrc) {
-                                document.getElementById('accessoryName').textContent = name;
-                                document.getElementById('accessoryDescription').textContent = description;
-                                document.getElementById('accessoryPrice').textContent = price;
-                                document.getElementById('accessoryImage').src = imageSrc;
-                                document.getElementById('myModal').style.display = 'block';
-                            }
-                            function closeModal() {
-                                document.getElementById('myModal').style.display = 'none';
-                            }
+                                        function openModal(name, description, price, imageSrc) {
+                                            document.getElementById('accessoryName').textContent = name;
+                                            document.getElementById('accessoryDescription').textContent = description;
+                                            document.getElementById('accessoryPrice').textContent = price;
+                                            document.getElementById('accessoryImage').src = imageSrc;
+                                            document.getElementById('myModal').style.display = 'block';
+                                        }
+                                        function closeModal() {
+                                            document.getElementById('myModal').style.display = 'none';
+                                        }
 
-                            window.onclick = function (event) {
-                                var modal = document.getElementById("myModal");
-                                if (event.target === modal) {
-                                    modal.style.display = "none";
-                                }
-                            }
-                            window.onkeydown = function (event) {
-                                var modal = document.getElementById("myModal");
-                                if (event.key === "Escape" || event.key === "Esc") {
-                                    modal.style.display = "none";
-                                }
-                            }
+                                        window.onclick = function (event) {
+                                            var modal = document.getElementById("myModal");
+                                            if (event.target === modal) {
+                                                modal.style.display = "none";
+                                            }
+                                        }
+                                        window.onkeydown = function (event) {
+                                            var modal = document.getElementById("myModal");
+                                            if (event.key === "Escape" || event.key === "Esc") {
+                                                modal.style.display = "none";
+                                            }
+                                        }
 
         </script>
         <script>

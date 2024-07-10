@@ -28,7 +28,7 @@
                 top: 0;
                 left: 10px;
                 width: 300px;
-                height: 78%;
+                height: 82%;
                 background: radial-gradient(circle at 10% 20%, rgb(226, 240, 254) 0%, rgb(255, 247, 228) 90%);
                 border-radius: 30px;
                 border: 2px solid #001973 !important;

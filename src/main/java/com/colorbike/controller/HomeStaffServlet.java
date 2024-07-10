@@ -4,7 +4,11 @@
  */
 package com.colorbike.controller;
 
+import com.colorbike.dao.MotorcycleDAO;
+import com.colorbike.dao.PriceListDAO;
 import com.colorbike.dto.Account;
+import com.colorbike.dto.Motorcycle;
+import com.colorbike.dto.PriceList;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -32,9 +37,19 @@ public class HomeStaffServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        MotorcycleDAO md = MotorcycleDAO.getInstance();
+        PriceListDAO pd = PriceListDAO.getInstance();
+        
+        List<Motorcycle> listM = md.getTop5MotorcycleTheMostRental();
+        List<PriceList> listP = pd.getAllPriceList();
+        
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         session.setAttribute("account", account);
+        
+        request.setAttribute("listM", listM);
+        request.setAttribute("listP", listP);
         request.getRequestDispatcher("homeStaff.jsp").forward(request, response);
     }
 

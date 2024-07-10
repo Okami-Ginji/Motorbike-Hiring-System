@@ -272,11 +272,11 @@
                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="pills-pricing-tab" data-toggle="pill" href="#pills-pricing" role="tab" aria-controls="pills-pricing" aria-expanded="true">Pricing</a>
+                                            <a class="nav-link active" id="pills-pricing-tab" data-toggle="pill" href="#pills-pricing" role="tab" aria-controls="pills-pricing" aria-expanded="true">Giá Thuê</a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
+                                            <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Mô tả</a>
                                         </li>
 
                                     </ul>
@@ -289,24 +289,24 @@
                                                 <div class="col-md-8">
                                                     <div class="card pricing-details">
                                                         <div class="card-header text-white text-center">
-                                                            <h3>Pricing Details</h3>
+                                                            <h3>Chi Tiết Giá Thuê Xe</h3>
                                                         </div>
                                                         <div class="card-body">
                                                             <ul class="list-group list-group-flush">
                                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <span>Price per day:</span>
+                                                                    <span>Giá theo ngày:</span>
                                                                     <span class="price">
                                                                         <fmt:formatNumber value="${priceList.dailyPriceForDay * 1000}" type="currency" currencySymbol="VNĐ" />
                                                                     </span>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <span>Price per week:</span>
+                                                                    <span>Giá theo tuần:</span>
                                                                     <span class="price">
                                                                         <fmt:formatNumber value="${priceList.dailyPriceForWeek * 1000}" type="currency" currencySymbol="VNĐ" />
                                                                     </span>
                                                                 </li>
                                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <span>Price per month:</span>
+                                                                    <span>Giá theo tháng:</span>
                                                                     <span class="price">
                                                                         <fmt:formatNumber value="${priceList.dailyPriceForMonth * 1000}" type="currency" currencySymbol="VNĐ" />
                                                                     </span>

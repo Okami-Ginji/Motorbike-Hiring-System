@@ -508,6 +508,11 @@
                                                             value: 300,
                                                             name: 'Xe Thể Thao'
                                                         }
+                                                        ,
+                                                        {
+                                                            value: 200,
+                                                            name: 'Xe 50cc'
+                                                        }
                                                     ]
                                                 }
                                             ]

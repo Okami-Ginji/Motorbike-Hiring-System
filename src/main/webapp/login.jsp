@@ -251,11 +251,11 @@
                     </h4>
                     <form id="loginForm" action="login" method="post">
                         <div class="inputRow username animate__animated animate__pulse">
-                            <input type="text" name="Username" id="Username"
+                            <input value="${cookie.Username.value}" type="text" name="Username" id="Username"
                                    placeholder="Username" required />
                         </div>
                         <div class="inputRow animate__animated animate__pulse">
-                            <input type="password" class="eye" name="Password"
+                            <input value="${cookie.Password.value}" type="password" class="eye" name="Password"
                                    id="Password"
                                    placeholder="Password" required />
                             <span id="password-eye"><i
@@ -263,7 +263,7 @@
                         </div>
                         <div class="forever">
                             <div>
-                                <input type="checkbox" id="remember-me"
+                                <input ${cookie.rem != null? "checked" : ""} type="checkbox" id="remember-me"
                                        id="rememberMe" name="rem" value="ON" />
                                 <label for="remember-me">Nhớ Mật Khẩu</label>
                             </div>

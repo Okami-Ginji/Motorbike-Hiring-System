@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("home");
             return;
         }
-        request.getRequestDispatcher("login2.jsp").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     } 
 
 
@@ -103,5 +103,4 @@ public class LoginServlet extends HttpServlet {
             }
         }
     }
-
 }

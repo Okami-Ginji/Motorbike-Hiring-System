@@ -327,7 +327,7 @@
                                 </div>
 
                                 <div class="button-container">
-                                    <button class="rent-now-btn" onclick="redirectToBooking(event, '${m.motorcycleId}')">THUÊ XE NGAY</button>
+                                    <button class="rent-now-btn" onclick="redirectToBooking(event, '${motorcycleDetail.motorcycleId}')">THUÊ XE NGAY</button>
                                     <!-- Replace the URL with the actual booking link and ID -->
                                 </div>
                             </div>

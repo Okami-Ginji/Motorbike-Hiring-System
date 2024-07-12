@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Administrator
  */
-@WebFilter(filterName = "StaffFilter", urlPatterns = {""})
+@WebFilter(filterName = "StaffFilter", urlPatterns = {"/*"})
 public class StaffFilter implements Filter {
     
     private static final boolean debug = true;

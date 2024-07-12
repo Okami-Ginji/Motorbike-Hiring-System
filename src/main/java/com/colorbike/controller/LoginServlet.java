@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("home");
             return;
         }
-        request.getRequestDispatcher("login2.jsp").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     } 
 
 
@@ -96,12 +96,11 @@ public class LoginServlet extends HttpServlet {
             if (account.getRoleID() == 1) {
                 response.sendRedirect("home");
             } else if (account.getRoleID() == 2 || account.getRoleID() == 3) {
-                response.sendRedirect("homeStaff.jsp");
+                response.sendRedirect("homeStaff");
             } else {
                 request.setAttribute("error", "Tài khoản bạn đã bị khóa <br> Vui lòng liên hệ với trang web để lấy lại thông tin");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         }
     }
-
 }

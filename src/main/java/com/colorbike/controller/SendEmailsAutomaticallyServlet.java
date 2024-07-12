@@ -105,11 +105,11 @@ public class SendEmailsAutomaticallyServlet extends HttpServlet {
             }
 
             // Get current date and time
-//            LocalDateTime currentDateTime = LocalDateTime.now();
-            String str = "09-08-2024 21:05:00";
+            LocalDateTime currentDateTime = LocalDateTime.now();
+//            String str = "09-08-2024 21:05:00";
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-            LocalDateTime currentDateTime = LocalDateTime.parse(str, formatter);
+//            LocalDateTime currentDateTime = LocalDateTime.parse(str, formatter);
             //        String formattedDateTime = currentDateTime.format(formatter);
 
             CustomerDAO daoC = CustomerDAO.getInstance();

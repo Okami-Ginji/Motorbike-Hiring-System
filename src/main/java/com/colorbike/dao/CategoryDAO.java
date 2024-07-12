@@ -5,12 +5,14 @@
 package com.colorbike.dao;
 
 import com.colorbike.dto.Category;
+import com.colorbike.dto.Motorcycle;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,7 +70,39 @@ public class CategoryDAO implements Serializable, DAO<Category>{
         }
         return null;
     }
+    
+    public LinkedHashMap<String, Integer> geNumberRentalCategory() {
+        LinkedHashMap<String, Integer> list = new LinkedHashMap<>();
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
 
+            String sql = "SELECT \n" +
+                        "    c.CategoryID,\n" +
+                        "    c.CategoryName,\n" +
+                        "    COUNT(bd.BookingDetailID) AS RentalCount\n" +
+                        "FROM \n" +
+                        "    [dbo].[Category] c\n" +
+                        "LEFT JOIN \n" +
+                        "    [dbo].[Motorcycle] m ON c.CategoryID = m.CategoryID\n" +
+                        "LEFT JOIN \n" +
+                        "    [dbo].[Motorcycle Detail] md ON m.MotorcycleID = md.MotorcycleID\n" +
+                        "LEFT JOIN \n" +
+                        "    [dbo].[Booking Detail] bd ON md.MotorcycleDetailID = bd.MotorcycleDetailID\n" +
+                        "LEFT JOIN \n" +
+                        "    [dbo].[Booking] b ON bd.BookingID = b.BookingID\n" +
+                        "GROUP BY \n" +
+                        "    c.CategoryID, c.CategoryName";
+            stm = conn.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.put(rs.getString("CategoryName"),rs.getInt("RentalCount"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
     @Override
     public List<Category> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

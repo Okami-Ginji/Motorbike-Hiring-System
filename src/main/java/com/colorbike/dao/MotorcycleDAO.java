@@ -579,7 +579,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
             String sql = "SELECT TOP 5\n"
                     + "    m.MotorcycleID,\n"
                     + "    m.Model,m.Image,\n"
-                    + " m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID,\n"
+                    + "m.Displacement , m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID,\n"
                     + "    COUNT(bd.BookingDetailID) AS RentalCount,\n"
                     + "    MONTH(b.BookingDate) AS RentalMonth,\n"
                     + "    YEAR(b.BookingDate) AS RentalYear\n"
@@ -592,7 +592,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
                     + "INNER JOIN \n"
                     + "    [dbo].[Booking] b ON bd.BookingID = b.BookingID\n"
                     + "GROUP BY \n"
-                    + "    m.MotorcycleID, m.Model,m.Image, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID, MONTH(b.BookingDate), YEAR(b.BookingDate)\n"
+                    + "    m.MotorcycleID, m.Model,m.Image,m.Displacement, m.Description, m.MinAge, m.BrandID, m.CategoryID, m.PriceListID, MONTH(b.BookingDate), YEAR(b.BookingDate)\n"
                     + "ORDER BY \n"
                     + "    RentalCount DESC";
 
@@ -608,6 +608,7 @@ public class MotorcycleDAO implements Serializable, DAO<Motorcycle> {
         }
         return list;
     }
+    
 
     @Override
     protected Object clone() throws CloneNotSupportedException {

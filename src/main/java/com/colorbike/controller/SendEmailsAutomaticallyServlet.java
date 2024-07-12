@@ -105,11 +105,11 @@ public class SendEmailsAutomaticallyServlet extends HttpServlet {
             }
 
             // Get current date and time
-            LocalDateTime currentDateTime = LocalDateTime.now();
-//            String str = "05-07-2024 20:05:00";
+//            LocalDateTime currentDateTime = LocalDateTime.now();
+            String str = "09-08-2024 21:05:00";
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-//            LocalDateTime currentDateTime = LocalDateTime.parse(str, formatter);
+            LocalDateTime currentDateTime = LocalDateTime.parse(str, formatter);
             //        String formattedDateTime = currentDateTime.format(formatter);
 
             CustomerDAO daoC = CustomerDAO.getInstance();
@@ -118,20 +118,35 @@ public class SendEmailsAutomaticallyServlet extends HttpServlet {
             List<Booking> listCheck = new ArrayList<>();
 
             for (Booking booking : listB) {
-                String startDateStr = booking.getStartDate(); // Giả sử `getStartDate()` trả về String           
+                String startDateStr = booking.getStartDate();
+                String endDateStr = booking.getEndDate();
                 // Chuyển đổi chuỗi thành LocalDateTime
                 LocalDateTime startDate = LocalDateTime.parse(startDateStr, formatter);
-
+                LocalDateTime endDate = LocalDateTime.parse(endDateStr, formatter);
                 // Tính toán khoảng thời gian giữa thời gian hiện tại và thời gian bắt đầu
-                Duration duration = Duration.between(currentDateTime, startDate);
-                long hoursBetween = duration.toHours();
-
+                Duration durationStart = Duration.between(currentDateTime, startDate);
+                long hoursBetweenStart = durationStart.toHours();
+                
+                Duration durationEnd = Duration.between(currentDateTime, endDate);
+                long hoursBetweenEnd = durationEnd.toHours();
+                
+                String title = null;
+                Account account = new Account();
                 // Kiểm tra nếu còn 3 giờ nữa là đến thời gian bắt đầu
-                if (hoursBetween <= 3 && currentDateTime.toLocalDate().isEqual(startDate.toLocalDate())) {
-                    out.println("aaaaaaa");
+                if (hoursBetweenStart <= 3 && currentDateTime.toLocalDate().isEqual(startDate.toLocalDate())) {
+                    out.println("start");
                     Customer customer = daoC.getCustomerbyID(booking.getCustomerID());
-                    Account account = daoA.getAccountbyID(customer.getAccountId());
-
+                    account = daoA.getAccountbyID(customer.getAccountId());
+                    title = "Chào bạn, ColorBike xin thông báo thời gian lấy xe của bạn sắp đến !!! ";
+                }
+                if (hoursBetweenEnd <= 1 && currentDateTime.toLocalDate().isEqual(endDate.toLocalDate())) {
+                    out.println("end");
+                    Customer customer = daoC.getCustomerbyID(booking.getCustomerID());
+                    account = daoA.getAccountbyID(customer.getAccountId());
+                    title = "Chào bạn, ColorBike xin thông báo thời gian trả xe của bạn sắp đến !!! ";
+                }
+                
+                if(title != null) {
                     // Send confirmation email
                     StringBuilder emailContent = new StringBuilder();
                     emailContent.append("<!DOCTYPE html>\n");
@@ -175,7 +190,7 @@ public class SendEmailsAutomaticallyServlet extends HttpServlet {
                     emailContent.append("</head>\n");
                     emailContent.append("<body>\n");
                     emailContent.append("<div class=\"container\">\n");
-                    emailContent.append("    <div class=\"header\">Chào bạn, ColorBike xin thông báo thời gian lấy xe của bạn sắp đến !!! </div>\n");
+                    emailContent.append("    <div class=\"header\">").append(title).append("</div>\n");
                     emailContent.append("    <div class=\"info\">\n");
                     emailContent.append("        <div><span>Họ tên:</span> ").append(account.getFirstName()).append(" ").append(account.getLastName()).append("</div>\n");
                     emailContent.append("        <div><span>Ngày nhận xe:</span> ").append(booking.getStartDate()).append("</div>\n");
@@ -204,7 +219,9 @@ public class SendEmailsAutomaticallyServlet extends HttpServlet {
                 if (listB.equals(listCheck)) {
                     session.setAttribute("messageListNull", "ListNull");
                 }
-                listB.removeAll(listCheck);
+                else{
+                    listB.removeAll(listCheck);
+                }
             }
             session.setAttribute("listBooking", listB);
         }

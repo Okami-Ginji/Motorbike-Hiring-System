@@ -4,11 +4,14 @@
  */
 package com.colorbike.controller;
 
+import com.colorbike.dao.CategoryDAO;
 import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
 import com.colorbike.dto.Account;
+import com.colorbike.dto.Category;
 import com.colorbike.dto.Motorcycle;
 import com.colorbike.dto.PriceList;
+import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -39,18 +43,27 @@ public class HomeStaffServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         MotorcycleDAO md = MotorcycleDAO.getInstance();
+        CategoryDAO c = CategoryDAO.getInstance();
         PriceListDAO pd = PriceListDAO.getInstance();
         
         List<Motorcycle> listM = md.getTop5MotorcycleTheMostRental();
         List<PriceList> listP = pd.getAllPriceList();
         
+        LinkedHashMap<String, Integer> listCR = c.geNumberRentalCategory();
+                
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         session.setAttribute("account", account);
         
         request.setAttribute("listM", listM);
         request.setAttribute("listP", listP);
+        
+        Gson gson = new Gson();
+        String json = gson.toJson(listCR);
+        request.setAttribute("categoryData", json);
+        
         request.getRequestDispatcher("homeStaff.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -193,12 +193,12 @@
                                                 class="bi bi-three-dots"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                             <li class="dropdown-header text-start">
-                                                <h6>Filter</h6>
+                                                <h6>Bộ lọc</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                                            <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                                            <li><a class="dropdown-item" href="#">Năm nay</a></li>
                                         </ul>
                                     </div>
 
@@ -291,12 +291,12 @@
                                                 class="bi bi-three-dots"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                             <li class="dropdown-header text-start">
-                                                <h6>Filter</h6>
+                                                <h6>Bộ lọc</h6>
                                             </li>
 
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                                            <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                                            <li><a class="dropdown-item" href="#">Năm nay</a></li>
                                         </ul>
                                     </div>
 
@@ -351,12 +351,12 @@
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
+                                        <h6>Bộ lọc</h6>
                                     </li>
 
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                                    <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                                    <li><a class="dropdown-item" href="#">Năm nay</a></li>
                                 </ul>
                             </div>
 
@@ -376,22 +376,22 @@
                                                 // shape: 'circle',
                                                 indicator: [{
                                                         name: 'Yamaha',
-                                                        max: 6500
+                                                        max: 52000
                                                     }
                                                     ,
                                                     {
                                                         name: 'Honda',
-                                                        max: 16000
+                                                        max: 52000
                                                     }
                                                     ,
                                                     {
                                                         name: 'Suzuki',
-                                                        max: 30000
+                                                        max: 52000
                                                     }
                                                     ,
                                                     {
                                                         name: 'Sym',
-                                                        max: 38000
+                                                        max: 52000
                                                     }
                                                     ,
                                                     {
@@ -401,7 +401,7 @@
                                                     ,
                                                     {
                                                         name: 'Vinfast',
-                                                        max: 25000
+                                                        max: 52000
                                                     }
                                                 ]
                                             }
@@ -410,7 +410,7 @@
                                                     name: 'Budget vs spending',
                                                     type: 'radar',
                                                     data: [{
-                                                            value: [4200, 3000, 20000, 35000, 50000, 18000],
+                                                            value: [6500, 3000, 20000, 35000, 50000, 25000],
                                                             name: 'Theo Tuần'
                                                         }
                                                         ,
@@ -436,12 +436,12 @@
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
+                                        <h6>Bộ lọc</h6>
                                     </li>
 
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="#">Hôm nay</a></li>
+                                    <li><a class="dropdown-item" href="#">Tháng này</a></li>
+                                    <li><a class="dropdown-item" href="#">Năm nay</a></li>
                                 </ul>
                             </div>
 
@@ -452,6 +452,23 @@
 
                                 <script>
                                     document.addEventListener("DOMContentLoaded", () => {
+                                         // Retrieve the JSON string from the request attribute
+                                        var categoryData = '${categoryData}'; 
+
+                                        // Parse the JSON string to a JavaScript object
+                                        var categoryMap = JSON.parse(categoryData);
+//
+//                                        console.log(categoryMap);
+//                                        // Use the data in your JavaScript code
+//                                        for (let key in categoryMap) {
+//                                            console.log("Motorcycle: " +  key +"," + "Quantity: " + categoryMap[key]);
+//                                        }
+                                        var chartData = Object.keys(categoryMap).map(function(key) {                                           
+                                            return {
+                                                value: categoryMap[key],
+                                                name: key
+                                            };
+                                        });
                                         echarts.init(document.querySelector("#trafficChart")).setOption({
                                             tooltip: {
                                                 trigger: 'item'
@@ -484,36 +501,7 @@
                                                         show: false
                                                     }
                                                     ,
-                                                    data: [{
-                                                            value: 1048,
-                                                            name: 'Xe Tay Ga'
-                                                        }
-                                                        ,
-                                                        {
-                                                            value: 735,
-                                                            name: 'Xe Số'
-                                                        }
-                                                        ,
-                                                        {
-                                                            value: 580,
-                                                            name: 'Xe Máy Điện'
-                                                        }
-                                                        ,
-                                                        {
-                                                            value: 484,
-                                                            name: 'Xe Tay Côn'
-                                                        }
-                                                        ,
-                                                        {
-                                                            value: 300,
-                                                            name: 'Xe Thể Thao'
-                                                        }
-                                                        ,
-                                                        {
-                                                            value: 200,
-                                                            name: 'Xe 50cc'
-                                                        }
-                                                    ]
+                                                    data: chartData
                                                 }
                                             ]
                                         }

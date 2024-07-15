@@ -72,10 +72,10 @@ public class RegisterServlet extends HttpServlet {
                 String verificationCode = SendEmail.generateRandomFourDigits();
                 // Save verification code in session
                 session.setAttribute("verificationCode", verificationCode);
-                String emailContent = "<h3>Hello,</h3>"
-                        + "<p>To complete the registration process, please use the following OTP code:</p>"
-                        + "<p>OTP code: <b>" + verificationCode + ".</b></p>"
-                        + "<p>If you do not require this code, please ignore the email or contact us at the.color.bike.company@gmail.com</p>";
+                String emailContent = "<h3>Chào bạn,</h3>"
+                        + "<p>Để hoàn tất quá trình đăng ký, vui lòng sử dụng mã OTP sau:</p>"
+                        + "<p>Mã OTP: <b>" + verificationCode + ".</b></p>"
+                        + "<p>Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email hoặc liên hệ với chúng tôi theo địa chỉ: the.color.bike.company@gmail.com</p>";
                 // Send verification email
                 SendEmail.sendVerificationEmail(email, emailContent);
                 // Redirect to the confirmation page

@@ -3,6 +3,9 @@
     Created on : May 25, 2024, 5:52:23 PM
     Author     : DiepTCNN
 --%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -42,11 +45,29 @@
         <jsp:include page="/includes/staff/sidebar.jsp" />
         <div class="container">
             <div class="row flex-lg-nowrap">
-                <div class="col">
-                    <div class="row flex-lg-nowrap">
-                        <div class="col-md-1 col-lg-1">
+                <div class="col-12 col-lg-auto mb-3">
+                    <div class="card p-3">
+                        <div class="e-navlist e-navlist--active-bg">
+                            <ul class="nav">
+                                <li class="nav-item"><a class="nav-link px-2 active" href="homeStaff.jsp"><i
+                                            class="fa fa-fw fa-bar-chart mr-1"></i><span>Trang chủ</span></a></li>
+                            </ul>
                         </div>
-                        <div style="margin-top: 5rem; margin-left: 56px" class="col col-lg">
+                    </div>
+                </div>
+                <div style="margin-top: 5rem" class="col col-lg">
+                    <div>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="customer-tab" data-bs-toggle="tab" href="#customer">Thông tin khách hàng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="overdue-tab" data-bs-toggle="tab" href="#overdue">Quá hạn thuê xe</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content mt-3">
+                        <div id="customer" class="tab-pane fade show active">
                             <div class="e-panel card">
                                 <div class="card-body">
                                     <div class="card-title">
@@ -122,90 +143,60 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="d-flex justify-content-center">
-                                            <ul class="pagination mt-3 mb-0">
-                                                <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
-                                                <li class="active page-item"><a href="#" class="page-link">1</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">›</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">»</a></li>
-                                            </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="overdue" class="tab-pane fade">
+                            <div class="e-panel card">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <h6 class="mr-2"><span>Làm TỐT</span><small class="px-1">cuối tháng tăng lương</small></h6>
+                                    </div>
+                                    <div class="e-table">
+                                        <div class="table-responsive table-lg">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Họ và tên</th>
+                                                        <th>Tên đăng nhập</th>
+                                                        <th>Điện thoại</th>
+                                                        <th>Đơn hàng </th>
+                                                        <th>Hạn cuối</th>
+                                                        <th scope="col">Quá hạn</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="customer-table-body">
+                                                    <c:if test="${empty sessionScope.accounts}">
+                                                        <tr>
+                                                            <td colspan="8" style="text-align: center; font-style: italic; padding: 18px; font-size: 17px;">
+                                                                Không có thông tin nào ở đây
+                                                            </td>
+                                                        </tr>
+                                                    </c:if>
+                                                    <c:forEach var="entry" items="${sessionScope.accountBookingMap}">
+                                                        <c:set var="accountK" value="${entry.key}" />
+                                                        <c:set var="bookingK" value="${entry.value}" />
+                                                       
+                                                        <tr>
+                                                            <td style="padding: 24px;" name="accountId" class="align-middle">${accountK.accountId}</td>
+                                                            <td name="fullname" class="text-nowrap align-middle">${accountK.firstName} ${accountK.lastName}</td>
+                                                            <td name="username" class="text-nowrap align-middle">${accountK.userName}</td>
+                                                            <td name="phoneNumber" class="text-nowrap align-middle">${accountK.phoneNumber}</td>
+                                                            <td name="bookingId" class="text-nowrap align-middle">${bookingK.bookingID}</td>
+                                                            <td name="endDate" class="text-nowrap align-middle">${bookingK.endDate}</td>
+                                                            <td name="overdueDays" class="text-danger fw-bold text-nowrap align-middle">${bookingK.overdueDays} </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 5rem;" class="col-md-2 col-lg-2 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <hr class="my-3">
-                                    <div class="e-navlist e-navlist--active-bold">
-                                        <ul class="nav" id="navList">
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-status="all">
-                                                    <span>Tất cả</span>&nbsp;<small>/&nbsp;<span id="allCount">${allCount}</span></small>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-status="active">
-                                                    <span>Hoạt động</span>&nbsp;<small>/&nbsp;<span id="activeCount">${activeCount}</span></small>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-status="disabled">
-                                                    <span>Vô hiệu hóa</span>&nbsp;<small>/&nbsp;<span id="disabledCount">${disabledCount}</span></small>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <hr class="my-3">
-                                    <div>
-                                        <label>Trạng thái: </label>
-                                        <div class="px-2">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-any" value="all" checked>
-                                                <label class="custom-control-label" for="users-status-any">Tất cả</label>
-                                            </div>
-                                        </div>
-                                        <div class="px-2">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-active" value="active">
-                                                <label class="custom-control-label" for="users-status-active">Hoạt động</label>
-                                            </div>
-                                        </div>
-                                        <div class="px-2">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-disabled" value="disabled">
-                                                <label class="custom-control-label" for="users-status-disabled">Vô hiệu hóa</label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-3">
-                            <form action="searchCustomer" method="post">
-                                <div>
-                                    <div class="form-group fst-italic">
-                                        <label>Tìm kiếm qua Tên đăng nhập: </label>
-                                        <div><input name="username" class="form-control w-100" type="text" placeholder="Username" value>
-                                        </div>
-                                    </div>
-                                    <div class="form-group fst-italic">
-                                        <label>Tìm kiếm qua Tên:</label>
-                                        <div><input name="name" class="form-control w-100" type="text" placeholder="Name" value>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <button class="btn btn-secondary w-100" type="submit" value="Search">Tìm kiếm</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-2 d-flex flex-column align-items-center"></div>
-                        </div>         
                     </div>
 
                     <!-- modal để hiển thị thông báo confirm chuyển trạng thái -->
@@ -311,11 +302,80 @@
                         </div>
                     </div>                       
                 </div>
-            </div>
-        </div>
+                <div style="width: 18%; margin-top: 137px;" class="col-12 col-lg-3 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <hr class="my-4>
+                                <div class="e-navlist e-navlist--active-bold">
+                            <ul class="nav" id="navList">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-status="all">
+                                        <span>Tất cả</span>&nbsp;<small>/&nbsp;<span id="allCount">${allCount}</span></small>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-status="active">
+                                        <span>Hoạt động</span>&nbsp;<small>/&nbsp;<span id="activeCount">${activeCount}</span></small>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-status="disabled">
+                                        <span>Vô hiệu hóa</span>&nbsp;<small>/&nbsp;<span id="disabledCount">${disabledCount}</span></small>
+                                    </a>
+                                </li>
+                            </ul>
+                            <hr class="my-4">
+                            <div>
+                                <label>Trạng thái: </label>
+                                <div class="px-2">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="user-status" id="users-status-any" value="all" checked>
+                                        <label class="custom-control-label" for="users-status-any">Tất cả</label>
+                                    </div>
+                                </div>
+                                <div class="px-2">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="user-status" id="users-status-active" value="active">
+                                        <label class="custom-control-label" for="users-status-active">Hoạt động</label>
+                                    </div>
+                                </div>
+                                <div class="px-2">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="user-status" id="users-status-disabled" value="disabled">
+                                        <label class="custom-control-label" for="users-status-disabled">Vô hiệu hóa</label>
+                                    </div>
+                                </div>
 
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script type="text/javascript">
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr class="my-3">
+                    <form action="searchCustomer" method="post">
+                        <div>
+                            <div class="form-group fst-italic">
+                                <label>Tìm kiếm qua Tên đăng nhập: </label>
+                                <div><input name="username" class="form-control w-100" type="text" placeholder="Username" value>
+                                </div>
+                            </div>
+                            <div class="form-group fst-italic">
+                                <label>Tìm kiếm qua Tên:</label>
+                                <div><input name="name" class="form-control w-100" type="text" placeholder="Name" value>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <button class="btn btn-secondary w-100" type="submit" value="Search">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-2 d-flex flex-column align-items-center"></div>
+                </div>
+            </div>         
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
                                         function openUserModal(button) {
                                             var modal = $('#user-form-modal');
                                             var accountId = button.getAttribute('data-accountId');
@@ -389,7 +449,6 @@
                                                 console.error("Form to submit is null"); // Log lỗi nếu formToSubmit không có giá trị
                                             }
                                         });
-        </script>
-    </body>
-
+    </script>
+</body>
 </html>

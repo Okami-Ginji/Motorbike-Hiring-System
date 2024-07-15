@@ -115,7 +115,7 @@ public class AddMotorbikeServlet extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
-        FileUploaded f = new FileUploaded("D:\\MotorcycleRental\\src\\main\\webapp\\images");
+        FileUploaded f = new FileUploaded("D:\\FPT_UNIVERSITY\\5_Summer24\\SWP391\\MotorcycleRental\\src\\main\\webapp\\images");
 
         String line = f.handleFileUpload(image, fileName);
         System.out.println(line);

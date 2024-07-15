@@ -5,6 +5,7 @@
 package com.colorbike.dao;
 
 import com.colorbike.dto.Account;
+import com.colorbike.dto.Booking;
 import com.colorbike.util.DBUtil;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -620,12 +621,57 @@ public class AccountDAO implements Serializable {
         return false;
     }
 
+    public Map<Account, Booking> getAccountOverdue() {
+        Map<Account, Booking> map = new HashMap<>();
+        PreparedStatement st;
+        ResultSet rs;
+        String sql = "SELECT A.*, B.BookingID, "
+                + "FORMAT(B.EndDate, 'dd-MM-yyyy HH:mm:ss') AS EndDate, "
+                + "DATEDIFF(DAY, COALESCE(E.NewEndDate, B.EndDate), GETDATE()) AS overdueDays "
+                + "FROM [dbo].[Account] A "
+                + "JOIN [dbo].[Customer] C ON A.AccountID = C.AccountID "
+                + "JOIN [dbo].[Booking] B ON C.CustomerID = B.CustomerID "
+                + "LEFT JOIN [dbo].[Extension] E ON B.BookingID = E.BookingID "
+                + "WHERE COALESCE(E.NewEndDate, B.EndDate) < GETDATE() "
+                + "AND (B.StatusBooking = N'Đã xác nhận' AND B.DeliveryStatus != N'Đã trả') "
+                + "ORDER BY A.LastName, A.FirstName";
+
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                 Account acc = new Account();
+                acc.setAccountId(rs.getInt(1));
+                acc.setFirstName(rs.getString(2));
+                acc.setLastName(rs.getString(3));
+                acc.setGender(rs.getString(4));
+                acc.setDob(rs.getString(5));
+                acc.setAddress(rs.getString(6));
+                acc.setPhoneNumber(rs.getString(7));
+                acc.setImage(rs.getString(8));
+                acc.setEmail(rs.getString(9));
+                acc.setUserName(rs.getString(10));
+                acc.setPassWord(rs.getString(11));
+                acc.setRoleID(rs.getInt(12));
+
+                Booking booking = new Booking();
+                booking.setBookingID(rs.getString("BookingID"));
+                booking.setEndDate(rs.getString("EndDate"));
+                booking.setOverdueDays(rs.getInt("overdueDays")); 
+                map.put(acc, booking);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return map;
+    }
+
     public static void main(String[] args) {
         AccountDAO dao = getInstance();
 //        System.out.println(dao.changePassword(7, "asdf"));
-        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
+//        System.out.println(dao.checkLogin("huynhat132", "huynhat132"));
 //        dao.createANewAccount("huy", "huy", "male", "06/07/2003", "QN", "0123456789", "no", "huyyy@gmail.com", "nh", "123");
-        System.out.println(dao.getAllCustomerAccount());
+//        System.out.println(dao.getAllCustomerAccount());
 //        System.out.println(dao.getBookingCountbyAccount());
 //        Map<Integer, Integer> roleStatuses = dao.updateRoleAndGetStatuses(6, false);
 //        System.out.println(roleStatuses);
@@ -633,10 +679,9 @@ public class AccountDAO implements Serializable {
 //        System.out.println(dao.getAccountbyBookingID("BOOK000001"));
 //        System.out.println(dao.getAccountbyCustomerID(6));
 //        System.out.println(dao.getBookingCountbyAccount());
-//        for(Account x: dao.getListAccountByRole(1)){
-//            System.out.println(x);
-//        }
+        Map<Account, Booking> account = dao.getAccountOverdue();
+        System.out.println(account);
 //        System.out.println(dao.updateProfileImage(2, "hahaAc1.jpg"));
-        System.out.println(dao.getAccountbyCustomerId(4));
+//        System.out.println(dao.getAccountbyCustomerId(4));
     }
 }

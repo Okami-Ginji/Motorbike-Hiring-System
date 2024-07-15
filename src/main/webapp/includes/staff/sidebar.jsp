@@ -66,7 +66,7 @@
         <li class="nav-item">
             <a class="nav-link ${currentPage.contains('/manageCustomer') ? '' : 'collapsed'}" href="manageCustomer">
                 <i class="bi bi-grid"></i>
-                <span>Thông tin khách hàng</span>
+                <span>Quản lý khách hàng</span>
             </a>
         </li><!-- End Dashboard Nav -->
 

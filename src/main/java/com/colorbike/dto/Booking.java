@@ -1,4 +1,3 @@
-
 package com.colorbike.dto;
 
 import java.io.Serializable;
@@ -14,12 +13,13 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class Booking implements Serializable{
+public class Booking implements Serializable {
 
     private String bookingID, bookingDate, startDate, endDate, statusBooking, deliveryLocation, returnedLocation, deliveryStatus;
     private int voucherID;
     private int customerID;
     private List<BookingDetail> listBookingDetails;
+    private int overdueDays;
 
     public Booking(String bookingID, String bookingDate, String startDate, String endDate, String statusBooking, String deliveryLocation, String returnedLocation, String deliveryStatus, int voucherID, int customerID) {
         this.bookingID = bookingID;
@@ -34,6 +34,20 @@ public class Booking implements Serializable{
         this.customerID = customerID;
     }
 
+    public Booking(String bookingID, String bookingDate, String startDate, String endDate, String statusBooking, String deliveryLocation, String returnedLocation, String deliveryStatus, int voucherID, int customerID, List<BookingDetail> listBookingDetails) {
+        this.bookingID = bookingID;
+        this.bookingDate = bookingDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.statusBooking = statusBooking;
+        this.deliveryLocation = deliveryLocation;
+        this.returnedLocation = returnedLocation;
+        this.deliveryStatus = deliveryStatus;
+        this.voucherID = voucherID;
+        this.customerID = customerID;
+        this.listBookingDetails = listBookingDetails;
+    }
     
     
+
 }

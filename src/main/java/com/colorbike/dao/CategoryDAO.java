@@ -103,6 +103,12 @@ public class CategoryDAO implements Serializable, DAO<Category>{
         }
         return list;
     }
+    
+    public static void main(String[] args) {
+        CategoryDAO dao = CategoryDAO.getInstance();
+        LinkedHashMap<String, Integer> list = dao.geNumberRentalCategory();
+        System.out.println(list.isEmpty());
+    }
     @Override
     public List<Category> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

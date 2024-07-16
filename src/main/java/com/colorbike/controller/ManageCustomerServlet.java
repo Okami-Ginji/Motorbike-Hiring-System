@@ -7,6 +7,7 @@ package com.colorbike.controller;
 import com.colorbike.dao.AccountDAO;
 import com.colorbike.dao.CustomerDAO;
 import com.colorbike.dto.Account;
+import com.colorbike.dto.Booking;
 import com.colorbike.dto.Customer;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -78,6 +79,8 @@ public class ManageCustomerServlet extends HttpServlet {
                 disabledCount++;
             }
         }
+        Map<Account, Booking> accountBookingMap = AccountDAO.getInstance().getAccountOverdue();
+        session.setAttribute("accountBookingMap", accountBookingMap);
         session.setAttribute("activeCount", activeCount);
         session.setAttribute("disabledCount", disabledCount);
         session.setAttribute("allCount", accounts.size());

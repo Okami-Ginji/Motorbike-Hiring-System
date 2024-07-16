@@ -49,7 +49,7 @@ public class BookingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        if(account != null){           
+        if(account != null && account.getRoleID() == 1){           
     //        session.setAttribute("account", AccountDAO.getInstance().checkLogin("thinhtvde170182@fpt.edu.vn", "Lb4_aa"));
 //            session.setAttribute("account", AccountDAO.getInstance().checkLogin("myphan123", "myphanpass"));
             session.setAttribute("account", AccountDAO.getInstance().checkLogin(account.getUserName(), account.getPassWord()));
@@ -79,6 +79,8 @@ public class BookingServlet extends HttpServlet {
             request.setAttribute("listC", listC);
 
             request.getRequestDispatcher("booking.jsp").forward(request, response);  
+        } else if(account != null && account.getRoleID() != 1) {
+            response.sendRedirect("accessdenied.jsp");
         } else {
             response.sendRedirect("login.jsp");
         }

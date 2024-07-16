@@ -66,7 +66,7 @@ public class ManageCustomerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        List<Account> accounts = AccountDAO.getInstance().getAllCustomerAccount();
+        List<Account> accounts = AccountDAO.getInstance().getListAccountByRoleAndDisable(1,4);
         Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
         Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
         int activeCount = 0;
@@ -109,8 +109,8 @@ public class ManageCustomerServlet extends HttpServlet {
             int accountId = Integer.parseInt(request.getParameter("accountId"));
             boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
 
-            Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
-            List<Account> accounts = AccountDAO.getInstance().getAllCustomerAccount();
+            Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive,1,4);
+            List<Account> accounts = AccountDAO.getInstance().getListAccountByRoleAndDisable(1,4);
             Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
             Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
 

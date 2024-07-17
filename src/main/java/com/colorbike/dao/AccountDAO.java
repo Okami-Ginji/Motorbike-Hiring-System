@@ -625,22 +625,22 @@ public class AccountDAO implements Serializable {
         Map<Account, Booking> map = new HashMap<>();
         PreparedStatement st;
         ResultSet rs;
-        String sql = "SELECT A.*, B.BookingID, "
-                + "FORMAT(B.EndDate, 'dd-MM-yyyy HH:mm:ss') AS EndDate, "
-                + "DATEDIFF(DAY, COALESCE(E.NewEndDate, B.EndDate), GETDATE()) AS overdueDays "
-                + "FROM [dbo].[Account] A "
-                + "JOIN [dbo].[Customer] C ON A.AccountID = C.AccountID "
-                + "JOIN [dbo].[Booking] B ON C.CustomerID = B.CustomerID "
-                + "LEFT JOIN [dbo].[Extension] E ON B.BookingID = E.BookingID "
-                + "WHERE COALESCE(E.NewEndDate, B.EndDate) < GETDATE() "
-                + "AND (B.StatusBooking = N'Đã xác nhận' AND B.DeliveryStatus != N'Đã trả') "
-                + "ORDER BY A.LastName, A.FirstName";
+        String sql = "SELECT A.*, B.BookingID, \n"
+                + "FORMAT(COALESCE(E.NewEndDate, B.EndDate), 'dd-MM-yyyy HH:mm:ss') AS EndDate,\n"
+                + "DATEDIFF(DAY, COALESCE(E.NewEndDate, B.EndDate), GETDATE()) AS OverdueDays\n"
+                + "FROM [dbo].[Account] A\n"
+                + "JOIN [dbo].[Customer] C ON A.AccountID = C.AccountID\n"
+                + "JOIN [dbo].[Booking] B ON C.CustomerID = B.CustomerID\n"
+                + "LEFT JOIN [dbo].[Extension] E ON B.BookingID = E.BookingID\n"
+                + "WHERE COALESCE(E.NewEndDate, B.EndDate) < GETDATE()\n"
+                + "AND (B.StatusBooking = N'Đã xác nhận' AND B.DeliveryStatus != N'Đã trả')\n"
+                + "ORDER BY COALESCE(E.NewEndDate, B.EndDate) DESC;";
 
         try {
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                 Account acc = new Account();
+                Account acc = new Account();
                 acc.setAccountId(rs.getInt(1));
                 acc.setFirstName(rs.getString(2));
                 acc.setLastName(rs.getString(3));
@@ -657,7 +657,7 @@ public class AccountDAO implements Serializable {
                 Booking booking = new Booking();
                 booking.setBookingID(rs.getString("BookingID"));
                 booking.setEndDate(rs.getString("EndDate"));
-                booking.setOverdueDays(rs.getInt("overdueDays")); 
+                booking.setOverdueDays(rs.getInt("overdueDays"));
                 map.put(acc, booking);
             }
         } catch (SQLException ex) {

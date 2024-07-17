@@ -288,11 +288,12 @@ public class AccountDAO implements Serializable {
                 + "    Email,\n"
                 + "    Username,\n"
                 + "    Password,\n"
-                + "    RoleID FROM Account WHERE [RoleID] = 1 or [RoleID] = 4";
+                + "    RoleID FROM Account WHERE [RoleID] = ?";
         PreparedStatement st;
         ResultSet rs;
         try {
             st = conn.prepareStatement(sql);
+            st.setInt(1, role);
             rs = st.executeQuery();
             while (rs.next()) {
                 listA.add(new Account(
@@ -316,7 +317,7 @@ public class AccountDAO implements Serializable {
         return listA;
     }
 
-    public List<Account> getAllCustomerAccount() {
+    public List<Account> getListAccountByRoleAndDisable(int role, int disablerole) {
         List<Account> listA = new ArrayList<>();
         String sql = "SELECT \n"
                 + "    AccountID,\n"
@@ -330,11 +331,13 @@ public class AccountDAO implements Serializable {
                 + "    Email,\n"
                 + "    Username,\n"
                 + "    Password,\n"
-                + "    RoleID FROM Account WHERE [RoleID] = 1 or [RoleID] = 4";
+                + "    RoleID FROM Account WHERE [RoleID] = ? or [RoleID] = ?";
         PreparedStatement st;
         ResultSet rs;
         try {
             st = conn.prepareStatement(sql);
+            st.setInt(1, role);
+            st.setInt(2, disablerole);
             rs = st.executeQuery();
             while (rs.next()) {
                 listA.add(new Account(
@@ -381,9 +384,9 @@ public class AccountDAO implements Serializable {
         return counts;
     }
 
-    public Map<Integer, Integer> updateRoleAndGetStatuses(int accountId, boolean isActive) {
+    public Map<Integer, Integer> updateRoleAndGetStatuses(int accountId, boolean isActive, int role, int disablerole) {
         String sql = "UPDATE Account SET RoleID = ? WHERE AccountID = ?";
-        int newRoleId = isActive ? 1 : 4;  // 1 for active, 4 for disable
+        int newRoleId = isActive ? role : disablerole;  // 1 for active, 4 for disable
         PreparedStatement st;
         ResultSet rs;
 

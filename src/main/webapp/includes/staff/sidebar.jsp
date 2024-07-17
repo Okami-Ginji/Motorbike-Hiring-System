@@ -57,12 +57,20 @@
 
         <li class="nav-item">
 
-            <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff.jsp">
+            <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff">
                 <i class="bi bi-grid"></i>
                 <span>Trang chủ</span>
             </a>
         </li><!-- End Dashboard Nav -->
-
+        
+        <c:if test="${account.roleID  == 3}">
+             <li class="nav-item">
+                <a class="nav-link ${currentPage.contains('/manageStaff') ? '' : 'collapsed'}" href="manageStaff">
+                    <i class="bi bi-grid"></i>
+                    <span>Quản lý nhân viên</span>
+                </a>
+            </li><!-- End Dashboard Nav -->          
+        </c:if>
         <li class="nav-item">
             <a class="nav-link ${currentPage.contains('/manageCustomer') ? '' : 'collapsed'}" href="manageCustomer">
                 <i class="bi bi-grid"></i>

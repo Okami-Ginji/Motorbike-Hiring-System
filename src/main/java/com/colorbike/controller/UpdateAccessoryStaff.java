@@ -81,7 +81,7 @@ public class UpdateAccessoryStaff extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccessoryDAO accessoryDAO = AccessoryDAO.getInstance();
-        FileUploaded fileUploaded = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\images");
+        FileUploaded fileUploaded = new FileUploaded("D:\\FPT_UNIVERSITY\\5_Summer24\\SWP391\\MotorcycleRental\\src\\main\\webapp\\images");
         int accessoryId = Integer.parseInt(request.getParameter("accessoryId"));
         String accessoryName = request.getParameter("accessoryName");
         String accessoryDecription = request.getParameter("accessoryDescription");

@@ -3,7 +3,8 @@
     Created on : Jun 29, 2024, 2:00:00 PM
     Author     : DiepTCNN
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Favicons -->
 <!--<link href="staffAssets/img/favicon.png" rel="icon">-->
@@ -33,7 +34,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between flex-row-reverse">
-        <a href="homeStaff.jsp" class="logo d-flex align-items-center">
+        <a href="homeStaff" class="logo d-flex align-items-center">
             <img src="images/logo.png" alt="">
             <span class="d-none d-lg-block">ColorBike</span>
         </a>
@@ -46,7 +47,15 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     
-                    <img src="images/${account.image}" alt="Profile" class="rounded-circle">
+                    <c:choose>
+                        <c:when test="${account.image != null}">
+                            <img src="images/${account.image}" alt="Profile" class="rounded-circle" style="object-fit: cover; cursor: pointer">                           
+                        </c:when>
+                        <c:otherwise>
+                            <img src="images\avarta.jpg" alt="Profile" class="rounded-circle" style="object-fit: cover; cursor: pointer">                           
+                        </c:otherwise>
+                    </c:choose>
+                        
                     <span class="d-none d-md-block dropdown-toggle ps-2">${account.lastName}</span>
                 </a><!-- End Profile Image Icon -->
 

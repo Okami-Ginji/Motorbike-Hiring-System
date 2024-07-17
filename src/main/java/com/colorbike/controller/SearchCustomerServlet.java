@@ -76,7 +76,7 @@ public class SearchCustomerServlet extends HttpServlet {
         boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
         String id = request.getParameter("id");
         List<Account> accounts = AccountDAO.getInstance().getAccountbyCustomerID(Integer.parseInt(id));
-//        Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
+        Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
         Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
         Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
 
@@ -91,7 +91,7 @@ public class SearchCustomerServlet extends HttpServlet {
             }
         }
         session.setAttribute("isActive", isActive);
-//        session.setAttribute("updatedStatuses", updatedStatuses);
+        session.setAttribute("updatedStatuses", updatedStatuses);
         session.setAttribute("accounts", accounts);
         session.setAttribute("activeCount", activeCount);
         session.setAttribute("disabledCount", disabledCount);
@@ -123,7 +123,7 @@ public class SearchCustomerServlet extends HttpServlet {
         String name = request.getParameter("name");
         String username = request.getParameter("username");
         List<Account> accounts = AccountDAO.getInstance().searchAccountsbyUserNameandName(username, name);
-//        Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
+        Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive);
         Map<Integer, Customer> customerMap = CustomerDAO.getInstance().getCustomersMappedByAccountId();
         Map<Integer, Integer> bookingCount = AccountDAO.getInstance().getBookingCountbyAccount();
 
@@ -138,7 +138,7 @@ public class SearchCustomerServlet extends HttpServlet {
             }
         }
         session.setAttribute("isActive", isActive);
-//        session.setAttribute("updatedStatuses", updatedStatuses);
+        session.setAttribute("updatedStatuses", updatedStatuses);
         session.setAttribute("accounts", accounts);
         session.setAttribute("activeCount", activeCount);
         session.setAttribute("disabledCount", disabledCount);

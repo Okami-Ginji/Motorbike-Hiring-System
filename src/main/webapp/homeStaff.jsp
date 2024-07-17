@@ -367,6 +367,24 @@
 
                                 <script>
                                     document.addEventListener("DOMContentLoaded", () => {
+                                        
+                                        var brandData = '${brandData}'; 
+
+                                        // Parse the JSON string to a JavaScript object
+                                        var brandMap = JSON.parse(brandData);
+//
+//                                        console.log(categoryMap);
+//                                        // Use the data in your JavaScript code
+//                                        for (let key in categoryMap) {
+//                                            console.log("Motorcycle: " +  key +"," + "Quantity: " + categoryMap[key]);
+//                                        }
+                                        var chartData = [{
+                                            value: Object.values(brandMap),
+                                            name: 'Theo Tuần'
+                                        }];
+                                        
+                                        console.log(chartData);
+                                        
                                         var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
                                             legend: {
                                                 data: ['Theo Tuần', 'Theo Tháng']
@@ -376,32 +394,32 @@
                                                 // shape: 'circle',
                                                 indicator: [{
                                                         name: 'Yamaha',
-                                                        max: 52000
+                                                        max: 1500
                                                     }
                                                     ,
                                                     {
                                                         name: 'Honda',
-                                                        max: 52000
+                                                        max: 500
                                                     }
                                                     ,
                                                     {
                                                         name: 'Suzuki',
-                                                        max: 52000
+                                                        max: 1500
                                                     }
                                                     ,
                                                     {
                                                         name: 'Sym',
-                                                        max: 52000
+                                                        max: 1500
                                                     }
                                                     ,
                                                     {
                                                         name: 'Piaggio',
-                                                        max: 52000
+                                                        max: 1500
                                                     }
                                                     ,
                                                     {
                                                         name: 'Vinfast',
-                                                        max: 52000
+                                                        max: 1500
                                                     }
                                                 ]
                                             }
@@ -409,16 +427,17 @@
                                             series: [{
                                                     name: 'Budget vs spending',
                                                     type: 'radar',
-                                                    data: [{
-                                                            value: [6500, 3000, 20000, 35000, 50000, 25000],
-                                                            name: 'Theo Tuần'
-                                                        }
-                                                        ,
-                                                        {
-                                                            value: [5000, 14000, 28000, 26000, 42000, 21000],
-                                                            name: 'Theo Tháng'
-                                                        }
-                                                    ]
+                                                    data: chartData
+//                                                    [{
+//                                                            value: [6500, 3000, 20000, 35000, 50000, 25000],
+//                                                            name: 'Theo Tuần'
+//                                                        }
+//                                                        ,
+//                                                        {
+//                                                            value: [5000, 14000, 28000, 26000, 42000, 21000],
+//                                                            name: 'Theo Tháng'
+//                                                        }
+//                                                    ]
                                                 }
                                             ]
                                         }

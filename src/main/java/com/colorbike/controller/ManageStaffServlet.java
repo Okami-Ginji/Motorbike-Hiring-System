@@ -43,7 +43,7 @@ public class ManageStaffServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageStaffServlet</title>");            
+            out.println("<title>Servlet ManageStaffServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ManageStaffServlet at " + request.getContextPath() + "</h1>");
@@ -65,9 +65,22 @@ public class ManageStaffServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        List<Account> accounts = AccountDAO.getInstance().getListAccountByRole(2);
-        session.setAttribute("accountStaff", accounts);   
+
+        List<Account> accounts = AccountDAO.getInstance().getListAccountByRoleAndDisable(2, 5);
+        int activeCount = 0;
+        int disabledCount = 0;
+        for (Account account : accounts) {
+            if (account.getRoleID() == 2) {
+                activeCount++;
+            } else if (account.getRoleID() == 5) {
+                disabledCount++;
+            }
+        }
+
+        session.setAttribute("activeCountStaff", activeCount);
+        session.setAttribute("disabledCountStaff", disabledCount);
+        session.setAttribute("allCountStaff", accounts.size());
+        session.setAttribute("accountStaff", accounts);
         request.getRequestDispatcher("manageStaff.jsp").forward(request, response);
     }
 
@@ -82,7 +95,36 @@ public class ManageStaffServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        String action = request.getParameter("action");
+
+        if ("updateRoleAndGetStatuses".equals(action)) {
+            int accountId = Integer.parseInt(request.getParameter("accountId"));
+            boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
+
+            Map<Integer, Integer> updatedStatuses = AccountDAO.getInstance().updateRoleAndGetStatuses(accountId, isActive,2, 5);
+            List<Account> accounts = AccountDAO.getInstance().getListAccountByRoleAndDisable(2, 5);
+
+            int activeCount = 0;
+            int disabledCount = 0;
+
+            for (Account account : accounts) {
+                if (account.getRoleID() == 2) {
+                    activeCount++;
+                } else if (account.getRoleID() == 5) {
+                    disabledCount++;
+                }
+            }
+            session.setAttribute("isActiveStaff", isActive);
+            session.setAttribute("updatedStatusesStaff", updatedStatuses);
+            session.setAttribute("activeCountStaff", activeCount);
+            session.setAttribute("disabledCountStaff", disabledCount);
+            session.setAttribute("allCountStaff", accounts.size());
+            session.setAttribute("accountStaff", accounts);
+            request.getRequestDispatcher("manageStaff.jsp").forward(request, response);
+
+        }
     }
 
     /**

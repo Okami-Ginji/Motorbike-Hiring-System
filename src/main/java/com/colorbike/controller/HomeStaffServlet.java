@@ -4,6 +4,7 @@
  */
 package com.colorbike.controller;
 
+import com.colorbike.dao.BrandDAO;
 import com.colorbike.dao.CategoryDAO;
 import com.colorbike.dao.MotorcycleDAO;
 import com.colorbike.dao.PriceListDAO;
@@ -45,11 +46,14 @@ public class HomeStaffServlet extends HttpServlet {
         MotorcycleDAO md = MotorcycleDAO.getInstance();
         CategoryDAO c = CategoryDAO.getInstance();
         PriceListDAO pd = PriceListDAO.getInstance();
+        BrandDAO b = BrandDAO.getInstance();
         
         List<Motorcycle> listM = md.getTop5MotorcycleTheMostRental();
         List<PriceList> listP = pd.getAllPriceList();
         
         LinkedHashMap<String, Integer> listCR = c.geNumberRentalCategory();
+        
+        LinkedHashMap<String, Integer> listB = b.getTotalPriceBrand();
                 
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
@@ -59,8 +63,10 @@ public class HomeStaffServlet extends HttpServlet {
         request.setAttribute("listP", listP);
         
         Gson gson = new Gson();
-        String json = gson.toJson(listCR);
-        request.setAttribute("categoryData", json);
+        String jsonCR = gson.toJson(listCR);
+        String jsonB = gson.toJson(listB);
+        request.setAttribute("categoryData", jsonCR);
+        request.setAttribute("brandData", jsonB);
         
         request.getRequestDispatcher("homeStaff.jsp").forward(request, response);
         

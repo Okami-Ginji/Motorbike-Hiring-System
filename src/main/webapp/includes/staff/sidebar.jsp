@@ -57,7 +57,7 @@
 
         <li class="nav-item">
 
-            <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff.jsp">
+            <a class="nav-link ${currentPage.contains('/homeStaff.jsp') ? '' : 'collapsed'}" href="homeStaff">
                 <i class="bi bi-grid"></i>
                 <span>Trang chủ</span>
             </a>

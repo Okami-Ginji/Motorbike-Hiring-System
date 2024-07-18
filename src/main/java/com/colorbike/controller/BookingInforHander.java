@@ -113,7 +113,7 @@ public class BookingInforHander extends HttpServlet {
 
          //Initialize FileUploaded with upload directory
 //        String uploadPath = getServletContext().getRealPath("/upload");
-        FileUploaded fileUploaded = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\upload");
+        FileUploaded fileUploaded = new FileUploaded("D:\\FPT_UNIVERSITY\\5_Summer24\\SWP391\\MotorcycleRental\\src\\main\\webapp\\upload");
         // Initialize FileUploaded with a relative directory path
 //        String uploadPath = getServletContext().getInitParameter("UPLOAD_DIRECTORY");
 //        String absoluteUploadPath = getServletContext().getRealPath(File.separator + uploadPath);

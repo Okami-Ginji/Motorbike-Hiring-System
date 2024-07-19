@@ -97,98 +97,67 @@
             #password-eye {
                 color: var(--primary-color);
             }
-
-            .inputRow {
-                width: 100%;
+            .inputDiv {
+                width: 70%;
                 display: flex;
-                align-items: center;
-                border-radius: 5px;
+                flex-direction: column;
+                margin: auto;
             }
-
             .eye {
                 width: 100%;
                 /*                max-width: 80%;*/
             }
-
-            .inputRow.input-error .tooltip {
-                visibility: visible;
-                opacity: 1;
-            }
-
-            .inputRow input {
-                position: relative;
-            }
-
-            .inputRow span {
-                position: absolute;
-                right: 30px;
-                cursor: pointer;
-            }
-
             .error-message {
                 color: red;
                 font-size: 0.9rem;
                 display: none;
                 margin-left: 5%;
             }
-            .password-strength {
+            .text-error {
+                color: red;
                 font-size: 0.9rem;
-                display: none;
                 margin-left: 5%;
             }
 
-            .weak {
+            .input-wrapper {
+                position: relative;
+                display: inline-block;
+            }
+            .input-wrapper input {
+                width: 100%;
+            }
+            .input-wrapper span {
+                position: absolute;
+                top: 50%;
+                right: 12px;
+                transform: translateY(-50%);
+                cursor: pointer;
+                font-size: 20px;
+            }
+            .password-strength {
+                font-size: 0.9rem;
+                display: none;
+                margin-left: 7%;
+                right: 0px;
+            }
+
+            .red {
                 color: red;
-                position: absolute;
-                bottom: 161px;
-                z-index: 1;
             }
 
-            .medium {
+            .orange {
                 color: orange;
-                position: absolute;
-                bottom: 161px;
-                z-index: 1;
             }
 
-            .strong {
+            .green {
                 color: green;
-                position: absolute;
-                bottom: 161px;
-                z-index: 1;
             }
             .gender{
                 position: absolute;
                 top: 121px;
+                left: 15px;
                 z-index: 1;
             }
-
-            /*             Ẩn placeholder mặc định 
-                        input::placeholder {
-                            color: transparent;
-                        }
-            
-                        .custom-placeholder {
-                            position: absolute;
-                            pointer-events: none;
-                            color: black;
-                            font-size: 1rem;
-                            top: 50%;
-                            left: 1.75rem;
-                            transform: translateY(-50%);
-                            transition: all 0.2s ease;
-                        }*/
-
-            /*            .red-asterisk {
-                            color: red;
-                        }
-            
-                         Ẩn placeholder tùy chỉnh khi input không rỗng 
-                        input:not(:placeholder-shown) + .custom-placeholder,
-                        input:focus + .custom-placeholder {
-                            opacity: 0;
-                            visibility: hidden;
-                        }*/
         </style>
     </head>
 
@@ -214,6 +183,7 @@
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="100">
                                 <input id="lastName" type="text" name="lastname" placeholder="Nhập vào Họ" required>
                             </div>
+                            
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="100">
                                 <select id="gender" name="gender" class="inputRow">
                                     <option disabled selected>Giới tính</option>
@@ -226,11 +196,15 @@
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="400">
                                 <input id="Username" type="text" name="username" placeholder="Nhập vào Username" required>
                             </div>
+                            <span style="top: -22px; position: relative; left: 293px" class="error-message username" id="username-error"></span>
+                            
                             <span class="error-message gender" id="gender-error">*Vui lòng chọn giới tính.</span>
                             <!-- Email Address -->
-                            <div class="input-group col-lg-12 mb-4 info mt-1" data-aos="fade-up" data-aos-delay="200">
-                                <input id="email" type="email" name="email" placeholder="Nhập vào Email" required>
+                            <div class="input-group col-lg-12 mb-4 info mt-1 " data-aos="fade-up" data-aos-delay="200">
+                                <input id="email" type="text" name="email" placeholder="Nhập vào Email" required>
+                                <span id="email-error" class="error-message"></span>
                             </div>
+
 
                             <!-- Phone Number -->
                             <div class="input-group col-lg-12 mb-4 info" data-aos="fade-up" data-aos-delay="300">
@@ -239,27 +213,29 @@
                             </div>
 
                             <!-- Password -->
-                            <div class="col-lg-6 mb-4 info inputRow" data-aos="fade-up" data-aos-delay="500">
-                                <input type="password" class="eye" name="password" id="password" value="" placeholder="Mật khẩu" maxlength="30" required />
-                                <span id="password-eye-1"><i class="ri-eye-off-line"></i></span>
-
+                            <div class="col-lg-6 mb-2 info inputDiv" data-aos="fade-up" data-aos-delay="500">
+                                <div class="input-wrapper">
+                                    <input type="password" class="eye" name="password" id="password" value="" placeholder="Mật khẩu" maxlength="30" required />
+                                    <span id="password-eye-1"><i class="ri-eye-off-line"></i></span>
+                                </div>
                             </div>
-
 
                             <!-- Password Confirmation -->
-                            <div class="col-lg-6 mb-4 info inputRow" data-aos="fade-up" data-aos-delay="600">
-                                <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation" value="" placeholder="Xác nhận mật khẩu" maxlength="30" required />
-                                <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
+                            <div class="col-lg-6 mb-2 info inputDiv" data-aos="fade-up" data-aos-delay="600">
+                                <div class="input-wrapper">
+                                    <input type="password" class="eye" name="passwordConfirmation" id="passwordConfirmation" value="" placeholder="Xác nhận mật khẩu" maxlength="30" required />
+                                    <span id="password-eye-2"><i class="ri-eye-off-line"></i></span>
+                                </div>
                             </div>
-                            
                             <span class="password-strength" id="password-strength"></span>
-                            
-                            <div style="color: red; margin-left:5%;">${msgPass}</div>
-                             <div style="color: red; margin-left:5%;">${msgEmail}</div>
+                            <span class="password-strength" id="passwordConfirm-strength"></span>
 
-                            <div id="checkValid" class="" style="display: none; color: red; margin-left: 5%;">Vui lòng nhập đúng định dạng trước khi tiếp tục.</div>
+
+                            <div style="width: 100%; color: red; text-align: center">${errorInput}</div>
+
+                            <div id="checkValid"></div>
                             <!-- Submit Button -->
-                            <div class="form-group col-lg-12 mx-auto mb-0 mt-2" data-aos="zoom-in" data-aos-delay="700">
+                            <div class="form-group col-lg-12 mx-auto mb-0 mt-3" data-aos="zoom-in" data-aos-delay="700">
                                 <button type="submit" name="register-submit" id="register-submit" class="btn btn-block py-2 register font-weight-bold" data-aos="zoom-in" data-aos-delay="700">Tạo tài khoản</button>
                             </div>
 
@@ -277,7 +253,7 @@
                                 <p class="text-muted font-weight-bold">Đã có tài khoản? <a href="login.jsp" class="ml-2" style="color: #0A8EBF;">Đăng nhập</a></p>
                                 <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%); padding: 5px; border-radius: 5px; ">Về Trang Chủ</a></p>
                             </div>
-                            
+
                         </div>
                     </form>
                 </div>
@@ -302,56 +278,12 @@
                 const genderSelect = document.getElementById("gender");
                 const genderError = document.getElementById("gender-error");
                 const checkValid = document.getElementById("checkValid");
-
-                phoneInput.addEventListener("input", () => {
-                    validatePhoneNumber();
-                });
-
-                passwordInput.addEventListener("input", () => {
-                    const password = passwordInput.value;
-
-                    if (password.length > 10) {
-                        passwordStrength.textContent = "*Mật khẩu mạnh";
-                        passwordStrength.className = "password-strength strong";
-                    } else if (password.length >= 8) {
-                        passwordStrength.textContent = "*Mật khẩu vừa";
-                        passwordStrength.className = "password-strength medium";
-                    } else if (password.length > 0) {
-                        passwordStrength.textContent = "*Mật khẩu yếu";
-                        passwordStrength.className = "password-strength weak";
-                    } else {
-                        passwordStrength.textContent = "";
-                    }
-                    passwordStrength.style.display = password.length > 0 ? "block" : "none";
-                });
-
-                const togglePasswordVisibility = (inputId, iconId) => {
-                    const passwordInput = document.getElementById(inputId);
-                    const icon = document.getElementById(iconId).querySelector("i");
-                    const isVisible = passwordInput.type === "text";
-                    passwordInput.type = isVisible ? "password" : "text";
-                    icon.classList.toggle("ri-eye-line", !isVisible);
-                    icon.classList.toggle("ri-eye-off-line", isVisible);
-                };
-
+                const confirmPass = document.getElementById("passwordConfirmation");
                 const passwordBtn1 = document.getElementById("password-eye-1");
                 const passwordBtn2 = document.getElementById("password-eye-2");
-                passwordBtn1.addEventListener("click", () => togglePasswordVisibility("password", "password-eye-1"));
-                passwordBtn2.addEventListener("click", () => togglePasswordVisibility("passwordConfirmation", "password-eye-2"));
 
-                document.querySelector("form").addEventListener("submit", function (event) {
-                    const isValid = validateForm();
-                    if (!isValid) {
-                        event.preventDefault();
-                        checkValid.style.display = "block";
-                        passwordStrength.style.display = "none";
-                    } else {
-                        checkValid.style.display = "none";
-                    }
-                });
-
-                function validatePhoneNumber() {
-                    const phoneValue = phoneInput.value;
+                const validatePhoneNumber = () => {
+                    const phoneValue = phoneInput.value.trim();
                     const phoneRegex = /^0\d{9}$/;
                     if (phoneValue.length === 0) {
                         phoneError.style.display = "none";
@@ -372,11 +304,75 @@
                         phoneError.style.display = "none";
                         return true;
                     }
-                }
+                };
 
-                function validateForm() {
-                    const genderSelect = document.getElementById("gender");
-                    const genderError = document.getElementById("gender-error");
+                const validateNewPassword = () => {
+                    const newPasswordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                    const password = passwordInput.value.trim();
+                    if (newPasswordRegex.test(password)) {
+                        if (password.length > 12) {
+                            passwordStrength.textContent = "*Mật khẩu mạnh";
+                            passwordStrength.className = "password-strength green";
+                        } else if (password.length >= 10) {
+                            passwordStrength.textContent = "*Mật khẩu vừa";
+                            passwordStrength.className = "password-strength orange";
+                        } else if (password.length > 8) {
+                            passwordStrength.textContent = "*Mật khẩu yếu";
+                            passwordStrength.className = "password-strength red";
+                        } else {
+                            passwordStrength.textContent = "";
+                            passwordStrength.className = "";
+                        }
+                    } else {
+                        passwordStrength.textContent = "*Password phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số.";
+                        passwordStrength.className = "password-strength red";
+                    }
+                    passwordStrength.style.display = password.length > 0 ? "block" : "none";
+                };
+
+
+                const togglePasswordVisibility = (inputId, iconId) => {
+                    const passwordInput = document.getElementById(inputId);
+                    const icon = document.getElementById(iconId).querySelector("i");
+                    const isVisible = passwordInput.type === "text";
+                    passwordInput.type = isVisible ? "password" : "text";
+                    icon.classList.toggle("ri-eye-line", !isVisible);
+                    icon.classList.toggle("ri-eye-off-line", isVisible);
+                };
+                const emailInput = document.getElementById("email");
+                const emailText = document.getElementById("email-error");
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const validEmail = () => {
+                    if (emailInput.value.trim() !== "") {
+                        if (emailRegex.test(emailInput.value)) {
+                            emailText.textContent = "";
+                            emailText.className = "";
+                        } else {
+                            emailText.textContent = "*Email chưa đúng format.";
+                            emailText.className = "text-error red";
+                        }
+                    } else {
+                        if (emailInput.value.trim() === "") {
+                            emailText.textContent = "*Không được để trống email.";
+                            emailText.className = "text-error red";
+                        } else {
+                            emailText.textContent = "";
+                            emailText.className = "";
+                        }
+                    }
+                };
+                const userInput = document.getElementById("Username");
+                const userText = document.getElementById("username-error");
+                const validUsername = () => {
+                    if (userInput.value.trim() === "") {
+                        userText.textContent = "*Không được để trống username.";
+                        userText.className = "text-error red";
+                    } else {
+                        userText.textContent = "";
+                        userText.className = "";
+                    }
+                };
+                const validateForm = () => {
                     const isPhoneValid = validatePhoneNumber();
 
                     if (genderSelect.value === "Giới tính") {
@@ -386,10 +382,30 @@
                         genderError.style.display = "none";
                     }
 
-                    return isPhoneValid;
-                }
+                    return isPhoneValid && isUsernameValid && isEmailValid;
+                };
+
+                userInput.addEventListener("input", validUsername);
+                emailInput.addEventListener("input", validEmail);
+                phoneInput.addEventListener("input", validatePhoneNumber);
+                passwordInput.addEventListener("input", validateNewPassword);
+                passwordBtn1.addEventListener("click", () => togglePasswordVisibility("password", "password-eye-1"));
+                passwordBtn2.addEventListener("click", () => togglePasswordVisibility("passwordConfirmation", "password-eye-2"));
+
+                document.querySelector("form").addEventListener("submit", (event) => {
+                    const isValid = validateForm();
+                    if (!isValid) {
+                        event.preventDefault();
+                        checkValid.style.display = "block";
+                        passwordStrength.style.display = "none";
+                    } else {
+                        checkValid.style.display = "none";
+                    }
+                });
             });
         </script>
+
+
 
     </body>
 

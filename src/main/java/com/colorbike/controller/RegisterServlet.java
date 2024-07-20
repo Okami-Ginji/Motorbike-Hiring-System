@@ -38,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
         if (acc == null) { // email chưa tồn tại 
             String password = request.getParameter("password");
             String confirmPass = request.getParameter("passwordConfirmation");
-            if (checkValidPass(password)) {
+            if (checkValidPass(password)) { // check kí tự in hoa, số, kí tự đặc biệt
                 if (password.equals(confirmPass)) { // check password == confirm pass
                     String firstname = request.getParameter("firstname");
                     String lastname = request.getParameter("lastname");
@@ -69,21 +69,21 @@ public class RegisterServlet extends HttpServlet {
 
                     response.sendRedirect("otpRegister.jsp");
                 } else {
-                    request.setAttribute("errorInput", "Mật khẩu và xác nhận mật khẩu không bằng nhau. Vui lòng thử lại!");
+                    request.setAttribute("errorInput", "*Mật khẩu và xác nhận mật khẩu không bằng nhau. Vui lòng thử lại!");
                     request.getRequestDispatcher("register2.jsp").forward(request, response);
                 }
             } else {
-                request.setAttribute("errorInput", "Password phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số. Vui lòng thử lại!");
+                request.setAttribute("errorInput", "*Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số. Vui lòng thử lại!");
                 request.getRequestDispatcher("register2.jsp").forward(request, response);
             }
         } else {
-            request.setAttribute("errorInput", "Email không hợp lệ hoặc đã tồn tại. Vui lòng thử lại!"); // email đã tồn tại
+            request.setAttribute("errorInput", "*Email không hợp lệ hoặc đã tồn tại. Vui lòng thử lại!"); // email đã tồn tại
             request.getRequestDispatcher("register2.jsp").forward(request, response);
         }
     }
 
     private boolean checkValidPass(String pass) {
-        String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+        String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
         return pass != null && pass.matches(passwordRegex);
     }
 

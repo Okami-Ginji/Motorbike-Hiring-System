@@ -361,7 +361,7 @@
                             </div>
 
                             <div class="card-body pb-0">
-                                <h5 class="card-title">Thống Kê Theo Hãng Xe</h5>
+                                <h5 class="card-title">Thống Kê Doanh Thu Theo Hãng </h5>
 
                                 <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
 
@@ -465,7 +465,7 @@
                             </div>
 
                             <div class="card-body pb-0">
-                                <h5 class="card-title">Thống Kê Số Lượng</h5>
+                                <h5 class="card-title">Thống Kê Số Lượng Xe Được Thuê</h5>
 
                                 <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 

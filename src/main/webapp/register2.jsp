@@ -140,21 +140,21 @@
             .weak {
                 color: red;
                 position: absolute;
-                bottom: 161px;
+                bottom: 204px;
                 z-index: 1;
             }
 
             .medium {
                 color: orange;
                 position: absolute;
-                bottom: 161px;
+                bottom: 204px;
                 z-index: 1;
             }
 
             .strong {
                 color: green;
                 position: absolute;
-                bottom: 161px;
+                bottom: 204px;
                 z-index: 1;
             }
             .gender{
@@ -217,9 +217,9 @@
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="100">
                                 <select id="gender" name="gender" class="inputRow">
                                     <option disabled selected>Giới tính</option>
-                                    <option value="Nam">Nam</option>
-                                    <option value="Nữ">Nữ</option>
-                                    <option value="unknown">Không xác định</option>
+                                    <option id="male" value="Nam">Nam</option>
+                                    <option name="female" id="female" value="Nữ">Nữ</option>
+                                    <option id="unknown" value="unknown">Không xác định</option>
                                 </select>
                             </div>
                             <!-- Username -->

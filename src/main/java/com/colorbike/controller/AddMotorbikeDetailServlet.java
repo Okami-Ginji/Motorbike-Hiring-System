@@ -8,6 +8,7 @@ import com.colorbike.dao.MotorcycleDetailDAO;
 import com.colorbike.dto.MotorcycleDetail;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.microsoft.sqlserver.jdbc.StringUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -89,6 +90,12 @@ public class AddMotorbikeDetailServlet extends HttpServlet {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
 
+        // Validate JSON data
+        if (jsonObject == null || jsonObject.get("motorcycleId") == null || jsonObject.get("licensePlate") == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
         // Xử lý dữ liệu JSON
         String data1 = jsonObject.get("motorcycleId").getAsString();
         String data2 = jsonObject.get("licensePlate").getAsString();
@@ -100,7 +107,6 @@ public class AddMotorbikeDetailServlet extends HttpServlet {
             if (mdd.getDetailByLicensePlate(data2) == null) {
                 detail.setMotorcycleId(data1);
                 detail.setLicensePlate(data2);
-
                 mdd.addMotorDetail(detail);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("Motorbike added successfully!");

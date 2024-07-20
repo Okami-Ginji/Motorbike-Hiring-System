@@ -166,6 +166,12 @@
                 background-color: #007bff;
                 border-color: #007bff;
             }
+             .list-group-item.active:not(.disabled) {
+            border-color: #e7e7e7;
+            background: #fff;
+            color: #ac32e4;
+            pointer-events: none;
+        }
 
             .list-group-item:last-child {
                 margin-bottom: 0;

@@ -139,7 +139,7 @@
                                         <div class="icon mr-3">
                                             <i class="fas fa-mobile-alt"></i> <!-- Font Awesome class -->
                                         </div>
-                                        <p class="info"><span>Số Điện Thoại:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                                        <p class="info"><span>Số Điện Thoại:</span> <a href="tel://0941121748">+84 941 121 748</a></p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -147,7 +147,7 @@
                                         <div class="icon mr-3">
                                             <i class="fas fa-envelope"></i> <!-- Font Awesome class -->
                                         </div>
-                                        <p class="info"><span>Email:</span> <a href="mailto:info@yoursite.com">the.color.bike.company@gmail.com</a></p>
+                                        <p class="info"><span>Email:</span> <a href="mailto:the.color.bike.company@gmail.com">the.color.bike.company@gmail.com</a></p>
                                     </div>
                                 </div>
                             </div>

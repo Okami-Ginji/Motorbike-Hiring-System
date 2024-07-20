@@ -142,6 +142,19 @@ public class AccessoryDAO implements Serializable, DAO<Accessory> {
             Logger.getLogger(AccessoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void deleteAccessory(String id) {
+        PreparedStatement stm;
+        ResultSet rs;
+        try {
+            String sql = "Delete from [dbo].[Accessory] where AccessoryID= ?;";
+            stm = conn.prepareStatement(sql);
+            stm.setString(1, id);
+            stm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     @Override
     public void insert(Accessory t) {

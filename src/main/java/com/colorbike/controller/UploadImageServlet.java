@@ -32,7 +32,7 @@ public class UploadImageServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        fileUploadHandler = new FileUploaded("D:\\FPT_UNIVERSITY\\5_Summer24\\SWP391\\MotorcycleRental\\src\\main\\webapp\\images");
+        fileUploadHandler = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\images");
     }
 
     @Override

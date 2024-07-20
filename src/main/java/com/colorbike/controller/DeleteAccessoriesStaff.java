@@ -5,14 +5,11 @@
 package com.colorbike.controller;
 
 import com.colorbike.dao.AccessoryDAO;
-import com.colorbike.dto.Accessory;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,9 +17,8 @@ import java.io.PrintWriter;
  *
  * @author ADMIN
  */
-@MultipartConfig
-@WebServlet(name = "UpdateAccessoryStaff", urlPatterns = {"/UpdateAccessoryStaff"})
-public class UpdateAccessoryStaff extends HttpServlet {
+@WebServlet(name = "DeleteAccessoriesStaff", urlPatterns = {"/DeleteAccessoriesStaff"})
+public class DeleteAccessoriesStaff extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,10 @@ public class UpdateAccessoryStaff extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateAccessoryStaff</title>");
+            out.println("<title>Servlet DeleteAccessoriesStaff</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateAccessoryStaff at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteAccessoriesStaff at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,11 +58,14 @@ public class UpdateAccessoryStaff extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        AccessoryDAO accessoryDAO = AccessoryDAO.getInstance();
-//        int id = Integer.parseInt(request.getParameter("accessoryId"));
-//        Accessory accessory = accessoryDAO.getAccessoryByid(id);
-//        request.setAttribute("motorbike", accessory);
-//        request.getRequestDispatcher("/touristLocationStaff.jsp").forward(request, response);
+        AccessoryDAO touristLocationDAO = AccessoryDAO.getInstance();
+        try {
+            String id = request.getParameter("accessoryId");
+            touristLocationDAO.deleteAccessory(id);
+            response.sendRedirect("accessoriesStaffServlet");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -80,27 +79,7 @@ public class UpdateAccessoryStaff extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccessoryDAO accessoryDAO = AccessoryDAO.getInstance();
-        FileUploaded fileUploaded = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\images");
-        int accessoryId = Integer.parseInt(request.getParameter("accessoryId"));
-        String accessoryName = request.getParameter("accessoryName");
-        String accessoryDecription = request.getParameter("accessoryDescription");
-
-        String imageName = "imageAccessory" + accessoryId + ".jpg";
-        Part imagePart = request.getPart("accessoryImage");
-        fileUploaded.handleFileUpload(imagePart, imageName);
-
-        String iconImageName = "iconAccessory" + accessoryId + ".jpg";
-        Part iconImagePart = request.getPart("accessoryImageIcon");
-        fileUploaded.handleFileUpload(iconImagePart, iconImageName);
-
-        double price = Double.parseDouble(request.getParameter("price"));
-        try {
-            Accessory accessory = new Accessory(accessoryId, accessoryName, imageName, iconImageName, accessoryDecription, price);
-            accessoryDAO.updateAccessory(accessory);
-        } catch (Exception e) {
-        }
-        response.sendRedirect("accessoriesStaffServlet");
+        processRequest(request, response);
     }
 
     /**

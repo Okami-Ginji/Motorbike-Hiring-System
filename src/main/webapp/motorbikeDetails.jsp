@@ -151,20 +151,17 @@
                     animation: pulse 2s infinite; /* Pulse animation for attention */
                 }
 
-                /* Hover state */
                 .rent-now-btn:hover {
                     transform: scale(1.1); /* Slightly larger on hover */
                     filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.3));
                     background: linear-gradient(243.4deg, rgb(4, 111, 212) 13%, rgb(2, 184, 175) 98%);
                 }
 
-                /* Active state (when the button is pressed) */
                 .rent-now-btn:active {
                     transform: scale(0.95); /* Slightly smaller when clicked */
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
                 }
 
-                /* Focus state (when the button is focused via keyboard) */
                 .rent-now-btn:focus {
                     outline: none;
                     border: 2px solid rgba(2, 184, 175, 0.8);

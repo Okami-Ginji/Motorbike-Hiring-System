@@ -336,7 +336,7 @@
             }
             .filter-btn.active {
                 opacity: 0.7; /* hoặc bất kỳ thuộc tính CSS nào bạn muốn áp dụng */
-                border: 1px solid #333; /* ví dụ cho border */
+                border: 5px solid #333; /* ví dụ cho border */
             }
 
         </style>

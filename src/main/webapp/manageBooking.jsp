@@ -31,6 +31,7 @@
             }
 
             body {
+                font-family: 'Tahoma', sans-serif;
                 margin-top: 20px;
                 background: #f8f8f8
             }

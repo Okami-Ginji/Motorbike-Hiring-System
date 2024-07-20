@@ -252,12 +252,12 @@
                     <form id="loginForm" action="login" method="post">
                         <div class="inputRow username animate__animated animate__pulse">
                             <input value="${cookie.Username.value}" type="text" name="Username" id="Username"
-                                   placeholder="Username" required />
+                                   placeholder="Tên tài khoản" required />
                         </div>
                         <div class="inputRow animate__animated animate__pulse">
                             <input value="${cookie.Password.value}" type="password" class="eye" name="Password"
                                    id="Password"
-                                   placeholder="Password" required />
+                                   placeholder="Mật khẩu" required />
                             <span id="password-eye"><i
                                     class="ri-eye-off-line"></i></span>
                         </div>

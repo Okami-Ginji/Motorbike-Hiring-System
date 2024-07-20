@@ -15,6 +15,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <style type="text/css">
             body {
+                font-family: 'Tahoma', sans-serif;
                 margin-top: 20px;
                 background: #f8f8f8
             }

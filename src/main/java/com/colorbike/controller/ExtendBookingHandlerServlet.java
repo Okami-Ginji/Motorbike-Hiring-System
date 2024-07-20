@@ -145,7 +145,7 @@ public class ExtendBookingHandlerServlet extends HttpServlet {
         // Chuyển đổi LocalDateTime thành chuỗi định dạng mới
         String paymentDateText = dateTime.format(outputFormatter);
         PaymentDAO daoP = PaymentDAO.getInstance();
-        daoP.addPayment(bookingid, "Ngân hàng", paymentDateText, amount/100000, "Thành công");
+        daoP.addPayment(bookingid, "Ngân hàng", paymentDateText, amount/100000, "Giao dịch thành công");
         
         // Send confirmation email
 //       StringBuilder emailContent = new StringBuilder();

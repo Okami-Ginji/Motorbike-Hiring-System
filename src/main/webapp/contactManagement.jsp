@@ -41,7 +41,7 @@
             html {
                 height: 100%;
                 margin: 0;
-                font-family: 'Montserrat', sans-serif;
+                font-family: 'Tahoma', sans-serif;
             }
 
             .tab-container {
@@ -210,8 +210,8 @@
 
         <!-- ======= Header ======= -->
 
-        <jsp:include page="/includes/staff/sidebar.jsp" />
-        <div style="max-width: 960px; margin-top: 10rem" class="container">
+        <div class="col-md-2"></div>
+        <div style="margin-top: 6rem;" class="container-fluid tab-container col-md-10">
             <!-- Danh sách tab ngang -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#Section1"

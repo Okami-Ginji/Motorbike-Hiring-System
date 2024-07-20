@@ -65,7 +65,7 @@
                                         <i class="fa fa-envelope text-muted"></i>
                                     </span>
                                 </div>
-                                <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
+                                <input id="email" type="email" name="email" placeholder="Địa chỉ Email" class="form-control bg-white border-left-0 border-md">
                             </div>
                             <div style="width: 100%; text-align: center; color: red">                              
                                 <p style="margin-bottom: 5px;">${requestScope.message}</p>

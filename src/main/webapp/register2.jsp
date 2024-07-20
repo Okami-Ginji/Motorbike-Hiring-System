@@ -187,9 +187,9 @@
                             <div class="input-group col-lg-6 mb-4 info" data-aos="fade-up" data-aos-delay="100">
                                 <select id="gender" name="gender" class="inputRow">
                                     <option disabled selected>Giới tính</option>
-                                    <option value="Nam">Nam</option>
-                                    <option value="Nữ">Nữ</option>
-                                    <option value="unknown">Không xác định</option>
+                                    <option id="male" value="Nam">Nam</option>
+                                    <option name="female" id="female" value="Nữ">Nữ</option>
+                                    <option id="unknown" value="unknown">Không xác định</option>
                                 </select>
                             </div>
                             <!-- Username -->
@@ -307,7 +307,7 @@
                 };
 
                 const validateNewPassword = () => {
-                    const newPasswordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                    const newPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
                     const password = passwordInput.value.trim();
                     if (newPasswordRegex.test(password)) {
                         if (password.length > 12) {
@@ -324,7 +324,7 @@
                             passwordStrength.className = "";
                         }
                     } else {
-                        passwordStrength.textContent = "*Password phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số.";
+                        passwordStrength.textContent = "*Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt.";
                         passwordStrength.className = "password-strength red";
                     }
                     passwordStrength.style.display = password.length > 0 ? "block" : "none";

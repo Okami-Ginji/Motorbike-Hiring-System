@@ -324,7 +324,7 @@
                             passwordStrength.className = "";
                         }
                     } else {
-                        passwordStrength.textContent = "*Password phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số.";
+                        passwordStrength.textContent = "*Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 chữ cái in hoa, 1 chữ số và 1 kí tự đặc biệt.";
                         passwordStrength.className = "password-strength red";
                     }
                     passwordStrength.style.display = password.length > 0 ? "block" : "none";

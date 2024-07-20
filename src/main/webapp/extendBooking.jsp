@@ -1425,10 +1425,10 @@
                             // Truyền dữ liệu từ thẻ h2 vào iframe khi thẻ h2 thay đổi
                             const sendDataToIframe = () => {
                                 // Lấy giá trị của thẻ h2
-                                const dataTotal = datatotalH2.textContent.replace(/[₫,]/g, '').trim();
+                                const dataTotal = datatotalH2.textContent.replace(/[₫,.]/g, '').trim();
                                 const dataPayment = datapaymentH2.textContent.slice(0, -1).split(',').map(item => item.replace(/[₫,.]/g, '').trim());
                                 
-                                console.log(dataPayment);
+                                console.log(dataTotal);
                                 
                                 // Tạo một đối tượng chứa dữ liệu từ cả hai thẻ h2
                                 const data = {

@@ -81,6 +81,9 @@
     </body>
 
     <style>
+        .body{
+            font-family: "Tahoma", sans-serif;
+        }
 
         .noidung{
             margin-top: 5%;

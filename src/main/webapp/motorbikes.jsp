@@ -480,7 +480,7 @@
 
                         <div class="filter-search filter-group">
                             <form action="searchMotorcycle" method="get" class="d-flex" style="width: 110%; padding-right: 10%;">
-                                <input id="textSearch" style="padding: 10px 20px;" value="${key}" name="textSearch" class="form-control me-2" type="search" placeholder="Từ khóa ................................" aria-label="Search">
+                                <input id="textSearch" style="padding: 10px 20px;" value="${key}" name="textSearch" class="form-control me-2" type="search" placeholder="Từ khóa" aria-label="Search">
                                 <button class="btn xemketqua" style="color: white; font-weight: bold; border: 1px solid #00ff6f; width: 52%" type="submit">Tìm kiếm</button>
                             </form>
                         </div>

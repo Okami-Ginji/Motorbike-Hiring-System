@@ -102,7 +102,7 @@
             .submitButton {
                 width: 70%;
                 height: 40px;
-                margin: auto;
+                margin-left:  84px ;
                 display: block;
                 color: #fff;
                 background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
@@ -223,7 +223,7 @@
                     </div>
                     <div class="buttonWrapper" >
                         <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary">
-                            <span>CHANGE</span>
+                            <span>ĐỔI MẬT KHẨU</span>
                         </button>
                     </div>
                 </form>

@@ -61,8 +61,31 @@ public class UpdatePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
+        HttpSession session = request.getSession();
+        int AccountID = (int) session.getAttribute("idhander");
+        String newPassword = request.getParameter("newPassword");
+        String confirmPassword = request.getParameter("confirmPassword");
+        try {
+            if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("errorPass", "Mật khẩu mới và mật khẩu xác nhận không khớp.");
+            } else if (!checkValidPass(newPassword)) {
+                request.setAttribute("errorPass", "Password phải chứa ít nhất 8 ký tự, bao gồm ít nhất 1 ký tự in hoa và 1 chữ số.");
+            } else {
+                AccountDAO.getInstance().changePassword(AccountID, newPassword);
+                request.setAttribute("successChange", "Thay đổi mật khẩu thành công.");
+            }
+
+            
+            request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+            
+        } catch (ServletException | IOException | NumberFormatException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    private boolean checkValidPass(String pass) {
+        String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+        return pass != null && pass.matches(passwordRegex);
     }
 
 

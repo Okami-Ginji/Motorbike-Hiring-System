@@ -81,7 +81,7 @@ public class UpdateTourismLoctionServletStaff extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         TouristLocationDAO touristLocationDAO = TouristLocationDAO.getInstance();
-        FileUploaded fileUploaded = new FileUploaded("D:\\FPT_UNIVERSITY\\5_Summer24\\SWP391\\MotorcycleRental\\src\\main\\webapp\\images");
+        FileUploaded fileUploaded = new FileUploaded("D:\\ailaithuexeha\\MotorcycleRental\\src\\main\\webapp\\images");
         
         // Récupérer les paramètres depuis la requête
         String locationIdStr = request.getParameter("locationId");

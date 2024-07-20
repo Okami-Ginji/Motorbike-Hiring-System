@@ -26,7 +26,7 @@
                     <h2 style="font-size: small;">ColorBike không chỉ là một dịch vụ cho thuê xe máy, mà còn là người bạn đồng hành đáng tin cậy của bạn trong mỗi chuyến phiêu lưu khám phá thành phố Đà Nẵng xinh đẹp. 
                         Chúng tôi tự hào là đơn vị cho thuê xe máy chính chủ với dịch vụ chất lượng cao, giúp bạn dễ dàng và thuận tiện trong việc di chuyển, 
                         khám phá mọi ngóc ngách của thành phố mà không phải lo lắng về vấn đề giao thông.</h2>
-                    <a href="home.jsp" class="btn btn-lg btn-primary mt-4" data-aos="zoom-in">Tham Gia Ngay</a>
+                    <a href="home" class="btn btn-lg btn-primary mt-4" data-aos="zoom-in">Tham Gia Ngay</a>
                 </div>
 
                 <div class="container mt-5">
@@ -35,7 +35,7 @@
                             <div class="card bg-light p-3">
                                 <div class="row g-0 align-items-center">
                                     <div class="col-md-5">
-                                        <img src="assets\img\colorbike.png" class="img-fluid"
+                                        <img src="images\logo.png" class="img-fluid"
                                              alt="Why Choose Us?">
                                     </div>
                                     <div class="col-md-7">
@@ -134,19 +134,19 @@
                             <div class="row gx-2 gx-lg-3">
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_3.jpg" alt="Image 3"></div>
+                                                           src="webapp\images\imageM11.jpg" alt="Image 3"></div>
                                 </div>
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_1.jpg" alt="Image 1"></div>
+                                                           src="webapp\images\imageM9.jpg" alt="Image 1"></div>
                                 </div>
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_2.jpg" alt="Image 2"></div>
+                                                           src="webapp\images\imageM10.jpg" alt="Image 2"></div>
                                 </div>
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_1.jpg" alt="Image 1"></div>
+                                                           src="webapp\images\imageM12.jpg" alt="Image 1"></div>
                                 </div>
                             </div>
                         </div>

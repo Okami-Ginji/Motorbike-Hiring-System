@@ -42,5 +42,19 @@ public class Feedback implements Serializable {
         this.CustomerId = customerId;
         this.BookingID = bookingId;
     }
+
+    public Feedback(int feedbackID, String content, int productRate, int serviceRate, int deliveryRate, String feedbackTime, int CustomerId, String BookingID) {
+        this.feedbackID = feedbackID;
+        this.content = content;
+        this.productRate = productRate;
+        this.serviceRate = serviceRate;
+        this.deliveryRate = deliveryRate;
+        this.feedbackTime = feedbackTime;
+        this.CustomerId = CustomerId;
+        this.BookingID = BookingID;
+    }
+
+    
+
     
 }

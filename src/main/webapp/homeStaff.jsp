@@ -398,12 +398,12 @@
                                                     ,
                                                     {
                                                         name: 'Honda',
-                                                        max: 500
+                                                        max: 800
                                                     }
                                                     ,
                                                     {
                                                         name: 'Suzuki',
-                                                        max: 1500
+                                                        max: 1000
                                                     }
                                                     ,
                                                     {
@@ -413,12 +413,12 @@
                                                     ,
                                                     {
                                                         name: 'Piaggio',
-                                                        max: 1500
+                                                        max: 800
                                                     }
                                                     ,
                                                     {
                                                         name: 'Vinfast',
-                                                        max: 1500
+                                                        max: 3500
                                                     }
                                                 ]
                                             }

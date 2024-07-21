@@ -82,13 +82,7 @@
                                                 <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                     <input hidden name="accountID" value="${account.accountId}">
                                                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">${account.firstName} ${account.lastName}</h4>
-                                                    <p class="mb-0">${account.email}</p>
-                                                    <div class="mt-2">
-                                                        <button class="btn btn-primary" type="button">
-                                                            <i class="fa fa-fw fa-camera"></i>
-                                                            <span>Thay đổi hình ảnh</span>
-                                                        </button>
-                                                    </div>
+                                                    <p class="mb-0">${account.email}</p>                                                 
                                                 </div>
                                                 <div class="text-center text-sm-right">
                                                     <span class="badge badge-secondary">Nhân viên</span>

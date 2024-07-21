@@ -577,7 +577,7 @@
                                                             </c:if>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus == 'Đã trả'))}">
+                                                            <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus != 'Đã trả'))}">
                                                                 <a style="color: red" id="write-review-button" class="text-decoration-none italic" href="feedback?bookingId=${o.bookingID}">Viết đánh giá</a>
                                                             </c:if>
                                                         </c:otherwise>

@@ -11,7 +11,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Responsive OTP Verification Form Using Bootstrap 5</title>
+        <title>OTP</title>
         <!-- Bootstrap 5 CDN Link -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -113,16 +113,16 @@
                     </div>
                     <form class="rounded bg-white shadow p-5" action="otp" method="post">
                         <div class="otp-card">
-                            <h3 class="text-dark fw-bolder fs-4 mb-2">Verification</h3>
+                            <h3 class="text-dark fw-bolder fs-4 mb-2">XÁC MINH</h3>
 
                             <div class="fw-normal text-muted mb-4">
-                                Enter the verification code we sent to your Email
+                                Mã OTP đã được gửi đến email của bạn
                             </div>  
 
 
 
                             <div class="otp-card-inputs otp_input text-start mb-2">
-                                <label for="digit">Type your 6 digit security code</label>
+                                <label for="digit">Nhập mã OTP gồm 6 kí tự</label>
                                 <div class="d-flex align-items-center justify-content-between mt-2">
                                     <input type="text" class="form-control" maxlength="1" name="input1">
                                     <input type="text" disabled class="form-control" maxlength="1" name="input2">
@@ -133,18 +133,18 @@
                                 </div> 
                             </div>  
                             <div style="color: red">${message}</div><br>
-                            <button type="submit" class="btn btn-primary submit_btn my-4 verification">Verify</button> 
+                            <button type="submit" class="btn btn-primary submit_btn my-4 verification">Xác nhận</button> 
                         </div>
                     </form>
 
                     <div class="fw-normal text-muted mb-2">
-                        Didn’t get the code ? <a href="reOtp" class="text-primary fw-bold text-decoration-none">Resend</a>
+                        Không nhận được mã? <a href="reOtp" class="text-primary fw-bold text-decoration-none">Gửi lại</a>
                     </div>
 
                 </div>
             </div>
         </section>
-        <div class="otp-card1">
+<!--        <div class="otp-card1">
             <img class="icon" src="" alt="" />
             <h1>Xin chào</h1>
             <p></p>
@@ -152,7 +152,7 @@
             <button class="goSignIn" type="submit" onclick="window.location.href = 'login.jsp'" style="margin-top: 2rem; font-family: Tilt Neon, sans-serif";>
                 Đăng nhập
             </button>
-        </div>
+        </div>-->
         <script>
             const inputs = document.querySelectorAll('.otp-card-inputs input');
             const button = document.querySelector('.otp-card button');

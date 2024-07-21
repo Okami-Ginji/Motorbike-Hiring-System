@@ -74,6 +74,7 @@
                             <div class="form-group col-lg-12 mx-auto mb-0">                          
                                 <input class="btn btn-primary btn-block py-2" type="submit" value="Lấy mật khẩu mới">
                             </div>
+                            
                         </div>
                     </form>
                 </div>

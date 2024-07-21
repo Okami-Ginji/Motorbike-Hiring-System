@@ -189,7 +189,7 @@
                                     <option disabled selected>Giới tính</option>
                                     <option id="male" value="Nam">Nam</option>
                                     <option name="female" id="female" value="Nữ">Nữ</option>
-                                    <option id="unknown" value="unknown">Không xác định</option>
+                                    <option id="unknown" value="Không muốn tiết lộ">Không xác định</option>
                                 </select>
                             </div>
                             <!-- Username -->
@@ -251,7 +251,7 @@
                             <!-- Already Registered -->
                             <div class="text-center w-100" data-aos="fade-up" data-aos-delay="1000">
                                 <p class="text-muted font-weight-bold">Đã có tài khoản? <a href="login.jsp" class="ml-2" style="color: #0A8EBF;">Đăng nhập</a></p>
-                                <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%); padding: 5px; border-radius: 5px; ">Về Trang Chủ</a></p>
+                                <p><a href="home" style="color: white; font-weight: 600; font-size:small; background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%); padding: 5px; border-radius: 5px; ">Về Trang Chủ</a></p>
                             </div>
 
                         </div>

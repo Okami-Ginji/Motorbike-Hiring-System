@@ -86,11 +86,11 @@ public class ContactServlet extends HttpServlet {
         
         if(acc != null){
             cd.insertContact(name, phone, email, title, message, acc.getAccountId());
-            request.setAttribute("msg", "Input Information Successfully! We will respond to you as quickly as possible!");
+            request.setAttribute("msg", "Nhập thông tin thành công! Chúng tôi sẽ phản hồi bạn nhanh nhất có thể!");
             request.getRequestDispatcher("contact.jsp").forward(request, response);
         } else {
             cd.insertContact(name, phone, email, title, message, null);
-            request.setAttribute("msg", "Input Information Successfully! We will respond to you as quickly as possible!");
+            request.setAttribute("msg", "Nhập thông tin thành công! Chúng tôi sẽ phản hồi bạn nhanh nhất có thể!");
             request.getRequestDispatcher("contact.jsp").forward(request, response);
         }
        

@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 
 /**
  *
@@ -51,7 +52,7 @@ public class UploadImageServlet extends HttpServlet {
             }
             String id = request.getParameter("id");
 
-            String name = "imageAcc" + id + ".jpg";
+            String name = "imageAcc" + id + generateBookingCode() + ".jpg";
             Part filePart = request.getPart("file");
                 System.out.println(name);
             fileUploadHandler.handleFileUpload(filePart, name);
@@ -91,5 +92,18 @@ public class UploadImageServlet extends HttpServlet {
 //            response.setCharacterEncoding("UTF-8");
 //            response.getWriter().write("{\"success\": false, \"message\": \"No file uploaded\"}");
 //        }
+    }
+    
+    private String generateBookingCode() {
+          //Khởi tạo một đối tượng Random
+        Random random = new Random();
+
+        // Sinh ra 6 số ngẫu nhiên từ 0 đến 999999
+        int randomNumber = random.nextInt(1000000);
+
+        // Format số ngẫu nhiên thành chuỗi, thêm vào "BOOK"
+        String bookingCode = String.format("%06d", randomNumber);
+
+        return bookingCode;
     }
 }

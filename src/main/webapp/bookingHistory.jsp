@@ -166,6 +166,12 @@
                 background-color: #007bff;
                 border-color: #007bff;
             }
+             .list-group-item.active:not(.disabled) {
+            border-color: #e7e7e7;
+            background: #fff;
+            color: #ac32e4;
+            pointer-events: none;
+        }
 
             .list-group-item:last-child {
                 margin-bottom: 0;
@@ -336,7 +342,7 @@
             }
             .filter-btn.active {
                 opacity: 0.7; /* hoặc bất kỳ thuộc tính CSS nào bạn muốn áp dụng */
-                border: 1px solid #333; /* ví dụ cho border */
+                border: 5px solid #333; /* ví dụ cho border */
             }
 
         </style>
@@ -571,7 +577,7 @@
                                                             </c:if>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus == 'Đã trả'))}">
+                                                            <c:if test="${(status == 'all' && o.statusBooking == 'Đã xác nhận' && o.deliveryStatus == 'Đã trả') || ((status == 'confirmed') && (o.deliveryStatus != 'Đã trả'))}">
                                                                 <a style="color: red" id="write-review-button" class="text-decoration-none italic" href="feedback?bookingId=${o.bookingID}">Viết đánh giá</a>
                                                             </c:if>
                                                         </c:otherwise>

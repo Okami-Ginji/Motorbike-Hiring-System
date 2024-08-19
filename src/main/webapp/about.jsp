@@ -15,6 +15,139 @@
               href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
         <link rel="stylesheet"
               href="https://unpkg.com/bs-brain@2.0.4/components/abouts/about-4/assets/css/about-4.css">
+
+
+        <style>
+            
+            .body{
+                font-family: "Tahoma", sans-serif;
+                color: #001973 !important;
+            }
+            .noidung{
+                margin-top: 5%;
+            }
+
+            img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            }
+            /* Header Section */
+            .about-header {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .about-header h2 {
+                margin-bottom: 1.5rem;
+            }
+
+            .btn-primary {
+                background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-transform: uppercase;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                border-radius: 50px;
+            }
+
+            .btn-primary:hover {
+                background: linear-gradient(243.4deg, rgb(0, 132, 255) 13%, rgb(8, 126, 120) 98%);
+                transform: translateY(-2px);
+            }
+
+            /* Card Styles */
+            .card {
+                border: none;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                height: 100%;
+            }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            }
+
+            .card img {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
+                color: #0056b3;
+            }
+
+            .card-text {
+                font-size: 1rem;
+                color: #666;
+            }
+
+            /* Feature Styles */
+            .feature-icon {
+                flex-shrink: 0;
+                font-size: 2.5rem;
+                color: #001973;
+                margin-right: 1rem;
+            }
+
+            .feature-text h2 {
+                font-size: 1.5rem;
+                color: #001973;
+            }
+
+            .feature-text p {
+                color: #001973;
+            }
+
+            /* Responsive Styles */
+            @media (max-width: 768px) {
+                .about-header {
+                    padding: 0 1rem;
+                }
+
+                .row {
+                    margin: 0;
+                }
+
+                .col-12,
+                .col-md-6,
+                .col-lg-6,
+                .col-xl-5,
+                .col-xl-7 {
+                    padding: 0;
+                }
+
+                .mb-5 {
+                    margin-bottom: 2rem;
+                }
+            }
+
+            @media (min-width: 768px) {
+                .order-md-1 {
+                    order: 1;
+                }
+
+                .order-md-2 {
+                    order: 2;
+                }
+            }
+            
+            .card{
+                height: 250px !important;
+                
+            }
+            
+           
+        </style>
+
         <jsp:include page="/includes/customer/header.jsp" />
     </head>
     <body>
@@ -26,7 +159,7 @@
                     <h2 style="font-size: small;">ColorBike không chỉ là một dịch vụ cho thuê xe máy, mà còn là người bạn đồng hành đáng tin cậy của bạn trong mỗi chuyến phiêu lưu khám phá thành phố Đà Nẵng xinh đẹp. 
                         Chúng tôi tự hào là đơn vị cho thuê xe máy chính chủ với dịch vụ chất lượng cao, giúp bạn dễ dàng và thuận tiện trong việc di chuyển, 
                         khám phá mọi ngóc ngách của thành phố mà không phải lo lắng về vấn đề giao thông.</h2>
-                    <a href="home.jsp" class="btn btn-lg btn-primary mt-4" data-aos="zoom-in">Tham Gia Ngay</a>
+                    <a href="home" class="btn btn-lg btn-primary mt-4" data-aos="zoom-in">Tham Gia Ngay</a>
                 </div>
 
                 <div class="container mt-5">
@@ -35,7 +168,7 @@
                             <div class="card bg-light p-3">
                                 <div class="row g-0 align-items-center">
                                     <div class="col-md-5">
-                                        <img src="assets\img\colorbike.png" class="img-fluid"
+                                        <img src="images\logo.png" class="img-fluid"
                                              alt="Why Choose Us?">
                                     </div>
                                     <div class="col-md-7">
@@ -70,7 +203,7 @@
                 </div>
 
                 <div class="container mt-5">
-                    <div class="row gy-4 align-items-center">
+                    <div class="row gy-4 align-items-flex-start">
                         <div class="col-12 col-lg-6 col-xl-5" data-aos="zoom-in">
                             <img class="img-fluid rounded" loading="lazy"
                                  src="images/image_1.jpg" alt="About 1">
@@ -78,7 +211,7 @@
                         <div class="col-12 col-lg-6 col-xl-7" data-aos="fade-up">
                             <div>
                                 <h2 class="mb-3">Tại Sao Chọn ColorBike?</h2>
-                                <p class="lead fs-4 text-secondary mb-3">Chúng tôi không chỉ cho thuê xe máy, mà còn cung cấp cho bạn những lời khuyên và hướng dẫn du lịch tốt nhất để bạn có thể tận hưởng trọn vẹn chuyến đi của mình.</p>
+                                <p class="lead fs-5 text-secondary mb-3">Chúng tôi không chỉ cho thuê xe máy, mà còn cung cấp cho bạn những lời khuyên và hướng dẫn du lịch tốt nhất để bạn có thể tận hưởng trọn vẹn chuyến đi của mình.</p>
                                 <p class="mb-5">Hãy đến với ColorBike để khám phá Đà Nẵng theo cách hoàn toàn mới! Chúng tôi mong được đồng hành cùng bạn trong mỗi chuyến phiêu lưu.</p>
                                 <div class="row gy-4">
                                     <div class="col-12 col-md-6">
@@ -121,8 +254,8 @@
                     </div>
                 </div>
 
-                <div class="container mt-5">
-                    <div class="row gx-4 align-items-center justify-content-between">
+                <div class="container" style="margin-top: 5%;">
+                    <div class="row gx-4 align-items-flex-start justify-content-between">
                         <div class="col-md-5 order-2 order-md-1" data-aos="fade-right">
                             <div class="mt-5 mt-md-0">
                                 <h2 class="display4 fw-bold">Sứ Mệnh Của Chúng Tôi</h2>
@@ -134,19 +267,19 @@
                             <div class="row gx-2 gx-lg-3">
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_3.jpg" alt="Image 3"></div>
+                                                           src="images/imageM11.jpg" alt="Image 3"></div>
                                 </div>
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_1.jpg" alt="Image 1"></div>
+                                                           src="images/imageM9.jpg" alt="Image 1"></div>
                                 </div>
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_2.jpg" alt="Image 2"></div>
+                                                           src="images/imageM7.jpg" alt="Image 2"></div>
                                 </div>
                                 <div class="col-6" data-aos="zoom-in">
                                     <div class="mb-2"><img class="img-fluid rounded-3"
-                                                           src="images/bg_1.jpg" alt="Image 1"></div>
+                                                           src="images/imageM5.jpg" alt="Image 1"></div>
                                 </div>
                             </div>
                         </div>
@@ -174,126 +307,7 @@
             });
         </script>
     </body>
-    <style>
-        .noidung{
-            margin-top: 5%;
-        }
 
-        img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-        /* Header Section */
-        .about-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .about-header h2 {
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            border-radius: 50px;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(243.4deg, rgb(0, 132, 255) 13%, rgb(8, 126, 120) 98%);
-            transform: translateY(-2px);
-        }
-
-        /* Card Styles */
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        .card img {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .card-title {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-            color: #0056b3;
-        }
-
-        .card-text {
-            font-size: 1rem;
-            color: #666;
-        }
-
-        /* Feature Styles */
-        .feature-icon {
-            flex-shrink: 0;
-            font-size: 2.5rem;
-            color: #001973;
-            margin-right: 1rem;
-        }
-
-        .feature-text h2 {
-            font-size: 1.5rem;
-            color: #001973;
-        }
-
-        .feature-text p {
-            color: #001973;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .about-header {
-                padding: 0 1rem;
-            }
-
-            .row {
-                margin: 0;
-            }
-
-            .col-12,
-            .col-md-6,
-            .col-lg-6,
-            .col-xl-5,
-            .col-xl-7 {
-                padding: 0;
-            }
-
-            .mb-5 {
-                margin-bottom: 2rem;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .order-md-1 {
-                order: 1;
-            }
-
-            .order-md-2 {
-                order: 2;
-            }
-        }
-
-
-    </style>
 </html>
 
 

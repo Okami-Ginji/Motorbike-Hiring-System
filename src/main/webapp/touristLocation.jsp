@@ -81,6 +81,9 @@
     </body>
 
     <style>
+        .body{
+            font-family: "Tahoma", sans-serif;
+        }
 
         .noidung{
             margin-top: 5%;
@@ -230,11 +233,11 @@
             });
         });
     </script>
-    <script>
+<!--    <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var noidung = document.querySelector('.noidung');
                 noidung.classList.add('animate__animated', 'animate__fadeIn');
             });
-        </script>
+        </script>-->
 </html>
 

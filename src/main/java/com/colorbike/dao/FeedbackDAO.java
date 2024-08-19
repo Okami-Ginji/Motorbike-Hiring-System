@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,7 +89,7 @@ public class FeedbackDAO implements Serializable {
     }
 
     public boolean insertFeedback(String content, int productRate, int serviceRate, int deliveryRate, int customerId, String BookingID) {
-        String sql = "INSERT INTO Feedback (Content, productRate, serviceRate, deliveryRate, CustomerID, BookingID) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Feedback (Content, productRate, serviceRate, deliveryRate, feedbackTime, CustomerID, BookingID) VALUES (?, ?, ?, ?, GETDATE(), ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, content);
@@ -121,8 +122,9 @@ public class FeedbackDAO implements Serializable {
                         rs.getInt(3),
                         rs.getInt(4),
                         rs.getInt(5),
-                        rs.getInt(6),
-                        rs.getString(7));
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getString(8));
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -157,9 +159,9 @@ public class FeedbackDAO implements Serializable {
         FeedbackDAO fd = FeedbackDAO.getInstance();
 //        System.out.println(fd.getAllFeedback());
 //        System.out.println(fd.insertFeedback("Hihihahahuhu", 5, 2, 4, 6, "BOOK000006"));
-        System.out.println(fd.insertFeedback("Hihihahahuhu", 5, 5, 5, 4, "BOOK000004"));
+        System.out.println(fd.insertFeedback("Hihihahahuhu", 5, 5, 5, 4, "BOOK000001"));
 //        System.out.println(fd.getFeedbackByBookingId("BOOK000005"));
-        System.out.println(fd.updateFeedback("OMG", 5, 3, 4, 6, "BOOK000005"));
-        System.out.println(fd.getAllFeedbacks());
+//        System.out.println(fd.updateFeedback("OMG", 5, 3, 4, 6, "BOOK000005"));
+//        System.out.println(fd.getAllFeedbacks());
     }
 }

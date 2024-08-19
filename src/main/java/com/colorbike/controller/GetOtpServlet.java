@@ -66,10 +66,10 @@ public class GetOtpServlet extends HttpServlet {
             String username = (String) session.getAttribute("username");
             String password = (String) session.getAttribute("password");
             dao.createANewAccount(firstname, lastname, gender, phone, email, username, password);
-            request.setAttribute("msg", "Create a new account successfully!");
+            request.setAttribute("msg", "Tạo tài khoản thành công!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            request.setAttribute("message", "The code number is incorrect! Please try again");
+            request.setAttribute("message", "Mã OTP không đúng. Vui lòng thử lại.");
             request.getRequestDispatcher("otpRegister.jsp").forward(request, response);
         }
 

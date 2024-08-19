@@ -150,6 +150,20 @@
             .sidebar-action.open span {
                 transform: rotate(180deg);
             }
+            
+            @keyframes pulse {
+                    0% {
+                        box-shadow: 0 0 5px rgba(2, 184, 175, 0.5);
+                    }
+
+                    50% {
+                        box-shadow: 0 0 30px rgba(2, 184, 175, 1);
+                    }
+                    
+                    100% {
+                        box-shadow: 0 0 5px rgba(2, 184, 175, 0.5);
+                    }
+                }
         </style>
     </head>
 
@@ -176,7 +190,7 @@
                             <div class="rentalbutton">
                                 <a href="booking" type="button"
                                    class="align-items-stretch mb-3 rental"
-                                   data-aos="fade-up" style="padding: 2.5%; font-size: large; font-weight: 700; text-align: center; color: white;">THUÊ XE NGAY</a>
+                                   data-aos="fade-up" style="padding: 2.5%; font-size: large; font-weight: 700; text-align: center; color: white; animation: pulse 2s infinite;">THUÊ XE NGAY</a>
                             </div>
                             <div class="row gy-4" data-aos="fade-up" data-aos-delay="300">
 

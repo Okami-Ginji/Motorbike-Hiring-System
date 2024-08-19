@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : staff2
     Created on : Jun 29, 2024, 1:25:34 PM
     Author     : DiepTCNN
@@ -24,10 +24,9 @@
         <link rel="website icon" type="png" href="images/logo.png">
 
         <!-- Google Fonts -->
-        <link href="https://fonts.gstatic.com" rel="preconnect">
-        <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-            rel="stylesheet">
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
 
         <!-- Vendor CSS Files -->
         <link href="staffAssets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -361,7 +360,7 @@
                             </div>
 
                             <div class="card-body pb-0">
-                                <h5 class="card-title">Thống Kê Theo Hãng Xe</h5>
+                                <h5 class="card-title">Thống Kê Doanh Thu Theo Hãng </h5>
 
                                 <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
 
@@ -399,12 +398,12 @@
                                                     ,
                                                     {
                                                         name: 'Honda',
-                                                        max: 500
+                                                        max: 800
                                                     }
                                                     ,
                                                     {
                                                         name: 'Suzuki',
-                                                        max: 1500
+                                                        max: 1000
                                                     }
                                                     ,
                                                     {
@@ -414,12 +413,12 @@
                                                     ,
                                                     {
                                                         name: 'Piaggio',
-                                                        max: 1500
+                                                        max: 800
                                                     }
                                                     ,
                                                     {
                                                         name: 'Vinfast',
-                                                        max: 1500
+                                                        max: 3500
                                                     }
                                                 ]
                                             }
@@ -465,7 +464,7 @@
                             </div>
 
                             <div class="card-body pb-0">
-                                <h5 class="card-title">Thống Kê Số Lượng</h5>
+                                <h5 class="card-title">Thống Kê Số Lượng Xe Được Thuê</h5>
 
                                 <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 

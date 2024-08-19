@@ -209,7 +209,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div  class="flex security-item" onclick="" style="border: 1px solid; padding: 12px; justify-content: space-between">
+<!--                                        <div  class="flex security-item" onclick="" style="border: 1px solid; padding: 12px; justify-content: space-between">
                                             <div class="flex flex-col">
                                                 <div class="flex items-center">
                                                     <div>
@@ -225,7 +225,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>

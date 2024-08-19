@@ -252,12 +252,12 @@
                     <form id="loginForm" action="login" method="post">
                         <div class="inputRow username animate__animated animate__pulse">
                             <input value="${cookie.Username.value}" type="text" name="Username" id="Username"
-                                   placeholder="Username" required />
+                                   placeholder="Tên tài khoản" required />
                         </div>
                         <div class="inputRow animate__animated animate__pulse">
                             <input value="${cookie.Password.value}" type="password" class="eye" name="Password"
                                    id="Password"
-                                   placeholder="Password" required />
+                                   placeholder="Mật khẩu" required />
                             <span id="password-eye"><i
                                     class="ri-eye-off-line"></i></span>
                         </div>
@@ -290,7 +290,7 @@
                     </div>
                     <p>Nếu bạn không có tài khoản? <a href="register2.jsp" style="color: #0d82a2; font-weight: 600; font-size:medium;">Tạo tài
                             khoản</a></p>
-                    <p><a href="home.jsp" style="color: white; font-weight: 600; font-size:small; background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%); padding: 5px; border-radius: 5px; ">Về Trang Chủ</a></p>
+                    <p><a href="home" style="color: white; font-weight: 600; font-size:small; background: linear-gradient(243.4deg, rgb(2, 184, 175) 13%, rgb(4, 111, 212) 98%); padding: 5px; border-radius: 5px; ">Về Trang Chủ</a></p>
                 </div>
                 <div class="containerImg col-md-6 animate__animated animate__zoomIn">
                     <img src="assets/img/login.png" alt="header" />

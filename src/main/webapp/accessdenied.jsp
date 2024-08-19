@@ -60,15 +60,16 @@
                 width: 8%;
                 border-radius: 50%;
                 margin-bottom: 25px;
-                border: solid red;
+                /*border: solid red;*/
             }
         </style>
     </head>
     <body>
         <div class="container">
-<!--            <div class="error-icon"></div>-->
+            <!--<div class="error-icon"></div>-->
 
-            <img class="error-image" src="assets/img/sorry.jpg" alt="alt"/>
+            <!--<img class="error-image" src="assets/img/sorry.jpg" alt="alt"/>-->
+            <img class="error-image" src="images/loading.jpg" alt="alt"/>
 
             <div class="error-message">Truy cập bị từ chối</div>
             <div class="error-description">

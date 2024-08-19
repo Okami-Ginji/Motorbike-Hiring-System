@@ -26,7 +26,7 @@
             body, html {
                 height: 100%;
                 margin: 0;
-                font-family: 'Poppins', sans-serif;
+                font-family: 'Tahoma', sans-serif;
             }
 
             .tab-container {
@@ -230,7 +230,7 @@
                                                         <button class="btn btn-primary btn-sm" onclick="editTouristLocation('${accessoryLists.accessoryId}', '${accessoryLists.accessoryName}', '${accessoryLists.accessoryImage}', '${accessoryLists.accessoryImageicon}', '${accessoryLists.accessoryDescription}', '${accessoryLists.price}')">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
-                                                        <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">
+                                                        <button class="btn btn-danger btn-sm" onclick="confirmDelete('${accessoryLists.accessoryId}')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -248,7 +248,7 @@
                 <div role="tabpanel" class="tab-pane fade" id="Section2" style="margin-left: 12%;">
                     <section>
                         <div class="container-fluid">
-                            <form id="addLocationForm" action="/AddAccessoryStaff" method="POST" enctype="multipart/form-data">
+                            <form id="addLocationForm" action="AddAccessoryStaff" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="accessoryName">Tên Phụ Kiện:</label>
                                     <input type="text" class="form-control" id="accessoryName" name="accessoryName" required>
@@ -361,7 +361,24 @@ console.log("2");
                 console.log("assffafas");
             }
         </script>
-
+<script type="text/javascript">
+            function confirmDelete(accessoryId) {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể khôi phục hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#1089FF',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Vâng, xóa nó!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'DeleteAccessoriesStaff?accessoryId=' + accessoryId;
+                    }
+                })
+            }
+        </script>
 
         <script>
             document.getElementById('addLocationForm').addEventListener('submit', function (event) {

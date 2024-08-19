@@ -30,6 +30,7 @@
 
         <style type="text/css">
             body {
+                font-family: 'Tahoma', sans-serif;
                 overflow-x: hidden; /* Hide horizontal scrollbar */
                 background: #F5F5FF;
             }

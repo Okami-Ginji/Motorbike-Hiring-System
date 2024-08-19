@@ -348,7 +348,7 @@
             }
 
             .status-pending {
-                color: yellow;
+                color: orange;
             }
 
         </style>

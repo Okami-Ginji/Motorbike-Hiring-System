@@ -66,7 +66,7 @@ public class SendEmail {
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
 
             // Tiêu đề email
-            msg.setSubject("Verify Account");
+            msg.setSubject("COLORBIKE Thông Báo.");
 
             // Quy đinh ngày gửi
             msg.setSentDate(new Date());
@@ -80,10 +80,10 @@ public class SendEmail {
 
             // Gửi email
             Transport.send(msg);
-            System.out.println("Send email successfully!");
+            System.out.println("Gửi mail thành công!");
 
         } catch (Exception e) {
-            System.out.println("Error while sending email");
+            System.out.println("Lỗi trong quá trình gửi mail.");
             e.printStackTrace();
         }
     }
